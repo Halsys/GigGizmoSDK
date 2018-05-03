@@ -1,0 +1,36 @@
+{
+	"name": "gig-gizmo-sdk",
+	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
+	"version": "0.1.0",
+	"private": false,
+	"main": "./dist/index.js",
+	"dependencies": {
+		"axios": "^0.18.0",
+		"babel-runtime": "^6.26.0",
+		"cookie": "^0.3.1",
+		"moment": "^2.22.0",
+		"socket.io-client": "^2.1.0"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.16.0",
+		"babel-core": "^6.17.0",
+		"babel-plugin-transform-runtime": "^6.23.0",
+		"babel-polyfill": "^6.26.0",
+		"babel-preset-env": "^1.6.1",
+		"babel-preset-stage-2": "^6.24.1",
+		"chai": "^3.5.0",
+		"mocha": "^3.1.2"
+	},
+	"scripts": {
+		"start": "npm run dev",
+		"dev": "npm test -- -w",
+		"init": "mkdir dist",
+		"clean": "rm -rf dist",
+		"prebuild": "npm run clean && npm run init",
+		"build": "babel ./src -d ./dist --ignore test.js",
+		"pretest": "npm run build",
+		"test": "mocha --compilers js:babel-core/register ./src/**/*.test.js",
+		"test:single": "mocha --compilers js:babel-core/register"
+	},
+	"files": ["dist"]
+}
