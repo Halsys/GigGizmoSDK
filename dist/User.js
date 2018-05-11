@@ -126,13 +126,27 @@ var User = function (_RESTModel) {
 	}, {
 		key: "validatePassword",
 		value: function validatePassword(maybePassword) {
-			var regexTest = /^[\t-\r \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]*[0-9]?(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+[0-9]+(?:[\0-\x08\x0E-\x1F!-\x9F\xA1-\u167F\u1681-\u1FFF\u200B-\u2027\u202A-\u202E\u2030-\u205E\u2060-\u2FFF\u3001-\uD7FF\uE000-\uFEFE\uFF00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])+[0-9]?[\t-\r \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]*$/g;
 			var password = maybePassword || "";
+			var decimalTest = /\d/;
+			var symbolTest = /\W/;
 			var lowercasePassword = password.toLowerCase();
 			var lowercaseFirstName = this.firstName.toLowerCase();
-			var lowercaseLastName = this.lastName.toLowerCase();
-			if (password === "") return "Password missing";else if (password.length < 8) return "Password is too short";else if (password.length > 256) return "Password is too long";else if (!regexTest.test(password)) return "Password does not have atleast one number or is contiguous";else if (lowercasePassword.indexOf(lowercaseFirstName) !== -1) return "Password cannot contain your first name";else if (lowercasePassword.indexOf(lowercaseLastName) !== -1) return "Password cannot contain your last name";
-
+			var lowercaseLastName = this.firstName.toLowerCase();
+			if (password === "") {
+				return new Error("Password missing");
+			} else if (password.length < 8) {
+				return new Error("Password is too short");
+			} else if (password.length > 256) {
+				return new Error("Password is too long");
+			} else if (!decimalTest.test(password)) {
+				return new Error("Password does not have atleast one number");
+			} else if (!symbolTest.test(password)) {
+				return new Error("Password does not have atleast one symbol");
+			} else if (lowercasePassword.indexOf(lowercaseFirstName) !== -1) {
+				return new Error("Password cannot contain your first name");
+			} else if (lowercasePassword.indexOf(lowercaseLastName) !== -1) {
+				return new Error("Password cannot contain your last name");
+			}
 			return null;
 		}
 	}, {
@@ -366,6 +380,15 @@ var User = function (_RESTModel) {
 		},
 		set: function set(value) {
 			this.document.lastLoginDate = (0, _moment2.default)(value).toISOString();
+			this.document.dateModified = Date.now();
+		}
+	}, {
+		key: "options",
+		get: function get() {
+			return this.document.options || {};
+		},
+		set: function set(value) {
+			this.document.options = value;
 			this.document.dateModified = Date.now();
 		}
 	}], [{

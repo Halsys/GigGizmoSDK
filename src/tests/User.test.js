@@ -57,29 +57,23 @@ describe("User class", () => {
 			lastName: "User"
 		});
 		it("Password missing", () => {
-			expect(user.validatePassword("")).to.equal("Password missing");
+			expect(user.validatePassword("")).to.not.equal(null);
 		});
 		it("Password short", () => {
-			expect(user.validatePassword("****")).to.equal("Password is too short");
+			expect(user.validatePassword("****")).to.not.equal(null);
 		});
 		it("Password long", () => {
 			const tooLong = "*".repeat(257);
-			expect(user.validatePassword(tooLong)).to.equal("Password is too long");
+			expect(user.validatePassword(tooLong)).to.not.equal(null);
 		});
 		it("Without number", () => {
-			expect(user.validatePassword("Deadbeef")).to.equal(
-				"Password does not have atleast one number or is contiguous"
-			);
+			expect(user.validatePassword("Deadbeef")).to.not.equal(null);
 		});
 		it("With firstName", () => {
-			expect(user.validatePassword("De@db33fBasic")).to.equal(
-				"Password cannot contain your first name"
-			);
+			expect(user.validatePassword("De@db33fBasic")).to.not.equal(null);
 		});
 		it("With lastName", () => {
-			expect(user.validatePassword("De@db33fUser")).to.equal(
-				"Password cannot contain your last name"
-			);
+			expect(user.validatePassword("De@db33fUser")).to.not.equal(null);
 		});
 		it("Valid password", () => {
 			expect(user.validatePassword("De@db33f")).to.equal(null);

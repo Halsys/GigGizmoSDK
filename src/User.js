@@ -262,21 +262,27 @@ export default class User extends RESTModel {
 	}
 
 	validatePassword(maybePassword) {
-		const regexTest = /^\s*\d?\S+\d+\S+\d?\s*$/gu;
 		const password = maybePassword || "";
+		const decimalTest = /\d/;
+		const symbolTest = /\W/;
 		const lowercasePassword = password.toLowerCase();
 		const lowercaseFirstName = this.firstName.toLowerCase();
 		const lowercaseLastName = this.lastName.toLowerCase();
-		if (password === "") return "Password missing";
-		else if (password.length < 8) return "Password is too short";
-		else if (password.length > 256) return "Password is too long";
-		else if (!regexTest.test(password))
-			return "Password does not have atleast one number or is contiguous";
-		else if (lowercasePassword.indexOf(lowercaseFirstName) !== -1)
-			return "Password cannot contain your first name";
-		else if (lowercasePassword.indexOf(lowercaseLastName) !== -1)
-			return "Password cannot contain your last name";
-
+		if (password === "") {
+			return new Error("Password missing");
+		} else if (password.length < 8) {
+			return new Error("Password is too short");
+		} else if (password.length > 256) {
+			return new Error("Password is too long");
+		} else if (!decimalTest.test(password)) {
+			return new Error("Password does not have atleast one number");
+		} else if (!symbolTest.test(password)) {
+			return new Error("Password does not have atleast one symbol");
+		} else if (lowercasePassword.indexOf(lowercaseFirstName) !== -1) {
+			return new Error("Password cannot contain your first name");
+		} else if (lowercasePassword.indexOf(lowercaseLastName) !== -1) {
+			return new Error("Password cannot contain your last name");
+		}
 		return null;
 	}
 

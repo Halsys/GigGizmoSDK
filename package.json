@@ -1,7 +1,7 @@
 {
 	"name": "gig-gizmo-sdk",
 	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"private": false,
 	"main": "./dist/index.js",
 	"dependencies": {
@@ -16,7 +16,7 @@
 		"babel-core": "^6.17.0",
 		"babel-plugin-transform-runtime": "^6.23.0",
 		"babel-polyfill": "^6.26.0",
-		"babel-preset-env": "^1.6.1",
+		"babel-preset-env": "^1.7.0",
 		"babel-preset-stage-2": "^6.24.1",
 		"chai": "^3.5.0",
 		"mocha": "^3.1.2"
@@ -32,5 +32,7 @@
 		"test": "mocha --compilers js:babel-core/register ./src/**/*.test.js",
 		"test:single": "mocha --compilers js:babel-core/register"
 	},
-	"files": ["dist"]
+	"files": [
+		"dist"
+	]
 }
