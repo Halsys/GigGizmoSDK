@@ -239,6 +239,15 @@ export default class User extends RESTModel {
 		this.document.dateModified = Date.now();
 	}
 
+	get options() {
+		return this.document.options || {};
+	}
+
+	set options(value) {
+		this.document.options = value;
+		this.document.dateModified = Date.now();
+	}
+
 	getIcon() {
 		const { icon } = this;
 		return Upload.findById(icon);
