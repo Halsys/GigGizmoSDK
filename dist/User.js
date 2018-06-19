@@ -234,7 +234,8 @@ var User = function (_RESTModel) {
   }, {
     key: "birthday",
     get: function get() {
-      return (0, _moment2.default)(this.getField("birthday"));
+      var birthday = this.getField("birthday");
+      return birthday ? (0, _moment2.default)(birthday) : null;
     },
     set: function set(value) {
       this.setField("birthday", (0, _moment2.default)(value).toISOString());
