@@ -1,91 +1,81 @@
 /**
  * Created by corynull on 5/23/17.
  */
-import moment from "moment";
 import RESTModel from "./RESTModel";
 
 export default class Post extends RESTModel {
 	static ModelName = "Post";
 
 	get userId() {
-		return this.document.userId || null;
+		return this.getField("userId");
 	}
 
 	set userId(value) {
-		this.document.userId = value;
-		this.document.dateModified = Date.now();
+		this.setField("userId", value);
 	}
 
 	get network() {
-		return this.document.network || null;
+		return this.getField("network");
 	}
 
 	set network(value) {
-		this.document.network = value;
-		this.document.dateModified = Date.now();
+		this.setField("network", value);
 	}
 
 	get accountId() {
-		return this.document.accountId || null;
+		return this.getField("accountId");
 	}
 
 	set accountId(value) {
-		this.document.accountId = value;
-		this.document.dateModified = Date.now();
+		this.setField("accountId", value);
 	}
 
 	get pageId() {
-		return this.document.pageId || null;
+		return this.getField("pageId");
 	}
 
 	set pageId(value) {
-		this.document.pageId = value;
-		this.document.dateModified = Date.now();
+		this.setField("pageId", value);
 	}
 
 	get postText() {
-		return this.document.postText || null;
+		return this.getField("postText");
 	}
 
 	set postText(value) {
-		this.document.postText = value;
-		this.document.dateModified = Date.now();
+		this.setField("postText", value);
 	}
 
 	get postDate() {
-		return this.document.postDate ? moment(this.document.postDate) : null;
+		return this.getField("postDate");
 	}
 
 	set postDate(value) {
-		this.document.postDate = moment(value).toISOString();
-		this.document.dateModified = Date.now();
+		this.setField("postDate", value);
 	}
 
 	get coordinates() {
-		return this.document.coordinates || null;
+		return this.getField("coordinates");
 	}
 
 	set coordinates(value) {
-		this.document.coordinates = value;
-		this.document.dateModified = Date.now();
+		this.setField("coordinates", value);
 	}
 
 	get error() {
-		return this.document.error || null;
+		return this.getField("error");
 	}
 
 	set error(value) {
-		this.document.error = value;
-		this.document.dateModified = Date.now();
+		this.setField("error", value);
 	}
 
 	get done() {
-		return this.document.done || false;
+		return this.getField("done");
 	}
 
 	set done(value) {
-		this.document.done = value;
-		this.document.dateModified = Date.now();
+		this.setField("done", value);
 	}
 
 	valid() {

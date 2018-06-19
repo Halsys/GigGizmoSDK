@@ -20,19 +20,12 @@ var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _moment = require("moment");
-
-var _moment2 = _interopRequireDefault(_moment);
-
 var _RESTModel2 = require("./RESTModel");
 
 var _RESTModel3 = _interopRequireDefault(_RESTModel2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Created by corynull on 5/23/17.
- */
 var Post = function (_RESTModel) {
 	(0, _inherits3.default)(Post, _RESTModel);
 
@@ -73,83 +66,74 @@ var Post = function (_RESTModel) {
 	}, {
 		key: "userId",
 		get: function get() {
-			return this.document.userId || null;
+			return this.getField("userId");
 		},
 		set: function set(value) {
-			this.document.userId = value;
-			this.document.dateModified = Date.now();
+			this.setField("userId", value);
 		}
 	}, {
 		key: "network",
 		get: function get() {
-			return this.document.network || null;
+			return this.getField("network");
 		},
 		set: function set(value) {
-			this.document.network = value;
-			this.document.dateModified = Date.now();
+			this.setField("network", value);
 		}
 	}, {
 		key: "accountId",
 		get: function get() {
-			return this.document.accountId || null;
+			return this.getField("accountId");
 		},
 		set: function set(value) {
-			this.document.accountId = value;
-			this.document.dateModified = Date.now();
+			this.setField("accountId", value);
 		}
 	}, {
 		key: "pageId",
 		get: function get() {
-			return this.document.pageId || null;
+			return this.getField("pageId");
 		},
 		set: function set(value) {
-			this.document.pageId = value;
-			this.document.dateModified = Date.now();
+			this.setField("pageId", value);
 		}
 	}, {
 		key: "postText",
 		get: function get() {
-			return this.document.postText || null;
+			return this.getField("postText");
 		},
 		set: function set(value) {
-			this.document.postText = value;
-			this.document.dateModified = Date.now();
+			this.setField("postText", value);
 		}
 	}, {
 		key: "postDate",
 		get: function get() {
-			return this.document.postDate ? (0, _moment2.default)(this.document.postDate) : null;
+			return this.getField("postDate");
 		},
 		set: function set(value) {
-			this.document.postDate = (0, _moment2.default)(value).toISOString();
-			this.document.dateModified = Date.now();
+			this.setField("postDate", value);
 		}
 	}, {
 		key: "coordinates",
 		get: function get() {
-			return this.document.coordinates || null;
+			return this.getField("coordinates");
 		},
 		set: function set(value) {
-			this.document.coordinates = value;
-			this.document.dateModified = Date.now();
+			this.setField("coordinates", value);
 		}
 	}, {
 		key: "error",
 		get: function get() {
-			return this.document.error || null;
+			return this.getField("error");
 		},
 		set: function set(value) {
-			this.document.error = value;
-			this.document.dateModified = Date.now();
+			this.setField("error", value);
 		}
 	}, {
 		key: "done",
 		get: function get() {
-			return this.document.done || false;
+			return this.getField("done");
 		},
 		set: function set(value) {
-			this.document.done = value;
-			this.document.dateModified = Date.now();
+			this.setField("done", value);
 		}
 	}], [{
 		key: "findById",
@@ -168,7 +152,10 @@ var Post = function (_RESTModel) {
 		}
 	}]);
 	return Post;
-}(_RESTModel3.default);
+}(_RESTModel3.default); /**
+                         * Created by corynull on 5/23/17.
+                         */
+
 
 Post.ModelName = "Post";
 exports.default = Post;

@@ -9,48 +9,43 @@ export default class Upload extends RESTModel {
 	static ModelName = "Upload";
 
 	get fileName() {
-		return this.document.fileName || null;
+		return this.getField("fileName");
 	}
 
 	set fileName(value) {
-		this.document.fileName = value;
-		this.document.dateModified = Date.now();
+		this.setField("fileName", value);
 	}
 
 	get fileData() {
-		return this.document.fileData || null;
+		return this.getField("fileData");
 	}
 
 	set fileData(value) {
-		this.document.fileData = value;
-		this.document.dateModified = Date.now();
+		this.setField("fileData", value);
 	}
 
 	get title() {
-		return this.document.title || null;
+		return this.getField("title");
 	}
 
 	set title(value) {
-		this.document.title = value;
-		this.document.dateModified = Date.now();
+		this.setField("title", value);
 	}
 
 	get description() {
-		return this.document.description || null;
+		return this.getField("description");
 	}
 
 	set description(value) {
-		this.document.description = value;
-		this.document.dateModified = Date.now();
+		this.setField("description", value);
 	}
 
 	get owners() {
-		return this.document.owners || [];
+		return this.getField("owners");
 	}
 
 	set owners(value) {
-		this.document.owners = value || [];
-		this.document.dateModified = Date.now();
+		this.setField("owners", value);
 	}
 
 	getOwners(token) {
@@ -88,19 +83,19 @@ export default class Upload extends RESTModel {
 
 	static async uploadFile(dataUrl, fileName, token) {
 		let upload = new Upload({ fileData: dataUrl, fileName });
-		upload = await upload.save(token);
+		upload = await upload.save(token, true);
 		return upload;
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Upload, id, token);
+		return RESTModel.findById(Upload, id, token, true);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Upload, criteria, token);
+		return RESTModel.findMany(Upload, criteria, token, true);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Upload, null, token);
+		return RESTModel.findMany(Upload, null, token, true);
 	}
 }

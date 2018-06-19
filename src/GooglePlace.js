@@ -9,21 +9,19 @@ export default class GooglePlace extends RESTModel {
 	static ModelName = "GooglePlace";
 
 	get placeId() {
-		return this.document.placeId || null;
+		return this.getField("placeId");
 	}
 
 	set placeId(value) {
-		this.document.placeId = value;
-		this.document.dateModified = Date.now();
+		this.setField("placeId", value);
 	}
 
 	get details() {
-		return this.document.details || null;
+		return this.getField("details");
 	}
 
 	set details(value) {
-		this.document.details = value;
-		this.document.dateModified = Date.now();
+		this.setField("details", value);
 	}
 
 	static getPlaceDetails(placeId) {
@@ -37,13 +35,12 @@ export default class GooglePlace extends RESTModel {
 		});
 	}
 
-	static queryPlace(text, type) {
+	static queryPlace(text, maybeType) {
 		return new Promise((resolve, reject) => {
+			const type = maybeType || "locality";
 			if (typeof text !== "string")
 				return reject(new Error("text is not a string!"));
 			if (text === "") return reject(new Error("text is blank"));
-			if (typeof type !== "string" && type != null)
-				return reject(new Error("type is not a string or null!"));
 			return API.Call("GET", "/API/GooglePlace/Query", {
 				term: text,
 				type

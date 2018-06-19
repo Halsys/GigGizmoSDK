@@ -48,74 +48,66 @@ var ErrorReport = function (_RESTModel) {
 	}, {
 		key: "version",
 		get: function get() {
-			return this.document.version || null;
+			return this.getField("version");
 		},
 		set: function set(value) {
-			this.document.version = value;
-			this.document.dateModified = Date.now();
+			this.setField("version", value);
 		}
 	}, {
 		key: "userId",
 		get: function get() {
-			return this.document.userId || null;
+			return this.getField("userId");
 		},
 		set: function set(value) {
-			this.document.userId = value;
-			this.document.dateModified = Date.now();
+			this.setField("userId", value);
 		}
 	}, {
 		key: "stack",
 		get: function get() {
-			return this.document.stack || null;
+			return this.getField("stack");
 		},
 		set: function set(value) {
-			this.document.stack = value;
-			this.document.dateModified = Date.now();
+			this.setField("stack", value);
 		}
 	}, {
 		key: "message",
 		get: function get() {
-			return this.document.message || null;
+			return this.getField("message");
 		},
 		set: function set(value) {
-			this.document.message = value;
-			this.document.dateModified = Date.now();
+			this.setField("message", value);
 		}
 	}, {
 		key: "name",
 		get: function get() {
-			return this.document.name || null;
+			return this.getField("name");
 		},
 		set: function set(value) {
-			this.document.name = value;
-			this.document.dateModified = Date.now();
+			this.setField("name", value);
 		}
 	}, {
 		key: "fileName",
 		get: function get() {
-			return this.document.fileName || null;
+			return this.getField("fileName");
 		},
 		set: function set(value) {
-			this.document.fileName = value;
-			this.document.dateModified = Date.now();
+			this.setField("fileName", value);
 		}
 	}, {
 		key: "columnNumber",
 		get: function get() {
-			return this.document.columnNumber || null;
+			return this.getField("columnNumber");
 		},
 		set: function set(value) {
-			this.document.columnNumber = value;
-			this.document.dateModified = Date.now();
+			this.setField("columnNumber", value);
 		}
 	}, {
 		key: "lineNumber",
 		get: function get() {
-			return this.document.lineNumber || null;
+			return this.getField("lineNumber");
 		},
 		set: function set(value) {
-			this.document.lineNumber = value;
-			this.document.dateModified = Date.now();
+			this.setField("lineNumber", value);
 		}
 	}], [{
 		key: "findById",

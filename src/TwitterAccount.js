@@ -10,39 +10,43 @@ export default class TwitterAccount extends RESTModel {
 	static ModelName = "TwitterAccount";
 
 	get userId() {
-		return this.document.userId || null;
+		return this.getField("userId");
 	}
 
 	set userId(value) {
-		this.document.userId = value;
-		this.document.dateModified = Date.now();
+		this.setField("userId", value);
 	}
 
 	get accessToken() {
-		return this.document.accessToken || null;
+		return this.getField("accessToken");
 	}
 
 	set accessToken(value) {
-		this.document.accessToken = value;
-		this.document.dateModified = Date.now();
+		this.setField("accessToken", value);
 	}
 
 	get tokenSecret() {
-		return this.document.tokenSecret || null;
+		return this.getField("tokenSecret");
 	}
 
 	set tokenSecret(value) {
-		this.document.tokenSecret = value;
-		this.document.dateModified = Date.now();
+		this.setField("tokenSecret", value);
 	}
 
 	get profile() {
-		return this.document.profile || null;
+		return this.getField("profile");
 	}
 
 	set profile(value) {
-		this.document.profile = value;
-		this.document.dateModified = Date.now();
+		this.setField("profile", value);
+	}
+
+	get accountId() {
+		return this.getField("accountId");
+	}
+
+	set accountId(value) {
+		this.setField("accountId", value);
 	}
 
 	getUser() {
@@ -51,6 +55,15 @@ export default class TwitterAccount extends RESTModel {
 
 	userIsOwner(user) {
 		return user._id === this.userId;
+	}
+
+	goToTwitterAccount() {
+		if (typeof window !== "undefined") {
+			// We are on a browser
+			window.location.href = `https://twitter.com?profile_id=${
+				this.accountId
+			}`;
+		}
 	}
 
 	valid() {

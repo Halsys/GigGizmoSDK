@@ -39,47 +39,42 @@ var Notification = function (_RESTModel) {
 	(0, _createClass3.default)(Notification, [{
 		key: "userId",
 		get: function get() {
-			return this.document.userId || null;
+			return this.getField("userId");
 		},
 		set: function set(value) {
-			this.document.userId = value;
-			this.document.dateModified = Date.now();
+			this.setField("userId", value);
 		}
 	}, {
 		key: "label",
 		get: function get() {
-			return this.document.label || null;
+			return this.getField("label");
 		},
 		set: function set(value) {
-			this.document.label = value;
-			this.document.dateModified = Date.now();
+			this.setField("label", value);
 		}
 	}, {
 		key: "message",
 		get: function get() {
-			return this.document.message || null;
+			return this.getField("message");
 		},
 		set: function set(value) {
-			this.document.message = value;
-			this.document.dateModified = Date.now();
+			this.setField("message", value);
 		}
 	}, {
 		key: "actions",
 		get: function get() {
-			return this.document.actions || null;
+			return this.getField("actions");
 		},
 		set: function set(value) {
-			this.document.actions = value;
-			this.document.dateModified = Date.now();
+			this.setField("actions", value);
 		}
 	}, {
 		key: "seenByUser",
 		get: function get() {
-			return this.document.seenByUser || null;
+			return this.getField("seenByUser");
 		},
 		set: function set(value) {
-			this.document.seenByUser = value;
-			this.document.dateModified = Date.now();
+			this.setField("seenByUser", value);
 		}
 	}]);
 
@@ -123,7 +118,10 @@ var Notification = function (_RESTModel) {
 		key: "getNewNotifications",
 		value: function getNewNotifications(token) {
 			return new Promise(function (resolve, reject) {
-				_API2.default.Call("GET", "/API/Notification", { token: token, returnNew: true }).then(function (notes) {
+				_API2.default.Call("GET", "/API/Notification", {
+					token: token,
+					returnNew: true
+				}).then(function (notes) {
 					resolve(Array.from(notes || []).map(function (item) {
 						var note = new Notification(item);
 						return note;
@@ -134,12 +132,12 @@ var Notification = function (_RESTModel) {
 	}, {
 		key: "getAllOwned",
 		value: function getAllOwned(token) {
-			return _RESTModel3.default.findMany(Notification, null, token);
+			return _RESTModel3.default.findMany(Notification, null, token, true);
 		}
 	}, {
 		key: "findById",
 		value: function findById(id, token) {
-			return _RESTModel3.default.findById(Notification, id, token);
+			return _RESTModel3.default.findById(Notification, id, token, true);
 		}
 	}, {
 		key: "connectSocket",

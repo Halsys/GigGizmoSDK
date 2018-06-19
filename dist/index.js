@@ -1,42 +1,33 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
-exports.GooglePlace = exports.Facebook = exports.version = exports.API = exports.TwitterAccount = exports.FacebookAccount = exports.ErrorReport = exports.Location = exports.Venue = exports.User = exports.Upload = exports.Post = exports.Page = exports.Request = exports.Notification = exports.Gig = exports.Conversation = exports.Band = exports.RESTModel = undefined;
+exports.GooglePlace = exports.version = exports.API = exports.TwitterAccount = exports.FacebookAccount = exports.ErrorReport = exports.Location = exports.Venue = exports.User = exports.Upload = exports.Post = exports.Page = exports.Request = exports.Notification = exports.Gig = exports.Conversation = exports.Band = exports.RESTModel = undefined;
 exports.ModelNameToModel = ModelNameToModel;
 
 var _API = require("./API");
 
 Object.defineProperty(exports, "API", {
-	enumerable: true,
-	get: function get() {
-		return _interopRequireDefault(_API).default;
-	}
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_API).default;
+  }
 });
 Object.defineProperty(exports, "version", {
-	enumerable: true,
-	get: function get() {
-		return _API.version;
-	}
-});
-
-var _Facebook = require("./Facebook");
-
-Object.defineProperty(exports, "Facebook", {
-	enumerable: true,
-	get: function get() {
-		return _interopRequireDefault(_Facebook).default;
-	}
+  enumerable: true,
+  get: function get() {
+    return _API.version;
+  }
 });
 
 var _GooglePlace = require("./GooglePlace");
 
 Object.defineProperty(exports, "GooglePlace", {
-	enumerable: true,
-	get: function get() {
-		return _interopRequireDefault(_GooglePlace).default;
-	}
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_GooglePlace).default;
+  }
 });
 
 var _RESTModel = require("./RESTModel");
@@ -102,38 +93,38 @@ var _TwitterAccount2 = _interopRequireDefault(_TwitterAccount);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ModelNameToModel(name) {
-	switch (name) {
-		case "Band":
-			return _Band2.default;
-		case "Conversation":
-			return _Conversation2.default;
-		case "Gig":
-			return _Gig2.default;
-		case "Notification":
-			return _Notification2.default;
-		case "Request":
-			return _Request2.default;
-		case "Page":
-			return _Page2.default;
-		case "Post":
-			return _Post2.default;
-		case "Upload":
-			return _Upload2.default;
-		case "User":
-			return _User2.default;
-		case "Venue":
-			return _Venue2.default;
-		case "Location":
-			return _Location2.default;
-		case "ErrorReport":
-			return _ErrorReport2.default;
-		case "FacebookAccount":
-			return _FacebookAccount2.default;
-		case "TwitterAccount":
-			return _TwitterAccount2.default;
-		default:
-			return null;
-	}
+  switch (name) {
+    case "Band":
+      return _Band2.default;
+    case "Conversation":
+      return _Conversation2.default;
+    case "Gig":
+      return _Gig2.default;
+    case "Notification":
+      return _Notification2.default;
+    case "Request":
+      return _Request2.default;
+    case "Page":
+      return _Page2.default;
+    case "Post":
+      return _Post2.default;
+    case "Upload":
+      return _Upload2.default;
+    case "User":
+      return _User2.default;
+    case "Venue":
+      return _Venue2.default;
+    case "Location":
+      return _Location2.default;
+    case "ErrorReport":
+      return _ErrorReport2.default;
+    case "FacebookAccount":
+      return _FacebookAccount2.default;
+    case "TwitterAccount":
+      return _TwitterAccount2.default;
+    default:
+      return null;
+  }
 } /**
    * Created by corynull on 7/15/17.
    */
@@ -156,3 +147,6 @@ exports.FacebookAccount = _FacebookAccount2.default;
 exports.TwitterAccount = _TwitterAccount2.default;
 
 // Framework
+
+if (typeof window !== "undefined") window.GigGizmoAPI = exports;
+if (typeof process !== "undefined") process.GigGizmoAPI = exports;

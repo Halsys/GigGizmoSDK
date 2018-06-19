@@ -2,224 +2,230 @@ import moment from "moment";
 import API from "./API";
 
 export default class RESTModel {
-	static Cache = new Map /* [String, Object] */();
+  static Cache = new Map /* [String, Object] */();
 
-	get ModelName() {
-		return this.document.ModelName || null;
-	}
+  setField(name, value) {
+    const currentValue = this.getField(name) || undefined;
+    if (currentValue !== value) {
+      this.changes[name] = value;
+      this.dateModified = Date.now();
+    }
+  }
 
-	get dateCreated() {
-		return typeof this.document.dateCreated !== "undefined"
-			? moment(this.document.dateCreated)
-			: null;
-	}
+  getField(name) {
+    let data = this.changes[name];
+    if (typeof data !== "undefined") return data;
+    data = this.document[name];
+    if (typeof data !== "undefined") return data;
+    return null;
+  }
 
-	get dateModified() {
-		return typeof this.document.dateModified !== "undefined"
-			? moment(this.document.dateModified)
-			: null;
-	}
+  get ModelName() {
+    return this.constructor.ModelName || this.document.ModelName || null;
+  }
 
-	set dateModified(value) {
-		this.document.dateModified = moment(value).toISOString();
-	}
+  get dateCreated() {
+    const dateCreated = this.document.dateCreated || null;
+    return dateCreated ? moment(dateCreated) : dateCreated;
+  }
 
-	get id() {
-		return this.document._id || null;
-	}
+  get dateModified() {
+    const dateModified = this.getField("dateModified") || null;
+    return dateModified ? moment(dateModified) : dateModified;
+  }
 
-	set id(value) {
-		this.document._id = value;
-		this.dateModified = Date.now();
-	}
+  set dateModified(value) {
+    this.changes.dateModified = moment(value || undefined).toISOString();
+  }
 
-	get _id() {
-		return this.document._id || null;
-	}
+  get id() {
+    return this.getField("_id");
+  }
 
-	set _id(value) {
-		this.document._id = value;
-		this.dateModified = Date.now();
-	}
+  set id(value) {
+    this.setField("_id", value);
+  }
 
-	constructor(dataMaybe) {
-		const dataType = typeof dataMaybe;
-		this.document = {};
-		if (dataType === "string") {
-			try {
-				const data = JSON.parse(dataMaybe);
-				if (typeof data.ModelName !== "undefined") delete data.ModelName;
-				this.assign(data);
-			} catch (e) {
-				console.error(e);
-			}
-		} else if (dataType === "object" && dataMaybe) {
-			if (typeof dataMaybe.document === "object")
-				this.assign(dataMaybe.document);
-			else this.assign(dataMaybe);
-		} else throw new Error(`${dataMaybe} given`);
-	}
+  get _id() {
+    return this.getField("_id");
+  }
 
-	toObject() {
-		return this.valid() ? Object.assign({}, this.document) : null;
-	}
+  set _id(value) {
+    this.setField("_id", value);
+  }
 
-	toString() {
-		return this.valid() ? JSON.stringify(this.document) : "null";
-	}
+  constructor(dataMaybe) {
+    this.document = {};
+    this.changes = {};
+    if (typeof dataMaybe === "string") {
+      try {
+        const data = JSON.parse(dataMaybe);
+        if (typeof data.ModelName !== "undefined") delete data.ModelName;
+        Object.assign(this.document, data);
+      } catch (e) {
+        console.error(e);
+      }
+    } else if (dataMaybe) {
+      if (typeof dataMaybe.document === "object")
+        Object.assign(this.document, dataMaybe.document);
+      else Object.assign(this.document, dataMaybe);
+    }
+  }
 
-	valid() {
-		if (!RESTModel.isValidId(this.id)) return false;
-		if (!moment(this.dateModified).isValid()) return false;
-		if (!moment(this.dateCreated).isValid()) return false;
-		return true;
-	}
+  toObject() {
+    return this.valid() ? Object.assign({}, this.changes, this.document) : null;
+  }
 
-	assign(data = {}) {
-		Object.assign(this.document, data);
-		return this;
-	}
+  toString() {
+    return this.valid()
+      ? JSON.stringify(Object.assign({}, this.changes, this.document))
+      : "null";
+  }
 
-	async save(token) {
-		const modelName = this.ModelName || this.constructor.ModelName;
-		let response = null;
-		const id = this.id || null;
-		const data = Object.assign({}, this.document);
-		data.dateCreated = data.dateCreated || Date.now();
-		data.dateModified = Date.now();
-		if (API.UseSocketIO && API.ShouldUseSocketIO) {
-			const socket = await API.GetSocket(token);
-			if (RESTModel.isValidId(id)) {
-				response = await new Promise(resolve => {
-					socket.emit(`GigGizmo/${modelName}/Update`, data, resolve);
-				});
-			} else {
-				response = await new Promise(resolve => {
-					socket.emit(`GigGizmo/${modelName}/Create`, data, resolve);
-				});
-			}
-		} else {
-			data.token = token;
-			if (RESTModel.isValidId(id)) {
-				response = await API.Call("PUT", `/API/${modelName}/${id}`, data);
-			} else {
-				response = await API.Call("POST", `/API/${modelName}/`, data);
-			}
-		}
-		if (response && response._id) {
-			this.assign(response);
-			RESTModel.Cache.set(this.id, this);
-			return this;
-		}
-		throw new Error(`returned ${response}`);
-	}
+  valid() {
+    if (!RESTModel.isValidId(this.id)) return false;
+    if (!this.dateModified || !this.dateModified.isValid()) return false;
+    if (!this.dateCreated || !this.dateCreated.isValid()) return false;
+    return true;
+  }
 
-	async remove(token) {
-		const id = this._id || null;
-		if (RESTModel.isValidId(id)) {
-			let response = null;
-			const modelName = this.ModelName || this.constructor.ModelName;
-			if (API.UseSocketIO && API.ShouldUseSocketIO) {
-				const socket = await API.GetSocket(token);
-				response = await new Promise(resolve => {
-					socket.emit(`GigGizmo/${modelName}/Delete`, id, res => {
-						resolve(res);
-					});
-				});
-			} else {
-				response = await API.Call("DELETE", `/API/${modelName}/${id}`, {
-					token
-				});
-			}
+  assign(data = {}) {
+    Object.assign(this.changes, data);
+    return this;
+  }
 
-			RESTModel.Cache.set(id, null);
-			return response;
-		}
-		throw new Error(`Invalid id: ${id}`);
-	}
+  async save(token, hasWebSocket = false) {
+    const modelName = this.ModelName || this.constructor.ModelName;
+    let response = null;
+    const id = this.document.id || null;
+    const data = this.changes;
+    Object.keys(this.changes).forEach(key => {
+      if (data[key] === this.document[key]) delete data[key];
+    });
+    data.id = this.changes._id || this.document._id || null;
+    if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+      const socket = await API.GetSocket(token);
+      if (RESTModel.isValidId(id))
+        response = await new Promise(resolve =>
+          socket.emit(`/API/${modelName}/Update`, data, resolve)
+        );
+      else
+        response = await new Promise(resolve =>
+          socket.emit(`/API/${modelName}/Create`, data, resolve)
+        );
+    } else {
+      data.token = token;
+      if (RESTModel.isValidId(id))
+        response = await API.Call("PUT", `/API/${modelName}/${id}`, data);
+      else response = await API.Call("POST", `/API/${modelName}/`, data);
+    }
+    if (response && response._id) {
+      this.document = response;
+      this.changes = {};
+      RESTModel.Cache.delete(id);
+      RESTModel.Cache.set(response._id, this);
+      return this;
+    }
+    throw new Error(`returned ${response}`);
+  }
 
-	static isValidId(id) {
-		return (
-			typeof id === "string" &&
-			/^([0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/.test(id)
-		);
-	}
+  async remove(token, hasWebSocket = false) {
+    const id = this._id || null;
+    if (RESTModel.isValidId(id)) {
+      let response = null;
+      const modelName = this.ModelName || this.constructor.ModelName;
+      if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+        const socket = await API.GetSocket(token);
+        response = await new Promise(resolve => {
+          socket.emit(`/API/${modelName}/Delete`, id, res => resolve(res));
+        });
+      } else {
+        response = await API.Call("DELETE", `/API/${modelName}/${id}`, {
+          token
+        });
+      }
 
-	static async findById(Model, id, token) {
-		if (RESTModel.isValidId(id)) {
-			let data = null;
-			const modelName = Model.ModelName || Model.constructor.ModelName;
-			if (API.UseSocketIO && API.ShouldUseSocketIO) {
-				const socket = await API.GetSocket(token);
-				if (socket) {
-					data = await new Promise(resolve => {
-						socket.emit(`GigGizmo/${modelName}/Retreive`, id, resolve);
-					});
-				}
-			}
-			if (!data) {
-				data = await API.Call("GET", `/API/${modelName}/${id}`, {
-					token
-				});
-			}
-			if (data && RESTModel.isValidId(data._id)) {
-				return new Model(data);
-			}
-		}
-		return null;
-	}
+      RESTModel.Cache.set(id, null);
+      return response;
+    }
+    throw new Error(`Invalid id: ${id}`);
+  }
 
-	static async findOne(Model, criteriaMaybe, token) {
-		const criteria = criteriaMaybe || {};
-		let data = null;
-		const modelName = Model.ModelName || Model.constructor.ModelName;
-		if (API.UseSocketIO && API.ShouldUseSocketIO) {
-			const socket = await API.GetSocket(token);
-			if (socket) {
-				data = await new Promise(resolve => {
-					socket.emit(`GigGizmo/${modelName}/FindOne`, criteria, resolve);
-				});
-			}
-		}
-		if (!data) {
-			data = await API.Call(
-				"GET",
-				`/API/${modelName}/FindOne`,
-				Object.assign(criteria, { token })
-			);
-		}
-		if (data && RESTModel.isValidId(data._id)) {
-			return new Model(data);
-		}
-		return null;
-	}
+  static isValidId(id) {
+    return (
+      typeof id === "string" && /^([0-9a-fA-F]{24}|[0-9a-fA-F]{12})$/.test(id)
+    );
+  }
 
-	static async findMany(Model, criteriaMaybe, token) {
-		const criteria = criteriaMaybe || {};
-		let data = null;
-		const modelName = Model.ModelName || Model.constructor.ModelName;
-		if (API.UseSocketIO && API.ShouldUseSocketIO) {
-			const socket = await API.GetSocket(token);
-			if (socket) {
-				data = await new Promise(resolve => {
-					socket.emit(`GigGizmo/${modelName}/FindMany`, criteria, resolve);
-				});
-			}
-		}
-		if (!data) {
-			data = await API.Call(
-				"GET",
-				`/API/${modelName}/FindMany`,
-				Object.assign(criteria, { token })
-			);
-		}
-		if (Array.isArray(data)) {
-			return data.map(itemData => {
-				const item = new Model(itemData);
-				RESTModel.Cache.set(item._id, item);
-				return item;
-			});
-		}
-		return [];
-	}
+  static async findById(Model, id, token, hasWebSocket = false) {
+    if (RESTModel.isValidId(id)) {
+      let data = null;
+      const modelName = Model.ModelName || Model.constructor.ModelName;
+      if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+        const socket = await API.GetSocket(token);
+        if (socket) {
+          data = await new Promise(resolve => {
+            socket.emit(`/API/${modelName}/Retreive`, id, resolve);
+          });
+        }
+      }
+      if (!data) {
+        data = await API.Call("GET", `/API/${modelName}/${id}`, {
+          token
+        });
+      }
+      if (data && RESTModel.isValidId(data._id)) {
+        return new Model(data);
+      }
+    }
+    return null;
+  }
+
+  static async findOne(Model, criteriaMaybe, token, hasWebSocket = false) {
+    const criteria = criteriaMaybe || {};
+    let data = null;
+    const modelName = Model.ModelName || Model.constructor.ModelName;
+    const route = `/API/${modelName}/FindOne`;
+    if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+      const socket = await API.GetSocket(token);
+      if (socket)
+        data = await new Promise((resolve, reject) => {
+          try {
+            socket.emit(route, criteria, resolve);
+          } catch (e) {
+            reject(e);
+          }
+        });
+    }
+    if (!data) data = await API.Call("GET", route, { ...criteria, token });
+    if (data && RESTModel.isValidId(data._id)) return new Model(data);
+    return null;
+  }
+
+  static async findMany(Model, criteriaMaybe, token, hasWebSocket = false) {
+    let criteria = criteriaMaybe || null;
+    let data = null;
+    const modelName = Model.ModelName || Model.constructor.ModelName;
+    const route = `/API/${modelName}/FindMany`;
+    if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+      const socket = await API.GetSocket(token);
+      if (socket)
+        data = await new Promise((resolve, reject) => {
+          try {
+            socket.emit(route, criteria, resolve);
+          } catch (e) {
+            reject(e);
+          }
+        });
+    }
+    criteria = criteria || {};
+    if (!data) data = await API.Call("GET", route, { ...criteria, token });
+    if (Array.isArray(data))
+      return data.map(itemData => {
+        const item = new Model(itemData);
+        RESTModel.Cache.set(item._id, item);
+        return item;
+      });
+    return [];
+  }
 }

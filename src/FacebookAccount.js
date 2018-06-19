@@ -10,43 +10,39 @@ export default class FacebookAccount extends RESTModel {
 	static ModelName = "FacebookAccount";
 
 	get userId() {
-		return this.document.userId || null;
+		return this.getField("userId");
 	}
 
 	set userId(value) {
-		this.document.userId = value;
-		this.document.dateModified = Date.now();
+		this.setField("userId", value);
 	}
 
 	get accountId() {
-		return this.document.accountId || null;
+		return this.getField("accountId");
 	}
 
 	set accountId(value) {
-		this.document.accountId = value;
-		this.document.dateModified = Date.now();
+		this.setField("accountId", value);
 	}
 
 	get userAccessToken() {
-		return this.document.userAccessToken || null;
+		return this.getField("userAccessToken");
 	}
 
 	set userAccessToken(value) {
-		this.document.userAccessToken = value;
-		this.document.dateModified = Date.now();
+		this.setField("userAccessToken", value);
 	}
 
 	get userRefreshToken() {
-		return this.document.userRefreshToken || null;
+		return this.getField("userRefreshToken");
 	}
 
 	set userRefreshToken(value) {
-		this.document.userRefreshToken = value;
-		this.document.dateModified = Date.now();
+		this.setField("userRefreshToken", value);
 	}
 
 	get profile() {
-		return this.document.profile || null;
+		return this.getField("profile");
 	}
 
 	getUser() {

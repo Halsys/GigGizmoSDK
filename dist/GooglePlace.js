@@ -45,20 +45,18 @@ var GooglePlace = function (_RESTModel) {
 	(0, _createClass3.default)(GooglePlace, [{
 		key: "placeId",
 		get: function get() {
-			return this.document.placeId || null;
+			return this.getField("placeId");
 		},
 		set: function set(value) {
-			this.document.placeId = value;
-			this.document.dateModified = Date.now();
+			this.setField("placeId", value);
 		}
 	}, {
 		key: "details",
 		get: function get() {
-			return this.document.details || null;
+			return this.getField("details");
 		},
 		set: function set(value) {
-			this.document.details = value;
-			this.document.dateModified = Date.now();
+			this.setField("details", value);
 		}
 	}], [{
 		key: "getPlaceDetails",
@@ -70,11 +68,11 @@ var GooglePlace = function (_RESTModel) {
 		}
 	}, {
 		key: "queryPlace",
-		value: function queryPlace(text, type) {
+		value: function queryPlace(text, maybeType) {
 			return new Promise(function (resolve, reject) {
+				var type = maybeType || "locality";
 				if (typeof text !== "string") return reject(new Error("text is not a string!"));
 				if (text === "") return reject(new Error("text is blank"));
-				if (typeof type !== "string" && type != null) return reject(new Error("type is not a string or null!"));
 				return _API2.default.Call("GET", "/API/GooglePlace/Query", {
 					term: text,
 					type: type

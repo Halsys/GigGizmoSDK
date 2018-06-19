@@ -3,39 +3,55 @@
  */
 
 import axios from "axios";
+import ParseCookie from "cookie-parser";
 import io from "socket.io-client";
-import { parse as ParseCookie } from "cookie";
 
-export const version =
+export const dev =
 	typeof process !== "undefined" &&
+	typeof process.env.NODE_ENV !== "undefined"
+		? process.env.NODE_ENV === "development"
+		: null;
+export const version =
+	(typeof process !== "undefined" &&
 	typeof process.env.npm_package_version !== "undefined"
 		? process.env.npm_package_version
-		: null;
+		: null) ||
+	(typeof window !== "undefined" &&
+	typeof window.App === "object" &&
+	window.App &&
+	typeof window.App.version !== "undefined"
+		? window.App.version
+		: null);
+export const secure = !dev;
+export const port = dev ? 58000 : 80;
+export const securePort = dev ? 54430 : 443;
 
 export default class API {
-	static hostname = "giggizmo.com";
-	static root = `https://${API.hostname}`;
+	// NOTE: Switch to localhost if testing Facebook... or 127.0.0.1 for Twitter.
+	static hostname = dev
+		? `127.0.0.1:${secure ? securePort : port}`
+		: "giggizmo.com";
+	static root = `http${secure ? "s" : ""}://${API.hostname}`;
 	static websocketRoot = `ws://${API.hostname}`;
 	static webSocket = null;
 	static token = API.findToken();
 	static SessionStorageSupported = typeof Storage !== "undefined";
+	static LocalStorageSupported =
+		typeof window !== "undefined" &&
+		typeof window.localStorage !== "undefined";
 	static ShouldUseSocketIO = process && !process.title.includes("node");
 	static UseSocketIO = false;
 
 	static findToken() {
 		let token = API.token || null;
-		if (!token && API.SessionStorageSupported) {
+		if (!token && API.LocalStorageSupported)
 			// We store it in session storage.
-			token = sessionStorage.getItem("token") || null;
-		}
-		if (!token && typeof document !== "undefined" && document.cookie) {
+			token = localStorage.getItem("token") || null;
+		if (!token && typeof document !== "undefined" && document.cookie)
 			// We store it in the cookie.
-			const cookieToken = ParseCookie(document.cookie)["gig-gizmo-token"];
-			token = cookieToken;
-		}
-		if (token && API.SessionStorageSupported) {
-			sessionStorage.setItem("token", token);
-		}
+			token = ParseCookie(document.cookie)["gig-gizmo-token"];
+		if (token && API.LocalStorageSupported)
+			localStorage.setItem("token", token);
 		return token;
 	}
 
@@ -83,8 +99,20 @@ export default class API {
 							});
 							reject(errorObject);
 						}
-					} else if (error.request) reject(new Error(error.request));
-					else reject(new Error(error.message));
+					} else if (error.request) {
+						const x = error.request;
+						if (x.response === null) reject(new Error("No response"));
+						reject(
+							new Error(
+								JSON.stringify({
+									readyState: x.readyState,
+									response: x.response,
+									status: x.status,
+									statusText: x.statusText
+								})
+							)
+						);
+					} else reject(error);
 				}
 			);
 		});
@@ -96,9 +124,13 @@ export default class API {
 				if (API.webSocket) return resolve(API.webSocket);
 				API.webSocket = io(API.root);
 				API.webSocket.on("connect", () => resolve(API.webSocket));
-				API.webSocket.on("connect_timeout", () => reject(new Error("Timeout")));
+				API.webSocket.on("connect_timeout", () =>
+					reject(new Error("Timeout"))
+				);
 				API.webSocket.on("connect_error", error => reject(error));
-				API.webSocket.on("disconnect", () => reject(new Error("Disconnected")));
+				API.webSocket.on("disconnect", () =>
+					reject(new Error("Disconnected"))
+				);
 				API.webSocket.on("error", error => reject(error));
 				return null;
 			}

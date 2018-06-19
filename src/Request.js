@@ -9,66 +9,59 @@ export default class Request extends RESTModel {
 	static ModelName = "Request";
 
 	get to() {
-		return this.document.to || null;
+		return this.getField("to");
 	}
 
 	set to(value) {
-		this.document.to = value;
-		this.document.dateModified = Date.now();
+		this.setField("to", value);
 	}
 
 	get from() {
-		return this.document.from || null;
+		return this.getField("from");
 	}
 
 	set from(value) {
-		this.document.from = value;
-		this.document.dateModified = Date.now();
+		this.setField("from", value);
 	}
 
 	get status() {
-		return this.document.status || "Undecided";
+		return this.getField("status");
 	}
 
 	set status(value) {
-		this.document.status = value;
-		this.document.dateModified = Date.now();
+		this.setField("status", value);
 	}
 
 	get options() {
-		return this.document.options || null;
+		return this.getField("options");
 	}
 
 	set options(value) {
-		this.document.options = value;
-		this.document.dateModified = Date.now();
+		this.setField("options", value);
 	}
 
 	get type() {
-		return this.document.type || null;
+		return this.getField("type");
 	}
 
 	set type(value) {
-		this.document.type = value;
-		this.document.dateModified = Date.now();
+		this.setField("type", value);
 	}
 
 	get userData() {
-		return this.document.userData || null;
+		return this.getField("userData");
 	}
 
 	set userData(value) {
-		this.document.userData = value;
-		this.document.dateModified = Date.now();
+		this.setField("userData", value);
 	}
 
 	get emailSent() {
-		return this.document.emailSent;
+		return this.getField("emailSent");
 	}
 
 	set emailSent(value) {
-		this.document.emailSent = value;
-		this.document.dateModified = Date.now();
+		this.setField("emailSent", value);
 	}
 
 	async execute(option, token) {
@@ -79,7 +72,7 @@ export default class Request extends RESTModel {
 				token
 			}
 		);
-		Object.assign(this, request);
+		Object.assign(this.document, request);
 		return this;
 	}
 
@@ -89,13 +82,12 @@ export default class Request extends RESTModel {
 				from,
 				to,
 				type: "BandOwnership",
-				data: {
+				userData: {
 					bandId: band
 				},
 				token
 			}).then(data => {
-				const request = new Request(data);
-				resolve(request);
+				resolve(new Request(data));
 			}, reject);
 		});
 	}
@@ -106,13 +98,12 @@ export default class Request extends RESTModel {
 				from,
 				to,
 				type: "VenueOwnership",
-				data: {
+				userData: {
 					venueId: venue
 				},
 				token
 			}).then(data => {
-				const request = new Request(data);
-				resolve(request);
+				resolve(new Request(data));
 			}, reject);
 		});
 	}
@@ -123,13 +114,12 @@ export default class Request extends RESTModel {
 				from,
 				to,
 				type: "GigNegotiation",
-				data: {
+				userData: {
 					gigId: gig
 				},
 				token
 			}).then(data => {
-				const request = new Request(data);
-				resolve(request);
+				resolve(new Request(data));
 			}, reject);
 		});
 	}

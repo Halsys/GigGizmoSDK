@@ -8,75 +8,67 @@ export default class ErrorReport extends RESTModel {
 	static ModelName = "ErrorReport";
 
 	get version() {
-		return this.document.version || null;
+		return this.getField("version");
 	}
 
 	set version(value) {
-		this.document.version = value;
-		this.document.dateModified = Date.now();
+		this.setField("version", value);
 	}
 
 	get userId() {
-		return this.document.userId || null;
+		return this.getField("userId");
 	}
 
 	set userId(value) {
-		this.document.userId = value;
-		this.document.dateModified = Date.now();
+		this.setField("userId", value);
 	}
 
 	get stack() {
-		return this.document.stack || null;
+		return this.getField("stack");
 	}
 
 	set stack(value) {
-		this.document.stack = value;
-		this.document.dateModified = Date.now();
+		this.setField("stack", value);
 	}
 
 	get message() {
-		return this.document.message || null;
+		return this.getField("message");
 	}
 
 	set message(value) {
-		this.document.message = value;
-		this.document.dateModified = Date.now();
+		this.setField("message", value);
 	}
 
 	get name() {
-		return this.document.name || null;
+		return this.getField("name");
 	}
 
 	set name(value) {
-		this.document.name = value;
-		this.document.dateModified = Date.now();
+		this.setField("name", value);
 	}
 
 	get fileName() {
-		return this.document.fileName || null;
+		return this.getField("fileName");
 	}
 
 	set fileName(value) {
-		this.document.fileName = value;
-		this.document.dateModified = Date.now();
+		this.setField("fileName", value);
 	}
 
 	get columnNumber() {
-		return this.document.columnNumber || null;
+		return this.getField("columnNumber");
 	}
 
 	set columnNumber(value) {
-		this.document.columnNumber = value;
-		this.document.dateModified = Date.now();
+		this.setField("columnNumber", value);
 	}
 
 	get lineNumber() {
-		return this.document.lineNumber || null;
+		return this.getField("lineNumber");
 	}
 
 	set lineNumber(value) {
-		this.document.lineNumber = value;
-		this.document.dateModified = Date.now();
+		this.setField("lineNumber", value);
 	}
 
 	valid() {

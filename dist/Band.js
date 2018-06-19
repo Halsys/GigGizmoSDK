@@ -67,6 +67,16 @@ var Band = function (_RESTModel) {
 	}
 
 	(0, _createClass3.default)(Band, [{
+		key: "save",
+		value: function save(token) {
+			return _RESTModel3.default.prototype.save.call(this, token, true);
+		}
+	}, {
+		key: "remove",
+		value: function remove(token) {
+			return _RESTModel3.default.prototype.remove.call(this, token, true);
+		}
+	}, {
 		key: "getIcon",
 		value: function getIcon(token) {
 			return _Upload2.default.findById(this.icon, token);
@@ -139,166 +149,150 @@ var Band = function (_RESTModel) {
 	}, {
 		key: "name",
 		get: function get() {
-			return this.document.name || null;
+			return this.getField("name");
 		},
 		set: function set(value) {
-			this.document.name = value;
-			this.document.dateModified = Date.now();
+			this.setField("name", value);
 		}
 	}, {
 		key: "website",
 		get: function get() {
-			return this.document.website || null;
+			return this.getField("website");
 		},
 		set: function set(value) {
-			this.document.website = value;
-			this.document.dateModified = Date.now();
+			this.setField("website", value);
 		}
 	}, {
 		key: "email",
 		get: function get() {
-			return this.document.email || null;
+			return this.getField("email");
 		},
 		set: function set(value) {
-			this.document.email = value;
-			this.document.dateModified = Date.now();
+			this.setField("email", value);
 		}
 	}, {
 		key: "cityName",
 		get: function get() {
-			return this.document.cityName || null;
+			return this.getField("cityName");
 		},
 		set: function set(value) {
-			this.document.cityName = value;
-			this.document.dateModified = Date.now();
+			this.setField("cityName", value);
 		}
 	}, {
 		key: "cityPlaceID",
 		get: function get() {
-			return this.document.cityPlaceID || null;
+			return this.getField("cityPlaceID");
 		},
 		set: function set(value) {
-			this.document.cityPlaceID = value;
-			this.document.dateModified = Date.now();
+			this.setField("cityPlaceID", value);
 		}
 	}, {
 		key: "description",
 		get: function get() {
-			return this.document.description || null;
+			return this.getField("description");
 		},
 		set: function set(value) {
-			this.document.description = value;
-			this.document.dateModified = Date.now();
+			this.setField("description", value);
 		}
 	}, {
 		key: "metadata",
 		get: function get() {
-			return this.document.metadata || null;
+			return this.getField("metadata");
 		},
 		set: function set(value) {
-			this.document.metadata = value;
-			this.document.dateModified = Date.now();
+			this.setField("metadata", value);
 		}
 	}, {
 		key: "icon",
 		get: function get() {
-			return this.document.icon || null;
+			return this.getField("icon");
 		},
 		set: function set(value) {
-			this.document.icon = value;
-			this.document.dateModified = Date.now();
+			this.setField("icon", value);
 		}
 	}, {
 		key: "photos",
 		get: function get() {
-			return this.document.photos || [];
+			return this.getField("photos");
 		},
 		set: function set(value) {
-			this.document.photos = value;
-			this.document.dateModified = Date.now();
+			this.setField("photos", value);
 		}
 	}, {
 		key: "owners",
 		get: function get() {
-			return this.document.owners || [];
+			return this.getField("owners");
 		},
 		set: function set(value) {
-			this.document.owners = value;
-			this.document.dateModified = Date.now();
+			this.setField("owners", value);
 		}
 	}, {
 		key: "facebook",
 		get: function get() {
-			return this.document.facebook || null;
+			return this.getField("facebook");
 		},
 		set: function set(value) {
-			this.document.facebook = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebook", value);
 		}
 	}, {
 		key: "facebookPageId",
 		get: function get() {
-			return this.document.facebookPageId || null;
+			return this.getField("facebookPageId");
 		},
 		set: function set(value) {
-			this.document.facebookPageId = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebookPageId", value);
 		}
 	}, {
 		key: "facebookPageName",
 		get: function get() {
-			return this.document.facebookPageName || null;
+			return this.getField("facebookPageName");
 		},
 		set: function set(value) {
-			this.document.facebookPageName = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebookPageName", value);
 		}
 	}, {
 		key: "facebookPageToken",
 		get: function get() {
-			return this.document.facebookPageToken || null;
+			return this.getField("facebookPageToken");
 		},
 		set: function set(value) {
-			this.document.facebookPageToken = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebookPageToken", value);
 		}
 	}, {
 		key: "twitter",
 		get: function get() {
-			return this.document.twitter || null;
+			return this.getField("twitter");
 		},
 		set: function set(value) {
-			this.document.twitter = value;
-			this.document.dateModified = Date.now();
+			this.setField("twitter", value);
 		}
 	}, {
 		key: "google",
 		get: function get() {
-			return this.document.google || null;
+			return this.getField("google");
 		},
 		set: function set(value) {
-			this.document.google = value;
-			this.document.dateModified = Date.now();
+			this.setField("google", value);
 		}
 	}], [{
 		key: "findOne",
 		value: function findOne(criteria, token) {
-			return _RESTModel3.default.findOne(Band, criteria, token);
+			return _RESTModel3.default.findOne(Band, criteria, token, true);
 		}
 	}, {
 		key: "findMany",
 		value: function findMany(criteria, token) {
-			return _RESTModel3.default.findMany(Band, criteria, token);
+			return _RESTModel3.default.findMany(Band, criteria, token, true);
 		}
 	}, {
 		key: "findById",
 		value: function findById(id, token) {
-			return _RESTModel3.default.findById(Band, id, token);
+			return _RESTModel3.default.findById(Band, id, token, true);
 		}
 	}, {
 		key: "getAllOwned",
 		value: function getAllOwned(token) {
-			return _RESTModel3.default.findMany(Band, null, token);
+			return _RESTModel3.default.findMany(Band, null, token, true);
 		}
 	}]);
 	return Band;

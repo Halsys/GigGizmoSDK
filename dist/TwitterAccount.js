@@ -57,6 +57,14 @@ var TwitterAccount = function (_RESTModel) {
 			return user._id === this.userId;
 		}
 	}, {
+		key: "goToTwitterAccount",
+		value: function goToTwitterAccount() {
+			if (typeof window !== "undefined") {
+				// We are on a browser
+				window.location.href = "https://twitter.com?profile_id=" + this.accountId;
+			}
+		}
+	}, {
 		key: "valid",
 		value: function valid() {
 			if (!_RESTModel3.default.prototype.valid.call(this)) return false;
@@ -67,38 +75,42 @@ var TwitterAccount = function (_RESTModel) {
 	}, {
 		key: "userId",
 		get: function get() {
-			return this.document.userId || null;
+			return this.getField("userId");
 		},
 		set: function set(value) {
-			this.document.userId = value;
-			this.document.dateModified = Date.now();
+			this.setField("userId", value);
 		}
 	}, {
 		key: "accessToken",
 		get: function get() {
-			return this.document.accessToken || null;
+			return this.getField("accessToken");
 		},
 		set: function set(value) {
-			this.document.accessToken = value;
-			this.document.dateModified = Date.now();
+			this.setField("accessToken", value);
 		}
 	}, {
 		key: "tokenSecret",
 		get: function get() {
-			return this.document.tokenSecret || null;
+			return this.getField("tokenSecret");
 		},
 		set: function set(value) {
-			this.document.tokenSecret = value;
-			this.document.dateModified = Date.now();
+			this.setField("tokenSecret", value);
 		}
 	}, {
 		key: "profile",
 		get: function get() {
-			return this.document.profile || null;
+			return this.getField("profile");
 		},
 		set: function set(value) {
-			this.document.profile = value;
-			this.document.dateModified = Date.now();
+			this.setField("profile", value);
+		}
+	}, {
+		key: "accountId",
+		get: function get() {
+			return this.getField("accountId");
+		},
+		set: function set(value) {
+			this.setField("accountId", value);
 		}
 	}], [{
 		key: "findById",

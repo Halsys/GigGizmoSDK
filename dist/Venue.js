@@ -143,166 +143,150 @@ var Venue = function (_RESTModel) {
 	}, {
 		key: "name",
 		get: function get() {
-			return this.document.name || null;
+			return this.getField("name");
 		},
 		set: function set(value) {
-			this.document.name = value;
-			this.document.dateModified = Date.now();
+			this.setField("name", value);
 		}
 	}, {
 		key: "description",
 		get: function get() {
-			return this.document.description || null;
+			return this.getField("description");
 		},
 		set: function set(value) {
-			this.document.description = value;
-			this.document.dateModified = Date.now();
+			this.setField("description", value);
 		}
 	}, {
 		key: "email",
 		get: function get() {
-			return this.document.email || null;
+			return this.getField("email");
 		},
 		set: function set(value) {
-			this.document.email = value;
-			this.document.dateModified = Date.now();
+			this.setField("email", value);
 		}
 	}, {
 		key: "website",
 		get: function get() {
-			return this.document.website || null;
+			return this.getField("website");
 		},
 		set: function set(value) {
-			this.document.website = value;
-			this.document.dateModified = Date.now();
+			this.setField("website", value);
 		}
 	}, {
 		key: "phone",
 		get: function get() {
-			return this.document.phone || null;
+			return this.getField("phone");
 		},
 		set: function set(value) {
-			this.document.phone = value;
-			this.document.dateModified = Date.now();
+			this.setField("phone", value);
 		}
 	}, {
 		key: "location",
 		get: function get() {
-			return this.document.location || null;
+			return this.getField("location");
 		},
 		set: function set(value) {
-			this.document.location = value;
-			this.document.dateModified = Date.now();
+			this.setField("location", value);
 		}
 	}, {
 		key: "openCloseTimes",
 		get: function get() {
-			return this.document.openCloseTimes || [];
+			return this.getField("openCloseTimes");
 		},
 		set: function set(value) {
-			this.document.openCloseTimes = value;
-			this.document.dateModified = Date.now();
+			this.setField("openCloseTimes", value);
 		}
 	}, {
 		key: "icon",
 		get: function get() {
-			return this.document.icon || null;
+			return this.getField("icon");
 		},
 		set: function set(value) {
-			this.document.icon = value;
-			this.document.dateModified = Date.now();
+			this.setField("icon", value);
 		}
 	}, {
 		key: "photos",
 		get: function get() {
-			return this.document.photos || [];
+			return this.getField("photos");
 		},
 		set: function set(value) {
-			this.document.photos = value;
-			this.document.dateModified = Date.now();
+			this.setField("photos", value);
 		}
 	}, {
 		key: "owners",
 		get: function get() {
-			return this.document.owners || [];
+			return this.getField("owners");
 		},
 		set: function set(value) {
-			this.document.owners = value;
-			this.document.dateModified = Date.now();
+			this.setField("owners", value);
 		}
 	}, {
 		key: "facebook",
 		get: function get() {
-			return this.document.facebook || null;
+			return this.getField("facebook");
 		},
 		set: function set(value) {
-			this.document.facebook = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebook", value);
 		}
 	}, {
 		key: "facebookPageId",
 		get: function get() {
-			return this.document.facebookPageId || null;
+			return this.getField("facebookPageId");
 		},
 		set: function set(value) {
-			this.document.facebookPageId = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebookPageId", value);
 		}
 	}, {
 		key: "facebookPageName",
 		get: function get() {
-			return this.document.facebookPageName || null;
+			return this.getField("facebookPageName");
 		},
 		set: function set(value) {
-			this.document.facebookPageName = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebookPageName", value);
 		}
 	}, {
 		key: "facebookPageToken",
 		get: function get() {
-			return this.document.facebookPageToken || null;
+			return this.getField("facebookPageToken");
 		},
 		set: function set(value) {
-			this.document.facebookPageToken = value;
-			this.document.dateModified = Date.now();
+			this.setField("facebookPageToken", value);
 		}
 	}, {
 		key: "twitter",
 		get: function get() {
-			return this.document.twitter || null;
+			return this.getField("twitter");
 		},
 		set: function set(value) {
-			this.document.twitter = value;
-			this.document.dateModified = Date.now();
+			this.setField("twitter", value);
 		}
 	}, {
 		key: "google",
 		get: function get() {
-			return this.document.google || null;
+			return this.getField("google");
 		},
 		set: function set(value) {
-			this.document.google = value;
-			this.document.dateModified = Date.now();
+			this.setField("google", value);
 		}
 	}], [{
 		key: "findOne",
 		value: function findOne(criteria, token) {
-			return _RESTModel3.default.findOne(Venue, criteria, token);
+			return _RESTModel3.default.findOne(Venue, criteria, token, true);
 		}
 	}, {
 		key: "findMany",
 		value: function findMany(criteria, token) {
-			return _RESTModel3.default.findMany(Venue, criteria, token);
+			return _RESTModel3.default.findMany(Venue, criteria, token, true);
 		}
 	}, {
 		key: "findById",
 		value: function findById(id, token) {
-			return _RESTModel3.default.findById(Venue, id, token);
+			return _RESTModel3.default.findById(Venue, id, token, true);
 		}
 	}, {
 		key: "getAllOwned",
 		value: function getAllOwned(token) {
-			return _RESTModel3.default.findMany(Venue, null, token);
+			return _RESTModel3.default.findMany(Venue, null, token, true);
 		}
 	}]);
 	return Venue;

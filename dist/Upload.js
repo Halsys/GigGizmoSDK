@@ -94,47 +94,42 @@ var Upload = function (_RESTModel) {
 	}, {
 		key: "fileName",
 		get: function get() {
-			return this.document.fileName || null;
+			return this.getField("fileName");
 		},
 		set: function set(value) {
-			this.document.fileName = value;
-			this.document.dateModified = Date.now();
+			this.setField("fileName", value);
 		}
 	}, {
 		key: "fileData",
 		get: function get() {
-			return this.document.fileData || null;
+			return this.getField("fileData");
 		},
 		set: function set(value) {
-			this.document.fileData = value;
-			this.document.dateModified = Date.now();
+			this.setField("fileData", value);
 		}
 	}, {
 		key: "title",
 		get: function get() {
-			return this.document.title || null;
+			return this.getField("title");
 		},
 		set: function set(value) {
-			this.document.title = value;
-			this.document.dateModified = Date.now();
+			this.setField("title", value);
 		}
 	}, {
 		key: "description",
 		get: function get() {
-			return this.document.description || null;
+			return this.getField("description");
 		},
 		set: function set(value) {
-			this.document.description = value;
-			this.document.dateModified = Date.now();
+			this.setField("description", value);
 		}
 	}, {
 		key: "owners",
 		get: function get() {
-			return this.document.owners || [];
+			return this.getField("owners");
 		},
 		set: function set(value) {
-			this.document.owners = value || [];
-			this.document.dateModified = Date.now();
+			this.setField("owners", value);
 		}
 	}], [{
 		key: "uploadFile",
@@ -147,7 +142,7 @@ var Upload = function (_RESTModel) {
 							case 0:
 								upload = new Upload({ fileData: dataUrl, fileName: fileName });
 								_context.next = 3;
-								return upload.save(token);
+								return upload.save(token, true);
 
 							case 3:
 								upload = _context.sent;
@@ -170,17 +165,17 @@ var Upload = function (_RESTModel) {
 	}, {
 		key: "findById",
 		value: function findById(id, token) {
-			return _RESTModel3.default.findById(Upload, id, token);
+			return _RESTModel3.default.findById(Upload, id, token, true);
 		}
 	}, {
 		key: "findMany",
 		value: function findMany(criteria, token) {
-			return _RESTModel3.default.findMany(Upload, criteria, token);
+			return _RESTModel3.default.findMany(Upload, criteria, token, true);
 		}
 	}, {
 		key: "getAllOwned",
 		value: function getAllOwned(token) {
-			return _RESTModel3.default.findMany(Upload, null, token);
+			return _RESTModel3.default.findMany(Upload, null, token, true);
 		}
 	}]);
 	return Upload;

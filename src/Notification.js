@@ -10,48 +10,43 @@ export default class Notification extends RESTModel {
 	static Callbacks = new Map();
 
 	get userId() {
-		return this.document.userId || null;
+		return this.getField("userId");
 	}
 
 	set userId(value) {
-		this.document.userId = value;
-		this.document.dateModified = Date.now();
+		this.setField("userId", value);
 	}
 
 	get label() {
-		return this.document.label || null;
+		return this.getField("label");
 	}
 
 	set label(value) {
-		this.document.label = value;
-		this.document.dateModified = Date.now();
+		this.setField("label", value);
 	}
 
 	get message() {
-		return this.document.message || null;
+		return this.getField("message");
 	}
 
 	set message(value) {
-		this.document.message = value;
-		this.document.dateModified = Date.now();
+		this.setField("message", value);
 	}
 
 	get actions() {
-		return this.document.actions || null;
+		return this.getField("actions");
 	}
 
 	set actions(value) {
-		this.document.actions = value;
-		this.document.dateModified = Date.now();
+		this.setField("actions", value);
 	}
 
 	get seenByUser() {
-		return this.document.seenByUser || null;
+		return this.getField("seenByUser");
 	}
 
 	set seenByUser(value) {
-		this.document.seenByUser = value;
-		this.document.dateModified = Date.now();
+		this.setField("seenByUser", value);
 	}
 
 	constructor(data) {
@@ -83,26 +78,26 @@ export default class Notification extends RESTModel {
 
 	static getNewNotifications(token) {
 		return new Promise((resolve, reject) => {
-			API.Call("GET", "/API/Notification", { token, returnNew: true }).then(
-				notes => {
-					resolve(
-						Array.from(notes || []).map(item => {
-							const note = new Notification(item);
-							return note;
-						})
-					);
-				},
-				reject
-			);
+			API.Call("GET", "/API/Notification", {
+				token,
+				returnNew: true
+			}).then(notes => {
+				resolve(
+					Array.from(notes || []).map(item => {
+						const note = new Notification(item);
+						return note;
+					})
+				);
+			}, reject);
 		});
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Notification, null, token);
+		return RESTModel.findMany(Notification, null, token, true);
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Notification, id, token);
+		return RESTModel.findById(Notification, id, token, true);
 	}
 
 	static connectSocket(token) {

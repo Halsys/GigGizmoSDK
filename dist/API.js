@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.version = undefined;
+exports.securePort = exports.port = exports.secure = exports.version = exports.dev = undefined;
 
 var _regenerator = require("babel-runtime/regenerator");
 
@@ -13,10 +13,6 @@ var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _typeof2 = require("babel-runtime/helpers/typeof");
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
 var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -25,21 +21,32 @@ var _createClass2 = require("babel-runtime/helpers/createClass");
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _typeof2 = require("babel-runtime/helpers/typeof");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
 var _axios = require("axios");
 
 var _axios2 = _interopRequireDefault(_axios);
+
+var _cookieParser = require("cookie-parser");
+
+var _cookieParser2 = _interopRequireDefault(_cookieParser);
 
 var _socket = require("socket.io-client");
 
 var _socket2 = _interopRequireDefault(_socket);
 
-var _cookie = require("cookie");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var version = exports.version = typeof process !== "undefined" && typeof process.env.npm_package_version !== "undefined" ? process.env.npm_package_version : null; /**
-                                                                                                                                                                    * Created by corynull on 6/19/17.
-                                                                                                                                                                    */
+var dev = exports.dev = typeof process !== "undefined" && typeof process.env.NODE_ENV !== "undefined" ? process.env.NODE_ENV === "development" : null; /**
+                                                                                                                                                        * Created by corynull on 6/19/17.
+                                                                                                                                                        */
+
+var version = exports.version = (typeof process !== "undefined" && typeof process.env.npm_package_version !== "undefined" ? process.env.npm_package_version : null) || (typeof window !== "undefined" && (0, _typeof3.default)(window.App) === "object" && window.App && typeof window.App.version !== "undefined" ? window.App.version : null);
+var secure = exports.secure = !dev;
+var port = exports.port = dev ? 58000 : 80;
+var securePort = exports.securePort = dev ? 54430 : 443;
 
 var API = function () {
 	function API() {
@@ -50,20 +57,17 @@ var API = function () {
 		key: "findToken",
 		value: function findToken() {
 			var token = API.token || null;
-			if (!token && API.SessionStorageSupported) {
+			if (!token && API.LocalStorageSupported)
 				// We store it in session storage.
-				token = sessionStorage.getItem("token") || null;
-			}
-			if (!token && typeof document !== "undefined" && document.cookie) {
+				token = localStorage.getItem("token") || null;
+			if (!token && typeof document !== "undefined" && document.cookie)
 				// We store it in the cookie.
-				var cookieToken = (0, _cookie.parse)(document.cookie)["gig-gizmo-token"];
-				token = cookieToken;
-			}
-			if (token && API.SessionStorageSupported) {
-				sessionStorage.setItem("token", token);
-			}
+				token = (0, _cookieParser2.default)(document.cookie)["gig-gizmo-token"];
+			if (token && API.LocalStorageSupported) localStorage.setItem("token", token);
 			return token;
 		}
+		// NOTE: Switch to localhost if testing Facebook... or 127.0.0.1 for Twitter.
+
 	}, {
 		key: "Call",
 		value: function Call(method, callRoute, callData) {
@@ -104,7 +108,16 @@ var API = function () {
 							});
 							reject(errorObject);
 						}
-					} else if (error.request) reject(new Error(error.request));else reject(new Error(error.message));
+					} else if (error.request) {
+						var x = error.request;
+						if (x.response === null) reject(new Error("No response"));
+						reject(new Error(JSON.stringify({
+							readyState: x.readyState,
+							response: x.response,
+							status: x.status,
+							statusText: x.statusText
+						})));
+					} else reject(error);
 				});
 			});
 		}
@@ -159,12 +172,13 @@ var API = function () {
 	return API;
 }();
 
-API.hostname = "giggizmo.com";
-API.root = "https://" + API.hostname;
+API.hostname = dev ? "127.0.0.1:" + (secure ? securePort : port) : "giggizmo.com";
+API.root = "http" + (secure ? "s" : "") + "://" + API.hostname;
 API.websocketRoot = "ws://" + API.hostname;
 API.webSocket = null;
 API.token = API.findToken();
 API.SessionStorageSupported = typeof Storage !== "undefined";
+API.LocalStorageSupported = typeof window !== "undefined" && typeof window.localStorage !== "undefined";
 API.ShouldUseSocketIO = process && !process.title.includes("node");
 API.UseSocketIO = false;
 exports.default = API;

@@ -72,20 +72,18 @@ var Conversation = function (_RESTModel) {
 	}, {
 		key: "events",
 		get: function get() {
-			return this.document.events || null;
+			return this.getField("events");
 		},
 		set: function set(value) {
-			this.document.events = value;
-			this.document.dateModified = Date.now();
+			this.setField("events", value);
 		}
 	}, {
 		key: "users",
 		get: function get() {
-			return this.document.users || null;
+			return this.getField("users");
 		},
 		set: function set(value) {
-			this.document.users = value;
-			this.document.dateModified = Date.now();
+			this.setField("users", value);
 		}
 	}], [{
 		key: "newCallback",
@@ -101,7 +99,7 @@ var Conversation = function (_RESTModel) {
 		value: function connectSocket(token) {
 			if (token) {
 				_API2.default.GetSocket(token).then(function (socket) {
-					socket.on("GigGizmo/Conversation/Update", function (data) {
+					socket.on("/API/Conversation/Update", function (data) {
 						if (data && data._id) {
 							var conv = _RESTModel3.default.Cache.get(data._id) || null;
 							if (conv) conv = Object.assign(conv, data);else conv = new Conversation(data);
@@ -117,12 +115,12 @@ var Conversation = function (_RESTModel) {
 	}, {
 		key: "findById",
 		value: function findById(id, token) {
-			return _RESTModel3.default.findById(Conversation, id, token);
+			return _RESTModel3.default.findById(Conversation, id, token, true);
 		}
 	}, {
 		key: "getAllOwned",
 		value: function getAllOwned(token) {
-			return _RESTModel3.default.findMany(Conversation, null, token);
+			return _RESTModel3.default.findMany(Conversation, null, token, true);
 		}
 	}]);
 	return Conversation;

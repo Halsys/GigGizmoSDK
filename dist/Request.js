@@ -67,7 +67,7 @@ var Request = function (_RESTModel) {
 							case 2:
 								request = _context.sent;
 
-								Object.assign(this, request);
+								Object.assign(this.document, request);
 								return _context.abrupt("return", this);
 
 							case 5:
@@ -87,65 +87,58 @@ var Request = function (_RESTModel) {
 	}, {
 		key: "to",
 		get: function get() {
-			return this.document.to || null;
+			return this.getField("to");
 		},
 		set: function set(value) {
-			this.document.to = value;
-			this.document.dateModified = Date.now();
+			this.setField("to", value);
 		}
 	}, {
 		key: "from",
 		get: function get() {
-			return this.document.from || null;
+			return this.getField("from");
 		},
 		set: function set(value) {
-			this.document.from = value;
-			this.document.dateModified = Date.now();
+			this.setField("from", value);
 		}
 	}, {
 		key: "status",
 		get: function get() {
-			return this.document.status || "Undecided";
+			return this.getField("status");
 		},
 		set: function set(value) {
-			this.document.status = value;
-			this.document.dateModified = Date.now();
+			this.setField("status", value);
 		}
 	}, {
 		key: "options",
 		get: function get() {
-			return this.document.options || null;
+			return this.getField("options");
 		},
 		set: function set(value) {
-			this.document.options = value;
-			this.document.dateModified = Date.now();
+			this.setField("options", value);
 		}
 	}, {
 		key: "type",
 		get: function get() {
-			return this.document.type || null;
+			return this.getField("type");
 		},
 		set: function set(value) {
-			this.document.type = value;
-			this.document.dateModified = Date.now();
+			this.setField("type", value);
 		}
 	}, {
 		key: "userData",
 		get: function get() {
-			return this.document.userData || null;
+			return this.getField("userData");
 		},
 		set: function set(value) {
-			this.document.userData = value;
-			this.document.dateModified = Date.now();
+			this.setField("userData", value);
 		}
 	}, {
 		key: "emailSent",
 		get: function get() {
-			return this.document.emailSent;
+			return this.getField("emailSent");
 		},
 		set: function set(value) {
-			this.document.emailSent = value;
-			this.document.dateModified = Date.now();
+			this.setField("emailSent", value);
 		}
 	}], [{
 		key: "createBandOwnershipRequest",
@@ -155,13 +148,12 @@ var Request = function (_RESTModel) {
 					from: from,
 					to: to,
 					type: "BandOwnership",
-					data: {
+					userData: {
 						bandId: band
 					},
 					token: token
 				}).then(function (data) {
-					var request = new Request(data);
-					resolve(request);
+					resolve(new Request(data));
 				}, reject);
 			});
 		}
@@ -173,13 +165,12 @@ var Request = function (_RESTModel) {
 					from: from,
 					to: to,
 					type: "VenueOwnership",
-					data: {
+					userData: {
 						venueId: venue
 					},
 					token: token
 				}).then(function (data) {
-					var request = new Request(data);
-					resolve(request);
+					resolve(new Request(data));
 				}, reject);
 			});
 		}
@@ -191,13 +182,12 @@ var Request = function (_RESTModel) {
 					from: from,
 					to: to,
 					type: "GigNegotiation",
-					data: {
+					userData: {
 						gigId: gig
 					},
 					token: token
 				}).then(function (data) {
-					var request = new Request(data);
-					resolve(request);
+					resolve(new Request(data));
 				}, reject);
 			});
 		}

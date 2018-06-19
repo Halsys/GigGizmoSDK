@@ -69,43 +69,39 @@ var FacebookAccount = function (_RESTModel) {
 	}, {
 		key: "userId",
 		get: function get() {
-			return this.document.userId || null;
+			return this.getField("userId");
 		},
 		set: function set(value) {
-			this.document.userId = value;
-			this.document.dateModified = Date.now();
+			this.setField("userId", value);
 		}
 	}, {
 		key: "accountId",
 		get: function get() {
-			return this.document.accountId || null;
+			return this.getField("accountId");
 		},
 		set: function set(value) {
-			this.document.accountId = value;
-			this.document.dateModified = Date.now();
+			this.setField("accountId", value);
 		}
 	}, {
 		key: "userAccessToken",
 		get: function get() {
-			return this.document.userAccessToken || null;
+			return this.getField("userAccessToken");
 		},
 		set: function set(value) {
-			this.document.userAccessToken = value;
-			this.document.dateModified = Date.now();
+			this.setField("userAccessToken", value);
 		}
 	}, {
 		key: "userRefreshToken",
 		get: function get() {
-			return this.document.userRefreshToken || null;
+			return this.getField("userRefreshToken");
 		},
 		set: function set(value) {
-			this.document.userRefreshToken = value;
-			this.document.dateModified = Date.now();
+			this.setField("userRefreshToken", value);
 		}
 	}, {
 		key: "profile",
 		get: function get() {
-			return this.document.profile || null;
+			return this.getField("profile");
 		}
 	}], [{
 		key: "findById",

@@ -14,147 +14,131 @@ export default class Venue extends RESTModel {
 	static ModelName = "Venue";
 
 	get name() {
-		return this.document.name || null;
+		return this.getField("name");
 	}
 
 	set name(value) {
-		this.document.name = value;
-		this.document.dateModified = Date.now();
+		this.setField("name", value);
 	}
 
 	get description() {
-		return this.document.description || null;
+		return this.getField("description");
 	}
 
 	set description(value) {
-		this.document.description = value;
-		this.document.dateModified = Date.now();
+		this.setField("description", value);
 	}
 
 	get email() {
-		return this.document.email || null;
+		return this.getField("email");
 	}
 
 	set email(value) {
-		this.document.email = value;
-		this.document.dateModified = Date.now();
+		this.setField("email", value);
 	}
 
 	get website() {
-		return this.document.website || null;
+		return this.getField("website");
 	}
 
 	set website(value) {
-		this.document.website = value;
-		this.document.dateModified = Date.now();
+		this.setField("website", value);
 	}
 
 	get phone() {
-		return this.document.phone || null;
+		return this.getField("phone");
 	}
 
 	set phone(value) {
-		this.document.phone = value;
-		this.document.dateModified = Date.now();
+		this.setField("phone", value);
 	}
 
 	get location() {
-		return this.document.location || null;
+		return this.getField("location");
 	}
 
 	set location(value) {
-		this.document.location = value;
-		this.document.dateModified = Date.now();
+		this.setField("location", value);
 	}
 
 	get openCloseTimes() {
-		return this.document.openCloseTimes || [];
+		return this.getField("openCloseTimes");
 	}
 
 	set openCloseTimes(value) {
-		this.document.openCloseTimes = value;
-		this.document.dateModified = Date.now();
+		this.setField("openCloseTimes", value);
 	}
 
 	get icon() {
-		return this.document.icon || null;
+		return this.getField("icon");
 	}
 
 	set icon(value) {
-		this.document.icon = value;
-		this.document.dateModified = Date.now();
+		this.setField("icon", value);
 	}
 
 	get photos() {
-		return this.document.photos || [];
+		return this.getField("photos");
 	}
 
 	set photos(value) {
-		this.document.photos = value;
-		this.document.dateModified = Date.now();
+		this.setField("photos", value);
 	}
 
 	get owners() {
-		return this.document.owners || [];
+		return this.getField("owners");
 	}
 
 	set owners(value) {
-		this.document.owners = value;
-		this.document.dateModified = Date.now();
+		this.setField("owners", value);
 	}
 
 	get facebook() {
-		return this.document.facebook || null;
+		return this.getField("facebook");
 	}
 
 	set facebook(value) {
-		this.document.facebook = value;
-		this.document.dateModified = Date.now();
+		this.setField("facebook", value);
 	}
 
 	get facebookPageId() {
-		return this.document.facebookPageId || null;
+		return this.getField("facebookPageId");
 	}
 
 	set facebookPageId(value) {
-		this.document.facebookPageId = value;
-		this.document.dateModified = Date.now();
+		this.setField("facebookPageId", value);
 	}
 
 	get facebookPageName() {
-		return this.document.facebookPageName || null;
+		return this.getField("facebookPageName");
 	}
 
 	set facebookPageName(value) {
-		this.document.facebookPageName = value;
-		this.document.dateModified = Date.now();
+		this.setField("facebookPageName", value);
 	}
 
 	get facebookPageToken() {
-		return this.document.facebookPageToken || null;
+		return this.getField("facebookPageToken");
 	}
 
 	set facebookPageToken(value) {
-		this.document.facebookPageToken = value;
-		this.document.dateModified = Date.now();
+		this.setField("facebookPageToken", value);
 	}
 
 	get twitter() {
-		return this.document.twitter || null;
+		return this.getField("twitter");
 	}
 
 	set twitter(value) {
-		this.document.twitter = value;
-		this.document.dateModified = Date.now();
+		this.setField("twitter", value);
 	}
 
 	get google() {
-		return this.document.google || null;
+		return this.getField("google");
 	}
 
 	set google(value) {
-		this.document.google = value;
-		this.document.dateModified = Date.now();
+		this.setField("google", value);
 	}
 
 	getIcon(token) {
@@ -229,18 +213,18 @@ export default class Venue extends RESTModel {
 	}
 
 	static findOne(criteria, token) {
-		return RESTModel.findOne(Venue, criteria, token);
+		return RESTModel.findOne(Venue, criteria, token, true);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Venue, criteria, token);
+		return RESTModel.findMany(Venue, criteria, token, true);
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Venue, id, token);
+		return RESTModel.findById(Venue, id, token, true);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Venue, null, token);
+		return RESTModel.findMany(Venue, null, token, true);
 	}
 }

@@ -10,21 +10,19 @@ export default class Conversation extends RESTModel {
 	static Callbacks = new Map();
 
 	get events() {
-		return this.document.events || null;
+		return this.getField("events");
 	}
 
 	set events(value) {
-		this.document.events = value;
-		this.document.dateModified = Date.now();
+		this.setField("events", value);
 	}
 
 	get users() {
-		return this.document.users || null;
+		return this.getField("users");
 	}
 
 	set users(value) {
-		this.document.users = value;
-		this.document.dateModified = Date.now();
+		this.setField("users", value);
 	}
 
 	valid() {
@@ -57,7 +55,7 @@ export default class Conversation extends RESTModel {
 	static connectSocket(token) {
 		if (token) {
 			API.GetSocket(token).then(socket => {
-				socket.on("GigGizmo/Conversation/Update", data => {
+				socket.on("/API/Conversation/Update", data => {
 					if (data && data._id) {
 						let conv = RESTModel.Cache.get(data._id) || null;
 						if (conv) conv = Object.assign(conv, data);
@@ -73,10 +71,10 @@ export default class Conversation extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Conversation, id, token);
+		return RESTModel.findById(Conversation, id, token, true);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Conversation, null, token);
+		return RESTModel.findMany(Conversation, null, token, true);
 	}
 }
