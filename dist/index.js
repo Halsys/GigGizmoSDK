@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.version = exports.API = exports.Venue = exports.User = exports.Upload = exports.TwitterAccount = exports.RESTModel = exports.Request = exports.Post = exports.Page = exports.Notification = exports.Location = exports.GooglePlace = exports.Gig = exports.FacebookAccount = exports.ErrorReport = exports.Conversation = exports.Band = exports.PropTypes = undefined;
+exports.version = exports.API = exports.Venue = exports.User = exports.Upload = exports.TwitterAccount = exports.RESTModel = exports.Request = exports.Post = exports.Page = exports.Notification = exports.Location = exports.GooglePlace = exports.Gig = exports.FacebookAccount = exports.ErrorReport = exports.Conversation = exports.Band = exports.GigGizmoPropTypes = undefined;
 exports.ModelNameToModel = ModelNameToModel;
 
 var _API = require("./API");
@@ -132,7 +132,7 @@ function ModelNameToModel(name) {
    */
 
 // Extras
-exports.PropTypes = _PropTypes2.default;
+exports.GigGizmoPropTypes = _PropTypes2.default;
 exports.Band = _Band2.default;
 exports.Conversation = _Conversation2.default;
 exports.ErrorReport = _ErrorReport2.default;
