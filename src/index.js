@@ -4,6 +4,7 @@
 
 // Extras
 import GigGizmoPropTypes from "./PropTypes";
+import API, { version } from "./API";
 
 // Models
 import Band from "./Band";
@@ -77,11 +78,10 @@ export {
   TwitterAccount,
   Upload,
   User,
-  Venue
+  Venue,
+  API,
+  version
 };
-
-// Framework
-export { default as API, version } from "./API";
 
 if (typeof window !== "undefined") window.GigGizmoAPI = exports;
 if (typeof process !== "undefined") process.GigGizmoAPI = exports;
