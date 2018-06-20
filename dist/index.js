@@ -6,24 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.version = exports.API = exports.Venue = exports.User = exports.Upload = exports.TwitterAccount = exports.RESTModel = exports.Request = exports.Post = exports.Page = exports.Notification = exports.Location = exports.GooglePlace = exports.Gig = exports.FacebookAccount = exports.ErrorReport = exports.Conversation = exports.Band = exports.GigGizmoPropTypes = undefined;
 exports.ModelNameToModel = ModelNameToModel;
 
-var _API = require("./API");
-
-Object.defineProperty(exports, "API", {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_API).default;
-  }
-});
-Object.defineProperty(exports, "version", {
-  enumerable: true,
-  get: function get() {
-    return _API.version;
-  }
-});
-
 var _PropTypes = require("./PropTypes");
 
 var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+var _API = require("./API");
+
+var _API2 = _interopRequireDefault(_API);
 
 var _Band = require("./Band");
 
@@ -92,6 +81,11 @@ var _Venue2 = _interopRequireDefault(_Venue);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Models
+/**
+ * Created by corynull on 7/15/17.
+ */
+
+// Extras
 function ModelNameToModel(name) {
   switch (name) {
     case "Band":
@@ -127,11 +121,8 @@ function ModelNameToModel(name) {
     default:
       return null;
   }
-} /**
-   * Created by corynull on 7/15/17.
-   */
+}
 
-// Extras
 exports.GigGizmoPropTypes = _PropTypes2.default;
 exports.Band = _Band2.default;
 exports.Conversation = _Conversation2.default;
@@ -149,8 +140,9 @@ exports.TwitterAccount = _TwitterAccount2.default;
 exports.Upload = _Upload2.default;
 exports.User = _User2.default;
 exports.Venue = _Venue2.default;
+exports.API = _API2.default;
+exports.version = _API.version;
 
-// Framework
 
 if (typeof window !== "undefined") window.GigGizmoAPI = exports;
 if (typeof process !== "undefined") process.GigGizmoAPI = exports;

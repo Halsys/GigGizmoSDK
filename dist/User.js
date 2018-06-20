@@ -168,6 +168,16 @@ var User = function (_RESTModel) {
       return true;
     }
   }, {
+    key: "save",
+    value: function save(token) {
+      return _RESTModel3.default.prototype.save.call(this, token, true);
+    }
+  }, {
+    key: "remove",
+    value: function remove(token) {
+      return _RESTModel3.default.prototype.remove.call(this, token, true);
+    }
+  }, {
     key: "password",
     get: function get() {
       return this.getField("password");
@@ -767,6 +777,13 @@ var User = function (_RESTModel) {
           } else return reject(new Error("Last name is required"));
         } else return reject(new Error("User data is not an object"));
 
+        if (_API2.default.UseSocketIO && _API2.default.ShouldUseSocketIO) {
+          return new Promise(function (resolve, reject) {
+            if (token) _API2.default.GetSocket().then(function (socket) {
+              socket.emit("/API/User/Create", userData, resolve);
+            }, reject);else resolve(null);
+          });
+        }
         return _API2.default.Call("POST", "/API/User", userData).then(function (data) {
           if (data) User.setUser(data).then(function (user) {
             resolve(user);
