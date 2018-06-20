@@ -1,7 +1,7 @@
 {
   "name": "gig-gizmo-sdk",
   "author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": false,
   "main": "./dist/index.js",
   "dependencies": {
@@ -34,5 +34,7 @@
     "test": "mocha --compilers js:babel-core/register ./src/**/*.test.js",
     "test:single": "mocha --compilers js:babel-core/register"
   },
-  "files": ["dist"]
+  "files": [
+    "dist"
+  ]
 }
