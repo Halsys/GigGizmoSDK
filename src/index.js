@@ -3,7 +3,7 @@
  */
 
 // Extras
-import PropTypes from "./PropTypes";
+import GigGizmoPropTypes from "./PropTypes";
 
 // Models
 import Band from "./Band";
@@ -61,7 +61,7 @@ export function ModelNameToModel(name) {
 }
 
 export {
-  PropTypes,
+  GigGizmoPropTypes,
   Band,
   Conversation,
   ErrorReport,
