@@ -317,6 +317,14 @@ export default class User extends RESTModel {
     return true;
   }
 
+  save(token) {
+    return RESTModel.prototype.save.call(this, token, true);
+  }
+
+  remove(token) {
+    return RESTModel.prototype.remove.call(this, token, true);
+  }
+
   static verifyEmail(id, secret) {
     return API.Call("GET", "/API/User/Verify", {
       token: null,
@@ -629,6 +637,15 @@ export default class User extends RESTModel {
         } else return reject(new Error("Last name is required"));
       } else return reject(new Error("User data is not an object"));
 
+      if (API.UseSocketIO && API.ShouldUseSocketIO) {
+        return new Promise((resolve, reject) => {
+          if (token)
+            API.GetSocket().then(socket => {
+              socket.emit("/API/User/Create", userData, resolve);
+            }, reject);
+          else resolve(null);
+        });
+      }
       return API.Call("POST", "/API/User", userData).then(data => {
         if (data)
           User.setUser(data).then(user => {
