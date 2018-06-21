@@ -6,11 +6,10 @@
       {
         targets: {
           chrome: 52,
-          firefox: 60,
-          node: "current"
+          firefox: 60
         },
         forceAllTransforms: true,
-        modules: "commonjs",
+        modules: "umd",
         useBuiltIns: "usage",
         debug: false,
         spec: true
