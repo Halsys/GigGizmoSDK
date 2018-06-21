@@ -1,185 +1,203 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _regenerator = require("babel-runtime/regenerator");
+var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
 
-var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
-var _typeof2 = require("babel-runtime/helpers/typeof");
+var _get2 = _interopRequireDefault(require("@babel/runtime/core-js/reflect/get"));
 
-var _typeof3 = _interopRequireDefault(_typeof2);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/get-prototype-of"));
 
-var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _createClass2 = require("babel-runtime/helpers/createClass");
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
 
-var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"));
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+var _User = _interopRequireDefault(require("./User"));
 
-var _get2 = require("babel-runtime/helpers/get");
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = require("babel-runtime/helpers/inherits");
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _User = require("./User");
-
-var _User2 = _interopRequireDefault(_User);
-
-var _RESTModel2 = require("./RESTModel");
-
-var _RESTModel3 = _interopRequireDefault(_RESTModel2);
+var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Created by corynull on 4/10/17.
- */
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
-var Upload = function (_RESTModel) {
-	(0, _inherits3.default)(Upload, _RESTModel);
+function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-	function Upload() {
-		(0, _classCallCheck3.default)(this, Upload);
-		return (0, _possibleConstructorReturn3.default)(this, (Upload.__proto__ || Object.getPrototypeOf(Upload)).apply(this, arguments));
-	}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	(0, _createClass3.default)(Upload, [{
-		key: "getOwners",
-		value: function getOwners(token) {
-			var owners = Array.from(this.owners);
-			if (owners.length !== 0) return _User2.default.findMany({
-				_id: owners
-			}, token);
-			return Promise.resolve([]);
-		}
-	}, {
-		key: "userIsOwner",
-		value: function userIsOwner(user) {
-			if (Array.isArray(this.owners)) {
-				var userId = null;
-				if (typeof user === "string") userId = user;else if ((typeof user === "undefined" ? "undefined" : (0, _typeof3.default)(user)) === "object" && user) userId = user._id;
-				return this.owners.find(function (id) {
-					return id === userId;
-				}) !== undefined;
-			}
-			return false;
-		}
-	}, {
-		key: "valid",
-		value: function valid() {
-			if (!(0, _get3.default)(Upload.prototype.__proto__ || Object.getPrototypeOf(Upload.prototype), "valid", this).call(this)) return false;
-			if (!this.title) return false;
-			if (!this.description) return false;
-			if (!this.fileData) return false;
-			if (!this.fileName) return false;
-			if (!Array.isArray(this.owners)) return false;
-			if (this.owners.length === 0) return false;
-			return true;
-		}
-	}, {
-		key: "fileName",
-		get: function get() {
-			return this.getField("fileName");
-		},
-		set: function set(value) {
-			this.setField("fileName", value);
-		}
-	}, {
-		key: "fileData",
-		get: function get() {
-			return this.getField("fileData");
-		},
-		set: function set(value) {
-			this.setField("fileData", value);
-		}
-	}, {
-		key: "title",
-		get: function get() {
-			return this.getField("title");
-		},
-		set: function set(value) {
-			this.setField("title", value);
-		}
-	}, {
-		key: "description",
-		get: function get() {
-			return this.getField("description");
-		},
-		set: function set(value) {
-			this.setField("description", value);
-		}
-	}, {
-		key: "owners",
-		get: function get() {
-			return this.getField("owners");
-		},
-		set: function set(value) {
-			this.setField("owners", value);
-		}
-	}], [{
-		key: "uploadFile",
-		value: function () {
-			var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(dataUrl, fileName, token) {
-				var upload;
-				return _regenerator2.default.wrap(function _callee$(_context) {
-					while (1) {
-						switch (_context.prev = _context.next) {
-							case 0:
-								upload = new Upload({ fileData: dataUrl, fileName: fileName });
-								_context.next = 3;
-								return upload.save(token, true);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
 
-							case 3:
-								upload = _context.sent;
-								return _context.abrupt("return", upload);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-							case 5:
-							case "end":
-								return _context.stop();
-						}
-					}
-				}, _callee, this);
-			}));
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-			function uploadFile(_x, _x2, _x3) {
-				return _ref.apply(this, arguments);
-			}
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-			return uploadFile;
-		}()
-	}, {
-		key: "findById",
-		value: function findById(id, token) {
-			return _RESTModel3.default.findById(Upload, id, token, true);
-		}
-	}, {
-		key: "findMany",
-		value: function findMany(criteria, token) {
-			return _RESTModel3.default.findMany(Upload, criteria, token, true);
-		}
-	}, {
-		key: "getAllOwned",
-		value: function getAllOwned(token) {
-			return _RESTModel3.default.findMany(Upload, null, token, true);
-		}
-	}]);
-	return Upload;
-}(_RESTModel3.default);
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && _get2.default) { _get = _get2.default; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = (0, _getOwnPropertyDescriptor.default)(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
 
-Upload.ModelName = "Upload";
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Upload =
+/*#__PURE__*/
+function (_RESTModel) {
+  _inherits(Upload, _RESTModel);
+
+  function Upload() {
+    _classCallCheck(this, Upload);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Upload).apply(this, arguments));
+  }
+
+  _createClass(Upload, [{
+    key: "getOwners",
+    value: function getOwners(token) {
+      var owners = (0, _from.default)(this.owners);
+      if (owners.length !== 0) return _User.default.findMany({
+        _id: owners
+      }, token);
+      return _promise.default.resolve([]);
+    }
+  }, {
+    key: "userIsOwner",
+    value: function userIsOwner(user) {
+      if (Array.isArray(this.owners)) {
+        var userId = null;
+        if (typeof user === "string") userId = user;else if (_typeof(user) === "object" && user) userId = user._id;
+        return this.owners.find(function (id) {
+          return id === userId;
+        }) !== undefined;
+      }
+
+      return false;
+    }
+  }, {
+    key: "valid",
+    value: function valid() {
+      if (!_get(_getPrototypeOf(Upload.prototype), "valid", this).call(this)) return false;
+      if (!this.title) return false;
+      if (!this.description) return false;
+      if (!this.fileData) return false;
+      if (!this.fileName) return false;
+      if (!Array.isArray(this.owners)) return false;
+      if (this.owners.length === 0) return false;
+      return true;
+    }
+  }, {
+    key: "fileName",
+    get: function get() {
+      return this.getField("fileName");
+    },
+    set: function set(value) {
+      this.setField("fileName", value);
+    }
+  }, {
+    key: "fileData",
+    get: function get() {
+      return this.getField("fileData");
+    },
+    set: function set(value) {
+      this.setField("fileData", value);
+    }
+  }, {
+    key: "title",
+    get: function get() {
+      return this.getField("title");
+    },
+    set: function set(value) {
+      this.setField("title", value);
+    }
+  }, {
+    key: "description",
+    get: function get() {
+      return this.getField("description");
+    },
+    set: function set(value) {
+      this.setField("description", value);
+    }
+  }, {
+    key: "owners",
+    get: function get() {
+      return this.getField("owners");
+    },
+    set: function set(value) {
+      this.setField("owners", value);
+    }
+  }], [{
+    key: "uploadFile",
+    value: function () {
+      var _uploadFile = _asyncToGenerator(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee(dataUrl, fileName, token) {
+        var upload;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                upload = new Upload({
+                  fileData: dataUrl,
+                  fileName: fileName
+                });
+                _context.next = 3;
+                return upload.save(token, true);
+
+              case 3:
+                upload = _context.sent;
+                return _context.abrupt("return", upload);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      return function uploadFile(_x, _x2, _x3) {
+        return _uploadFile.apply(this, arguments);
+      };
+    }()
+  }, {
+    key: "findById",
+    value: function findById(id, token) {
+      return _RESTModel2.default.findById(Upload, id, token, true);
+    }
+  }, {
+    key: "findMany",
+    value: function findMany(criteria, token) {
+      return _RESTModel2.default.findMany(Upload, criteria, token, true);
+    }
+  }, {
+    key: "getAllOwned",
+    value: function getAllOwned(token) {
+      return _RESTModel2.default.findMany(Upload, null, token, true);
+    }
+  }]);
+
+  return Upload;
+}(_RESTModel2.default);
+
 exports.default = Upload;
+
+_defineProperty(Upload, "ModelName", "Upload");

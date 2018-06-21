@@ -1,43 +1,44 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _propTypes = require("prop-types");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _propTypes2.default.shape({
-	_id: _propTypes2.default.string.isRequired,
-	dateCreated: _propTypes2.default.object.isRequired,
-	dateModified: _propTypes2.default.object.isRequired,
-	icon: _propTypes2.default.string,
-	email: _propTypes2.default.string,
-	firstName: _propTypes2.default.string.isRequired,
-	middleName: _propTypes2.default.string,
-	lastName: _propTypes2.default.string.isRequired,
-	birthday: _propTypes2.default.object.isRequired,
-	country: _propTypes2.default.string.isRequired,
-	bandManager: _propTypes2.default.bool,
-	venueManager: _propTypes2.default.bool,
-	betaFeatureUser: _propTypes2.default.bool,
-	sendAnonymousReports: _propTypes2.default.bool,
-	sendErrorReports: _propTypes2.default.bool,
-	sendEmails: _propTypes2.default.bool,
-	sendPromotions: _propTypes2.default.bool,
-	useCookies: _propTypes2.default.bool,
-	description: _propTypes2.default.string,
-	active: _propTypes2.default.bool,
-	paypal: _propTypes2.default.string,
-	facebook: _propTypes2.default.string,
-	twitter: _propTypes2.default.string,
-	emailVerified: _propTypes2.default.bool,
-	payment: _propTypes2.default.string,
-	admin: _propTypes2.default.bool,
-	attempts: _propTypes2.default.number,
-	lastLoginDate: _propTypes2.default.object,
-	lastLoginIP: _propTypes2.default.string
+var _default = _propTypes.default.shape({
+  _id: _propTypes.default.string.isRequired,
+  dateCreated: _propTypes.default.object.isRequired,
+  dateModified: _propTypes.default.object.isRequired,
+  icon: _propTypes.default.string,
+  email: _propTypes.default.string,
+  firstName: _propTypes.default.string.isRequired,
+  middleName: _propTypes.default.string,
+  lastName: _propTypes.default.string.isRequired,
+  birthday: _propTypes.default.object.isRequired,
+  country: _propTypes.default.string.isRequired,
+  bandManager: _propTypes.default.bool,
+  venueManager: _propTypes.default.bool,
+  betaFeatureUser: _propTypes.default.bool,
+  sendAnonymousReports: _propTypes.default.bool,
+  sendErrorReports: _propTypes.default.bool,
+  sendEmails: _propTypes.default.bool,
+  sendPromotions: _propTypes.default.bool,
+  useCookies: _propTypes.default.bool,
+  description: _propTypes.default.string,
+  active: _propTypes.default.bool,
+  paypal: _propTypes.default.string,
+  facebook: _propTypes.default.string,
+  twitter: _propTypes.default.string,
+  emailVerified: _propTypes.default.bool,
+  payment: _propTypes.default.string,
+  admin: _propTypes.default.bool,
+  attempts: _propTypes.default.number,
+  lastLoginDate: _propTypes.default.object,
+  lastLoginIP: _propTypes.default.string
 });
+
+exports.default = _default;

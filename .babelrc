@@ -1,12 +1,38 @@
 {
-	"presets": ["env", "stage-2"],
-	"plugins": [
-		[
-			"transform-runtime",
-			{
-				"polyfill": false,
-				"regenerator": true
-			}
-		]
-	]
+  compact: false,
+  presets: [
+    [
+      "@babel/preset-env",
+      {
+        targets: {
+          node: "current"
+        },
+        forceAllTransforms: true,
+        modules: "commonjs",
+        useBuiltIns: false,
+        debug: false
+      }
+    ],
+    ["@babel/preset-stage-2", { decoratorsLegacy: true }],
+    "@babel/preset-react"
+  ],
+  env: {
+    test: {
+      plugins: ["rewire"]
+    }
+  },
+  ignore: ["/node_modules/"],
+  plugins: [
+    "@babel/plugin-transform-react-jsx-source",
+    "@babel/plugin-transform-react-jsx-self",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        helpers: false,
+        polyfill: true,
+        regenerator: true,
+        moduleName: "@babel/runtime"
+      }
+    ]
+  ]
 }

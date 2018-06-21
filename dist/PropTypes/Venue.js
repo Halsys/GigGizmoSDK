@@ -1,38 +1,39 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _propTypes = require("prop-types");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _propTypes2.default.shape({
-	_id: _propTypes2.default.string.isRequired,
-	dateCreated: _propTypes2.default.object.isRequired,
-	dateModified: _propTypes2.default.object.isRequired,
-	name: _propTypes2.default.string.isRequired,
-	description: _propTypes2.default.string.isRequired,
-	website: _propTypes2.default.string,
-	phone: _propTypes2.default.string,
-	email: _propTypes2.default.string,
-	location: _propTypes2.default.string.isRequired,
-	openCloseTimes: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-		open: _propTypes2.default.bool,
-		openingTime: _propTypes2.default.string,
-		closingTime: _propTypes2.default.string
-	})),
-	icon: _propTypes2.default.string,
-	photos: _propTypes2.default.arrayOf(_propTypes2.default.string),
-	owners: _propTypes2.default.arrayOf(_propTypes2.default.string),
-	facebook: _propTypes2.default.string,
-	twitter: _propTypes2.default.string,
-	google: _propTypes2.default.string,
-	metaData: _propTypes2.default.string,
-	facebookPageId: _propTypes2.default.string,
-	facebookPageName: _propTypes2.default.string,
-	facebookPageToken: _propTypes2.default.string
+var _default = _propTypes.default.shape({
+  _id: _propTypes.default.string.isRequired,
+  dateCreated: _propTypes.default.object.isRequired,
+  dateModified: _propTypes.default.object.isRequired,
+  name: _propTypes.default.string.isRequired,
+  description: _propTypes.default.string.isRequired,
+  website: _propTypes.default.string,
+  phone: _propTypes.default.string,
+  email: _propTypes.default.string,
+  location: _propTypes.default.string.isRequired,
+  openCloseTimes: _propTypes.default.arrayOf(_propTypes.default.shape({
+    open: _propTypes.default.bool,
+    openingTime: _propTypes.default.string,
+    closingTime: _propTypes.default.string
+  })),
+  icon: _propTypes.default.string,
+  photos: _propTypes.default.arrayOf(_propTypes.default.string),
+  owners: _propTypes.default.arrayOf(_propTypes.default.string),
+  facebook: _propTypes.default.string,
+  twitter: _propTypes.default.string,
+  google: _propTypes.default.string,
+  metaData: _propTypes.default.string,
+  facebookPageId: _propTypes.default.string,
+  facebookPageName: _propTypes.default.string,
+  facebookPageToken: _propTypes.default.string
 });
+
+exports.default = _default;

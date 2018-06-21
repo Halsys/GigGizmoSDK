@@ -3,40 +3,58 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
-var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/get-prototype-of"));
 
-var _createClass2 = require("babel-runtime/helpers/createClass");
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
 
-var _inherits2 = require("babel-runtime/helpers/inherits");
+var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _inherits3 = _interopRequireDefault(_inherits2);
+var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"));
 
-var _API = require("./API");
+var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
 
-var _API2 = _interopRequireDefault(_API);
+var _API = _interopRequireDefault(require("./API"));
 
-var _RESTModel2 = require("./RESTModel");
-
-var _RESTModel3 = _interopRequireDefault(_RESTModel2);
+var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Created by corynull on 8/15/17.
- */
+function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var Notification = function (_RESTModel) {
-  (0, _inherits3.default)(Notification, _RESTModel);
-  (0, _createClass3.default)(Notification, [{
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Notification =
+/*#__PURE__*/
+function (_RESTModel) {
+  _inherits(Notification, _RESTModel);
+
+  _createClass(Notification, [{
     key: "userId",
     get: function get() {
       return this.getField("userId");
@@ -79,15 +97,16 @@ var Notification = function (_RESTModel) {
   }]);
 
   function Notification(data) {
-    (0, _classCallCheck3.default)(this, Notification);
+    var _this;
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Notification.__proto__ || Object.getPrototypeOf(Notification)).call(this, data));
+    _classCallCheck(this, Notification);
 
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Notification).call(this, data));
     _this.changeCallbacks = {};
     return _this;
   }
 
-  (0, _createClass3.default)(Notification, [{
+  _createClass(Notification, [{
     key: "newChangeCallback",
     value: function newChangeCallback(callback) {
       var _this2 = this;
@@ -117,12 +136,12 @@ var Notification = function (_RESTModel) {
   }, {
     key: "getNewNotifications",
     value: function getNewNotifications(token) {
-      return new Promise(function (resolve, reject) {
-        _API2.default.Call("GET", "/API/Notification", {
+      return new _promise.default(function (resolve, reject) {
+        _API.default.Call("GET", "/API/Notification", {
           token: token,
           returnNew: true
         }).then(function (notes) {
-          resolve(Array.from(notes || []).map(function (item) {
+          resolve((0, _from.default)(notes || []).map(function (item) {
             return new Notification(item);
           }));
         }, reject);
@@ -131,26 +150,29 @@ var Notification = function (_RESTModel) {
   }, {
     key: "getAllOwned",
     value: function getAllOwned(token) {
-      return _RESTModel3.default.findMany(Notification, null, token, true);
+      return _RESTModel2.default.findMany(Notification, null, token, true);
     }
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel3.default.findById(Notification, id, token, true);
+      return _RESTModel2.default.findById(Notification, id, token, true);
     }
   }, {
     key: "connectSocket",
     value: function connectSocket(token) {
-      if (token) _API2.default.GetSocket(token).then(function (socket) {
+      if (token) _API.default.GetSocket(token).then(function (socket) {
         socket.on("notification", function (data) {
           return Notification.onNewNotification(new Notification(data));
         });
       }, console.error);
     }
   }]);
-  return Notification;
-}(_RESTModel3.default);
 
-Notification.ModelName = "Notification";
-Notification.Callbacks = new Map();
+  return Notification;
+}(_RESTModel2.default);
+
 exports.default = Notification;
+
+_defineProperty(Notification, "ModelName", "Notification");
+
+_defineProperty(Notification, "Callbacks", new _map.default());

@@ -1,12 +1,14 @@
 {
   "name": "gig-gizmo-sdk",
   "author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": false,
   "main": "./dist/index.js",
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.51",
+    "@babel/polyfill": "^7.0.0-beta.51",
+    "@babel/runtime": "^7.0.0-beta.51",
     "axios": "^0.18.0",
-    "babel-runtime": "^6.26.0",
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.3",
     "moment": "^2.22.0",
@@ -14,12 +16,18 @@
     "socket.io-client": "^2.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-core": "^6.17.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/node": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.51",
+    "@babel/plugin-transform-react-jsx-self": "^7.0.0-beta.51",
+    "@babel/plugin-transform-react-jsx-source": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/preset-react": "^7.0.0-beta.51",
+    "@babel/preset-stage-2": "^7.0.0-beta.51",
+    "@babel/register": "^7.0.0-beta.51",
+    "@babel/template": "^7.0.0-beta.51",
+    "@babel/types": "^7.0.0-beta.51",
     "chai": "^3.5.0",
     "mocha": "^5.2.0"
   },
@@ -31,8 +39,8 @@
     "prebuild": "npm run clean && npm run init",
     "build": "babel ./src -d ./dist --ignore test.js",
     "pretest": "npm run build",
-    "test": "mocha --compilers js:babel-core/register ./src/**/*.test.js",
-    "test:single": "mocha --compilers js:babel-core/register"
+    "test": "mocha --require @babel/register ./src/**/*.test.js",
+    "test:single": "mocha --require @babel/register"
   },
   "files": [
     "dist"

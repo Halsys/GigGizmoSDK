@@ -1,26 +1,28 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _propTypes = require("prop-types");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _propTypes2.default.shape({
-	_id: _propTypes2.default.string.isRequired,
-	dateCreated: _propTypes2.default.object.isRequired,
-	dateModified: _propTypes2.default.object.isRequired,
-	userId: _propTypes2.default.string.isRequired,
-	network: _propTypes2.default.string.isRequired,
-	accountId: _propTypes2.default.string.isRequired,
-	pageId: _propTypes2.default.string.isRequired,
-	postText: _propTypes2.default.string.isRequired,
-	postDate: _propTypes2.default.object.isRequired,
-	coordinates: _propTypes2.default.arrayOf(_propTypes2.default.number), // coord = [longitude, latitude]
-	error: _propTypes2.default.any,
-	done: _propTypes2.default.bool.isRequired
+var _default = _propTypes.default.shape({
+  _id: _propTypes.default.string.isRequired,
+  dateCreated: _propTypes.default.object.isRequired,
+  dateModified: _propTypes.default.object.isRequired,
+  userId: _propTypes.default.string.isRequired,
+  network: _propTypes.default.string.isRequired,
+  accountId: _propTypes.default.string.isRequired,
+  pageId: _propTypes.default.string.isRequired,
+  postText: _propTypes.default.string.isRequired,
+  postDate: _propTypes.default.object.isRequired,
+  coordinates: _propTypes.default.arrayOf(_propTypes.default.number),
+  // coord = [longitude, latitude]
+  error: _propTypes.default.any,
+  done: _propTypes.default.bool.isRequired
 });
+
+exports.default = _default;

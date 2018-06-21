@@ -1,148 +1,224 @@
 "use strict";
 
+var _Object$getOwnPropertyDescriptor = require("@babel/runtime/core-js/object/get-own-property-descriptor");
+
+var _Object$defineProperty = require("@babel/runtime/core-js/object/define-property");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.version = exports.API = exports.Venue = exports.User = exports.Upload = exports.TwitterAccount = exports.RESTModel = exports.Request = exports.Post = exports.Page = exports.Notification = exports.Location = exports.GooglePlace = exports.Gig = exports.FacebookAccount = exports.ErrorReport = exports.Conversation = exports.Band = exports.GigGizmoPropTypes = undefined;
 exports.ModelNameToModel = ModelNameToModel;
+Object.defineProperty(exports, "GigGizmoPropTypes", {
+  enumerable: true,
+  get: function get() {
+    return _PropTypes.default;
+  }
+});
+Object.defineProperty(exports, "API", {
+  enumerable: true,
+  get: function get() {
+    return _API.default;
+  }
+});
+Object.defineProperty(exports, "version", {
+  enumerable: true,
+  get: function get() {
+    return _API.version;
+  }
+});
+Object.defineProperty(exports, "Band", {
+  enumerable: true,
+  get: function get() {
+    return _Band.default;
+  }
+});
+Object.defineProperty(exports, "Conversation", {
+  enumerable: true,
+  get: function get() {
+    return _Conversation.default;
+  }
+});
+Object.defineProperty(exports, "ErrorReport", {
+  enumerable: true,
+  get: function get() {
+    return _ErrorReport.default;
+  }
+});
+Object.defineProperty(exports, "FacebookAccount", {
+  enumerable: true,
+  get: function get() {
+    return _FacebookAccount.default;
+  }
+});
+Object.defineProperty(exports, "Gig", {
+  enumerable: true,
+  get: function get() {
+    return _Gig.default;
+  }
+});
+Object.defineProperty(exports, "GooglePlace", {
+  enumerable: true,
+  get: function get() {
+    return _GooglePlace.default;
+  }
+});
+Object.defineProperty(exports, "Location", {
+  enumerable: true,
+  get: function get() {
+    return _Location.default;
+  }
+});
+Object.defineProperty(exports, "Notification", {
+  enumerable: true,
+  get: function get() {
+    return _Notification.default;
+  }
+});
+Object.defineProperty(exports, "Page", {
+  enumerable: true,
+  get: function get() {
+    return _Page.default;
+  }
+});
+Object.defineProperty(exports, "Post", {
+  enumerable: true,
+  get: function get() {
+    return _Post.default;
+  }
+});
+Object.defineProperty(exports, "Request", {
+  enumerable: true,
+  get: function get() {
+    return _Request.default;
+  }
+});
+Object.defineProperty(exports, "RESTModel", {
+  enumerable: true,
+  get: function get() {
+    return _RESTModel.default;
+  }
+});
+Object.defineProperty(exports, "TwitterAccount", {
+  enumerable: true,
+  get: function get() {
+    return _TwitterAccount.default;
+  }
+});
+Object.defineProperty(exports, "Upload", {
+  enumerable: true,
+  get: function get() {
+    return _Upload.default;
+  }
+});
+Object.defineProperty(exports, "User", {
+  enumerable: true,
+  get: function get() {
+    return _User.default;
+  }
+});
+Object.defineProperty(exports, "Venue", {
+  enumerable: true,
+  get: function get() {
+    return _Venue.default;
+  }
+});
 
-var _PropTypes = require("./PropTypes");
+var _PropTypes = _interopRequireDefault(require("./PropTypes"));
 
-var _PropTypes2 = _interopRequireDefault(_PropTypes);
+var _API = _interopRequireWildcard(require("./API"));
 
-var _API = require("./API");
+var _Band = _interopRequireDefault(require("./Band"));
 
-var _API2 = _interopRequireDefault(_API);
+var _Conversation = _interopRequireDefault(require("./Conversation"));
 
-var _Band = require("./Band");
+var _ErrorReport = _interopRequireDefault(require("./ErrorReport"));
 
-var _Band2 = _interopRequireDefault(_Band);
+var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
 
-var _Conversation = require("./Conversation");
+var _Gig = _interopRequireDefault(require("./Gig"));
 
-var _Conversation2 = _interopRequireDefault(_Conversation);
+var _GooglePlace = _interopRequireDefault(require("./GooglePlace"));
 
-var _ErrorReport = require("./ErrorReport");
+var _Location = _interopRequireDefault(require("./Location"));
 
-var _ErrorReport2 = _interopRequireDefault(_ErrorReport);
+var _Notification = _interopRequireDefault(require("./Notification"));
 
-var _FacebookAccount = require("./FacebookAccount");
+var _Page = _interopRequireDefault(require("./Page"));
 
-var _FacebookAccount2 = _interopRequireDefault(_FacebookAccount);
+var _Post = _interopRequireDefault(require("./Post"));
 
-var _Gig = require("./Gig");
+var _Request = _interopRequireDefault(require("./Request"));
 
-var _Gig2 = _interopRequireDefault(_Gig);
+var _RESTModel = _interopRequireDefault(require("./RESTModel"));
 
-var _GooglePlace = require("./GooglePlace");
+var _TwitterAccount = _interopRequireDefault(require("./TwitterAccount"));
 
-var _GooglePlace2 = _interopRequireDefault(_GooglePlace);
+var _Upload = _interopRequireDefault(require("./Upload"));
 
-var _Location = require("./Location");
+var _User = _interopRequireDefault(require("./User"));
 
-var _Location2 = _interopRequireDefault(_Location);
+var _Venue = _interopRequireDefault(require("./Venue"));
 
-var _Notification = require("./Notification");
-
-var _Notification2 = _interopRequireDefault(_Notification);
-
-var _Page = require("./Page");
-
-var _Page2 = _interopRequireDefault(_Page);
-
-var _Post = require("./Post");
-
-var _Post2 = _interopRequireDefault(_Post);
-
-var _Request = require("./Request");
-
-var _Request2 = _interopRequireDefault(_Request);
-
-var _RESTModel = require("./RESTModel");
-
-var _RESTModel2 = _interopRequireDefault(_RESTModel);
-
-var _TwitterAccount = require("./TwitterAccount");
-
-var _TwitterAccount2 = _interopRequireDefault(_TwitterAccount);
-
-var _Upload = require("./Upload");
-
-var _Upload2 = _interopRequireDefault(_Upload);
-
-var _User = require("./User");
-
-var _User2 = _interopRequireDefault(_User);
-
-var _Venue = require("./Venue");
-
-var _Venue2 = _interopRequireDefault(_Venue);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = _Object$defineProperty && _Object$getOwnPropertyDescriptor ? _Object$getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { _Object$defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Models
 /**
  * Created by corynull on 7/15/17.
  */
-
 // Extras
+// Models
 function ModelNameToModel(name) {
   switch (name) {
     case "Band":
-      return _Band2.default;
+      return _Band.default;
+
     case "Conversation":
-      return _Conversation2.default;
+      return _Conversation.default;
+
     case "ErrorReport":
-      return _ErrorReport2.default;
+      return _ErrorReport.default;
+
     case "FacebookAccount":
-      return _FacebookAccount2.default;
+      return _FacebookAccount.default;
+
     case "Gig":
-      return _Gig2.default;
+      return _Gig.default;
+
     case "GooglePlace":
-      return _GooglePlace2.default;
+      return _GooglePlace.default;
+
     case "Location":
-      return _Location2.default;
+      return _Location.default;
+
     case "Notification":
-      return _Notification2.default;
+      return _Notification.default;
+
     case "Page":
-      return _Page2.default;
+      return _Page.default;
+
     case "Post":
-      return _Post2.default;
+      return _Post.default;
+
     case "Request":
-      return _Request2.default;
+      return _Request.default;
+
     case "TwitterAccount":
-      return _TwitterAccount2.default;
+      return _TwitterAccount.default;
+
     case "Upload":
-      return _Upload2.default;
+      return _Upload.default;
+
     case "User":
-      return _User2.default;
+      return _User.default;
+
     case "Venue":
-      return _Venue2.default;
+      return _Venue.default;
+
     default:
       return null;
   }
 }
-
-exports.GigGizmoPropTypes = _PropTypes2.default;
-exports.Band = _Band2.default;
-exports.Conversation = _Conversation2.default;
-exports.ErrorReport = _ErrorReport2.default;
-exports.FacebookAccount = _FacebookAccount2.default;
-exports.Gig = _Gig2.default;
-exports.GooglePlace = _GooglePlace2.default;
-exports.Location = _Location2.default;
-exports.Notification = _Notification2.default;
-exports.Page = _Page2.default;
-exports.Post = _Post2.default;
-exports.Request = _Request2.default;
-exports.RESTModel = _RESTModel2.default;
-exports.TwitterAccount = _TwitterAccount2.default;
-exports.Upload = _Upload2.default;
-exports.User = _User2.default;
-exports.Venue = _Venue2.default;
-exports.API = _API2.default;
-exports.version = _API.version;
-
 
 if (typeof window !== "undefined") window.GigGizmoAPI = exports;
 if (typeof process !== "undefined") process.GigGizmoAPI = exports;

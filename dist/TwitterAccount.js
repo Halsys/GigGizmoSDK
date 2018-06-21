@@ -1,132 +1,144 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
+exports.default = void 0;
 
-var _typeof2 = require("babel-runtime/helpers/typeof");
+var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
-var _typeof3 = _interopRequireDefault(_typeof2);
+var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
 
-var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/get-prototype-of"));
 
-var _createClass2 = require("babel-runtime/helpers/createClass");
+var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
-var _inherits2 = require("babel-runtime/helpers/inherits");
+var _User = _interopRequireDefault(require("./User"));
 
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _RESTModel2 = require("./RESTModel");
-
-var _RESTModel3 = _interopRequireDefault(_RESTModel2);
-
-var _User = require("./User");
-
-var _User2 = _interopRequireDefault(_User);
-
-var _API = require("./API");
-
-var _API2 = _interopRequireDefault(_API);
+var _API = _interopRequireDefault(require("./API"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var TwitterAccount = function (_RESTModel) {
-	(0, _inherits3.default)(TwitterAccount, _RESTModel);
+function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-	function TwitterAccount() {
-		(0, _classCallCheck3.default)(this, TwitterAccount);
-		return (0, _possibleConstructorReturn3.default)(this, (TwitterAccount.__proto__ || Object.getPrototypeOf(TwitterAccount)).apply(this, arguments));
-	}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	(0, _createClass3.default)(TwitterAccount, [{
-		key: "getUser",
-		value: function getUser() {
-			return _User2.default.getUserById(this.userId);
-		}
-	}, {
-		key: "userIsOwner",
-		value: function userIsOwner(user) {
-			return user._id === this.userId;
-		}
-	}, {
-		key: "goToTwitterAccount",
-		value: function goToTwitterAccount() {
-			if (typeof window !== "undefined") {
-				// We are on a browser
-				window.location.href = "https://twitter.com?profile_id=" + this.accountId;
-			}
-		}
-	}, {
-		key: "valid",
-		value: function valid() {
-			if (!_RESTModel3.default.prototype.valid.call(this)) return false;
-			if (!this.userId || typeof this.userId !== "string") return false;
-			if (!this.profile || (0, _typeof3.default)(this.profile) !== "object") return false;
-			return true;
-		}
-	}, {
-		key: "userId",
-		get: function get() {
-			return this.getField("userId");
-		},
-		set: function set(value) {
-			this.setField("userId", value);
-		}
-	}, {
-		key: "accessToken",
-		get: function get() {
-			return this.getField("accessToken");
-		},
-		set: function set(value) {
-			this.setField("accessToken", value);
-		}
-	}, {
-		key: "tokenSecret",
-		get: function get() {
-			return this.getField("tokenSecret");
-		},
-		set: function set(value) {
-			this.setField("tokenSecret", value);
-		}
-	}, {
-		key: "profile",
-		get: function get() {
-			return this.getField("profile");
-		},
-		set: function set(value) {
-			this.setField("profile", value);
-		}
-	}, {
-		key: "accountId",
-		get: function get() {
-			return this.getField("accountId");
-		},
-		set: function set(value) {
-			this.setField("accountId", value);
-		}
-	}], [{
-		key: "findById",
-		value: function findById(id) {
-			return new Promise(function (resolve, reject) {
-				if (typeof id === "string" && id !== "") _API2.default.Call("GET", "/API/TwitterAccount/" + id).then(function (response) {
-					var account = response || null;
-					if (account) resolve(new TwitterAccount(account));else reject(new Error(account + " returned"));
-				}, reject);else resolve(null);
-			});
-		}
-	}]);
-	return TwitterAccount;
-}(_RESTModel3.default); /**
-                         * Created by corynull on 5/17/17.
-                         */
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
 
-TwitterAccount.ModelName = "TwitterAccount";
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var TwitterAccount =
+/*#__PURE__*/
+function (_RESTModel) {
+  _inherits(TwitterAccount, _RESTModel);
+
+  function TwitterAccount() {
+    _classCallCheck(this, TwitterAccount);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(TwitterAccount).apply(this, arguments));
+  }
+
+  _createClass(TwitterAccount, [{
+    key: "getUser",
+    value: function getUser() {
+      return _User.default.getUserById(this.userId);
+    }
+  }, {
+    key: "userIsOwner",
+    value: function userIsOwner(user) {
+      return user._id === this.userId;
+    }
+  }, {
+    key: "goToTwitterAccount",
+    value: function goToTwitterAccount() {
+      if (typeof window !== "undefined") {
+        // We are on a browser
+        window.location.href = "https://twitter.com?profile_id=".concat(this.accountId);
+      }
+    }
+  }, {
+    key: "valid",
+    value: function valid() {
+      if (!_RESTModel2.default.prototype.valid.call(this)) return false;
+      if (!this.userId || typeof this.userId !== "string") return false;
+      if (!this.profile || _typeof(this.profile) !== "object") return false;
+      return true;
+    }
+  }, {
+    key: "userId",
+    get: function get() {
+      return this.getField("userId");
+    },
+    set: function set(value) {
+      this.setField("userId", value);
+    }
+  }, {
+    key: "accessToken",
+    get: function get() {
+      return this.getField("accessToken");
+    },
+    set: function set(value) {
+      this.setField("accessToken", value);
+    }
+  }, {
+    key: "tokenSecret",
+    get: function get() {
+      return this.getField("tokenSecret");
+    },
+    set: function set(value) {
+      this.setField("tokenSecret", value);
+    }
+  }, {
+    key: "profile",
+    get: function get() {
+      return this.getField("profile");
+    },
+    set: function set(value) {
+      this.setField("profile", value);
+    }
+  }, {
+    key: "accountId",
+    get: function get() {
+      return this.getField("accountId");
+    },
+    set: function set(value) {
+      this.setField("accountId", value);
+    }
+  }], [{
+    key: "findById",
+    value: function findById(id) {
+      return new _promise.default(function (resolve, reject) {
+        if (typeof id === "string" && id !== "") _API.default.Call("GET", "/API/TwitterAccount/".concat(id)).then(function (response) {
+          var account = response || null;
+          if (account) resolve(new TwitterAccount(account));else reject(new Error("".concat(account, " returned")));
+        }, reject);else resolve(null);
+      });
+    }
+  }]);
+
+  return TwitterAccount;
+}(_RESTModel2.default);
+
 exports.default = TwitterAccount;
+
+_defineProperty(TwitterAccount, "ModelName", "TwitterAccount");

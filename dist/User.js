@@ -3,128 +3,124 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _regenerator = require("babel-runtime/regenerator");
+var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
-var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
 
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+var _getOwnPropertySymbols = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-symbols"));
 
-var _typeof2 = require("babel-runtime/helpers/typeof");
+var _keys = _interopRequireDefault(require("@babel/runtime/core-js/object/keys"));
 
-var _typeof3 = _interopRequireDefault(_typeof2);
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
-var _extends2 = require("babel-runtime/helpers/extends");
+var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _get2 = _interopRequireDefault(require("@babel/runtime/core-js/reflect/get"));
 
-var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/get-prototype-of"));
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
 
-var _createClass2 = require("babel-runtime/helpers/createClass");
+var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+var _search = _interopRequireDefault(require("@babel/runtime/core-js/symbol/search"));
 
-var _possibleConstructorReturn2 = require("babel-runtime/helpers/possibleConstructorReturn");
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+var _stringify = _interopRequireDefault(require("@babel/runtime/core-js/json/stringify"));
 
-var _get2 = require("babel-runtime/helpers/get");
+var _isFinite = _interopRequireDefault(require("@babel/runtime/core-js/number/is-finite"));
 
-var _get3 = _interopRequireDefault(_get2);
+var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
 
-var _inherits2 = require("babel-runtime/helpers/inherits");
+var _moment = _interopRequireDefault(require("moment"));
 
-var _inherits3 = _interopRequireDefault(_inherits2);
+var _Band = _interopRequireDefault(require("./Band"));
 
-var _moment = require("moment");
+var _Venue = _interopRequireDefault(require("./Venue"));
 
-var _moment2 = _interopRequireDefault(_moment);
+var _Gig = _interopRequireDefault(require("./Gig"));
 
-var _Band = require("./Band");
+var _Post = _interopRequireDefault(require("./Post"));
 
-var _Band2 = _interopRequireDefault(_Band);
+var _Page = _interopRequireDefault(require("./Page"));
 
-var _Venue = require("./Venue");
+var _Location = _interopRequireDefault(require("./Location"));
 
-var _Venue2 = _interopRequireDefault(_Venue);
+var _API = _interopRequireDefault(require("./API"));
 
-var _Gig = require("./Gig");
+var _Upload = _interopRequireDefault(require("./Upload"));
 
-var _Gig2 = _interopRequireDefault(_Gig);
+var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
-var _Post = require("./Post");
+var _Notification = _interopRequireDefault(require("./Notification"));
 
-var _Post2 = _interopRequireDefault(_Post);
+var _TwitterAccount = _interopRequireDefault(require("./TwitterAccount"));
 
-var _Page = require("./Page");
+var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
 
-var _Page2 = _interopRequireDefault(_Page);
-
-var _Location = require("./Location");
-
-var _Location2 = _interopRequireDefault(_Location);
-
-var _API = require("./API");
-
-var _API2 = _interopRequireDefault(_API);
-
-var _Upload = require("./Upload");
-
-var _Upload2 = _interopRequireDefault(_Upload);
-
-var _RESTModel2 = require("./RESTModel");
-
-var _RESTModel3 = _interopRequireDefault(_RESTModel2);
-
-var _Notification = require("./Notification");
-
-var _Notification2 = _interopRequireDefault(_Notification);
-
-var _TwitterAccount = require("./TwitterAccount");
-
-var _TwitterAccount2 = _interopRequireDefault(_TwitterAccount);
-
-var _FacebookAccount = require("./FacebookAccount");
-
-var _FacebookAccount2 = _interopRequireDefault(_FacebookAccount);
-
-var _Conversation = require("./Conversation");
-
-var _Conversation2 = _interopRequireDefault(_Conversation);
+var _Conversation = _interopRequireDefault(require("./Conversation"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- * Created by corynull on 4/1/17.
- */
-var User = function (_RESTModel) {
-  (0, _inherits3.default)(User, _RESTModel);
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+
+function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = (0, _keys.default)(source); if (typeof _getOwnPropertySymbols.default === 'function') { ownKeys = ownKeys.concat((0, _getOwnPropertySymbols.default)(source).filter(function (sym) { return (0, _getOwnPropertyDescriptor.default)(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && _get2.default) { _get = _get2.default; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = (0, _getOwnPropertyDescriptor.default)(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var User =
+/*#__PURE__*/
+function (_RESTModel) {
+  _inherits(User, _RESTModel);
 
   function User() {
-    (0, _classCallCheck3.default)(this, User);
-    return (0, _possibleConstructorReturn3.default)(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
+    _classCallCheck(this, User);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(User).apply(this, arguments));
   }
 
-  (0, _createClass3.default)(User, [{
+  _createClass(User, [{
     key: "getIcon",
     value: function getIcon() {
       var icon = this.icon;
-
-      return _Upload2.default.findById(icon);
+      return _Upload.default.findById(icon);
     }
   }, {
     key: "getTwitterAccount",
     value: function getTwitterAccount(token) {
-      return _TwitterAccount2.default.findById(this.twitter, token);
+      return _TwitterAccount.default.findById(this.twitter, token);
     }
   }, {
     key: "getFacebookAccount",
     value: function getFacebookAccount(token) {
-      return _FacebookAccount2.default.findById(this.facebook, token);
+      return _FacebookAccount.default.findById(this.facebook, token);
     }
   }, {
     key: "validatePassword",
@@ -135,6 +131,7 @@ var User = function (_RESTModel) {
       var lowercasePassword = password.toLowerCase();
       var lowercaseFirstName = this.firstName.toLowerCase();
       var lowercaseLastName = this.lastName.toLowerCase();
+
       if (password === "") {
         return new Error("Password missing");
       } else if (password.length < 8) {
@@ -150,32 +147,33 @@ var User = function (_RESTModel) {
       } else if (lowercasePassword.indexOf(lowercaseLastName) !== -1) {
         return new Error("Password cannot contain your last name");
       }
+
       return null;
     }
   }, {
     key: "valid",
     value: function valid() {
-      if (!(0, _get3.default)(User.prototype.__proto__ || Object.getPrototypeOf(User.prototype), "valid", this).call(this)) return false;
-      // Type checks
+      if (!_get(_getPrototypeOf(User.prototype), "valid", this).call(this)) return false; // Type checks
+
       if (typeof this.firstName !== "string") return false;
       if (typeof this.lastName !== "string") return false;
-      if (typeof this.email !== "string") return false;
-      // Value checks
+      if (typeof this.email !== "string") return false; // Value checks
+
       if (this.firstName === "") return false;
       if (this.lastName === "") return false;
-      if (this.email === "") return false;
-      // TODO: More validation checks?
+      if (this.email === "") return false; // TODO: More validation checks?
+
       return true;
     }
   }, {
     key: "save",
     value: function save(token) {
-      return _RESTModel3.default.prototype.save.call(this, token, true);
+      return _RESTModel2.default.prototype.save.call(this, token, true);
     }
   }, {
     key: "remove",
     value: function remove(token) {
-      return _RESTModel3.default.prototype.remove.call(this, token, true);
+      return _RESTModel2.default.prototype.remove.call(this, token, true);
     }
   }, {
     key: "password",
@@ -245,10 +243,10 @@ var User = function (_RESTModel) {
     key: "birthday",
     get: function get() {
       var birthday = this.getField("birthday");
-      return birthday ? (0, _moment2.default)(birthday) : null;
+      return birthday ? (0, _moment.default)(birthday) : null;
     },
     set: function set(value) {
-      this.setField("birthday", (0, _moment2.default)(value).toISOString());
+      this.setField("birthday", (0, _moment.default)(value).toISOString());
     }
   }, {
     key: "country",
@@ -325,7 +323,7 @@ var User = function (_RESTModel) {
   }, {
     key: "fullName",
     get: function get() {
-      return (this.firstName || "") + " " + (this.middleName || "") + " " + (this.lastName || "");
+      return "".concat(this.firstName || "", " ").concat(this.middleName || "", " ").concat(this.lastName || "");
     }
   }, {
     key: "email",
@@ -393,10 +391,10 @@ var User = function (_RESTModel) {
   }, {
     key: "lastLoginDate",
     get: function get() {
-      return (0, _moment2.default)(this.getField("lastLoginDate"));
+      return (0, _moment.default)(this.getField("lastLoginDate"));
     },
     set: function set(value) {
-      this.setField("lastLoginDate", (0, _moment2.default)(value).toISOString());
+      this.setField("lastLoginDate", (0, _moment.default)(value).toISOString());
     }
   }, {
     key: "canContact",
@@ -425,7 +423,7 @@ var User = function (_RESTModel) {
   }], [{
     key: "verifyEmail",
     value: function verifyEmail(id, secret) {
-      return _API2.default.Call("GET", "/API/User/Verify", {
+      return _API.default.Call("GET", "/API/User/Verify", {
         token: null,
         id: id,
         secret: secret
@@ -434,51 +432,55 @@ var User = function (_RESTModel) {
   }, {
     key: "sendEmailVerification",
     value: function sendEmailVerification(token) {
-      return _API2.default.Call("POST", "/API/User/Verify", { token: token });
+      return _API.default.Call("POST", "/API/User/Verify", {
+        token: token
+      });
     }
   }, {
     key: "getAllConversations",
     value: function getAllConversations(token) {
-      return _Conversation2.default.getAllOwned(token);
+      return _Conversation.default.getAllOwned(token);
     }
   }, {
     key: "getAllNotifications",
     value: function getAllNotifications(token) {
-      return _Notification2.default.getAllOwned(token);
+      return _Notification.default.getAllOwned(token);
     }
   }, {
     key: "getAllPosts",
     value: function getAllPosts(token) {
-      return _Post2.default.getAllOwned(token);
+      return _Post.default.getAllOwned(token);
     }
   }, {
     key: "getAllBands",
     value: function getAllBands(token) {
-      return _Band2.default.getAllOwned(token);
+      return _Band.default.getAllOwned(token);
     }
   }, {
     key: "getAllVenues",
     value: function getAllVenues(token) {
-      return _Venue2.default.getAllOwned(token);
+      return _Venue.default.getAllOwned(token);
     }
   }, {
     key: "getAllGigs",
     value: function getAllGigs(token) {
-      return _Gig2.default.getAllOwned(token);
+      return _Gig.default.getAllOwned(token);
     }
   }, {
     key: "getAllUploads",
     value: function getAllUploads(token) {
-      return _Upload2.default.getAllOwned(token);
+      return _Upload.default.getAllOwned(token);
     }
   }, {
     key: "findFacebookPages",
     value: function findFacebookPages(term) {
-      return new Promise(function (resolve, reject) {
+      return new _promise.default(function (resolve, reject) {
         if (term === "") {
           resolve();
         } else {
-          _API2.default.Call("GET", "/API/FacebookAccount/FindPages", { term: term }).then(resolve, reject);
+          _API.default.Call("GET", "/API/FacebookAccount/FindPages", {
+            term: term
+          }).then(resolve, reject);
         }
       });
     }
@@ -488,18 +490,18 @@ var User = function (_RESTModel) {
       var modelName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var skip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
       var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Number.POSITIVE_INFINITY;
-      var token = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _API2.default.findToken();
-
-      return new Promise(function (resolve, reject) {
+      var token = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _API.default.findToken();
+      return new _promise.default(function (resolve, reject) {
         if (q === "") {
           resolve();
         } else {
-          var data = { q: q };
+          var data = {
+            q: q
+          };
           if (modelName != null) data.model = modelName;
-
           if (skip !== 0) data.skip = skip;
+          if ((0, _isFinite.default)(limit)) data.limit = limit;
 
-          if (Number.isFinite(limit)) data.limit = limit;
           var Return = function Return(results) {
             var _ref = results || {},
                 query = _ref.query,
@@ -507,12 +509,12 @@ var User = function (_RESTModel) {
 
             if (!query) reject(query);
             var classMap = {
-              Band: _Band2.default,
-              Venue: _Venue2.default,
+              Band: _Band.default,
+              Venue: _Venue.default,
               User: User,
-              Page: _Page2.default,
-              Location: _Location2.default,
-              Upload: _Upload2.default
+              Page: _Page.default,
+              Location: _Location.default,
+              Upload: _Upload.default
             };
             var bands = [];
             var venues = [];
@@ -524,6 +526,7 @@ var User = function (_RESTModel) {
               if (item && item.ModelName) {
                 var mName = item.ModelName;
                 var ClassType = classMap[mName] || null;
+
                 if (ClassType) {
                   var instance = new ClassType(item);
                   if (mName === "Band") bands.push(instance);else if (mName === "Venue") venues.push(instance);else if (mName === "User") users.push(instance);else if (mName === "Page") pages.push(instance);else if (mName === "Location") locations.push(instance);else if (mName === "Upload") uploads.push(instance);
@@ -541,12 +544,15 @@ var User = function (_RESTModel) {
             };
             resolve(sorted);
           };
-          if (_API2.default.UseSocketIO && _API2.default.ShouldUseSocketIO) {
-            _API2.default.GetSocket(token).then(function (socket) {
+
+          if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
+            _API.default.GetSocket(token).then(function (socket) {
               socket.emit("/API/TextSearch", data, Return);
             }, reject);
           } else {
-            _API2.default.Call("GET", "/API/TextSearch", (0, _extends3.default)({}, data, { token: token })).then(Return, reject);
+            _API.default.Call("GET", "/API/TextSearch", _objectSpread({}, data, {
+              token: token
+            })).then(Return, reject);
           }
         }
       });
@@ -554,12 +560,12 @@ var User = function (_RESTModel) {
   }, {
     key: "findMany",
     value: function findMany(criteria, token) {
-      return _RESTModel3.default.findMany(User, criteria, token, true);
+      return _RESTModel2.default.findMany(User, criteria, token, true);
     }
   }, {
     key: "findOne",
     value: function findOne(criteria, token) {
-      return _RESTModel3.default.findOne(User, criteria, token, true);
+      return _RESTModel2.default.findOne(User, criteria, token, true);
     }
   }, {
     key: "onChange",
@@ -573,12 +579,13 @@ var User = function (_RESTModel) {
   }, {
     key: "setUser",
     value: function setUser(data) {
-      return new Promise(function (resolve, reject) {
+      return new _promise.default(function (resolve, reject) {
         try {
-          if ((typeof data === "undefined" ? "undefined" : (0, _typeof3.default)(data)) === "object" && data) {
+          if (_typeof(data) === "object" && data) {
             User.Current = new User(data);
-            if (_API2.default.SessionStorageSupported) {
-              sessionStorage.setItem("user", JSON.stringify(data));
+
+            if (_API.default.SessionStorageSupported) {
+              sessionStorage.setItem("user", (0, _stringify.default)(data));
             }
 
             User.Callbacks.forEach(function (callback) {
@@ -587,9 +594,9 @@ var User = function (_RESTModel) {
             resolve(User.Current);
           } else {
             User.Current = null;
-            _API2.default.token = null;
-            if (_API2.default.SessionStorageSupported) sessionStorage.removeItem("user");
-            if (_API2.default.LocalStorageSupported) localStorage.removeItem("token");
+            _API.default.token = null;
+            if (_API.default.SessionStorageSupported) sessionStorage.removeItem("user");
+            if (_API.default.LocalStorageSupported) localStorage.removeItem("token");
             if (typeof document !== "undefined") document.cookie = "";
             User.Callbacks.forEach(function (callback) {
               return callback(null);
@@ -604,13 +611,15 @@ var User = function (_RESTModel) {
   }, {
     key: "getUser",
     value: function () {
-      var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(force, tokenMaybe) {
+      var _getUser = _asyncToGenerator(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee(force, tokenMaybe) {
         var token, data;
-        return _regenerator2.default.wrap(function _callee$(_context) {
+        return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                token = tokenMaybe || _API2.default.findToken();
+                token = tokenMaybe || _API.default.findToken();
                 data = null;
 
                 if (!(!force && User.Current)) {
@@ -621,7 +630,7 @@ var User = function (_RESTModel) {
                 return _context.abrupt("return", User.Current);
 
               case 6:
-                if (!_API2.default.SessionStorageSupported) {
+                if (!_API.default.SessionStorageSupported) {
                   _context.next = 10;
                   break;
                 }
@@ -637,14 +646,14 @@ var User = function (_RESTModel) {
                 return _context.abrupt("return", User.setUser(data));
 
               case 10:
-                if (!(_API2.default.UseSocketIO && _API2.default.ShouldUseSocketIO)) {
+                if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO)) {
                   _context.next = 16;
                   break;
                 }
 
                 _context.next = 13;
-                return new Promise(function (resolve, reject) {
-                  if (token) _API2.default.GetSocket(token).then(function (socket) {
+                return new _promise.default(function (resolve, reject) {
+                  if (token) _API.default.GetSocket(token).then(function (socket) {
                     socket.emit("/API/User/Retreive", null, resolve);
                   }, reject);else resolve(null);
                 });
@@ -656,7 +665,9 @@ var User = function (_RESTModel) {
 
               case 16:
                 _context.next = 18;
-                return _API2.default.Call("GET", "/API/User", { token: token });
+                return _API.default.Call("GET", "/API/User", {
+                  token: token
+                });
 
               case 18:
                 data = _context.sent;
@@ -680,53 +691,53 @@ var User = function (_RESTModel) {
         }, _callee, this);
       }));
 
-      function getUser(_x5, _x6) {
-        return _ref2.apply(this, arguments);
-      }
-
-      return getUser;
+      return function getUser(_x, _x2) {
+        return _getUser.apply(this, arguments);
+      };
     }()
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel3.default.findById(User, id, token, true);
+      return _RESTModel2.default.findById(User, id, token, true);
     }
   }, {
     key: "connectFacebook",
     value: function connectFacebook() {
-      window.location.href = _API2.default.root + "/API/Auth/Facebook";
+      window.location.href = "".concat(_API.default.root, "/API/Auth/Facebook");
     }
   }, {
     key: "facebookLogIn",
     value: function facebookLogIn() {
-      window.location.href = _API2.default.root + "/API/Login/Facebook";
+      window.location.href = "".concat(_API.default.root, "/API/Login/Facebook");
     }
   }, {
     key: "payPalLogIn",
     value: function payPalLogIn() {
-      window.location.href = _API2.default.root + "/API/Auth/PayPal";
+      window.location.href = "".concat(_API.default.root, "/API/Auth/PayPal");
     }
   }, {
     key: "userLogIn",
     value: function userLogIn(email, password) {
-      return new Promise(function (resolve, reject) {
+      return new _promise.default(function (resolve, reject) {
         function onError(error) {
           User.setUser(null).then(function () {
             reject(error);
           });
         }
+
         if (!email) onError(new Error("No email"));else if (!password) onError(new Error("No password"));else {
-          _API2.default.Call("POST", "/API/User/SignIn", {
+          _API.default.Call("POST", "/API/User/SignIn", {
             email: email,
             password: password
           }).then(function (response) {
             if (response && response.user && response.token) {
-              if (_API2.default.LocalStorageSupported) {
+              if (_API.default.LocalStorageSupported) {
                 localStorage.setItem("token", response.token);
               }
-              _API2.default.token = response.token;
+
+              _API.default.token = response.token;
               User.setUser(response.user).then(resolve, onError);
-            } else onError(new Error(JSON.stringify(response) + " returned"));
+            } else onError(new Error("".concat((0, _stringify.default)(response), " returned")));
           }, onError);
         }
       });
@@ -734,11 +745,14 @@ var User = function (_RESTModel) {
   }, {
     key: "userLogOut",
     value: function userLogOut(tokenMaybe) {
-      var token = tokenMaybe || _API2.default.findToken();
-      return new Promise(function (resolve, reject) {
-        _API2.default.Call("POST", "/API/User/SignOut", { token: token }).then(function () {
+      var token = tokenMaybe || _API.default.findToken();
+
+      return new _promise.default(function (resolve, reject) {
+        _API.default.Call("POST", "/API/User/SignOut", {
+          token: token
+        }).then(function () {
           User.setUser(null).then(function (user) {
-            if (user && user.valid()) reject(new Error(JSON.stringify(user) + " returned, failed to log out?"));else resolve(user);
+            if (user && user.valid()) reject(new Error("".concat((0, _stringify.default)(user), " returned, failed to log out?")));else resolve(user);
           });
         }, reject);
       });
@@ -746,17 +760,20 @@ var User = function (_RESTModel) {
   }, {
     key: "sendPasswordResetEmail",
     value: function sendPasswordResetEmail(email) {
-      return _API2.default.Call("POST", "/User/Reset", { email: email });
+      return _API.default.Call("POST", "/User/Reset", {
+        email: email
+      });
     }
   }, {
     key: "registerUser",
     value: function registerUser(userData) {
-      return new Promise(function (resolve, reject) {
-        if (userData && (typeof userData === "undefined" ? "undefined" : (0, _typeof3.default)(userData)) === "object") {
+      return new _promise.default(function (resolve, reject) {
+        if (userData && _typeof(userData) === "object") {
           if (userData.email) {
             var re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-            if (re[Symbol.search](userData.email) !== 0) return reject(new Error("Invalid email address"));
+            if (re[_search.default](userData.email) !== 0) return reject(new Error("Invalid email address"));
           } else return reject(new Error("Email is required"));
+
           if (userData.password) {
             var symbolTest = /(?:[\0-\/:-@\[-`\{-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g;
             var numberTest = /[0-9]/g;
@@ -777,26 +794,32 @@ var User = function (_RESTModel) {
           } else return reject(new Error("Last name is required"));
         } else return reject(new Error("User data is not an object"));
 
-        if (_API2.default.UseSocketIO && _API2.default.ShouldUseSocketIO) {
-          return new Promise(function (resolve, reject) {
-            if (token) _API2.default.GetSocket().then(function (socket) {
+        if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
+          return new _promise.default(function (resolve, reject) {
+            if (token) _API.default.GetSocket().then(function (socket) {
               socket.emit("/API/User/Create", userData, resolve);
             }, reject);else resolve(null);
           });
         }
-        return _API2.default.Call("POST", "/API/User", userData).then(function (data) {
+
+        return _API.default.Call("POST", "/API/User", userData).then(function (data) {
           if (data) User.setUser(data).then(function (user) {
             resolve(user);
-          }, reject);else reject(new Error(JSON.stringify(data) + " returned"));
+          }, reject);else reject(new Error("".concat((0, _stringify.default)(data), " returned")));
         }, reject);
       });
     }
   }]);
-  return User;
-}(_RESTModel3.default);
 
-User.ModelName = "User";
-User.Current = null;
-User.Callbacks = new Map();
-User.agreement = null;
+  return User;
+}(_RESTModel2.default);
+
 exports.default = User;
+
+_defineProperty(User, "ModelName", "User");
+
+_defineProperty(User, "Current", null);
+
+_defineProperty(User, "Callbacks", new _map.default());
+
+_defineProperty(User, "agreement", null);
