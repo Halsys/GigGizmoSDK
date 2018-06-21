@@ -13,6 +13,8 @@ var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/ob
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
+require("regenerator-runtime/runtime");
+
 var _stringify = _interopRequireDefault(require("@babel/runtime/core-js/json/stringify"));
 
 var _assign = _interopRequireDefault(require("@babel/runtime/core-js/object/assign"));
@@ -30,6 +32,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -72,9 +76,15 @@ function () {
   }, {
     key: "Call",
     value: function Call(method, callRoute, callData) {
+      var _this = this;
+
       var route = callRoute || "";
       var data = callData || {};
       return new _promise.default(function (resolve, reject) {
+        var _this2 = this;
+
+        _newArrowCheck(this, _this);
+
         var token = data && data.token ? data.token : false;
         if (typeof token !== "undefined" && data) delete data.token;
         token = token || API.findToken();
@@ -94,8 +104,12 @@ function () {
         }
 
         (0, _axios.default)(fetchRequest).then(function (response) {
+          _newArrowCheck(this, _this2);
+
           if (response.data) resolve(response.data);else if (response.statusText) resolve(response.statusText);else if (response.status) resolve(null);
-        }, function (error) {
+        }.bind(this), function (error) {
+          _newArrowCheck(this, _this2);
+
           if (error.response) {
             var msg = error.response.data;
             if (typeof msg === "string") reject(new Error(msg));else if (_typeof(msg) === "object" && msg) {
@@ -120,8 +134,8 @@ function () {
               statusText: x.statusText
             })));
           } else reject(error);
-        });
-      });
+        }.bind(this));
+      }.bind(this));
     }
   }, {
     key: "GetSocket",
@@ -129,6 +143,8 @@ function () {
       var _GetSocket = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee() {
+        var _this3 = this;
+
         var token,
             _args = arguments;
         return _regenerator.default.wrap(function _callee$(_context) {
@@ -137,29 +153,43 @@ function () {
               case 0:
                 token = _args.length > 0 && _args[0] !== undefined ? _args[0] : API.findToken();
                 return _context.abrupt("return", new _promise.default(function (resolve, reject) {
+                  var _this4 = this;
+
+                  _newArrowCheck(this, _this3);
+
                   if (token) {
                     if (API.webSocket) return resolve(API.webSocket);
                     API.webSocket = (0, _socket.default)(API.root);
                     API.webSocket.on("connect", function () {
+                      _newArrowCheck(this, _this4);
+
                       return resolve(API.webSocket);
-                    });
+                    }.bind(this));
                     API.webSocket.on("connect_timeout", function () {
+                      _newArrowCheck(this, _this4);
+
                       return reject(new Error("Timeout"));
-                    });
+                    }.bind(this));
                     API.webSocket.on("connect_error", function (error) {
+                      _newArrowCheck(this, _this4);
+
                       return reject(error);
-                    });
+                    }.bind(this));
                     API.webSocket.on("disconnect", function () {
+                      _newArrowCheck(this, _this4);
+
                       return reject(new Error("Disconnected"));
-                    });
+                    }.bind(this));
                     API.webSocket.on("error", function (error) {
+                      _newArrowCheck(this, _this4);
+
                       return reject(error);
-                    });
+                    }.bind(this));
                     return null;
                   }
 
                   return resolve(null);
-                }));
+                }.bind(this)));
 
               case 2:
               case "end":

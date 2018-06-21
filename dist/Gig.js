@@ -27,6 +27,8 @@ var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"))
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
+require("regenerator-runtime/runtime");
+
 var _moment = _interopRequireDefault(require("moment"));
 
 var _Band = _interopRequireDefault(require("./Band"));
@@ -42,6 +44,8 @@ var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -106,12 +110,16 @@ function (_RESTModel) {
   }, {
     key: "userIsOwner",
     value: function userIsOwner(user) {
+      var _this = this;
+
       if (Array.isArray(this.owners)) {
         var userId = null;
         if (typeof user === "string") userId = user;else if (_typeof(user) === "object" && user) userId = user._id;
         return this.owners.find(function (id) {
+          _newArrowCheck(this, _this);
+
           return id === userId;
-        }) !== undefined;
+        }.bind(this)) !== undefined;
       }
 
       return false;
@@ -206,6 +214,8 @@ function (_RESTModel) {
       var _findByBand = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee(bandId, token) {
+        var _this2 = this;
+
         var data;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
@@ -225,12 +235,14 @@ function (_RESTModel) {
                 }
 
                 return _context.abrupt("return", data.map(function (itemData) {
+                  _newArrowCheck(this, _this2);
+
                   var item = new Gig(itemData);
 
                   _RESTModel2.default.Cache.set(item._id, item);
 
                   return item;
-                }));
+                }.bind(this)));
 
               case 5:
                 throw new Error("Expected Array, got ".concat(data));
@@ -253,6 +265,8 @@ function (_RESTModel) {
       var _findByVenue = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(venueId, token) {
+        var _this3 = this;
+
         var data;
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
@@ -272,12 +286,14 @@ function (_RESTModel) {
                 }
 
                 return _context2.abrupt("return", data.map(function (itemData) {
+                  _newArrowCheck(this, _this3);
+
                   var item = new Gig(itemData);
 
                   _RESTModel2.default.Cache.set(item._id, item);
 
                   return item;
-                }));
+                }.bind(this)));
 
               case 5:
                 throw new Error("Expected Array, got ".concat(data));
@@ -307,7 +323,13 @@ function (_RESTModel) {
   }, {
     key: "createGigs",
     value: function createGigs(gigData, token) {
+      var _this4 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this5 = this;
+
+        _newArrowCheck(this, _this4);
+
         var data = gigData || {};
 
         if (data && _typeof(data) === "object") {
@@ -315,6 +337,8 @@ function (_RESTModel) {
           if (!data.venue || data.venue === "") return reject(new Error("Venue is required"));
           if (!data.times || data.times.length === 0) return reject(new Error("Times is required"));
           var filtered = data.times.filter(function (time, i) {
+            _newArrowCheck(this, _this5);
+
             if (time.dayDate && time.startTime && time.stopTime) {
               var dayDate = (0, _moment.default)(time.dayDate);
               var startTime = (0, _moment.default)(time.startTime);
@@ -339,7 +363,7 @@ function (_RESTModel) {
             }
 
             return false;
-          });
+          }.bind(this));
           if (filtered.length !== data.times.length) return reject(new Error("Not all times were valid"));
           data.times = filtered;
           data.token = token;
@@ -347,22 +371,34 @@ function (_RESTModel) {
           var request = _API.default.Call("POST", "/API/Gig", data);
 
           return request.then(function (response) {
+            var _this6 = this;
+
+            _newArrowCheck(this, _this5);
+
             var gigs = (0, _from.default)(response || []);
             gigs = gigs.map(function (itemData) {
+              _newArrowCheck(this, _this6);
+
               var gig = new Gig(itemData);
               return gig;
-            });
+            }.bind(this));
             resolve(gigs);
-          }, reject);
+          }.bind(this), reject);
         }
 
         return null;
-      });
+      }.bind(this));
     }
   }, {
     key: "getAllInDistance",
     value: function getAllInDistance(location, distance) {
+      var _this7 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this8 = this;
+
+        _newArrowCheck(this, _this7);
+
         if (_typeof(location) !== "object") return reject(new Error("location is not a object!"));
         if (typeof location.lat !== "number" || typeof location.lng !== "number") return reject(new Error("location does not contain lat or lng!"));
         if (typeof distance !== "number") return reject(new Error("radius is not a number!"));
@@ -371,12 +407,18 @@ function (_RESTModel) {
           lng: location.lng,
           dis: distance
         }).then(function (gigs) {
+          var _this9 = this;
+
+          _newArrowCheck(this, _this8);
+
           resolve((0, _from.default)(gigs || []).map(function (item) {
+            _newArrowCheck(this, _this9);
+
             var gig = new Gig(item);
             return gig;
-          }));
-        }, reject);
-      });
+          }.bind(this)));
+        }.bind(this), reject);
+      }.bind(this));
     }
   }]);
 

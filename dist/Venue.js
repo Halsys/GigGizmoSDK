@@ -41,6 +41,8 @@ var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -139,12 +141,16 @@ function (_RESTModel) {
   }, {
     key: "userIsOwner",
     value: function userIsOwner(user) {
+      var _this = this;
+
       if (Array.isArray(this.owners)) {
         var userId = null;
         if (typeof user === "string") userId = user;else if (_typeof(user) === "object" && user) userId = user._id;
         return this.owners.find(function (id) {
+          _newArrowCheck(this, _this);
+
           return id === userId;
-        }) !== undefined;
+        }.bind(this)) !== undefined;
       }
 
       return false;

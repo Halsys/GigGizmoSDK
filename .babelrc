@@ -5,12 +5,15 @@
       "@babel/preset-env",
       {
         targets: {
+          chrome: 52,
+          firefox: 60,
           node: "current"
         },
         forceAllTransforms: true,
         modules: "commonjs",
-        useBuiltIns: false,
-        debug: false
+        useBuiltIns: "usage",
+        debug: false,
+        spec: true
       }
     ],
     ["@babel/preset-stage-2", { decoratorsLegacy: true }],

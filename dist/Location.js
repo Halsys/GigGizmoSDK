@@ -33,6 +33,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
@@ -124,21 +126,29 @@ function (_RESTModel) {
   }], [{
     key: "getLocationByPlaceId",
     value: function getLocationByPlaceId(placeId, token) {
+      var _this = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this2 = this;
+
+        _newArrowCheck(this, _this);
+
         if (!placeId) {
           reject(new Error("Invaild placeId: ".concat(placeId)));
         } else {
           _API.default.Call("GET", "/API/Place/".concat(placeId), {
             token: token
           }).then(function (location) {
+            _newArrowCheck(this, _this2);
+
             if (location) {
               resolve(new Location(location));
             } else {
               reject(new Error("".concat(location, " returned")));
             }
-          }, reject);
+          }.bind(this), reject);
         }
-      });
+      }.bind(this));
     }
   }, {
     key: "findById",

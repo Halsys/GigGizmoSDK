@@ -31,7 +31,11 @@ var _search = _interopRequireDefault(require("@babel/runtime/core-js/symbol/sear
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
+require("regenerator-runtime/runtime");
+
 var _stringify = _interopRequireDefault(require("@babel/runtime/core-js/json/stringify"));
+
+require("core-js/modules/web.dom.iterable");
 
 var _isFinite = _interopRequireDefault(require("@babel/runtime/core-js/number/is-finite"));
 
@@ -72,6 +76,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = (0, _keys.default)(source); if (typeof _getOwnPropertySymbols.default === 'function') { ownKeys = ownKeys.concat((0, _getOwnPropertySymbols.default)(source).filter(function (sym) { return (0, _getOwnPropertyDescriptor.default)(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -474,7 +480,11 @@ function (_RESTModel) {
   }, {
     key: "findFacebookPages",
     value: function findFacebookPages(term) {
+      var _this = this;
+
       return new _promise.default(function (resolve, reject) {
+        _newArrowCheck(this, _this);
+
         if (term === "") {
           resolve();
         } else {
@@ -482,16 +492,22 @@ function (_RESTModel) {
             term: term
           }).then(resolve, reject);
         }
-      });
+      }.bind(this));
     }
   }, {
     key: "search",
     value: function search(q) {
+      var _this2 = this;
+
       var modelName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var skip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
       var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Number.POSITIVE_INFINITY;
       var token = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _API.default.findToken();
       return new _promise.default(function (resolve, reject) {
+        var _this3 = this;
+
+        _newArrowCheck(this, _this2);
+
         if (q === "") {
           resolve();
         } else {
@@ -503,6 +519,10 @@ function (_RESTModel) {
           if ((0, _isFinite.default)(limit)) data.limit = limit;
 
           var Return = function Return(results) {
+            var _this4 = this;
+
+            _newArrowCheck(this, _this3);
+
             var _ref = results || {},
                 query = _ref.query,
                 totalFound = _ref.totalFound;
@@ -523,6 +543,8 @@ function (_RESTModel) {
             var locations = [];
             var uploads = [];
             query.forEach(function (item) {
+              _newArrowCheck(this, _this4);
+
               if (item && item.ModelName) {
                 var mName = item.ModelName;
                 var ClassType = classMap[mName] || null;
@@ -532,7 +554,7 @@ function (_RESTModel) {
                   if (mName === "Band") bands.push(instance);else if (mName === "Venue") venues.push(instance);else if (mName === "User") users.push(instance);else if (mName === "Page") pages.push(instance);else if (mName === "Location") locations.push(instance);else if (mName === "Upload") uploads.push(instance);
                 }
               }
-            });
+            }.bind(this));
             var sorted = {
               totalFound: totalFound,
               bands: bands,
@@ -543,19 +565,21 @@ function (_RESTModel) {
               uploads: uploads
             };
             resolve(sorted);
-          };
+          }.bind(this);
 
           if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
             _API.default.GetSocket(token).then(function (socket) {
+              _newArrowCheck(this, _this3);
+
               socket.emit("/API/TextSearch", data, Return);
-            }, reject);
+            }.bind(this), reject);
           } else {
             _API.default.Call("GET", "/API/TextSearch", _objectSpread({}, data, {
               token: token
             })).then(Return, reject);
           }
         }
-      });
+      }.bind(this));
     }
   }, {
     key: "findMany",
@@ -570,16 +594,26 @@ function (_RESTModel) {
   }, {
     key: "onChange",
     value: function onChange(callback) {
+      var _this5 = this;
+
       var id = Date.now();
       User.Callbacks.set(id, callback);
       return function () {
+        _newArrowCheck(this, _this5);
+
         User.Callbacks.delete(id);
-      };
+      }.bind(this);
     }
   }, {
     key: "setUser",
     value: function setUser(data) {
+      var _this6 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this7 = this;
+
+        _newArrowCheck(this, _this6);
+
         try {
           if (_typeof(data) === "object" && data) {
             User.Current = new User(data);
@@ -589,8 +623,10 @@ function (_RESTModel) {
             }
 
             User.Callbacks.forEach(function (callback) {
+              _newArrowCheck(this, _this7);
+
               return callback(User.Current);
-            });
+            }.bind(this));
             resolve(User.Current);
           } else {
             User.Current = null;
@@ -599,14 +635,16 @@ function (_RESTModel) {
             if (_API.default.LocalStorageSupported) localStorage.removeItem("token");
             if (typeof document !== "undefined") document.cookie = "";
             User.Callbacks.forEach(function (callback) {
+              _newArrowCheck(this, _this7);
+
               return callback(null);
-            });
+            }.bind(this));
             resolve(null);
           }
         } catch (e) {
           reject(e);
         }
-      });
+      }.bind(this));
     }
   }, {
     key: "getUser",
@@ -614,6 +652,8 @@ function (_RESTModel) {
       var _getUser = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee(force, tokenMaybe) {
+        var _this8 = this;
+
         var token, data;
         return _regenerator.default.wrap(function _callee$(_context) {
           while (1) {
@@ -653,10 +693,16 @@ function (_RESTModel) {
 
                 _context.next = 13;
                 return new _promise.default(function (resolve, reject) {
+                  var _this9 = this;
+
+                  _newArrowCheck(this, _this8);
+
                   if (token) _API.default.GetSocket(token).then(function (socket) {
+                    _newArrowCheck(this, _this9);
+
                     socket.emit("/API/User/Retreive", null, resolve);
-                  }, reject);else resolve(null);
-                });
+                  }.bind(this), reject);else resolve(null);
+                }.bind(this));
 
               case 13:
                 data = _context.sent;
@@ -718,11 +764,21 @@ function (_RESTModel) {
   }, {
     key: "userLogIn",
     value: function userLogIn(email, password) {
+      var _this10 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this12 = this;
+
+        _newArrowCheck(this, _this10);
+
         function onError(error) {
+          var _this11 = this;
+
           User.setUser(null).then(function () {
+            _newArrowCheck(this, _this11);
+
             reject(error);
-          });
+          }.bind(this));
         }
 
         if (!email) onError(new Error("No email"));else if (!password) onError(new Error("No password"));else {
@@ -730,6 +786,8 @@ function (_RESTModel) {
             email: email,
             password: password
           }).then(function (response) {
+            _newArrowCheck(this, _this12);
+
             if (response && response.user && response.token) {
               if (_API.default.LocalStorageSupported) {
                 localStorage.setItem("token", response.token);
@@ -738,24 +796,36 @@ function (_RESTModel) {
               _API.default.token = response.token;
               User.setUser(response.user).then(resolve, onError);
             } else onError(new Error("".concat((0, _stringify.default)(response), " returned")));
-          }, onError);
+          }.bind(this), onError);
         }
-      });
+      }.bind(this));
     }
   }, {
     key: "userLogOut",
     value: function userLogOut(tokenMaybe) {
+      var _this13 = this;
+
       var token = tokenMaybe || _API.default.findToken();
 
       return new _promise.default(function (resolve, reject) {
+        var _this14 = this;
+
+        _newArrowCheck(this, _this13);
+
         _API.default.Call("POST", "/API/User/SignOut", {
           token: token
         }).then(function () {
+          var _this15 = this;
+
+          _newArrowCheck(this, _this14);
+
           User.setUser(null).then(function (user) {
+            _newArrowCheck(this, _this15);
+
             if (user && user.valid()) reject(new Error("".concat((0, _stringify.default)(user), " returned, failed to log out?")));else resolve(user);
-          });
-        }, reject);
-      });
+          }.bind(this));
+        }.bind(this), reject);
+      }.bind(this));
     }
   }, {
     key: "sendPasswordResetEmail",
@@ -767,7 +837,13 @@ function (_RESTModel) {
   }, {
     key: "registerUser",
     value: function registerUser(userData) {
+      var _this16 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this17 = this;
+
+        _newArrowCheck(this, _this16);
+
         if (userData && _typeof(userData) === "object") {
           if (userData.email) {
             var re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -796,18 +872,30 @@ function (_RESTModel) {
 
         if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
           return new _promise.default(function (resolve, reject) {
+            var _this18 = this;
+
+            _newArrowCheck(this, _this17);
+
             if (token) _API.default.GetSocket().then(function (socket) {
+              _newArrowCheck(this, _this18);
+
               socket.emit("/API/User/Create", userData, resolve);
-            }, reject);else resolve(null);
-          });
+            }.bind(this), reject);else resolve(null);
+          }.bind(this));
         }
 
         return _API.default.Call("POST", "/API/User", userData).then(function (data) {
+          var _this19 = this;
+
+          _newArrowCheck(this, _this17);
+
           if (data) User.setUser(data).then(function (user) {
+            _newArrowCheck(this, _this19);
+
             resolve(user);
-          }, reject);else reject(new Error("".concat((0, _stringify.default)(data), " returned")));
-        }, reject);
-      });
+          }.bind(this), reject);else reject(new Error("".concat((0, _stringify.default)(data), " returned")));
+        }.bind(this), reject);
+      }.bind(this));
     }
   }]);
 

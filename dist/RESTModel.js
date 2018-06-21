@@ -23,6 +23,10 @@ var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"))
 
 var _keys = _interopRequireDefault(require("@babel/runtime/core-js/object/keys"));
 
+require("core-js/modules/web.dom.iterable");
+
+require("regenerator-runtime/runtime");
+
 var _stringify = _interopRequireDefault(require("@babel/runtime/core-js/json/stringify"));
 
 var _assign = _interopRequireDefault(require("@babel/runtime/core-js/object/assign"));
@@ -34,6 +38,8 @@ var _API = _interopRequireDefault(require("./API"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = (0, _keys.default)(source); if (typeof _getOwnPropertySymbols.default === 'function') { ownKeys = ownKeys.concat((0, _getOwnPropertySymbols.default)(source).filter(function (sym) { return (0, _getOwnPropertyDescriptor.default)(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
@@ -175,8 +181,10 @@ function () {
                 id = this.document.id || null;
                 data = this.changes;
                 (0, _keys.default)(this.changes).forEach(function (key) {
-                  if (data[key] === _this.document[key]) delete data[key];
-                });
+                  _newArrowCheck(this, _this);
+
+                  if (data[key] === this.document[key]) delete data[key];
+                }.bind(this));
                 data.id = this.changes._id || this.document._id || null;
 
                 if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
@@ -191,10 +199,16 @@ function () {
 
                 _context.next = 11;
                 return new _promise.default(function (resolve, reject) {
+                  var _this2 = this;
+
+                  _newArrowCheck(this, _this);
+
                   return _API.default.GetSocket(token).then(function (socket) {
+                    _newArrowCheck(this, _this2);
+
                     return socket.emit("/API/".concat(modelName, "/Update"), data, resolve);
-                  }, reject);
-                });
+                  }.bind(this), reject);
+                }.bind(this));
 
               case 11:
                 response = _context.sent;
@@ -204,10 +218,16 @@ function () {
               case 14:
                 _context.next = 16;
                 return new _promise.default(function (resolve, reject) {
+                  var _this3 = this;
+
+                  _newArrowCheck(this, _this);
+
                   return _API.default.GetSocket(token).then(function (socket) {
+                    _newArrowCheck(this, _this3);
+
                     return socket.emit("/API/".concat(modelName, "/Create"), data, resolve);
-                  }, reject);
-                });
+                  }.bind(this), reject);
+                }.bind(this));
 
               case 16:
                 response = _context.sent;
@@ -272,6 +292,8 @@ function () {
       var _remove = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee2(token) {
+        var _this4 = this;
+
         var hasWebSocket,
             id,
             response,
@@ -299,12 +321,22 @@ function () {
 
                 _context2.next = 8;
                 return new _promise.default(function (resolve, reject) {
+                  var _this5 = this;
+
+                  _newArrowCheck(this, _this4);
+
                   return _API.default.GetSocket(token).then(function (socket) {
+                    var _this6 = this;
+
+                    _newArrowCheck(this, _this5);
+
                     return socket.emit("/API/".concat(modelName, "/Delete"), id, function (res) {
+                      _newArrowCheck(this, _this6);
+
                       return resolve(res);
-                    });
-                  }, reject);
-                });
+                    }.bind(this));
+                  }.bind(this), reject);
+                }.bind(this));
 
               case 8:
                 response = _context2.sent;
@@ -350,6 +382,8 @@ function () {
       var _findById = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee3(Model, id, token) {
+        var _this7 = this;
+
         var hasWebSocket,
             data,
             modelName,
@@ -380,10 +414,16 @@ function () {
 
                 _context3.next = 8;
                 return new _promise.default(function (resolve, reject) {
+                  var _this8 = this;
+
+                  _newArrowCheck(this, _this7);
+
                   return _API.default.GetSocket(token).then(function (socket) {
+                    _newArrowCheck(this, _this8);
+
                     return socket.emit("/API/".concat(modelName, "/Retreive"), id, resolve);
-                  }, reject);
-                });
+                  }.bind(this), reject);
+                }.bind(this));
 
               case 8:
                 data = _context3.sent;
@@ -431,6 +471,8 @@ function () {
       var _findOne = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee4(Model, criteriaMaybe, token) {
+        var _this9 = this;
+
         var hasWebSocket,
             criteria,
             data,
@@ -467,12 +509,14 @@ function () {
 
                 _context4.next = 12;
                 return new _promise.default(function (resolve, reject) {
+                  _newArrowCheck(this, _this9);
+
                   try {
                     _socket.emit(route, criteria, resolve);
                   } catch (e) {
                     reject(e);
                   }
-                });
+                }.bind(this));
 
               case 12:
                 data = _context4.sent;
@@ -520,6 +564,8 @@ function () {
       var _findMany = _asyncToGenerator(
       /*#__PURE__*/
       _regenerator.default.mark(function _callee5(Model, criteriaMaybe, token) {
+        var _this10 = this;
+
         var hasWebSocket,
             criteria,
             data,
@@ -543,10 +589,16 @@ function () {
 
                 _context5.next = 8;
                 return new _promise.default(function (resolve, reject) {
+                  var _this11 = this;
+
+                  _newArrowCheck(this, _this10);
+
                   return _API.default.GetSocket(token).then(function (socket) {
+                    _newArrowCheck(this, _this11);
+
                     return socket.emit(route, criteria, resolve);
-                  }, reject);
-                });
+                  }.bind(this), reject);
+                }.bind(this));
 
               case 8:
                 data = _context5.sent;
@@ -574,10 +626,12 @@ function () {
                 }
 
                 return _context5.abrupt("return", data.map(function (itemData) {
+                  _newArrowCheck(this, _this10);
+
                   var item = new Model(itemData);
                   RESTModel.Cache.set(item._id, item);
                   return item;
-                }));
+                }.bind(this)));
 
               case 16:
                 return _context5.abrupt("return", []);

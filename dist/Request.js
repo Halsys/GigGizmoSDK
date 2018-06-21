@@ -23,6 +23,8 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 
 var _assign = _interopRequireDefault(require("@babel/runtime/core-js/object/assign"));
 
+require("regenerator-runtime/runtime");
+
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
@@ -30,6 +32,8 @@ var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
 
@@ -154,7 +158,13 @@ function (_RESTModel) {
   }], [{
     key: "createBandOwnershipRequest",
     value: function createBandOwnershipRequest(band, from, to, token) {
+      var _this = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this2 = this;
+
+        _newArrowCheck(this, _this);
+
         _API.default.Call("POST", "/API/Request", {
           from: from,
           to: to,
@@ -164,14 +174,22 @@ function (_RESTModel) {
           },
           token: token
         }).then(function (data) {
+          _newArrowCheck(this, _this2);
+
           resolve(new Request(data));
-        }, reject);
-      });
+        }.bind(this), reject);
+      }.bind(this));
     }
   }, {
     key: "createVenueOwnershipRequest",
     value: function createVenueOwnershipRequest(venue, from, to, token) {
+      var _this3 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this4 = this;
+
+        _newArrowCheck(this, _this3);
+
         _API.default.Call("POST", "/API/Request", {
           from: from,
           to: to,
@@ -181,14 +199,22 @@ function (_RESTModel) {
           },
           token: token
         }).then(function (data) {
+          _newArrowCheck(this, _this4);
+
           resolve(new Request(data));
-        }, reject);
-      });
+        }.bind(this), reject);
+      }.bind(this));
     }
   }, {
     key: "createGigNegotiation",
     value: function createGigNegotiation(gig, from, to, token) {
+      var _this5 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this6 = this;
+
+        _newArrowCheck(this, _this5);
+
         _API.default.Call("POST", "/API/Request", {
           from: from,
           to: to,
@@ -198,9 +224,11 @@ function (_RESTModel) {
           },
           token: token
         }).then(function (data) {
+          _newArrowCheck(this, _this6);
+
           resolve(new Request(data));
-        }, reject);
-      });
+        }.bind(this), reject);
+      }.bind(this));
     }
   }, {
     key: "getAllOwned",

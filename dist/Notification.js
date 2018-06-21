@@ -23,6 +23,8 @@ var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"))
 
 var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
 
+require("core-js/modules/web.dom.iterable");
+
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
@@ -30,6 +32,8 @@ var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -114,38 +118,60 @@ function (_RESTModel) {
       var i = Date.now();
       this.changeCallbacks[i] = callback;
       return function () {
-        return delete _this2.changeCallbacks[i];
-      };
+        _newArrowCheck(this, _this2);
+
+        return delete this.changeCallbacks[i];
+      }.bind(this);
     }
   }], [{
     key: "onNewNotification",
     value: function onNewNotification(note) {
+      var _this3 = this;
+
       Notification.Callbacks.forEach(function (callback) {
+        _newArrowCheck(this, _this3);
+
         return callback(note);
-      });
+      }.bind(this));
     }
   }, {
     key: "newCallback",
     value: function newCallback(callback) {
+      var _this4 = this;
+
       var callbackId = Date.now();
       Notification.Callbacks.set(callbackId, callback);
       return function () {
+        _newArrowCheck(this, _this4);
+
         return Notification.Callbacks.delete(callbackId);
-      };
+      }.bind(this);
     }
   }, {
     key: "getNewNotifications",
     value: function getNewNotifications(token) {
+      var _this5 = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this6 = this;
+
+        _newArrowCheck(this, _this5);
+
         _API.default.Call("GET", "/API/Notification", {
           token: token,
           returnNew: true
         }).then(function (notes) {
+          var _this7 = this;
+
+          _newArrowCheck(this, _this6);
+
           resolve((0, _from.default)(notes || []).map(function (item) {
+            _newArrowCheck(this, _this7);
+
             return new Notification(item);
-          }));
-        }, reject);
-      });
+          }.bind(this)));
+        }.bind(this), reject);
+      }.bind(this));
     }
   }, {
     key: "getAllOwned",
@@ -160,11 +186,19 @@ function (_RESTModel) {
   }, {
     key: "connectSocket",
     value: function connectSocket(token) {
+      var _this8 = this;
+
       if (token) _API.default.GetSocket(token).then(function (socket) {
+        var _this9 = this;
+
+        _newArrowCheck(this, _this8);
+
         socket.on("notification", function (data) {
+          _newArrowCheck(this, _this9);
+
           return Notification.onNewNotification(new Notification(data));
-        });
-      }, console.error);
+        }.bind(this));
+      }.bind(this), console.error);
     }
   }]);
 

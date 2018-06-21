@@ -23,6 +23,8 @@ var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/ob
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
+require("regenerator-runtime/runtime");
+
 var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
 
 var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"));
@@ -34,6 +36,8 @@ var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -82,12 +86,16 @@ function (_RESTModel) {
   }, {
     key: "userIsOwner",
     value: function userIsOwner(user) {
+      var _this = this;
+
       if (Array.isArray(this.owners)) {
         var userId = null;
         if (typeof user === "string") userId = user;else if (_typeof(user) === "object" && user) userId = user._id;
         return this.owners.find(function (id) {
+          _newArrowCheck(this, _this);
+
           return id === userId;
-        }) !== undefined;
+        }.bind(this)) !== undefined;
       }
 
       return false;

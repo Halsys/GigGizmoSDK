@@ -23,6 +23,8 @@ var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/crea
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
+require("core-js/modules/web.dom.iterable");
+
 var _assign = _interopRequireDefault(require("@babel/runtime/core-js/object/assign"));
 
 var _moment = _interopRequireDefault(require("moment"));
@@ -34,6 +36,8 @@ var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -107,17 +111,31 @@ function (_RESTModel) {
   }], [{
     key: "newCallback",
     value: function newCallback(callback) {
+      var _this = this;
+
       var callbackId = Date.now();
       Conversation.Callbacks.set(callbackId, callback);
       return function () {
+        _newArrowCheck(this, _this);
+
         return Conversation.Callbacks.delete(callbackId);
-      };
+      }.bind(this);
     }
   }, {
     key: "connectSocket",
     value: function connectSocket(token) {
+      var _this2 = this;
+
       if (token) _API.default.GetSocket(token).then(function (socket) {
+        var _this3 = this;
+
+        _newArrowCheck(this, _this2);
+
         socket.on("/API/Conversation/Update", function (data) {
+          var _this4 = this;
+
+          _newArrowCheck(this, _this3);
+
           if (data) {
             var conv = _RESTModel2.default.Cache.get(data._id) || null;
             if (conv) conv = (0, _assign.default)(conv, data);else conv = new Conversation(data);
@@ -125,11 +143,13 @@ function (_RESTModel) {
             _RESTModel2.default.Cache.set(conv._id, conv);
 
             Conversation.Callbacks.forEach(function (cb) {
+              _newArrowCheck(this, _this4);
+
               return cb(conv);
-            });
+            }.bind(this));
           }
-        });
-      }, console.error);
+        }.bind(this));
+      }.bind(this), console.error);
     }
   }, {
     key: "findById",

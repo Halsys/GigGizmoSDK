@@ -27,6 +27,8 @@ var _API = _interopRequireDefault(require("./API"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
 function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -127,12 +129,20 @@ function (_RESTModel) {
   }], [{
     key: "findById",
     value: function findById(id) {
+      var _this = this;
+
       return new _promise.default(function (resolve, reject) {
+        var _this2 = this;
+
+        _newArrowCheck(this, _this);
+
         if (typeof id === "string" && id !== "") _API.default.Call("GET", "/API/TwitterAccount/".concat(id)).then(function (response) {
+          _newArrowCheck(this, _this2);
+
           var account = response || null;
           if (account) resolve(new TwitterAccount(account));else reject(new Error("".concat(account, " returned")));
-        }, reject);else resolve(null);
-      });
+        }.bind(this), reject);else resolve(null);
+      }.bind(this));
     }
   }]);
 
