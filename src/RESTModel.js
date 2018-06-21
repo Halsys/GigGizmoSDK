@@ -104,14 +104,19 @@ export default class RESTModel {
     });
     data.id = this.changes._id || this.document._id || null;
     if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-      const socket = await API.GetSocket(token);
       if (RESTModel.isValidId(id))
-        response = await new Promise(resolve =>
-          socket.emit(`/API/${modelName}/Update`, data, resolve)
+        response = await new Promise((resolve, reject) =>
+          API.GetSocket(token).then(
+            socket => socket.emit(`/API/${modelName}/Update`, data, resolve),
+            reject
+          )
         );
       else
-        response = await new Promise(resolve =>
-          socket.emit(`/API/${modelName}/Create`, data, resolve)
+        response = await new Promise((resolve, reject) =>
+          API.GetSocket(token).then(
+            socket => socket.emit(`/API/${modelName}/Create`, data, resolve),
+            reject
+          )
         );
     } else {
       data.token = token;
@@ -135,15 +140,17 @@ export default class RESTModel {
       let response = null;
       const modelName = this.ModelName || this.constructor.ModelName;
       if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-        const socket = await API.GetSocket(token);
-        response = await new Promise(resolve => {
-          socket.emit(`/API/${modelName}/Delete`, id, res => resolve(res));
-        });
-      } else {
+        response = await new Promise((resolve, reject) =>
+          API.GetSocket(token).then(
+            socket =>
+              socket.emit(`/API/${modelName}/Delete`, id, res => resolve(res)),
+            reject
+          )
+        );
+      } else
         response = await API.Call("DELETE", `/API/${modelName}/${id}`, {
           token
         });
-      }
 
       RESTModel.Cache.set(id, null);
       return response;
@@ -162,11 +169,12 @@ export default class RESTModel {
       let data = null;
       const modelName = Model.ModelName || Model.constructor.ModelName;
       if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-        const socket = await API.GetSocket(token);
         if (socket) {
-          data = await new Promise(resolve => {
-            socket.emit(`/API/${modelName}/Retreive`, id, resolve);
-          });
+          data = await new Promise((resolve, reject) =>
+            API.GetSocket(token).then(socket => {
+              return socket.emit(`/API/${modelName}/Retreive`, id, resolve);
+            }, reject)
+          );
         }
       }
       if (!data) {
@@ -208,15 +216,12 @@ export default class RESTModel {
     const modelName = Model.ModelName || Model.constructor.ModelName;
     const route = `/API/${modelName}/FindMany`;
     if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-      const socket = await API.GetSocket(token);
-      if (socket)
-        data = await new Promise((resolve, reject) => {
-          try {
-            socket.emit(route, criteria, resolve);
-          } catch (e) {
-            reject(e);
-          }
-        });
+      data = await new Promise((resolve, reject) =>
+        API.GetSocket(token).then(
+          socket => socket.emit(route, criteria, resolve),
+          reject
+        )
+      );
     }
     criteria = criteria || {};
     if (!data) data = await API.Call("GET", route, { ...criteria, token });
