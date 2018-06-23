@@ -95,10 +95,8 @@ export default class RESTModel {
 	}
 
 	async save(token, hasWebSocket = false) {
-		const modelName =
-			Model.ModelName ||
-			Model.constructor.ModelName ||
-			Model.default.default.ModelName;
+		const modelName = Model.ModelName || Model.constructor.ModelName;
+		console.log(Model);
 		let response = null;
 		const id = this.document.id || null;
 		const data = this.changes;
@@ -141,10 +139,8 @@ export default class RESTModel {
 		const id = this._id || null;
 		if (RESTModel.isValidId(id)) {
 			let response = null;
-			const modelName =
-				Model.ModelName ||
-				Model.constructor.ModelName ||
-				Model.default.default.ModelName;
+			const modelName = Model.ModelName || Model.constructor.ModelName;
+			console.log(Model);
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				response = await new Promise((resolve, reject) =>
 					API.GetSocket(token).then(
@@ -176,7 +172,7 @@ export default class RESTModel {
 			const modelName =
 				Model.ModelName ||
 				Model.constructor.ModelName ||
-				Model.default.default.ModelName;
+				Model.constructor.default.ModelName;
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				if (socket) {
 					data = await new Promise((resolve, reject) =>
@@ -201,10 +197,8 @@ export default class RESTModel {
 	static async findOne(Model, criteriaMaybe, token, hasWebSocket = false) {
 		const criteria = criteriaMaybe || {};
 		let data = null;
-		const modelName =
-			Model.ModelName ||
-			Model.constructor.ModelName ||
-			Model.default.default.ModelName;
+		const modelName = Model.ModelName || Model.constructor.ModelName;
+		console.log(Model);
 		const route = `/API/${modelName}/FindOne`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			const socket = await API.GetSocket(token);
@@ -225,10 +219,8 @@ export default class RESTModel {
 	static async findMany(Model, criteriaMaybe, token, hasWebSocket = false) {
 		let criteria = criteriaMaybe || null;
 		let data = null;
-		const modelName =
-			Model.ModelName ||
-			Model.constructor.ModelName ||
-			Model.default.default.ModelName;
+		const modelName = Model.ModelName || Model.constructor.ModelName;
+		console.log(Model);
 		const route = `/API/${modelName}/FindMany`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			data = await new Promise((resolve, reject) =>
