@@ -1,78 +1,73 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on 5/23/17.
+ */
 var Post =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(Post, _RESTModel);
+  (0, _inherits2.default)(Post, _RESTModel);
 
   function Post() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, Post);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Post).apply(this, arguments));
   }
 
-  var _proto = Post.prototype;
+  (0, _createClass2.default)(Post, [{
+    key: "valid",
+    value: function valid() {
+      if (!_RESTModel2.default.prototype.valid.call(this)) return false;
+      return true;
+    }
+  }, {
+    key: "canSave",
+    value: function canSave() {
+      if (!this.postDate) {
+        return false;
+      }
 
-  _proto.valid = function valid() {
-    if (!_RESTModel2.default.prototype.valid.call(this)) return false;
-    return true;
-  };
+      if (!this.postText || this.postText === "") {
+        return false;
+      }
 
-  _proto.canSave = function canSave() {
-    if (!this.postDate) {
+      if (!this.network) {
+        // TODO: Do network validation
+        return false;
+      }
+
+      return true;
+    }
+  }, {
+    key: "userIsOwner",
+    value: function userIsOwner(user) {
+      if (user && user.valid()) {
+        return user._id === this.userId;
+      }
+
       return false;
     }
-
-    if (!this.postText || this.postText === "") {
-      return false;
-    }
-
-    if (!this.network) {
-      // TODO: Do network validation
-      return false;
-    }
-
-    return true;
-  };
-
-  _proto.userIsOwner = function userIsOwner(user) {
-    if (user && user.valid()) {
-      return user._id === this.userId;
-    }
-
-    return false;
-  };
-
-  Post.findById = function findById(id, token) {
-    return _RESTModel2.default.findById(Post, id, token);
-  };
-
-  Post.getAllOwned = function getAllOwned(token) {
-    return _RESTModel2.default.findMany(Post, null, token);
-  };
-
-  Post.findMany = function findMany(criteria, token) {
-    return _RESTModel2.default.findMany(Post, criteria, token);
-  };
-
-  _createClass(Post, [{
+  }, {
     key: "userId",
     get: function get() {
       return this.getField("userId");
@@ -144,11 +139,24 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("done", value);
     }
+  }], [{
+    key: "findById",
+    value: function findById(id, token) {
+      return _RESTModel2.default.findById(Post, id, token);
+    }
+  }, {
+    key: "getAllOwned",
+    value: function getAllOwned(token) {
+      return _RESTModel2.default.findMany(Post, null, token);
+    }
+  }, {
+    key: "findMany",
+    value: function findMany(criteria, token) {
+      return _RESTModel2.default.findMany(Post, criteria, token);
+    }
   }]);
-
   return Post;
 }(_RESTModel2.default);
 
 exports.default = Post;
-
-_defineProperty(Post, "ModelName", "Post");
+(0, _defineProperty2.default)(Post, "ModelName", "Post");

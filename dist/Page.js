@@ -1,85 +1,59 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on 8/1/17.
+ */
 var Page =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(Page, _RESTModel);
+  (0, _inherits2.default)(Page, _RESTModel);
 
   function Page() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, Page);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Page).apply(this, arguments));
   }
 
-  var _proto = Page.prototype;
-
-  _proto.valid = function valid() {
-    if (!_RESTModel2.default.prototype.valid.call(this)) return false;
-    if (!this.title) return false;
-    if (this.title === "") return false;
-    return true;
-  };
-
-  _proto.userIsOwner = function userIsOwner(user) {
-    if (user && user.valid()) {
-      return user._id === this.admin || user.admin;
+  (0, _createClass2.default)(Page, [{
+    key: "valid",
+    value: function valid() {
+      if (!_RESTModel2.default.prototype.valid.call(this)) return false;
+      if (!this.title) return false;
+      if (this.title === "") return false;
+      return true;
     }
+  }, {
+    key: "userIsOwner",
+    value: function userIsOwner(user) {
+      if (user && user.valid()) {
+        return user._id === this.admin || user.admin;
+      }
 
-    return false;
-  };
-
-  Page.findMany = function findMany(criteria, token) {
-    return _RESTModel2.default.findMany(Page, criteria, token);
-  };
-
-  Page.findOne = function findOne(criteria, token) {
-    return _RESTModel2.default.findOne(Page, criteria, token);
-  };
-
-  Page.findById = function findById(id, token) {
-    return _RESTModel2.default.findById(Page, id, token);
-  };
-
-  Page.findByLink = function findByLink(link) {
-    var _this = this;
-
-    return new _promise.default(function (resolve, reject) {
-      var _this2 = this;
-
-      _newArrowCheck(this, _this);
-
-      _API.default.Call("GET", "/API/Link/" + link).then(function (page) {
-        _newArrowCheck(this, _this2);
-
-        resolve(new Page(page));
-      }.bind(this), reject);
-    }.bind(this));
-  };
-
-  _createClass(Page, [{
+      return false;
+    }
+  }, {
     key: "data",
     get: function get() {
       return this.getField("data");
@@ -159,11 +133,33 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("admin", value);
     }
+  }], [{
+    key: "findMany",
+    value: function findMany(criteria, token) {
+      return _RESTModel2.default.findMany(Page, criteria, token);
+    }
+  }, {
+    key: "findOne",
+    value: function findOne(criteria, token) {
+      return _RESTModel2.default.findOne(Page, criteria, token);
+    }
+  }, {
+    key: "findById",
+    value: function findById(id, token) {
+      return _RESTModel2.default.findById(Page, id, token);
+    }
+  }, {
+    key: "findByLink",
+    value: function findByLink(link) {
+      return new Promise(function (resolve, reject) {
+        _API.default.Call("GET", "/API/Link/".concat(link)).then(function (page) {
+          resolve(new Page(page));
+        }, reject);
+      });
+    }
   }]);
-
   return Page;
 }(_RESTModel2.default);
 
 exports.default = Page;
-
-_defineProperty(Page, "ModelName", "Page");
+(0, _defineProperty2.default)(Page, "ModelName", "Page");

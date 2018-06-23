@@ -1,13 +1,25 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
@@ -15,98 +27,40 @@ var _User = _interopRequireDefault(require("./User"));
 
 var _API = _interopRequireDefault(require("./API"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on Nov 30 2017 9:08 AM.
+ */
 var FacebookAccount =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(FacebookAccount, _RESTModel);
+  (0, _inherits2.default)(FacebookAccount, _RESTModel);
 
   function FacebookAccount() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, FacebookAccount);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(FacebookAccount).apply(this, arguments));
   }
 
-  var _proto = FacebookAccount.prototype;
-
-  _proto.getUser = function getUser() {
-    return _User.default.getUserById(this.userId);
-  };
-
-  _proto.userIsOwner = function userIsOwner(user) {
-    if (typeof user === "string") return user === this.userId;else if (typeof user === "object" && user) return user._id === this.userId;
-    return false;
-  };
-
-  _proto.valid = function valid() {
-    if (!_RESTModel2.default.prototype.valid.call(this)) return false;
-    if (!this.userId || typeof this.userId !== "string") return false;
-    if (!this.profile || typeof this.profile !== "object") return false;
-    if (!this.accountId || typeof this.accountId !== "string") return false;
-    return true;
-  };
-
-  FacebookAccount.findById = function findById(id, token) {
-    var _this = this;
-
-    return new _promise.default(function (resolve, reject) {
-      var _this2 = this;
-
-      _newArrowCheck(this, _this);
-
-      if (typeof id === "string" && id !== "") _API.default.Call("GET", "/API/FacebookAccount/" + id, {
-        token: token
-      }).then(function (found) {
-        _newArrowCheck(this, _this2);
-
-        var account = found || null;
-        if (account) resolve(new FacebookAccount(account));else reject(new Error(account + " returned"));
-      }.bind(this), reject);else resolve(null);
-    }.bind(this));
-  };
-
-  FacebookAccount.findPage = function findPage(pageName) {
-    var _this3 = this;
-
-    return new _promise.default(function (resolve, reject) {
-      _newArrowCheck(this, _this3);
-
-      if (typeof pageName !== "string") {
-        reject(new Error("pageName is not a string!"));
-      } else {
-        _API.default.Call("GET", "/API/Facebook/Page/Find", {
-          name: pageName
-        }).then(resolve, reject);
-      }
-    }.bind(this));
-  };
-
-  FacebookAccount.PostToPage = function PostToPage(format, text, pageId, postDateTime) {
-    var _this4 = this;
-
-    return new _promise.default(function (resolve, reject) {
-      _newArrowCheck(this, _this4);
-
-      _API.default.Call("POST", "/API/Facebook/Page/Post", {
-        post_format: format,
-        post_text: text,
-        fb_page_id: pageId,
-        publish_time: postDateTime // .getTime() / 1000
-
-      }).then(resolve, reject);
-    }.bind(this));
-  };
-
-  _createClass(FacebookAccount, [{
+  (0, _createClass2.default)(FacebookAccount, [{
+    key: "getUser",
+    value: function getUser() {
+      return _User.default.getUserById(this.userId);
+    }
+  }, {
+    key: "userIsOwner",
+    value: function userIsOwner(user) {
+      if (typeof user === "string") return user === this.userId;else if ((0, _typeof2.default)(user) === "object" && user) return user._id === this.userId;
+      return false;
+    }
+  }, {
+    key: "valid",
+    value: function valid() {
+      if (!_RESTModel2.default.prototype.valid.call(this)) return false;
+      if (!this.userId || typeof this.userId !== "string") return false;
+      if (!this.profile || (0, _typeof2.default)(this.profile) !== "object") return false;
+      if (!this.accountId || typeof this.accountId !== "string") return false;
+      return true;
+    }
+  }, {
     key: "userId",
     get: function get() {
       return this.getField("userId");
@@ -143,11 +97,47 @@ function (_RESTModel) {
     get: function get() {
       return this.getField("profile");
     }
-  }]);
+  }], [{
+    key: "findById",
+    value: function findById(id, token) {
+      return new Promise(function (resolve, reject) {
+        if (typeof id === "string" && id !== "") _API.default.Call("GET", "/API/FacebookAccount/".concat(id), {
+          token: token
+        }).then(function (found) {
+          var account = found || null;
+          if (account) resolve(new FacebookAccount(account));else reject(new Error("".concat(account, " returned")));
+        }, reject);else resolve(null);
+      });
+    }
+  }, {
+    key: "findPage",
+    value: function findPage(pageName) {
+      return new Promise(function (resolve, reject) {
+        if (typeof pageName !== "string") {
+          reject(new Error("pageName is not a string!"));
+        } else {
+          _API.default.Call("GET", "/API/Facebook/Page/Find", {
+            name: pageName
+          }).then(resolve, reject);
+        }
+      });
+    }
+  }, {
+    key: "PostToPage",
+    value: function PostToPage(format, text, pageId, postDateTime) {
+      return new Promise(function (resolve, reject) {
+        _API.default.Call("POST", "/API/Facebook/Page/Post", {
+          post_format: format,
+          post_text: text,
+          fb_page_id: pageId,
+          publish_time: postDateTime // .getTime() / 1000
 
+        }).then(resolve, reject);
+      });
+    }
+  }]);
   return FacebookAccount;
 }(_RESTModel2.default);
 
 exports.default = FacebookAccount;
-
-_defineProperty(FacebookAccount, "ModelName", "FacebookAccount");
+(0, _defineProperty2.default)(FacebookAccount, "ModelName", "FacebookAccount");

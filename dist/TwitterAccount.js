@@ -1,13 +1,25 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
@@ -15,69 +27,46 @@ var _User = _interopRequireDefault(require("./User"));
 
 var _API = _interopRequireDefault(require("./API"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on 5/17/17.
+ */
 var TwitterAccount =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(TwitterAccount, _RESTModel);
+  (0, _inherits2.default)(TwitterAccount, _RESTModel);
 
   function TwitterAccount() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, TwitterAccount);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(TwitterAccount).apply(this, arguments));
   }
 
-  var _proto = TwitterAccount.prototype;
-
-  _proto.getUser = function getUser() {
-    return _User.default.getUserById(this.userId);
-  };
-
-  _proto.userIsOwner = function userIsOwner(user) {
-    return user._id === this.userId;
-  };
-
-  _proto.goToTwitterAccount = function goToTwitterAccount() {
-    if (typeof window !== "undefined") {
-      // We are on a browser
-      window.location.href = "https://twitter.com?profile_id=" + this.accountId;
+  (0, _createClass2.default)(TwitterAccount, [{
+    key: "getUser",
+    value: function getUser() {
+      return _User.default.getUserById(this.userId);
     }
-  };
-
-  _proto.valid = function valid() {
-    if (!_RESTModel2.default.prototype.valid.call(this)) return false;
-    if (!this.userId || typeof this.userId !== "string") return false;
-    if (!this.profile || typeof this.profile !== "object") return false;
-    return true;
-  };
-
-  TwitterAccount.findById = function findById(id) {
-    var _this = this;
-
-    return new _promise.default(function (resolve, reject) {
-      var _this2 = this;
-
-      _newArrowCheck(this, _this);
-
-      if (typeof id === "string" && id !== "") _API.default.Call("GET", "/API/TwitterAccount/" + id).then(function (response) {
-        _newArrowCheck(this, _this2);
-
-        var account = response || null;
-        if (account) resolve(new TwitterAccount(account));else reject(new Error(account + " returned"));
-      }.bind(this), reject);else resolve(null);
-    }.bind(this));
-  };
-
-  _createClass(TwitterAccount, [{
+  }, {
+    key: "userIsOwner",
+    value: function userIsOwner(user) {
+      return user._id === this.userId;
+    }
+  }, {
+    key: "goToTwitterAccount",
+    value: function goToTwitterAccount() {
+      if (typeof window !== "undefined") {
+        // We are on a browser
+        window.location.href = "https://twitter.com?profile_id=".concat(this.accountId);
+      }
+    }
+  }, {
+    key: "valid",
+    value: function valid() {
+      if (!_RESTModel2.default.prototype.valid.call(this)) return false;
+      if (!this.userId || typeof this.userId !== "string") return false;
+      if (!this.profile || (0, _typeof2.default)(this.profile) !== "object") return false;
+      return true;
+    }
+  }, {
     key: "userId",
     get: function get() {
       return this.getField("userId");
@@ -117,11 +106,19 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("accountId", value);
     }
+  }], [{
+    key: "findById",
+    value: function findById(id) {
+      return new Promise(function (resolve, reject) {
+        if (typeof id === "string" && id !== "") _API.default.Call("GET", "/API/TwitterAccount/".concat(id)).then(function (response) {
+          var account = response || null;
+          if (account) resolve(new TwitterAccount(account));else reject(new Error("".concat(account, " returned")));
+        }, reject);else resolve(null);
+      });
+    }
   }]);
-
   return TwitterAccount;
 }(_RESTModel2.default);
 
 exports.default = TwitterAccount;
-
-_defineProperty(TwitterAccount, "ModelName", "TwitterAccount");
+(0, _defineProperty2.default)(TwitterAccount, "ModelName", "TwitterAccount");

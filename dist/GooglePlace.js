@@ -1,69 +1,42 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on 4/7/17.
+ */
 var GooglePlace =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(GooglePlace, _RESTModel);
+  (0, _inherits2.default)(GooglePlace, _RESTModel);
 
   function GooglePlace() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, GooglePlace);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(GooglePlace).apply(this, arguments));
   }
 
-  GooglePlace.getPlaceDetails = function getPlaceDetails(placeId) {
-    var _this = this;
-
-    return new _promise.default(function (resolve, reject) {
-      _newArrowCheck(this, _this);
-
-      if (typeof placeId !== "string") return reject(new Error("placeId is not a string!"));
-      return _API.default.Call("GET", "/API/GooglePlace", {
-        placeId: placeId
-      }).then(resolve, reject);
-    }.bind(this));
-  };
-
-  GooglePlace.queryPlace = function queryPlace(text, maybeType) {
-    var _this2 = this;
-
-    return new _promise.default(function (resolve, reject) {
-      _newArrowCheck(this, _this2);
-
-      var type = maybeType || "locality";
-      if (typeof text !== "string") return reject(new Error("text is not a string!"));
-      if (text === "") return reject(new Error("text is blank"));
-      return _API.default.Call("GET", "/API/GooglePlace/Query", {
-        term: text,
-        type: type
-      }).then(resolve, reject);
-    }.bind(this));
-  };
-
-  _createClass(GooglePlace, [{
+  (0, _createClass2.default)(GooglePlace, [{
     key: "placeId",
     get: function get() {
       return this.getField("placeId");
@@ -79,11 +52,32 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("details", value);
     }
+  }], [{
+    key: "getPlaceDetails",
+    value: function getPlaceDetails(placeId) {
+      return new Promise(function (resolve, reject) {
+        if (typeof placeId !== "string") return reject(new Error("placeId is not a string!"));
+        return _API.default.Call("GET", "/API/GooglePlace", {
+          placeId: placeId
+        }).then(resolve, reject);
+      });
+    }
+  }, {
+    key: "queryPlace",
+    value: function queryPlace(text, maybeType) {
+      return new Promise(function (resolve, reject) {
+        var type = maybeType || "locality";
+        if (typeof text !== "string") return reject(new Error("text is not a string!"));
+        if (text === "") return reject(new Error("text is blank"));
+        return _API.default.Call("GET", "/API/GooglePlace/Query", {
+          term: text,
+          type: type
+        }).then(resolve, reject);
+      });
+    }
   }]);
-
   return GooglePlace;
 }(_RESTModel2.default);
 
 exports.default = GooglePlace;
-
-_defineProperty(GooglePlace, "ModelName", "GooglePlace");
+(0, _defineProperty2.default)(GooglePlace, "ModelName", "GooglePlace");

@@ -1,50 +1,49 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _get2 = _interopRequireDefault(require("@babel/runtime/helpers/get"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on Jan 8 2018 8:58:54 PM.
+ */
 var ErrorReport =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(ErrorReport, _RESTModel);
+  (0, _inherits2.default)(ErrorReport, _RESTModel);
 
   function ErrorReport() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, ErrorReport);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(ErrorReport).apply(this, arguments));
   }
 
-  var _proto = ErrorReport.prototype;
+  (0, _createClass2.default)(ErrorReport, [{
+    key: "valid",
+    value: function valid() {
+      if (!(0, _get2.default)((0, _getPrototypeOf2.default)(ErrorReport.prototype), "valid", this).call(this)) return false; // TODO: do more tests...
 
-  _proto.valid = function valid() {
-    if (!_RESTModel.prototype.valid.call(this)) return false; // TODO: do more tests...
-
-    return true;
-  };
-
-  ErrorReport.findById = function findById(id, token) {
-    return _RESTModel2.default.findById(ErrorReport, id, token);
-  };
-
-  ErrorReport.findMany = function findMany(criteria, token) {
-    return _RESTModel2.default.findMany(ErrorReport, criteria, token);
-  };
-
-  _createClass(ErrorReport, [{
+      return true;
+    }
+  }, {
     key: "version",
     get: function get() {
       return this.getField("version");
@@ -108,11 +107,19 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("lineNumber", value);
     }
+  }], [{
+    key: "findById",
+    value: function findById(id, token) {
+      return _RESTModel2.default.findById(ErrorReport, id, token);
+    }
+  }, {
+    key: "findMany",
+    value: function findMany(criteria, token) {
+      return _RESTModel2.default.findMany(ErrorReport, criteria, token);
+    }
   }]);
-
   return ErrorReport;
 }(_RESTModel2.default);
 
 exports.default = ErrorReport;
-
-_defineProperty(ErrorReport, "ModelName", "ErrorReport");
+(0, _defineProperty2.default)(ErrorReport, "ModelName", "ErrorReport");

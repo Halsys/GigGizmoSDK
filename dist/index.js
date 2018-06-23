@@ -1,88 +1,163 @@
 "use strict";
 
-var _Object$getOwnPropertyDescriptor = require("@babel/runtime/core-js/object/get-own-property-descriptor");
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
 
-var _Object$defineProperty = require("@babel/runtime/core-js/object/define-property");
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.ModelNameToModel = ModelNameToModel;
+Object.defineProperty(exports, "GigGizmoPropTypes", {
+  enumerable: true,
+  get: function get() {
+    return _PropTypes.default;
+  }
+});
+Object.defineProperty(exports, "API", {
+  enumerable: true,
+  get: function get() {
+    return _API.default;
+  }
+});
+Object.defineProperty(exports, "version", {
+  enumerable: true,
+  get: function get() {
+    return _API.version;
+  }
+});
+Object.defineProperty(exports, "Band", {
+  enumerable: true,
+  get: function get() {
+    return _Band.default;
+  }
+});
+Object.defineProperty(exports, "Conversation", {
+  enumerable: true,
+  get: function get() {
+    return _Conversation.default;
+  }
+});
+Object.defineProperty(exports, "ErrorReport", {
+  enumerable: true,
+  get: function get() {
+    return _ErrorReport.default;
+  }
+});
+Object.defineProperty(exports, "FacebookAccount", {
+  enumerable: true,
+  get: function get() {
+    return _FacebookAccount.default;
+  }
+});
+Object.defineProperty(exports, "Gig", {
+  enumerable: true,
+  get: function get() {
+    return _Gig.default;
+  }
+});
+Object.defineProperty(exports, "GooglePlace", {
+  enumerable: true,
+  get: function get() {
+    return _GooglePlace.default;
+  }
+});
+Object.defineProperty(exports, "Location", {
+  enumerable: true,
+  get: function get() {
+    return _Location.default;
+  }
+});
+Object.defineProperty(exports, "Notification", {
+  enumerable: true,
+  get: function get() {
+    return _Notification.default;
+  }
+});
+Object.defineProperty(exports, "Page", {
+  enumerable: true,
+  get: function get() {
+    return _Page.default;
+  }
+});
+Object.defineProperty(exports, "Post", {
+  enumerable: true,
+  get: function get() {
+    return _Post.default;
+  }
+});
+Object.defineProperty(exports, "Request", {
+  enumerable: true,
+  get: function get() {
+    return _Request.default;
+  }
+});
+Object.defineProperty(exports, "RESTModel", {
+  enumerable: true,
+  get: function get() {
+    return _RESTModel.default;
+  }
+});
+Object.defineProperty(exports, "TwitterAccount", {
+  enumerable: true,
+  get: function get() {
+    return _TwitterAccount.default;
+  }
+});
+Object.defineProperty(exports, "Upload", {
+  enumerable: true,
+  get: function get() {
+    return _Upload.default;
+  }
+});
+Object.defineProperty(exports, "User", {
+  enumerable: true,
+  get: function get() {
+    return _User.default;
+  }
+});
+Object.defineProperty(exports, "Venue", {
+  enumerable: true,
+  get: function get() {
+    return _Venue.default;
+  }
+});
 
 var _PropTypes = _interopRequireDefault(require("./PropTypes"));
 
-exports.GigGizmoPropTypes = _PropTypes.default;
-
 var _API = _interopRequireWildcard(require("./API"));
-
-exports.API = _API.default;
-exports.version = _API.version;
 
 var _Band = _interopRequireDefault(require("./Band"));
 
-exports.Band = _Band.default;
-
 var _Conversation = _interopRequireDefault(require("./Conversation"));
-
-exports.Conversation = _Conversation.default;
 
 var _ErrorReport = _interopRequireDefault(require("./ErrorReport"));
 
-exports.ErrorReport = _ErrorReport.default;
-
 var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
-
-exports.FacebookAccount = _FacebookAccount.default;
 
 var _Gig = _interopRequireDefault(require("./Gig"));
 
-exports.Gig = _Gig.default;
-
 var _GooglePlace = _interopRequireDefault(require("./GooglePlace"));
-
-exports.GooglePlace = _GooglePlace.default;
 
 var _Location = _interopRequireDefault(require("./Location"));
 
-exports.Location = _Location.default;
-
 var _Notification = _interopRequireDefault(require("./Notification"));
-
-exports.Notification = _Notification.default;
 
 var _Page = _interopRequireDefault(require("./Page"));
 
-exports.Page = _Page.default;
-
 var _Post = _interopRequireDefault(require("./Post"));
-
-exports.Post = _Post.default;
 
 var _Request = _interopRequireDefault(require("./Request"));
 
-exports.Request = _Request.default;
-
 var _RESTModel = _interopRequireDefault(require("./RESTModel"));
-
-exports.RESTModel = _RESTModel.default;
 
 var _TwitterAccount = _interopRequireDefault(require("./TwitterAccount"));
 
-exports.TwitterAccount = _TwitterAccount.default;
-
 var _Upload = _interopRequireDefault(require("./Upload"));
-
-exports.Upload = _Upload.default;
 
 var _User = _interopRequireDefault(require("./User"));
 
-exports.User = _User.default;
-
 var _Venue = _interopRequireDefault(require("./Venue"));
-
-exports.Venue = _Venue.default;
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = _Object$defineProperty && _Object$getOwnPropertyDescriptor ? _Object$getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { _Object$defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Created by corynull on 7/15/17.

@@ -1,15 +1,27 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _get2 = _interopRequireDefault(require("@babel/runtime/helpers/get"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _User = _interopRequireDefault(require("./User"));
 
@@ -25,114 +37,93 @@ var _TwitterAccount = _interopRequireDefault(require("./TwitterAccount"));
 
 var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on 4/5/17.
+ */
 var Venue =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(Venue, _RESTModel);
+  (0, _inherits2.default)(Venue, _RESTModel);
 
   function Venue() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, Venue);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Venue).apply(this, arguments));
   }
 
-  var _proto = Venue.prototype;
-
-  _proto.getIcon = function getIcon(token) {
-    var icon = this.icon ? this.icon : null;
-    return _Upload.default.findById(icon, token);
-  };
-
-  _proto.getPhotos = function getPhotos(token) {
-    var photos = (0, _from.default)(this.photos);
-    if (photos.length !== 0) return _Upload.default.findMany({
-      _id: photos
-    }, token);
-    return _promise.default.resolve([]);
-  };
-
-  _proto.getOwners = function getOwners(token) {
-    var owners = (0, _from.default)(this.owners);
-    if (owners.length !== 0) return _User.default.findMany({
-      _id: owners
-    }, token);
-    return _promise.default.resolve([]);
-  };
-
-  _proto.getGigs = function getGigs(token) {
-    return _Gig.default.findByVenue(this._id, token);
-  };
-
-  _proto.getTwitterAccount = function getTwitterAccount(token) {
-    return _TwitterAccount.default.findById(this.twitter, token);
-  };
-
-  _proto.getFacebookAccount = function getFacebookAccount(token) {
-    return _FacebookAccount.default.findById(this.facebook, token);
-  };
-
-  _proto.getLocation = function getLocation(token) {
-    return _Location.default.findById(this.location, token);
-  };
-
-  _proto.valid = function valid() {
-    if (!_RESTModel.prototype.valid.call(this)) return false;
-    if (!_RESTModel2.default.isValidId(this.location)) return false;
-    if (this.location === "") return false;
-    if (typeof this.name !== "string") return false;
-    if (this.name === "") return false;
-    if (typeof this.description !== "string") return false;
-    if (this.description === "") return false;
-    if (this.description === "<p><br></p>") return false;
-    if (!Array.isArray(this.owners)) return false;
-    if (this.owners.length === 0) return false;
-    return true;
-  }; // TODO: Create isOpen method
-
-
-  _proto.userIsOwner = function userIsOwner(user) {
-    var _this = this;
-
-    if (Array.isArray(this.owners)) {
-      var userId = null;
-      if (typeof user === "string") userId = user;else if (typeof user === "object" && user) userId = user._id;
-      return this.owners.find(function (id) {
-        _newArrowCheck(this, _this);
-
-        return id === userId;
-      }.bind(this)) !== undefined;
+  (0, _createClass2.default)(Venue, [{
+    key: "getIcon",
+    value: function getIcon(token) {
+      var icon = this.icon ? this.icon : null;
+      return _Upload.default.findById(icon, token);
     }
+  }, {
+    key: "getPhotos",
+    value: function getPhotos(token) {
+      var photos = Array.from(this.photos);
+      if (photos.length !== 0) return _Upload.default.findMany({
+        _id: photos
+      }, token);
+      return Promise.resolve([]);
+    }
+  }, {
+    key: "getOwners",
+    value: function getOwners(token) {
+      var owners = Array.from(this.owners);
+      if (owners.length !== 0) return _User.default.findMany({
+        _id: owners
+      }, token);
+      return Promise.resolve([]);
+    }
+  }, {
+    key: "getGigs",
+    value: function getGigs(token) {
+      return _Gig.default.findByVenue(this._id, token);
+    }
+  }, {
+    key: "getTwitterAccount",
+    value: function getTwitterAccount(token) {
+      return _TwitterAccount.default.findById(this.twitter, token);
+    }
+  }, {
+    key: "getFacebookAccount",
+    value: function getFacebookAccount(token) {
+      return _FacebookAccount.default.findById(this.facebook, token);
+    }
+  }, {
+    key: "getLocation",
+    value: function getLocation(token) {
+      return _Location.default.findById(this.location, token);
+    }
+  }, {
+    key: "valid",
+    value: function valid() {
+      if (!(0, _get2.default)((0, _getPrototypeOf2.default)(Venue.prototype), "valid", this).call(this)) return false;
+      if (!_RESTModel2.default.isValidId(this.location)) return false;
+      if (this.location === "") return false;
+      if (typeof this.name !== "string") return false;
+      if (this.name === "") return false;
+      if (typeof this.description !== "string") return false;
+      if (this.description === "") return false;
+      if (this.description === "<p><br></p>") return false;
+      if (!Array.isArray(this.owners)) return false;
+      if (this.owners.length === 0) return false;
+      return true;
+    } // TODO: Create isOpen method
 
-    return false;
-  };
+  }, {
+    key: "userIsOwner",
+    value: function userIsOwner(user) {
+      if (Array.isArray(this.owners)) {
+        var userId = null;
+        if (typeof user === "string") userId = user;else if ((0, _typeof2.default)(user) === "object" && user) userId = user._id;
+        return this.owners.find(function (id) {
+          return id === userId;
+        }) !== undefined;
+      }
 
-  Venue.findOne = function findOne(criteria, token) {
-    return _RESTModel2.default.findOne(Venue, criteria, token, true);
-  };
-
-  Venue.findMany = function findMany(criteria, token) {
-    return _RESTModel2.default.findMany(Venue, criteria, token, true);
-  };
-
-  Venue.findById = function findById(id, token) {
-    return _RESTModel2.default.findById(Venue, id, token, true);
-  };
-
-  Venue.getAllOwned = function getAllOwned(token) {
-    return _RESTModel2.default.findMany(Venue, null, token, true);
-  };
-
-  _createClass(Venue, [{
+      return false;
+    }
+  }, {
     key: "name",
     get: function get() {
       return this.getField("name");
@@ -260,11 +251,29 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("google", value);
     }
+  }], [{
+    key: "findOne",
+    value: function findOne(criteria, token) {
+      return _RESTModel2.default.findOne(Venue, criteria, token, true);
+    }
+  }, {
+    key: "findMany",
+    value: function findMany(criteria, token) {
+      return _RESTModel2.default.findMany(Venue, criteria, token, true);
+    }
+  }, {
+    key: "findById",
+    value: function findById(id, token) {
+      return _RESTModel2.default.findById(Venue, id, token, true);
+    }
+  }, {
+    key: "getAllOwned",
+    value: function getAllOwned(token) {
+      return _RESTModel2.default.findMany(Venue, null, token, true);
+    }
   }]);
-
   return Venue;
 }(_RESTModel2.default);
 
 exports.default = Venue;
-
-_defineProperty(Venue, "ModelName", "Venue");
+(0, _defineProperty2.default)(Venue, "ModelName", "Venue");

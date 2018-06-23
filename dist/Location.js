@@ -1,13 +1,25 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
 
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _get2 = _interopRequireDefault(require("@babel/runtime/helpers/get"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _API = _interopRequireDefault(require("./API"));
 
@@ -15,73 +27,35 @@ var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
 var _GooglePlace = _interopRequireDefault(require("./GooglePlace"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on 9/7/17.
+ */
 var Location =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(Location, _RESTModel);
+  (0, _inherits2.default)(Location, _RESTModel);
 
   function Location() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, Location);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Location).apply(this, arguments));
   }
 
-  var _proto = Location.prototype;
-
-  _proto.valid = function valid() {
-    if (!_RESTModel.prototype.valid.call(this)) return false;
-    if (!this.placeId) return false;
-    if (!this.address) return false;
-    if (!this.utcOffset) return false;
-    if (!this.point) return false;
-    return true;
-  };
-
-  _proto.getPlaceDetails = function getPlaceDetails() {
-    return _GooglePlace.default.getPlaceDetails(this.placeId);
-  };
-
-  Location.getLocationByPlaceId = function getLocationByPlaceId(placeId, token) {
-    var _this = this;
-
-    return new _promise.default(function (resolve, reject) {
-      var _this2 = this;
-
-      _newArrowCheck(this, _this);
-
-      if (!placeId) {
-        reject(new Error("Invaild placeId: " + placeId));
-      } else {
-        _API.default.Call("GET", "/API/Place/" + placeId, {
-          token: token
-        }).then(function (location) {
-          _newArrowCheck(this, _this2);
-
-          if (location) {
-            resolve(new Location(location));
-          } else {
-            reject(new Error(location + " returned"));
-          }
-        }.bind(this), reject);
-      }
-    }.bind(this));
-  };
-
-  Location.findById = function findById(id, token) {
-    return _RESTModel2.default.findById(Location, id, token, true);
-  };
-
-  _createClass(Location, [{
+  (0, _createClass2.default)(Location, [{
+    key: "valid",
+    value: function valid() {
+      if (!(0, _get2.default)((0, _getPrototypeOf2.default)(Location.prototype), "valid", this).call(this)) return false;
+      if (!this.placeId) return false;
+      if (!this.address) return false;
+      if (!this.utcOffset) return false;
+      if (!this.point) return false;
+      return true;
+    }
+  }, {
+    key: "getPlaceDetails",
+    value: function getPlaceDetails() {
+      return _GooglePlace.default.getPlaceDetails(this.placeId);
+    }
+  }, {
     key: "type",
     get: function get() {
       return this.getField("type") || "Point";
@@ -121,11 +95,33 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("utcOffset", value);
     }
+  }], [{
+    key: "getLocationByPlaceId",
+    value: function getLocationByPlaceId(placeId, token) {
+      return new Promise(function (resolve, reject) {
+        if (!placeId) {
+          reject(new Error("Invaild placeId: ".concat(placeId)));
+        } else {
+          _API.default.Call("GET", "/API/Place/".concat(placeId), {
+            token: token
+          }).then(function (location) {
+            if (location) {
+              resolve(new Location(location));
+            } else {
+              reject(new Error("".concat(location, " returned")));
+            }
+          }, reject);
+        }
+      });
+    }
+  }, {
+    key: "findById",
+    value: function findById(id, token) {
+      return _RESTModel2.default.findById(Location, id, token, true);
+    }
   }]);
-
   return Location;
 }(_RESTModel2.default);
 
 exports.default = Location;
-
-_defineProperty(Location, "ModelName", "Location");
+(0, _defineProperty2.default)(Location, "ModelName", "Location");

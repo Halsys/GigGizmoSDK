@@ -1,29 +1,33 @@
 "use strict";
 
-exports.__esModule = true;
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = void 0;
-
-var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
-
-var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
-
-var _getOwnPropertySymbols = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-symbols"));
-
-var _keys = _interopRequireDefault(require("@babel/runtime/core-js/object/keys"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
-var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
-
-var _search = _interopRequireDefault(require("@babel/runtime/core-js/symbol/search"));
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _stringify = _interopRequireDefault(require("@babel/runtime/core-js/json/stringify"));
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _isFinite = _interopRequireDefault(require("@babel/runtime/core-js/number/is-finite"));
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
-var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _get2 = _interopRequireDefault(require("@babel/runtime/helpers/get"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
@@ -53,557 +57,89 @@ var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
 
 var _Conversation = _interopRequireDefault(require("./Conversation"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } } function _next(value) { step("next", value); } function _throw(err) { step("throw", err); } _next(); }); }; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = (0, _keys.default)(source); if (typeof _getOwnPropertySymbols.default === 'function') { ownKeys = ownKeys.concat((0, _getOwnPropertySymbols.default)(source).filter(function (sym) { return (0, _getOwnPropertyDescriptor.default)(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _inheritsLoose(subClass, superClass) { subClass.prototype = (0, _create.default)(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/**
+ * Created by corynull on 4/1/17.
+ */
 var User =
 /*#__PURE__*/
 function (_RESTModel) {
-  _inheritsLoose(User, _RESTModel);
+  (0, _inherits2.default)(User, _RESTModel);
 
   function User() {
-    return _RESTModel.apply(this, arguments) || this;
+    (0, _classCallCheck2.default)(this, User);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(User).apply(this, arguments));
   }
 
-  var _proto = User.prototype;
-
-  _proto.getIcon = function getIcon() {
-    var icon = this.icon;
-    return _Upload.default.findById(icon);
-  };
-
-  _proto.getTwitterAccount = function getTwitterAccount(token) {
-    return _TwitterAccount.default.findById(this.twitter, token);
-  };
-
-  _proto.getFacebookAccount = function getFacebookAccount(token) {
-    return _FacebookAccount.default.findById(this.facebook, token);
-  };
-
-  _proto.validatePassword = function validatePassword(maybePassword) {
-    var password = maybePassword || "";
-    var decimalTest = /\d/;
-    var symbolTest = /\W/;
-    var lowercasePassword = password.toLowerCase();
-    var lowercaseFirstName = this.firstName.toLowerCase();
-    var lowercaseLastName = this.lastName.toLowerCase();
-
-    if (password === "") {
-      return new Error("Password missing");
-    } else if (password.length < 8) {
-      return new Error("Password is too short");
-    } else if (password.length > 256) {
-      return new Error("Password is too long");
-    } else if (!decimalTest.test(password)) {
-      return new Error("Password does not have atleast one number");
-    } else if (!symbolTest.test(password)) {
-      return new Error("Password does not have atleast one symbol");
-    } else if (lowercasePassword.indexOf(lowercaseFirstName) !== -1) {
-      return new Error("Password cannot contain your first name");
-    } else if (lowercasePassword.indexOf(lowercaseLastName) !== -1) {
-      return new Error("Password cannot contain your last name");
+  (0, _createClass2.default)(User, [{
+    key: "getIcon",
+    value: function getIcon() {
+      var icon = this.icon;
+      return _Upload.default.findById(icon);
     }
-
-    return null;
-  };
-
-  _proto.valid = function valid() {
-    if (!_RESTModel.prototype.valid.call(this)) return false; // Type checks
-
-    if (typeof this.firstName !== "string") return false;
-    if (typeof this.lastName !== "string") return false;
-    if (typeof this.email !== "string") return false; // Value checks
-
-    if (this.firstName === "") return false;
-    if (this.lastName === "") return false;
-    if (this.email === "") return false; // TODO: More validation checks?
-
-    return true;
-  };
-
-  _proto.save = function save(token) {
-    return _RESTModel2.default.prototype.save.call(this, token, true);
-  };
-
-  _proto.remove = function remove(token) {
-    return _RESTModel2.default.prototype.remove.call(this, token, true);
-  };
-
-  User.verifyEmail = function verifyEmail(id, secret) {
-    return _API.default.Call("GET", "/API/User/Verify", {
-      token: null,
-      id: id,
-      secret: secret
-    });
-  };
-
-  User.sendEmailVerification = function sendEmailVerification(token) {
-    return _API.default.Call("POST", "/API/User/Verify", {
-      token: token
-    });
-  };
-
-  User.getAllConversations = function getAllConversations(token) {
-    return _Conversation.default.getAllOwned(token);
-  };
-
-  User.getAllNotifications = function getAllNotifications(token) {
-    return _Notification.default.getAllOwned(token);
-  };
-
-  User.getAllPosts = function getAllPosts(token) {
-    return _Post.default.getAllOwned(token);
-  };
-
-  User.getAllBands = function getAllBands(token) {
-    return _Band.default.getAllOwned(token);
-  };
-
-  User.getAllVenues = function getAllVenues(token) {
-    return _Venue.default.getAllOwned(token);
-  };
-
-  User.getAllGigs = function getAllGigs(token) {
-    return _Gig.default.getAllOwned(token);
-  };
-
-  User.getAllUploads = function getAllUploads(token) {
-    return _Upload.default.getAllOwned(token);
-  };
-
-  User.findFacebookPages = function findFacebookPages(term) {
-    var _this = this;
-
-    return new _promise.default(function (resolve, reject) {
-      _newArrowCheck(this, _this);
-
-      if (term === "") {
-        resolve();
-      } else {
-        _API.default.Call("GET", "/API/FacebookAccount/FindPages", {
-          term: term
-        }).then(resolve, reject);
-      }
-    }.bind(this));
-  };
-
-  User.search = function search(q, modelName, skip, limit, token) {
-    var _this2 = this;
-
-    if (modelName === void 0) {
-      modelName = null;
+  }, {
+    key: "getTwitterAccount",
+    value: function getTwitterAccount(token) {
+      return _TwitterAccount.default.findById(this.twitter, token);
     }
-
-    if (skip === void 0) {
-      skip = 0;
+  }, {
+    key: "getFacebookAccount",
+    value: function getFacebookAccount(token) {
+      return _FacebookAccount.default.findById(this.facebook, token);
     }
+  }, {
+    key: "validatePassword",
+    value: function validatePassword(maybePassword) {
+      var password = maybePassword || "";
+      var decimalTest = /\d/;
+      var symbolTest = /\W/;
+      var lowercasePassword = password.toLowerCase();
+      var lowercaseFirstName = this.firstName.toLowerCase();
+      var lowercaseLastName = this.lastName.toLowerCase();
 
-    if (limit === void 0) {
-      limit = Number.POSITIVE_INFINITY;
+      if (password === "") {
+        return new Error("Password missing");
+      } else if (password.length < 8) {
+        return new Error("Password is too short");
+      } else if (password.length > 256) {
+        return new Error("Password is too long");
+      } else if (!decimalTest.test(password)) {
+        return new Error("Password does not have atleast one number");
+      } else if (!symbolTest.test(password)) {
+        return new Error("Password does not have atleast one symbol");
+      } else if (lowercasePassword.indexOf(lowercaseFirstName) !== -1) {
+        return new Error("Password cannot contain your first name");
+      } else if (lowercasePassword.indexOf(lowercaseLastName) !== -1) {
+        return new Error("Password cannot contain your last name");
+      }
+
+      return null;
     }
+  }, {
+    key: "valid",
+    value: function valid() {
+      if (!(0, _get2.default)((0, _getPrototypeOf2.default)(User.prototype), "valid", this).call(this)) return false; // Type checks
 
-    if (token === void 0) {
-      token = _API.default.findToken();
+      if (typeof this.firstName !== "string") return false;
+      if (typeof this.lastName !== "string") return false;
+      if (typeof this.email !== "string") return false; // Value checks
+
+      if (this.firstName === "") return false;
+      if (this.lastName === "") return false;
+      if (this.email === "") return false; // TODO: More validation checks?
+
+      return true;
     }
-
-    return new _promise.default(function (resolve, reject) {
-      var _this3 = this;
-
-      _newArrowCheck(this, _this2);
-
-      if (q === "") {
-        resolve();
-      } else {
-        var data = {
-          q: q
-        };
-        if (modelName != null) data.model = modelName;
-        if (skip !== 0) data.skip = skip;
-        if ((0, _isFinite.default)(limit)) data.limit = limit;
-
-        var Return = function Return(results) {
-          var _this4 = this;
-
-          _newArrowCheck(this, _this3);
-
-          var _ref = results || {},
-              query = _ref.query,
-              totalFound = _ref.totalFound;
-
-          if (!query) reject(query);
-          var classMap = {
-            Band: _Band.default,
-            Venue: _Venue.default,
-            User: User,
-            Page: _Page.default,
-            Location: _Location.default,
-            Upload: _Upload.default
-          };
-          var bands = [];
-          var venues = [];
-          var users = [];
-          var pages = [];
-          var locations = [];
-          var uploads = [];
-          query.forEach(function (item) {
-            _newArrowCheck(this, _this4);
-
-            if (item && item.ModelName) {
-              var mName = item.ModelName;
-              var ClassType = classMap[mName] || null;
-
-              if (ClassType) {
-                var instance = new ClassType(item);
-                if (mName === "Band") bands.push(instance);else if (mName === "Venue") venues.push(instance);else if (mName === "User") users.push(instance);else if (mName === "Page") pages.push(instance);else if (mName === "Location") locations.push(instance);else if (mName === "Upload") uploads.push(instance);
-              }
-            }
-          }.bind(this));
-          var sorted = {
-            totalFound: totalFound,
-            bands: bands,
-            venues: venues,
-            users: users,
-            pages: pages,
-            locations: locations,
-            uploads: uploads
-          };
-          resolve(sorted);
-        }.bind(this);
-
-        if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
-          _API.default.GetSocket(token).then(function (socket) {
-            _newArrowCheck(this, _this3);
-
-            socket.emit("/API/TextSearch", data, Return);
-          }.bind(this), reject);
-        } else {
-          _API.default.Call("GET", "/API/TextSearch", _objectSpread({}, data, {
-            token: token
-          })).then(Return, reject);
-        }
-      }
-    }.bind(this));
-  };
-
-  User.findMany = function findMany(criteria, token) {
-    return _RESTModel2.default.findMany(User, criteria, token, true);
-  };
-
-  User.findOne = function findOne(criteria, token) {
-    return _RESTModel2.default.findOne(User, criteria, token, true);
-  };
-
-  User.onChange = function onChange(callback) {
-    var _this5 = this;
-
-    var id = Date.now();
-    User.Callbacks.set(id, callback);
-    return function () {
-      _newArrowCheck(this, _this5);
-
-      User.Callbacks.delete(id);
-    }.bind(this);
-  };
-
-  User.setUser = function setUser(data) {
-    var _this6 = this;
-
-    return new _promise.default(function (resolve, reject) {
-      var _this7 = this;
-
-      _newArrowCheck(this, _this6);
-
-      try {
-        if (typeof data === "object" && data) {
-          User.Current = new User(data);
-
-          if (_API.default.SessionStorageSupported) {
-            sessionStorage.setItem("user", (0, _stringify.default)(data));
-          }
-
-          User.Callbacks.forEach(function (callback) {
-            _newArrowCheck(this, _this7);
-
-            return callback(User.Current);
-          }.bind(this));
-          resolve(User.Current);
-        } else {
-          User.Current = null;
-          _API.default.token = null;
-          if (_API.default.SessionStorageSupported) sessionStorage.removeItem("user");
-          if (_API.default.LocalStorageSupported) localStorage.removeItem("token");
-          if (typeof document !== "undefined") document.cookie = "";
-          User.Callbacks.forEach(function (callback) {
-            _newArrowCheck(this, _this7);
-
-            return callback(null);
-          }.bind(this));
-          resolve(null);
-        }
-      } catch (e) {
-        reject(e);
-      }
-    }.bind(this));
-  };
-
-  User.getUser =
-  /*#__PURE__*/
-  function () {
-    var _getUser = _asyncToGenerator(
-    /*#__PURE__*/
-    _regenerator.default.mark(function _callee(force, tokenMaybe) {
-      var _this8 = this;
-
-      var token, data;
-      return _regenerator.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              token = tokenMaybe || _API.default.findToken();
-              data = null;
-
-              if (!(!force && User.Current)) {
-                _context.next = 6;
-                break;
-              }
-
-              return _context.abrupt("return", User.Current);
-
-            case 6:
-              if (!_API.default.SessionStorageSupported) {
-                _context.next = 10;
-                break;
-              }
-
-              /* If the user is stored in session storage. */
-              data = JSON.parse(sessionStorage.getItem("user"));
-
-              if (!data) {
-                _context.next = 10;
-                break;
-              }
-
-              return _context.abrupt("return", User.setUser(data));
-
-            case 10:
-              if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO)) {
-                _context.next = 16;
-                break;
-              }
-
-              _context.next = 13;
-              return new _promise.default(function (resolve, reject) {
-                var _this9 = this;
-
-                _newArrowCheck(this, _this8);
-
-                if (token) _API.default.GetSocket(token).then(function (socket) {
-                  _newArrowCheck(this, _this9);
-
-                  socket.emit("/API/User/Retreive", null, resolve);
-                }.bind(this), reject);else resolve(null);
-              }.bind(this));
-
-            case 13:
-              data = _context.sent;
-              _context.next = 19;
-              break;
-
-            case 16:
-              _context.next = 18;
-              return _API.default.Call("GET", "/API/User", {
-                token: token
-              });
-
-            case 18:
-              data = _context.sent;
-
-            case 19:
-              if (!data) {
-                _context.next = 21;
-                break;
-              }
-
-              return _context.abrupt("return", User.setUser(data));
-
-            case 21:
-              return _context.abrupt("return", User.setUser(null));
-
-            case 22:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    return function getUser(_x, _x2) {
-      return _getUser.apply(this, arguments);
-    };
-  }();
-
-  User.findById = function findById(id, token) {
-    return _RESTModel2.default.findById(User, id, token, true);
-  };
-
-  User.connectFacebook = function connectFacebook() {
-    window.location.href = _API.default.root + "/API/Auth/Facebook";
-  };
-
-  User.facebookLogIn = function facebookLogIn() {
-    window.location.href = _API.default.root + "/API/Login/Facebook";
-  };
-
-  User.payPalLogIn = function payPalLogIn() {
-    window.location.href = _API.default.root + "/API/Auth/PayPal";
-  };
-
-  User.userLogIn = function userLogIn(email, password) {
-    var _this10 = this;
-
-    return new _promise.default(function (resolve, reject) {
-      var _this12 = this;
-
-      _newArrowCheck(this, _this10);
-
-      function onError(error) {
-        var _this11 = this;
-
-        User.setUser(null).then(function () {
-          _newArrowCheck(this, _this11);
-
-          reject(error);
-        }.bind(this));
-      }
-
-      if (!email) onError(new Error("No email"));else if (!password) onError(new Error("No password"));else {
-        _API.default.Call("POST", "/API/User/SignIn", {
-          email: email,
-          password: password
-        }).then(function (response) {
-          _newArrowCheck(this, _this12);
-
-          if (response && response.user && response.token) {
-            if (_API.default.LocalStorageSupported) {
-              localStorage.setItem("token", response.token);
-            }
-
-            _API.default.token = response.token;
-            User.setUser(response.user).then(resolve, onError);
-          } else onError(new Error((0, _stringify.default)(response) + " returned"));
-        }.bind(this), onError);
-      }
-    }.bind(this));
-  };
-
-  User.userLogOut = function userLogOut(tokenMaybe) {
-    var _this13 = this;
-
-    var token = tokenMaybe || _API.default.findToken();
-
-    return new _promise.default(function (resolve, reject) {
-      var _this14 = this;
-
-      _newArrowCheck(this, _this13);
-
-      _API.default.Call("POST", "/API/User/SignOut", {
-        token: token
-      }).then(function () {
-        var _this15 = this;
-
-        _newArrowCheck(this, _this14);
-
-        User.setUser(null).then(function (user) {
-          _newArrowCheck(this, _this15);
-
-          if (user && user.valid()) reject(new Error((0, _stringify.default)(user) + " returned, failed to log out?"));else resolve(user);
-        }.bind(this));
-      }.bind(this), reject);
-    }.bind(this));
-  };
-
-  User.sendPasswordResetEmail = function sendPasswordResetEmail(email) {
-    return _API.default.Call("POST", "/User/Reset", {
-      email: email
-    });
-  };
-
-  User.registerUser = function registerUser(userData) {
-    var _this16 = this;
-
-    return new _promise.default(function (resolve, reject) {
-      var _this17 = this;
-
-      _newArrowCheck(this, _this16);
-
-      if (userData && typeof userData === "object") {
-        if (userData.email) {
-          var re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-          if (re[_search.default](userData.email) !== 0) return reject(new Error("Invalid email address"));
-        } else return reject(new Error("Email is required"));
-
-        if (userData.password) {
-          var symbolTest = /(?:[\0-\/:-@\[-`\{-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g;
-          var numberTest = /[0-9]/g;
-          var lowercasePassword = userData.password.toLowerCase();
-          if (userData.password === "") return reject(new Error("Password is required"));else if (userData.password.length < 8) return reject(new Error("Password is too short"));else if (userData.password.length > 256) return reject(new Error("Password is too long"));else if (!symbolTest.test(userData.password)) return reject(new Error("Password does not contain at least one symbol"));else if (!numberTest.test(userData.password)) return reject(new Error("Password does not contain at least one number"));else if (userData.firstName && userData.firstName.length !== 0 && lowercasePassword.indexOf(userData.firstName.toLowerCase()) !== -1) return reject(new Error("Password can not contain your first name"));else if (userData.lastName && userData.lastName.length !== 0 && lowercasePassword.indexOf(userData.lastName.toLowerCase()) !== -1) return reject(new Error("Password can not contain your last name"));
-        } else return reject(new Error("Password is required"));
-
-        if (userData.firstName) {
-          if (userData.firstName.length !== 0) {
-            if (userData.firstName[0] === userData.firstName[0].toLowerCase()) return reject(new Error("First name is not title case"));
-          } else return reject(new Error("First name is required"));
-        } else return reject(new Error("First name is required"));
-
-        if (userData.lastName) {
-          if (userData.lastName.length !== 0) {
-            if (userData.lastName[0] === userData.lastName[0].toLowerCase()) return reject(new Error("Last name is not title case"));
-          } else return reject(new Error("Last name is required"));
-        } else return reject(new Error("Last name is required"));
-      } else return reject(new Error("User data is not an object"));
-
-      if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
-        return new _promise.default(function (resolve, reject) {
-          var _this18 = this;
-
-          _newArrowCheck(this, _this17);
-
-          if (token) _API.default.GetSocket().then(function (socket) {
-            _newArrowCheck(this, _this18);
-
-            socket.emit("/API/User/Create", userData, resolve);
-          }.bind(this), reject);else resolve(null);
-        }.bind(this));
-      }
-
-      return _API.default.Call("POST", "/API/User", userData).then(function (data) {
-        var _this19 = this;
-
-        _newArrowCheck(this, _this17);
-
-        if (data) User.setUser(data).then(function (user) {
-          _newArrowCheck(this, _this19);
-
-          resolve(user);
-        }.bind(this), reject);else reject(new Error((0, _stringify.default)(data) + " returned"));
-      }.bind(this), reject);
-    }.bind(this));
-  };
-
-  _createClass(User, [{
+  }, {
+    key: "save",
+    value: function save(token) {
+      return _RESTModel2.default.prototype.save.call(this, token, true);
+    }
+  }, {
+    key: "remove",
+    value: function remove(token) {
+      return _RESTModel2.default.prototype.remove.call(this, token, true);
+    }
+  }, {
     key: "password",
     get: function get() {
       return this.getField("password");
@@ -751,7 +287,7 @@ function (_RESTModel) {
   }, {
     key: "fullName",
     get: function get() {
-      return (this.firstName || "") + " " + (this.middleName || "") + " " + (this.lastName || "");
+      return "".concat(this.firstName || "", " ").concat(this.middleName || "", " ").concat(this.lastName || "");
     }
   }, {
     key: "email",
@@ -848,17 +384,401 @@ function (_RESTModel) {
     set: function set(value) {
       this.setField("options", value);
     }
-  }]);
+  }], [{
+    key: "verifyEmail",
+    value: function verifyEmail(id, secret) {
+      return _API.default.Call("GET", "/API/User/Verify", {
+        token: null,
+        id: id,
+        secret: secret
+      });
+    }
+  }, {
+    key: "sendEmailVerification",
+    value: function sendEmailVerification(token) {
+      return _API.default.Call("POST", "/API/User/Verify", {
+        token: token
+      });
+    }
+  }, {
+    key: "getAllConversations",
+    value: function getAllConversations(token) {
+      return _Conversation.default.getAllOwned(token);
+    }
+  }, {
+    key: "getAllNotifications",
+    value: function getAllNotifications(token) {
+      return _Notification.default.getAllOwned(token);
+    }
+  }, {
+    key: "getAllPosts",
+    value: function getAllPosts(token) {
+      return _Post.default.getAllOwned(token);
+    }
+  }, {
+    key: "getAllBands",
+    value: function getAllBands(token) {
+      return _Band.default.getAllOwned(token);
+    }
+  }, {
+    key: "getAllVenues",
+    value: function getAllVenues(token) {
+      return _Venue.default.getAllOwned(token);
+    }
+  }, {
+    key: "getAllGigs",
+    value: function getAllGigs(token) {
+      return _Gig.default.getAllOwned(token);
+    }
+  }, {
+    key: "getAllUploads",
+    value: function getAllUploads(token) {
+      return _Upload.default.getAllOwned(token);
+    }
+  }, {
+    key: "findFacebookPages",
+    value: function findFacebookPages(term) {
+      return new Promise(function (resolve, reject) {
+        if (term === "") {
+          resolve();
+        } else {
+          _API.default.Call("GET", "/API/FacebookAccount/FindPages", {
+            term: term
+          }).then(resolve, reject);
+        }
+      });
+    }
+  }, {
+    key: "search",
+    value: function search(q) {
+      var modelName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var skip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Number.POSITIVE_INFINITY;
+      var token = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _API.default.findToken();
+      return new Promise(function (resolve, reject) {
+        if (q === "") {
+          resolve();
+        } else {
+          var data = {
+            q: q
+          };
+          if (modelName != null) data.model = modelName;
+          if (skip !== 0) data.skip = skip;
+          if (Number.isFinite(limit)) data.limit = limit;
 
+          var Return = function Return(results) {
+            var _ref = results || {},
+                query = _ref.query,
+                totalFound = _ref.totalFound;
+
+            if (!query) reject(query);
+            var classMap = {
+              Band: _Band.default,
+              Venue: _Venue.default,
+              User: User,
+              Page: _Page.default,
+              Location: _Location.default,
+              Upload: _Upload.default
+            };
+            var bands = [];
+            var venues = [];
+            var users = [];
+            var pages = [];
+            var locations = [];
+            var uploads = [];
+            query.forEach(function (item) {
+              if (item && item.ModelName) {
+                var mName = item.ModelName;
+                var ClassType = classMap[mName] || null;
+
+                if (ClassType) {
+                  var instance = new ClassType(item);
+                  if (mName === "Band") bands.push(instance);else if (mName === "Venue") venues.push(instance);else if (mName === "User") users.push(instance);else if (mName === "Page") pages.push(instance);else if (mName === "Location") locations.push(instance);else if (mName === "Upload") uploads.push(instance);
+                }
+              }
+            });
+            var sorted = {
+              totalFound: totalFound,
+              bands: bands,
+              venues: venues,
+              users: users,
+              pages: pages,
+              locations: locations,
+              uploads: uploads
+            };
+            resolve(sorted);
+          };
+
+          if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
+            _API.default.GetSocket(token).then(function (socket) {
+              socket.emit("/API/TextSearch", data, Return);
+            }, reject);
+          } else {
+            _API.default.Call("GET", "/API/TextSearch", (0, _objectSpread2.default)({}, data, {
+              token: token
+            })).then(Return, reject);
+          }
+        }
+      });
+    }
+  }, {
+    key: "findMany",
+    value: function findMany(criteria, token) {
+      return _RESTModel2.default.findMany(User, criteria, token, true);
+    }
+  }, {
+    key: "findOne",
+    value: function findOne(criteria, token) {
+      return _RESTModel2.default.findOne(User, criteria, token, true);
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(callback) {
+      var id = Date.now();
+      User.Callbacks.set(id, callback);
+      return function () {
+        User.Callbacks.delete(id);
+      };
+    }
+  }, {
+    key: "setUser",
+    value: function setUser(data) {
+      return new Promise(function (resolve, reject) {
+        try {
+          if ((0, _typeof2.default)(data) === "object" && data) {
+            User.Current = new User(data);
+
+            if (_API.default.SessionStorageSupported) {
+              sessionStorage.setItem("user", JSON.stringify(data));
+            }
+
+            User.Callbacks.forEach(function (callback) {
+              return callback(User.Current);
+            });
+            resolve(User.Current);
+          } else {
+            User.Current = null;
+            _API.default.token = null;
+            if (_API.default.SessionStorageSupported) sessionStorage.removeItem("user");
+            if (_API.default.LocalStorageSupported) localStorage.removeItem("token");
+            if (typeof document !== "undefined") document.cookie = "";
+            User.Callbacks.forEach(function (callback) {
+              return callback(null);
+            });
+            resolve(null);
+          }
+        } catch (e) {
+          reject(e);
+        }
+      });
+    }
+  }, {
+    key: "getUser",
+    value: function () {
+      var _getUser = (0, _asyncToGenerator2.default)(
+      /*#__PURE__*/
+      _regenerator.default.mark(function _callee(force, tokenMaybe) {
+        var token, data;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                token = tokenMaybe || _API.default.findToken();
+                data = null;
+
+                if (!(!force && User.Current)) {
+                  _context.next = 6;
+                  break;
+                }
+
+                return _context.abrupt("return", User.Current);
+
+              case 6:
+                if (!_API.default.SessionStorageSupported) {
+                  _context.next = 10;
+                  break;
+                }
+
+                /* If the user is stored in session storage. */
+                data = JSON.parse(sessionStorage.getItem("user"));
+
+                if (!data) {
+                  _context.next = 10;
+                  break;
+                }
+
+                return _context.abrupt("return", User.setUser(data));
+
+              case 10:
+                if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO)) {
+                  _context.next = 16;
+                  break;
+                }
+
+                _context.next = 13;
+                return new Promise(function (resolve, reject) {
+                  if (token) _API.default.GetSocket(token).then(function (socket) {
+                    socket.emit("/API/User/Retreive", null, resolve);
+                  }, reject);else resolve(null);
+                });
+
+              case 13:
+                data = _context.sent;
+                _context.next = 19;
+                break;
+
+              case 16:
+                _context.next = 18;
+                return _API.default.Call("GET", "/API/User", {
+                  token: token
+                });
+
+              case 18:
+                data = _context.sent;
+
+              case 19:
+                if (!data) {
+                  _context.next = 21;
+                  break;
+                }
+
+                return _context.abrupt("return", User.setUser(data));
+
+              case 21:
+                return _context.abrupt("return", User.setUser(null));
+
+              case 22:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      return function getUser(_x, _x2) {
+        return _getUser.apply(this, arguments);
+      };
+    }()
+  }, {
+    key: "findById",
+    value: function findById(id, token) {
+      return _RESTModel2.default.findById(User, id, token, true);
+    }
+  }, {
+    key: "connectFacebook",
+    value: function connectFacebook() {
+      window.location.href = "".concat(_API.default.root, "/API/Auth/Facebook");
+    }
+  }, {
+    key: "facebookLogIn",
+    value: function facebookLogIn() {
+      window.location.href = "".concat(_API.default.root, "/API/Login/Facebook");
+    }
+  }, {
+    key: "payPalLogIn",
+    value: function payPalLogIn() {
+      window.location.href = "".concat(_API.default.root, "/API/Auth/PayPal");
+    }
+  }, {
+    key: "userLogIn",
+    value: function userLogIn(email, password) {
+      return new Promise(function (resolve, reject) {
+        function onError(error) {
+          User.setUser(null).then(function () {
+            reject(error);
+          });
+        }
+
+        if (!email) onError(new Error("No email"));else if (!password) onError(new Error("No password"));else {
+          _API.default.Call("POST", "/API/User/SignIn", {
+            email: email,
+            password: password
+          }).then(function (response) {
+            if (response && response.user && response.token) {
+              if (_API.default.LocalStorageSupported) {
+                localStorage.setItem("token", response.token);
+              }
+
+              _API.default.token = response.token;
+              User.setUser(response.user).then(resolve, onError);
+            } else onError(new Error("".concat(JSON.stringify(response), " returned")));
+          }, onError);
+        }
+      });
+    }
+  }, {
+    key: "userLogOut",
+    value: function userLogOut(tokenMaybe) {
+      var token = tokenMaybe || _API.default.findToken();
+
+      return new Promise(function (resolve, reject) {
+        _API.default.Call("POST", "/API/User/SignOut", {
+          token: token
+        }).then(function () {
+          User.setUser(null).then(function (user) {
+            if (user && user.valid()) reject(new Error("".concat(JSON.stringify(user), " returned, failed to log out?")));else resolve(user);
+          });
+        }, reject);
+      });
+    }
+  }, {
+    key: "sendPasswordResetEmail",
+    value: function sendPasswordResetEmail(email) {
+      return _API.default.Call("POST", "/User/Reset", {
+        email: email
+      });
+    }
+  }, {
+    key: "registerUser",
+    value: function registerUser(userData) {
+      return new Promise(function (resolve, reject) {
+        if (userData && (0, _typeof2.default)(userData) === "object") {
+          if (userData.email) {
+            var re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+            if (re[Symbol.search](userData.email) !== 0) return reject(new Error("Invalid email address"));
+          } else return reject(new Error("Email is required"));
+
+          if (userData.password) {
+            var symbolTest = /(?:[\0-\/:-@\[-`\{-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF])/g;
+            var numberTest = /[0-9]/g;
+            var lowercasePassword = userData.password.toLowerCase();
+            if (userData.password === "") return reject(new Error("Password is required"));else if (userData.password.length < 8) return reject(new Error("Password is too short"));else if (userData.password.length > 256) return reject(new Error("Password is too long"));else if (!symbolTest.test(userData.password)) return reject(new Error("Password does not contain at least one symbol"));else if (!numberTest.test(userData.password)) return reject(new Error("Password does not contain at least one number"));else if (userData.firstName && userData.firstName.length !== 0 && lowercasePassword.indexOf(userData.firstName.toLowerCase()) !== -1) return reject(new Error("Password can not contain your first name"));else if (userData.lastName && userData.lastName.length !== 0 && lowercasePassword.indexOf(userData.lastName.toLowerCase()) !== -1) return reject(new Error("Password can not contain your last name"));
+          } else return reject(new Error("Password is required"));
+
+          if (userData.firstName) {
+            if (userData.firstName.length !== 0) {
+              if (userData.firstName[0] === userData.firstName[0].toLowerCase()) return reject(new Error("First name is not title case"));
+            } else return reject(new Error("First name is required"));
+          } else return reject(new Error("First name is required"));
+
+          if (userData.lastName) {
+            if (userData.lastName.length !== 0) {
+              if (userData.lastName[0] === userData.lastName[0].toLowerCase()) return reject(new Error("Last name is not title case"));
+            } else return reject(new Error("Last name is required"));
+          } else return reject(new Error("Last name is required"));
+        } else return reject(new Error("User data is not an object"));
+
+        if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
+          return new Promise(function (resolve, reject) {
+            if (token) _API.default.GetSocket().then(function (socket) {
+              socket.emit("/API/User/Create", userData, resolve);
+            }, reject);else resolve(null);
+          });
+        }
+
+        return _API.default.Call("POST", "/API/User", userData).then(function (data) {
+          if (data) User.setUser(data).then(function (user) {
+            resolve(user);
+          }, reject);else reject(new Error("".concat(JSON.stringify(data), " returned")));
+        }, reject);
+      });
+    }
+  }]);
   return User;
 }(_RESTModel2.default);
 
 exports.default = User;
-
-_defineProperty(User, "ModelName", "User");
-
-_defineProperty(User, "Current", null);
-
-_defineProperty(User, "Callbacks", new _map.default());
-
-_defineProperty(User, "agreement", null);
+(0, _defineProperty2.default)(User, "ModelName", "User");
+(0, _defineProperty2.default)(User, "Current", null);
+(0, _defineProperty2.default)(User, "Callbacks", new Map());
+(0, _defineProperty2.default)(User, "agreement", null);
