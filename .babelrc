@@ -9,10 +9,11 @@
           firefox: 60
         },
         forceAllTransforms: true,
-        modules: "umd",
-        useBuiltIns: "usage",
+        modules: "commonjs",
+        useBuiltIns: false,
         debug: false,
-        spec: true
+        spec: true,
+        loose: true
       }
     ],
     ["@babel/preset-stage-2", { decoratorsLegacy: true }],
