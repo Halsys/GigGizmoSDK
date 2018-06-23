@@ -168,7 +168,11 @@ export default class RESTModel {
 		if (RESTModel.isValidId(id)) {
 			let data = null;
 			console.log(Model);
-			const modelName = Model.ModelName || Model.constructor.ModelName;
+			let modelName = null;
+			if (Model.ModelName) modelName = Model.ModelName;
+			if (!modelName && Model.default) modelName = Model.default.ModelName;
+			if (!modelName && Model.constructor.ModelName)
+				modelName = Model.constructor.ModelName;
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				if (socket) {
 					data = await new Promise((resolve, reject) =>
@@ -194,7 +198,11 @@ export default class RESTModel {
 		const criteria = criteriaMaybe || {};
 		let data = null;
 		console.log(Model);
-		const modelName = Model.ModelName || Model.constructor.ModelName;
+		let modelName = null;
+		if (Model.ModelName) modelName = Model.ModelName;
+		if (!modelName && Model.default) modelName = Model.default.ModelName;
+		if (!modelName && Model.constructor.ModelName)
+			modelName = Model.constructor.ModelName;
 		const route = `/API/${modelName}/FindOne`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			const socket = await API.GetSocket(token);
@@ -216,7 +224,11 @@ export default class RESTModel {
 		let criteria = criteriaMaybe || null;
 		let data = null;
 		console.log(Model);
-		const modelName = Model.ModelName || Model.constructor.ModelName;
+		let modelName = null;
+		if (Model.ModelName) modelName = Model.ModelName;
+		if (!modelName && Model.default) modelName = Model.default.ModelName;
+		if (!modelName && Model.constructor.ModelName)
+			modelName = Model.constructor.ModelName;
 		const route = `/API/${modelName}/FindMany`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			data = await new Promise((resolve, reject) =>
