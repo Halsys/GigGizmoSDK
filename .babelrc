@@ -1,10 +1,9 @@
 {
-  presets: [
-    "@babel/react",
-    "@babel/env",
-    ["@babel/stage-2", { decoratorsLegacy: true }]
-  ],
+  presets: [["@babel/env", { modules: "umd" }]],
   plugins: [
+    "syntax-dynamic-import",
+    "transform-class-properties",
+    "@babel/plugin-proposal-export-namespace-from",
     [
       "@babel/transform-runtime",
       {
