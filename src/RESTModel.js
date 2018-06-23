@@ -164,15 +164,17 @@ export default class RESTModel {
 		);
 	}
 
+	static getModelName(Model) {
+		if (Model.ModelName) return Model.ModelName;
+		if (Model.default.ModelName) return Model.default.ModelName;
+		if (Model.constructor.ModelName) return Model.constructor.ModelName;
+		if (Model.prototype.ModelName) return Model.prototype.ModelName;
+	}
+
 	static async findById(Model, id, token, hasWebSocket = false) {
 		if (RESTModel.isValidId(id)) {
 			let data = null;
-			console.log(Model);
-			let modelName = null;
-			if (Model.ModelName) modelName = Model.ModelName;
-			if (!modelName && Model.default) modelName = Model.default.ModelName;
-			if (!modelName && Model.constructor.ModelName)
-				modelName = Model.constructor.ModelName;
+			let modelName = RESTModel.getModelName(Model);
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				if (socket) {
 					data = await new Promise((resolve, reject) =>
@@ -197,12 +199,7 @@ export default class RESTModel {
 	static async findOne(Model, criteriaMaybe, token, hasWebSocket = false) {
 		const criteria = criteriaMaybe || {};
 		let data = null;
-		console.log(Model);
-		let modelName = null;
-		if (Model.ModelName) modelName = Model.ModelName;
-		if (!modelName && Model.default) modelName = Model.default.ModelName;
-		if (!modelName && Model.constructor.ModelName)
-			modelName = Model.constructor.ModelName;
+		let modelName = RESTModel.getModelName(Model);
 		const route = `/API/${modelName}/FindOne`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			const socket = await API.GetSocket(token);
@@ -223,12 +220,7 @@ export default class RESTModel {
 	static async findMany(Model, criteriaMaybe, token, hasWebSocket = false) {
 		let criteria = criteriaMaybe || null;
 		let data = null;
-		console.log(Model);
-		let modelName = null;
-		if (Model.ModelName) modelName = Model.ModelName;
-		if (!modelName && Model.default) modelName = Model.default.ModelName;
-		if (!modelName && Model.constructor.ModelName)
-			modelName = Model.constructor.ModelName;
+		let modelName = RESTModel.getModelName(Model);
 		const route = `/API/${modelName}/FindMany`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			data = await new Promise((resolve, reject) =>
