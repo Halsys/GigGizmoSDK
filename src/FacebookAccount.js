@@ -2,8 +2,8 @@
  * Created by corynull on Nov 30 2017 9:08 AM.
  */
 
-import RESTModel from "./RESTModel";
-import User from "./User";
+import { default as RESTModel } from "./RESTModel";
+import { default as User } from "./User";
 import API from "./API";
 
 export default class FacebookAccount extends RESTModel {
@@ -51,8 +51,7 @@ export default class FacebookAccount extends RESTModel {
 
 	userIsOwner(user) {
 		if (typeof user === "string") return user === this.userId;
-		else if (typeof user === "object" && user)
-			return user._id === this.userId;
+		else if (typeof user === "object" && user) return user._id === this.userId;
 		return false;
 	}
 
@@ -67,14 +66,11 @@ export default class FacebookAccount extends RESTModel {
 	static findById(id, token) {
 		return new Promise((resolve, reject) => {
 			if (typeof id === "string" && id !== "")
-				API.Call("GET", `/API/FacebookAccount/${id}`, { token }).then(
-					found => {
-						const account = found || null;
-						if (account) resolve(new FacebookAccount(account));
-						else reject(new Error(`${account} returned`));
-					},
-					reject
-				);
+				API.Call("GET", `/API/FacebookAccount/${id}`, { token }).then(found => {
+					const account = found || null;
+					if (account) resolve(new FacebookAccount(account));
+					else reject(new Error(`${account} returned`));
+				}, reject);
 			else resolve(null);
 		});
 	}

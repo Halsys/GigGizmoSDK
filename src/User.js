@@ -3,19 +3,19 @@
  */
 import moment from "moment";
 
-import Band from "./Band";
-import Venue from "./Venue";
-import Gig from "./Gig";
-import Post from "./Post";
-import Page from "./Page";
-import Location from "./Location";
+import { default as Band } from "./Band";
+import { default as Venue } from "./Venue";
+import { default as Gig } from "./Gig";
+import { default as Post } from "./Post";
+import { default as Page } from "./Page";
+import { default as Location } from "./Location";
 import API from "./API";
-import Upload from "./Upload";
-import RESTModel from "./RESTModel";
-import Notification from "./Notification";
-import TwitterAccount from "./TwitterAccount";
-import FacebookAccount from "./FacebookAccount";
-import Conversation from "./Conversation";
+import { default as Upload } from "./Upload";
+import { default as RESTModel } from "./RESTModel";
+import { default as Notification } from "./Notification";
+import { default as TwitterAccount } from "./TwitterAccount";
+import { default as FacebookAccount } from "./FacebookAccount";
+import { default as Conversation } from "./Conversation";
 
 export default class User extends RESTModel {
 	static ModelName = "User";

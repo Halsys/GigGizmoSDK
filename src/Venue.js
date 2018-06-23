@@ -2,13 +2,13 @@
  * Created by corynull on 4/5/17.
  */
 
-import User from "./User";
-import Upload from "./Upload";
-import Gig from "./Gig";
-import Location from "./Location";
-import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import FacebookAccount from "./FacebookAccount";
+import { default as User } from "./User";
+import { default as Upload } from "./Upload";
+import { default as Gig } from "./Gig";
+import { default as Location } from "./Location";
+import { default as RESTModel } from "./RESTModel";
+import { default as TwitterAccount } from "./TwitterAccount";
+import { default as FacebookAccount } from "./FacebookAccount";
 
 export default class Venue extends RESTModel {
 	static ModelName = "Venue";

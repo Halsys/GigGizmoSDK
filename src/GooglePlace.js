@@ -3,7 +3,7 @@
  */
 
 import API from "./API";
-import RESTModel from "./RESTModel";
+import { default as RESTModel } from "./RESTModel";
 
 export default class GooglePlace extends RESTModel {
 	static ModelName = "GooglePlace";

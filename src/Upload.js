@@ -2,8 +2,8 @@
  * Created by corynull on 4/10/17.
  */
 
-import User from "./User";
-import RESTModel from "./RESTModel";
+import { default as User } from "./User";
+import { default as RESTModel } from "./RESTModel";
 
 export default class Upload extends RESTModel {
 	static ModelName = "Upload";

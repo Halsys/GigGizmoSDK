@@ -2,8 +2,8 @@
  * Created by corynull on 5/17/17.
  */
 
-import RESTModel from "./RESTModel";
-import User from "./User";
+import { default as RESTModel } from "./RESTModel";
+import { default as User } from "./User";
 import API from "./API";
 
 export default class TwitterAccount extends RESTModel {
@@ -60,9 +60,7 @@ export default class TwitterAccount extends RESTModel {
 	goToTwitterAccount() {
 		if (typeof window !== "undefined") {
 			// We are on a browser
-			window.location.href = `https://twitter.com?profile_id=${
-				this.accountId
-			}`;
+			window.location.href = `https://twitter.com?profile_id=${this.accountId}`;
 		}
 	}
 
