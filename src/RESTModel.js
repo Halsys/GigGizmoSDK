@@ -171,9 +171,11 @@ export default class RESTModel {
 		if (Model.prototype.ModelName) return Model.prototype.ModelName;
 	}
 
-	static async findById(Model, id, token, hasWebSocket = false) {
+	static async findById(ModelMaybe, id, token, hasWebSocket = false) {
 		if (RESTModel.isValidId(id)) {
 			let data = null;
+			let Model = ModelMaybe || null;
+			if (Model.default) Model = Model.default;
 			let modelName = RESTModel.getModelName(Model);
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				if (socket) {
@@ -196,9 +198,11 @@ export default class RESTModel {
 		return null;
 	}
 
-	static async findOne(Model, criteriaMaybe, token, hasWebSocket = false) {
+	static async findOne(ModelMaybe, criteriaMaybe, token, hasWebSocket = false) {
 		const criteria = criteriaMaybe || {};
 		let data = null;
+		let Model = ModelMaybe || null;
+		if (Model.default) Model = Model.default;
 		let modelName = RESTModel.getModelName(Model);
 		const route = `/API/${modelName}/FindOne`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
@@ -217,9 +221,16 @@ export default class RESTModel {
 		return null;
 	}
 
-	static async findMany(Model, criteriaMaybe, token, hasWebSocket = false) {
+	static async findMany(
+		ModelMaybe,
+		criteriaMaybe,
+		token,
+		hasWebSocket = false
+	) {
 		let criteria = criteriaMaybe || null;
 		let data = null;
+		let Model = ModelMaybe || null;
+		if (Model.default) Model = Model.default;
 		let modelName = RESTModel.getModelName(Model);
 		const route = `/API/${modelName}/FindMany`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
