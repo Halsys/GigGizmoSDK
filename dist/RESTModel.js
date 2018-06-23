@@ -150,7 +150,7 @@
               switch (_context.prev = _context.next) {
                 case 0:
                   hasWebSocket = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
-                  modelName = this.ModelName || this.constructor.ModelName;
+                  modelName = Model.ModelName || Model.constructor.ModelName || Model.default.default.ModelName;
                   response = null;
                   id = this.document.id || null;
                   data = this.changes;
@@ -270,7 +270,7 @@
                   }
 
                   response = null;
-                  modelName = this.ModelName || this.constructor.ModelName;
+                  modelName = Model.ModelName || Model.constructor.ModelName || Model.default.default.ModelName;
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
                     _context2.next = 11;
@@ -346,7 +346,7 @@
                   }
 
                   data = null;
-                  modelName = Model.ModelName || Model.constructor.ModelName;
+                  modelName = Model.ModelName || Model.constructor.ModelName || Model.default.default.ModelName;
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
                     _context3.next = 9;
@@ -426,7 +426,7 @@
                   hasWebSocket = _args4.length > 3 && _args4[3] !== undefined ? _args4[3] : false;
                   criteria = criteriaMaybe || {};
                   data = null;
-                  modelName = Model.ModelName || Model.constructor.ModelName;
+                  modelName = Model.ModelName || Model.constructor.ModelName || Model.default.default.ModelName;
                   route = "/API/".concat(modelName, "/FindOne");
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
@@ -513,7 +513,7 @@
                   hasWebSocket = _args5.length > 3 && _args5[3] !== undefined ? _args5[3] : false;
                   criteria = criteriaMaybe || null;
                   data = null;
-                  modelName = Model.ModelName || Model.constructor.ModelName;
+                  modelName = Model.ModelName || Model.constructor.ModelName || Model.default.default.ModelName;
                   route = "/API/".concat(modelName, "/FindMany");
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
