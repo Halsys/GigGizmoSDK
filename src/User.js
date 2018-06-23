@@ -338,31 +338,31 @@ export default class User extends RESTModel {
 	}
 
 	static getAllConversations(token) {
-		return Conversation.getAllOwned(token);
+		return RESTModel.findMany(Conversation, null, token, true);
 	}
 
 	static getAllNotifications(token) {
-		return Notification.getAllOwned(token);
+		return RESTModel.findMany(Notification, null, token, true);
 	}
 
 	static getAllPosts(token) {
-		return Post.getAllOwned(token);
+		return RESTModel.findMany(Post, null, token, true);
 	}
 
 	static getAllBands(token) {
-		return Band.getAllOwned(token);
+		return RESTModel.findMany(Band, null, token, true);
 	}
 
 	static getAllVenues(token) {
-		return Venue.getAllOwned(token);
+		return RESTModel.findMany(Venue, null, token, true);
 	}
 
 	static getAllGigs(token) {
-		return Gig.getAllOwned(token);
+		return RESTModel.findMany(Gig, null, token, true);
 	}
 
 	static getAllUploads(token) {
-		return Upload.getAllOwned(token);
+		return RESTModel.findMany(Upload, null, token, true);
 	}
 
 	static findFacebookPages(term) {

@@ -390,37 +390,37 @@
     }, {
       key: "getAllConversations",
       value: function getAllConversations(token) {
-        return _Conversation.default.getAllOwned(token);
+        return _RESTModel2.default.findMany(_Conversation.default, null, token, true);
       }
     }, {
       key: "getAllNotifications",
       value: function getAllNotifications(token) {
-        return _Notification.default.getAllOwned(token);
+        return _RESTModel2.default.findMany(_Notification.default, null, token, true);
       }
     }, {
       key: "getAllPosts",
       value: function getAllPosts(token) {
-        return _Post.default.getAllOwned(token);
+        return _RESTModel2.default.findMany(_Post.default, null, token, true);
       }
     }, {
       key: "getAllBands",
       value: function getAllBands(token) {
-        return _Band.default.getAllOwned(token);
+        return _RESTModel2.default.findMany(_Band.default, null, token, true);
       }
     }, {
       key: "getAllVenues",
       value: function getAllVenues(token) {
-        return _Venue.default.getAllOwned(token);
+        return _RESTModel2.default.findMany(_Venue.default, null, token, true);
       }
     }, {
       key: "getAllGigs",
       value: function getAllGigs(token) {
-        return _Gig.default.getAllOwned(token);
+        return _RESTModel2.default.findMany(_Gig.default, null, token, true);
       }
     }, {
       key: "getAllUploads",
       value: function getAllUploads(token) {
-        return _Upload.default.getAllOwned(token);
+        return _RESTModel2.default.findMany(_Upload.default, null, token, true);
       }
     }, {
       key: "findFacebookPages",
@@ -759,6 +759,11 @@
             }, reject);else reject(new Error("".concat(JSON.stringify(data), " returned")));
           }, reject);
         });
+      }
+    }, {
+      key: "NotifyAdminsOfError",
+      value: function NotifyAdminsOfError() {
+        console.error("Not implemented yet.");
       }
     }]);
     return User;
