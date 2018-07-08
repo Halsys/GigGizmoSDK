@@ -13,8 +13,6 @@
 })(this, function (_exports, _Band, _Conversation, _ErrorReport, _FacebookAccount, _Gig, _Location, _Notification, _Page, _Post, _TwitterAccount, _Upload, _User, _Venue) {
   "use strict";
 
-  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
@@ -32,6 +30,9 @@
   _Upload = _interopRequireDefault(_Upload);
   _User = _interopRequireDefault(_User);
   _Venue = _interopRequireDefault(_Venue);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
   var _default = {
     Band: _Band.default,
     Conversation: _Conversation.default,

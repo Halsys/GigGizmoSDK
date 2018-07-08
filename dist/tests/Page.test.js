@@ -13,12 +13,28 @@
 })(this, function (_chai, _) {
   "use strict";
 
+  var _this = void 0;
+
+  function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
   describe("Page class", function () {
+    var _this2 = this;
+
+    _newArrowCheck(this, _this);
+
     it("ModelName exists", function () {
+      _newArrowCheck(this, _this2);
+
       (0, _chai.expect)(_.Page.ModelName).to.equal("Page");
-    });
+    }.bind(this));
     describe("Constructor", function () {
+      var _this3 = this;
+
+      _newArrowCheck(this, _this2);
+
       it("Parse JSON", function () {
+        _newArrowCheck(this, _this3);
+
         var page = new _.Page("{\n\t\t\t\t\"data\": \"NOT HTML\",\n\t\t\t\t\"metadata\": \"Test\",\n\t\t\t\t\"title\": \"This is a test\",\n\t\t\t\t\"link\": \"/\",\n\t\t\t\t\"visits\": 0,\n\t\t\t\t\"revisions\": 0,\n\t\t\t\t\"hide\": false,\n\t\t\t\t\"blog\": false,\n\t\t\t\t\"doc\": false\n\t\t\t}");
         (0, _chai.expect)(page.data).to.equal("NOT HTML");
         (0, _chai.expect)(page.metadata).to.equal("Test");
@@ -29,8 +45,10 @@
         (0, _chai.expect)(page.hide).to.equal(false);
         (0, _chai.expect)(page.blog).to.equal(false);
         (0, _chai.expect)(page.doc).to.equal(false);
-      });
+      }.bind(this));
       it("Empty", function () {
+        _newArrowCheck(this, _this3);
+
         var page = new _.Page({});
         (0, _chai.expect)(page.data).to.equal(null);
         (0, _chai.expect)(page.metadata).to.equal(null);
@@ -41,8 +59,10 @@
         (0, _chai.expect)(page.hide).to.equal(true);
         (0, _chai.expect)(page.blog).to.equal(false);
         (0, _chai.expect)(page.doc).to.equal(false);
-      });
+      }.bind(this));
       it("Copy Data", function () {
+        _newArrowCheck(this, _this3);
+
         var page = new _.Page({
           data: "NOT HTML",
           metadata: "Test",
@@ -63,7 +83,7 @@
         (0, _chai.expect)(page.hide).to.equal(false);
         (0, _chai.expect)(page.blog).to.equal(false);
         (0, _chai.expect)(page.doc).to.equal(false);
-      });
-    });
-  });
+      }.bind(this));
+    }.bind(this));
+  }.bind(void 0));
 });

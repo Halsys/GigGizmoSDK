@@ -1,37 +1,60 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/helpers/objectSpread", "@babel/runtime/regenerator", "@babel/runtime/helpers/asyncToGenerator", "@babel/runtime/helpers/typeof", "@babel/runtime/helpers/classCallCheck", "@babel/runtime/helpers/createClass", "moment", "./API"], factory);
+    define(["exports", "@babel/runtime/core-js/map", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/object/get-own-property-symbols", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/regenerator", "@babel/runtime/core-js/promise", "@babel/runtime/core-js/object/keys", "core-js/modules/web.dom.iterable", "regenerator-runtime/runtime", "@babel/runtime/core-js/json/stringify", "@babel/runtime/core-js/object/assign", "moment", "./API"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/helpers/objectSpread"), require("@babel/runtime/regenerator"), require("@babel/runtime/helpers/asyncToGenerator"), require("@babel/runtime/helpers/typeof"), require("@babel/runtime/helpers/classCallCheck"), require("@babel/runtime/helpers/createClass"), require("moment"), require("./API"));
+    factory(exports, require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/object/get-own-property-symbols"), require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/regenerator"), require("@babel/runtime/core-js/promise"), require("@babel/runtime/core-js/object/keys"), require("core-js/modules/web.dom.iterable"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/json/stringify"), require("@babel/runtime/core-js/object/assign"), require("moment"), require("./API"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.objectSpread, global.regenerator, global.asyncToGenerator, global._typeof, global.classCallCheck, global.createClass, global.moment, global.API);
+    factory(mod.exports, global.map, global.getOwnPropertyDescriptor, global.getOwnPropertySymbols, global.iterator, global.symbol, global.defineProperty, global.regenerator, global.promise, global.keys, global.webDom, global.runtime, global.stringify, global.assign, global.moment, global.API);
     global.RESTModel = mod.exports;
   }
-})(this, function (_exports, _objectSpread2, _regenerator, _asyncToGenerator2, _typeof2, _classCallCheck2, _createClass2, _moment, _API) {
+})(this, function (_exports, _map, _getOwnPropertyDescriptor, _getOwnPropertySymbols, _iterator, _symbol, _defineProperty2, _regenerator, _promise, _keys, _webDom, _runtime, _stringify, _assign, _moment, _API) {
   "use strict";
-
-  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
-  _objectSpread2 = _interopRequireDefault(_objectSpread2);
+  _map = _interopRequireDefault(_map);
+  _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
+  _getOwnPropertySymbols = _interopRequireDefault(_getOwnPropertySymbols);
+  _iterator = _interopRequireDefault(_iterator);
+  _symbol = _interopRequireDefault(_symbol);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _regenerator = _interopRequireDefault(_regenerator);
-  _asyncToGenerator2 = _interopRequireDefault(_asyncToGenerator2);
-  _typeof2 = _interopRequireDefault(_typeof2);
-  _classCallCheck2 = _interopRequireDefault(_classCallCheck2);
-  _createClass2 = _interopRequireDefault(_createClass2);
+  _promise = _interopRequireDefault(_promise);
+  _keys = _interopRequireDefault(_keys);
+  _stringify = _interopRequireDefault(_stringify);
+  _assign = _interopRequireDefault(_assign);
   _moment = _interopRequireDefault(_moment);
   _API = _interopRequireDefault(_API);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = (0, _keys.default)(source); if (typeof _getOwnPropertySymbols.default === 'function') { ownKeys = ownKeys.concat((0, _getOwnPropertySymbols.default)(source).filter(function (sym) { return (0, _getOwnPropertyDescriptor.default)(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+  function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
+  function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
+
+  function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+  function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
+
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
   var RESTModel =
   /*#__PURE__*/
   function () {
-    (0, _createClass2.default)(RESTModel, [{
+    _createClass(RESTModel, [{
       key: "setField",
       value: function setField(name, value) {
         var currentValue = this.getField(name) || undefined;
@@ -89,7 +112,8 @@
     }]);
 
     function RESTModel(dataMaybe) {
-      (0, _classCallCheck2.default)(this, RESTModel);
+      _classCallCheck(this, RESTModel);
+
       this.document = {};
       this.changes = {};
 
@@ -97,24 +121,24 @@
         try {
           var data = JSON.parse(dataMaybe);
           if (typeof data.ModelName !== "undefined") delete data.ModelName;
-          Object.assign(this.document, data);
+          (0, _assign.default)(this.document, data);
         } catch (e) {
           console.error(e);
         }
       } else if (dataMaybe) {
-        if ((0, _typeof2.default)(dataMaybe.document) === "object") Object.assign(this.document, dataMaybe.document);else Object.assign(this.document, dataMaybe);
+        if (_typeof(dataMaybe.document) === "object") (0, _assign.default)(this.document, dataMaybe.document);else (0, _assign.default)(this.document, dataMaybe);
       }
     }
 
-    (0, _createClass2.default)(RESTModel, [{
+    _createClass(RESTModel, [{
       key: "toObject",
       value: function toObject() {
-        return this.valid() ? Object.assign({}, this.changes, this.document) : null;
+        return this.valid() ? (0, _assign.default)({}, this.changes, this.document) : null;
       }
     }, {
       key: "toString",
       value: function toString() {
-        return this.valid() ? JSON.stringify(Object.assign({}, this.changes, this.document)) : "null";
+        return this.valid() ? (0, _stringify.default)((0, _assign.default)({}, this.changes, this.document)) : "null";
       }
     }, {
       key: "valid",
@@ -128,13 +152,13 @@
       key: "assign",
       value: function assign() {
         var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        Object.assign(this.changes, data);
+        (0, _assign.default)(this.changes, data);
         return this;
       }
     }, {
       key: "save",
       value: function () {
-        var _save = (0, _asyncToGenerator2.default)(
+        var _save = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee(token) {
           var _this = this;
@@ -154,9 +178,11 @@
                   response = null;
                   id = this.document.id || null;
                   data = this.changes;
-                  Object.keys(this.changes).forEach(function (key) {
-                    if (data[key] === _this.document[key]) delete data[key];
-                  });
+                  (0, _keys.default)(this.changes).forEach(function (key) {
+                    _newArrowCheck(this, _this);
+
+                    if (data[key] === this.document[key]) delete data[key];
+                  }.bind(this));
                   data.id = this.changes._id || this.document._id || null;
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
@@ -170,11 +196,17 @@
                   }
 
                   _context.next = 11;
-                  return new Promise(function (resolve, reject) {
+                  return new _promise.default(function (resolve, reject) {
+                    var _this2 = this;
+
+                    _newArrowCheck(this, _this);
+
                     return _API.default.GetSocket(token).then(function (socket) {
+                      _newArrowCheck(this, _this2);
+
                       return socket.emit("/API/".concat(modelName, "/Update"), data, resolve);
-                    }, reject);
-                  });
+                    }.bind(this), reject);
+                  }.bind(this));
 
                 case 11:
                   response = _context.sent;
@@ -183,11 +215,17 @@
 
                 case 14:
                   _context.next = 16;
-                  return new Promise(function (resolve, reject) {
+                  return new _promise.default(function (resolve, reject) {
+                    var _this3 = this;
+
+                    _newArrowCheck(this, _this);
+
                     return _API.default.GetSocket(token).then(function (socket) {
+                      _newArrowCheck(this, _this3);
+
                       return socket.emit("/API/".concat(modelName, "/Create"), data, resolve);
-                    }, reject);
-                  });
+                    }.bind(this), reject);
+                  }.bind(this));
 
                 case 16:
                   response = _context.sent;
@@ -249,9 +287,11 @@
     }, {
       key: "remove",
       value: function () {
-        var _remove = (0, _asyncToGenerator2.default)(
+        var _remove = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee2(token) {
+          var _this4 = this;
+
           var hasWebSocket,
               id,
               response,
@@ -278,13 +318,23 @@
                   }
 
                   _context2.next = 8;
-                  return new Promise(function (resolve, reject) {
+                  return new _promise.default(function (resolve, reject) {
+                    var _this5 = this;
+
+                    _newArrowCheck(this, _this4);
+
                     return _API.default.GetSocket(token).then(function (socket) {
+                      var _this6 = this;
+
+                      _newArrowCheck(this, _this5);
+
                       return socket.emit("/API/".concat(modelName, "/Delete"), id, function (res) {
+                        _newArrowCheck(this, _this6);
+
                         return resolve(res);
-                      });
-                    }, reject);
-                  });
+                      }.bind(this));
+                    }.bind(this), reject);
+                  }.bind(this));
 
                 case 8:
                   response = _context2.sent;
@@ -335,9 +385,11 @@
     }, {
       key: "findById",
       value: function () {
-        var _findById = (0, _asyncToGenerator2.default)(
+        var _findById = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee3(ModelMaybe, id, token) {
+          var _this7 = this;
+
           var hasWebSocket,
               data,
               _Model,
@@ -371,11 +423,17 @@
                   }
 
                   _context3.next = 10;
-                  return new Promise(function (resolve, reject) {
+                  return new _promise.default(function (resolve, reject) {
+                    var _this8 = this;
+
+                    _newArrowCheck(this, _this7);
+
                     return _API.default.GetSocket(token).then(function (socket) {
+                      _newArrowCheck(this, _this8);
+
                       return socket.emit("/API/".concat(modelName, "/Retreive"), id, resolve);
-                    }, reject);
-                  });
+                    }.bind(this), reject);
+                  }.bind(this));
 
                 case 10:
                   data = _context3.sent;
@@ -420,9 +478,11 @@
     }, {
       key: "findOne",
       value: function () {
-        var _findOne = (0, _asyncToGenerator2.default)(
+        var _findOne = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee4(ModelMaybe, criteriaMaybe, token) {
+          var _this9 = this;
+
           var hasWebSocket,
               criteria,
               data,
@@ -461,13 +521,15 @@
                   }
 
                   _context4.next = 14;
-                  return new Promise(function (resolve, reject) {
+                  return new _promise.default(function (resolve, reject) {
+                    _newArrowCheck(this, _this9);
+
                     try {
                       _socket.emit(route, criteria, resolve);
                     } catch (e) {
                       reject(e);
                     }
-                  });
+                  }.bind(this));
 
                 case 14:
                   data = _context4.sent;
@@ -479,7 +541,7 @@
                   }
 
                   _context4.next = 18;
-                  return _API.default.Call("GET", route, (0, _objectSpread2.default)({}, criteria, {
+                  return _API.default.Call("GET", route, _objectSpread({}, criteria, {
                     token: token
                   }));
 
@@ -512,9 +574,11 @@
     }, {
       key: "findMany",
       value: function () {
-        var _findMany = (0, _asyncToGenerator2.default)(
+        var _findMany = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee5(ModelMaybe, criteriaMaybe, token) {
+          var _this10 = this;
+
           var hasWebSocket,
               criteria,
               data,
@@ -540,11 +604,17 @@
                   }
 
                   _context5.next = 10;
-                  return new Promise(function (resolve, reject) {
+                  return new _promise.default(function (resolve, reject) {
+                    var _this11 = this;
+
+                    _newArrowCheck(this, _this10);
+
                     return _API.default.GetSocket(token).then(function (socket) {
+                      _newArrowCheck(this, _this11);
+
                       return socket.emit(route, criteria, resolve);
-                    }, reject);
-                  });
+                    }.bind(this), reject);
+                  }.bind(this));
 
                 case 10:
                   data = _context5.sent;
@@ -558,7 +628,7 @@
                   }
 
                   _context5.next = 15;
-                  return _API.default.Call("GET", route, (0, _objectSpread2.default)({}, criteria, {
+                  return _API.default.Call("GET", route, _objectSpread({}, criteria, {
                     token: token
                   }));
 
@@ -572,10 +642,12 @@
                   }
 
                   return _context5.abrupt("return", data.map(function (itemData) {
+                    _newArrowCheck(this, _this10);
+
                     var item = new Model(itemData);
                     RESTModel.Cache.set(item._id, item);
                     return item;
-                  }));
+                  }.bind(this)));
 
                 case 18:
                   return _context5.abrupt("return", []);
@@ -593,11 +665,13 @@
         };
       }()
     }]);
+
     return RESTModel;
   }();
 
   _exports.default = RESTModel;
-  RESTModel.Cache = new Map
+
+  _defineProperty(RESTModel, "Cache", new _map.default
   /* [String, Object] */
-  ();
+  ());
 });

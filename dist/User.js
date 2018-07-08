@@ -1,34 +1,38 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/regenerator", "@babel/runtime/helpers/asyncToGenerator", "@babel/runtime/helpers/typeof", "@babel/runtime/helpers/objectSpread", "@babel/runtime/helpers/classCallCheck", "@babel/runtime/helpers/createClass", "@babel/runtime/helpers/possibleConstructorReturn", "@babel/runtime/helpers/getPrototypeOf", "@babel/runtime/helpers/get", "@babel/runtime/helpers/inherits", "moment", "./Band", "./Venue", "./Gig", "./Post", "./Page", "./Location", "./API", "./Upload", "./RESTModel", "./Notification", "./TwitterAccount", "./FacebookAccount", "./Conversation"], factory);
+    define(["exports", "@babel/runtime/core-js/map", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-own-property-symbols", "@babel/runtime/core-js/object/keys", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/symbol/search", "@babel/runtime/regenerator", "regenerator-runtime/runtime", "@babel/runtime/core-js/json/stringify", "core-js/modules/web.dom.iterable", "@babel/runtime/core-js/number/is-finite", "@babel/runtime/core-js/promise", "moment", "./Band", "./Venue", "./Gig", "./Post", "./Page", "./Location", "./API", "./Upload", "./RESTModel", "./Notification", "./TwitterAccount", "./FacebookAccount", "./Conversation"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/regenerator"), require("@babel/runtime/helpers/asyncToGenerator"), require("@babel/runtime/helpers/typeof"), require("@babel/runtime/helpers/objectSpread"), require("@babel/runtime/helpers/classCallCheck"), require("@babel/runtime/helpers/createClass"), require("@babel/runtime/helpers/possibleConstructorReturn"), require("@babel/runtime/helpers/getPrototypeOf"), require("@babel/runtime/helpers/get"), require("@babel/runtime/helpers/inherits"), require("moment"), require("./Band"), require("./Venue"), require("./Gig"), require("./Post"), require("./Page"), require("./Location"), require("./API"), require("./Upload"), require("./RESTModel"), require("./Notification"), require("./TwitterAccount"), require("./FacebookAccount"), require("./Conversation"));
+    factory(exports, require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-own-property-symbols"), require("@babel/runtime/core-js/object/keys"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/symbol/search"), require("@babel/runtime/regenerator"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/json/stringify"), require("core-js/modules/web.dom.iterable"), require("@babel/runtime/core-js/number/is-finite"), require("@babel/runtime/core-js/promise"), require("moment"), require("./Band"), require("./Venue"), require("./Gig"), require("./Post"), require("./Page"), require("./Location"), require("./API"), require("./Upload"), require("./RESTModel"), require("./Notification"), require("./TwitterAccount"), require("./FacebookAccount"), require("./Conversation"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.regenerator, global.asyncToGenerator, global._typeof, global.objectSpread, global.classCallCheck, global.createClass, global.possibleConstructorReturn, global.getPrototypeOf, global.get, global.inherits, global.moment, global.Band, global.Venue, global.Gig, global.Post, global.Page, global.Location, global.API, global.Upload, global.RESTModel, global.Notification, global.TwitterAccount, global.FacebookAccount, global.Conversation);
+    factory(mod.exports, global.map, global.iterator, global.symbol, global.getOwnPropertySymbols, global.keys, global.defineProperty, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.search, global.regenerator, global.runtime, global.stringify, global.webDom, global.isFinite, global.promise, global.moment, global.Band, global.Venue, global.Gig, global.Post, global.Page, global.Location, global.API, global.Upload, global.RESTModel, global.Notification, global.TwitterAccount, global.FacebookAccount, global.Conversation);
     global.User = mod.exports;
   }
-})(this, function (_exports, _regenerator, _asyncToGenerator2, _typeof2, _objectSpread2, _classCallCheck2, _createClass2, _possibleConstructorReturn2, _getPrototypeOf2, _get2, _inherits2, _moment, _Band, _Venue, _Gig, _Post, _Page, _Location, _API, _Upload, _RESTModel2, _Notification, _TwitterAccount, _FacebookAccount, _Conversation) {
+})(this, function (_exports, _map, _iterator, _symbol, _getOwnPropertySymbols, _keys, _defineProperty2, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _search, _regenerator, _runtime, _stringify, _webDom, _isFinite, _promise, _moment, _Band, _Venue, _Gig, _Post, _Page, _Location, _API, _Upload, _RESTModel2, _Notification, _TwitterAccount, _FacebookAccount, _Conversation) {
   "use strict";
-
-  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
-  _regenerator = _interopRequireDefault(_regenerator);
-  _asyncToGenerator2 = _interopRequireDefault(_asyncToGenerator2);
-  _typeof2 = _interopRequireDefault(_typeof2);
-  _objectSpread2 = _interopRequireDefault(_objectSpread2);
-  _classCallCheck2 = _interopRequireDefault(_classCallCheck2);
-  _createClass2 = _interopRequireDefault(_createClass2);
-  _possibleConstructorReturn2 = _interopRequireDefault(_possibleConstructorReturn2);
-  _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
+  _map = _interopRequireDefault(_map);
+  _iterator = _interopRequireDefault(_iterator);
+  _symbol = _interopRequireDefault(_symbol);
+  _getOwnPropertySymbols = _interopRequireDefault(_getOwnPropertySymbols);
+  _keys = _interopRequireDefault(_keys);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
+  _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
   _get2 = _interopRequireDefault(_get2);
-  _inherits2 = _interopRequireDefault(_inherits2);
+  _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
+  _create = _interopRequireDefault(_create);
+  _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _search = _interopRequireDefault(_search);
+  _regenerator = _interopRequireDefault(_regenerator);
+  _stringify = _interopRequireDefault(_stringify);
+  _isFinite = _interopRequireDefault(_isFinite);
+  _promise = _interopRequireDefault(_promise);
   _moment = _interopRequireDefault(_moment);
   _Band = _interopRequireDefault(_Band);
   _Venue = _interopRequireDefault(_Venue);
@@ -44,20 +48,52 @@
   _FacebookAccount = _interopRequireDefault(_FacebookAccount);
   _Conversation = _interopRequireDefault(_Conversation);
 
-  /**
-   * Created by corynull on 4/1/17.
-   */
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
+
+  function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+  function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+  function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = (0, _keys.default)(source); if (typeof _getOwnPropertySymbols.default === 'function') { ownKeys = ownKeys.concat((0, _getOwnPropertySymbols.default)(source).filter(function (sym) { return (0, _getOwnPropertyDescriptor.default)(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+  function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
+
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+  function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+  function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+  function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && _get2.default) { _get = _get2.default; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = (0, _getOwnPropertyDescriptor.default)(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+  function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+  function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+  function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
   var User =
   /*#__PURE__*/
   function (_RESTModel) {
-    (0, _inherits2.default)(User, _RESTModel);
+    _inherits(User, _RESTModel);
 
     function User() {
-      (0, _classCallCheck2.default)(this, User);
-      return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(User).apply(this, arguments));
+      _classCallCheck(this, User);
+
+      return _possibleConstructorReturn(this, _getPrototypeOf(User).apply(this, arguments));
     }
 
-    (0, _createClass2.default)(User, [{
+    _createClass(User, [{
       key: "getIcon",
       value: function getIcon() {
         var icon = this.icon;
@@ -104,7 +140,7 @@
     }, {
       key: "valid",
       value: function valid() {
-        if (!(0, _get2.default)((0, _getPrototypeOf2.default)(User.prototype), "valid", this).call(this)) return false; // Type checks
+        if (!_get(_getPrototypeOf(User.prototype), "valid", this).call(this)) return false; // Type checks
 
         if (typeof this.firstName !== "string") return false;
         if (typeof this.lastName !== "string") return false;
@@ -425,7 +461,11 @@
     }, {
       key: "findFacebookPages",
       value: function findFacebookPages(term) {
-        return new Promise(function (resolve, reject) {
+        var _this = this;
+
+        return new _promise.default(function (resolve, reject) {
+          _newArrowCheck(this, _this);
+
           if (term === "") {
             resolve();
           } else {
@@ -433,16 +473,22 @@
               term: term
             }).then(resolve, reject);
           }
-        });
+        }.bind(this));
       }
     }, {
       key: "search",
       value: function search(q) {
+        var _this2 = this;
+
         var modelName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
         var skip = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
         var limit = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Number.POSITIVE_INFINITY;
         var token = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : _API.default.findToken();
-        return new Promise(function (resolve, reject) {
+        return new _promise.default(function (resolve, reject) {
+          var _this3 = this;
+
+          _newArrowCheck(this, _this2);
+
           if (q === "") {
             resolve();
           } else {
@@ -451,9 +497,13 @@
             };
             if (modelName != null) data.model = modelName;
             if (skip !== 0) data.skip = skip;
-            if (Number.isFinite(limit)) data.limit = limit;
+            if ((0, _isFinite.default)(limit)) data.limit = limit;
 
             var Return = function Return(results) {
+              var _this4 = this;
+
+              _newArrowCheck(this, _this3);
+
               var _ref = results || {},
                   query = _ref.query,
                   totalFound = _ref.totalFound;
@@ -474,6 +524,8 @@
               var locations = [];
               var uploads = [];
               query.forEach(function (item) {
+                _newArrowCheck(this, _this4);
+
                 if (item && item.ModelName) {
                   var mName = item.ModelName;
                   var ClassType = classMap[mName] || null;
@@ -483,7 +535,7 @@
                     if (mName === "Band") bands.push(instance);else if (mName === "Venue") venues.push(instance);else if (mName === "User") users.push(instance);else if (mName === "Page") pages.push(instance);else if (mName === "Location") locations.push(instance);else if (mName === "Upload") uploads.push(instance);
                   }
                 }
-              });
+              }.bind(this));
               var sorted = {
                 totalFound: totalFound,
                 bands: bands,
@@ -494,19 +546,21 @@
                 uploads: uploads
               };
               resolve(sorted);
-            };
+            }.bind(this);
 
             if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
               _API.default.GetSocket(token).then(function (socket) {
+                _newArrowCheck(this, _this3);
+
                 socket.emit("/API/TextSearch", data, Return);
-              }, reject);
+              }.bind(this), reject);
             } else {
-              _API.default.Call("GET", "/API/TextSearch", (0, _objectSpread2.default)({}, data, {
+              _API.default.Call("GET", "/API/TextSearch", _objectSpread({}, data, {
                 token: token
               })).then(Return, reject);
             }
           }
-        });
+        }.bind(this));
       }
     }, {
       key: "findMany",
@@ -521,27 +575,39 @@
     }, {
       key: "onChange",
       value: function onChange(callback) {
+        var _this5 = this;
+
         var id = Date.now();
         User.Callbacks.set(id, callback);
         return function () {
+          _newArrowCheck(this, _this5);
+
           User.Callbacks.delete(id);
-        };
+        }.bind(this);
       }
     }, {
       key: "setUser",
       value: function setUser(data) {
-        return new Promise(function (resolve, reject) {
+        var _this6 = this;
+
+        return new _promise.default(function (resolve, reject) {
+          var _this7 = this;
+
+          _newArrowCheck(this, _this6);
+
           try {
-            if ((0, _typeof2.default)(data) === "object" && data) {
+            if (_typeof(data) === "object" && data) {
               User.Current = new User(data);
 
               if (_API.default.SessionStorageSupported) {
-                sessionStorage.setItem("user", JSON.stringify(data));
+                sessionStorage.setItem("user", (0, _stringify.default)(data));
               }
 
               User.Callbacks.forEach(function (callback) {
+                _newArrowCheck(this, _this7);
+
                 return callback(User.Current);
-              });
+              }.bind(this));
               resolve(User.Current);
             } else {
               User.Current = null;
@@ -550,21 +616,25 @@
               if (_API.default.LocalStorageSupported) localStorage.removeItem("token");
               if (typeof document !== "undefined") document.cookie = "";
               User.Callbacks.forEach(function (callback) {
+                _newArrowCheck(this, _this7);
+
                 return callback(null);
-              });
+              }.bind(this));
               resolve(null);
             }
           } catch (e) {
             reject(e);
           }
-        });
+        }.bind(this));
       }
     }, {
       key: "getUser",
       value: function () {
-        var _getUser = (0, _asyncToGenerator2.default)(
+        var _getUser = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee(force, tokenMaybe) {
+          var _this8 = this;
+
           var token, data;
           return _regenerator.default.wrap(function _callee$(_context) {
             while (1) {
@@ -603,11 +673,17 @@
                   }
 
                   _context.next = 13;
-                  return new Promise(function (resolve, reject) {
+                  return new _promise.default(function (resolve, reject) {
+                    var _this9 = this;
+
+                    _newArrowCheck(this, _this8);
+
                     if (token) _API.default.GetSocket(token).then(function (socket) {
+                      _newArrowCheck(this, _this9);
+
                       socket.emit("/API/User/Retreive", null, resolve);
-                    }, reject);else resolve(null);
-                  });
+                    }.bind(this), reject);else resolve(null);
+                  }.bind(this));
 
                 case 13:
                   data = _context.sent;
@@ -669,11 +745,21 @@
     }, {
       key: "userLogIn",
       value: function userLogIn(email, password) {
-        return new Promise(function (resolve, reject) {
+        var _this10 = this;
+
+        return new _promise.default(function (resolve, reject) {
+          var _this12 = this;
+
+          _newArrowCheck(this, _this10);
+
           function onError(error) {
+            var _this11 = this;
+
             User.setUser(null).then(function () {
+              _newArrowCheck(this, _this11);
+
               reject(error);
-            });
+            }.bind(this));
           }
 
           if (!email) onError(new Error("No email"));else if (!password) onError(new Error("No password"));else {
@@ -681,6 +767,8 @@
               email: email,
               password: password
             }).then(function (response) {
+              _newArrowCheck(this, _this12);
+
               if (response && response.user && response.token) {
                 if (_API.default.LocalStorageSupported) {
                   localStorage.setItem("token", response.token);
@@ -688,25 +776,37 @@
 
                 _API.default.token = response.token;
                 User.setUser(response.user).then(resolve, onError);
-              } else onError(new Error("".concat(JSON.stringify(response), " returned")));
-            }, onError);
+              } else onError(new Error("".concat((0, _stringify.default)(response), " returned")));
+            }.bind(this), onError);
           }
-        });
+        }.bind(this));
       }
     }, {
       key: "userLogOut",
       value: function userLogOut(tokenMaybe) {
+        var _this13 = this;
+
         var token = tokenMaybe || _API.default.findToken();
 
-        return new Promise(function (resolve, reject) {
+        return new _promise.default(function (resolve, reject) {
+          var _this14 = this;
+
+          _newArrowCheck(this, _this13);
+
           _API.default.Call("POST", "/API/User/SignOut", {
             token: token
           }).then(function () {
+            var _this15 = this;
+
+            _newArrowCheck(this, _this14);
+
             User.setUser(null).then(function (user) {
-              if (user && user.valid()) reject(new Error("".concat(JSON.stringify(user), " returned, failed to log out?")));else resolve(user);
-            });
-          }, reject);
-        });
+              _newArrowCheck(this, _this15);
+
+              if (user && user.valid()) reject(new Error("".concat((0, _stringify.default)(user), " returned, failed to log out?")));else resolve(user);
+            }.bind(this));
+          }.bind(this), reject);
+        }.bind(this));
       }
     }, {
       key: "sendPasswordResetEmail",
@@ -718,11 +818,17 @@
     }, {
       key: "registerUser",
       value: function registerUser(userData) {
-        return new Promise(function (resolve, reject) {
-          if (userData && (0, _typeof2.default)(userData) === "object") {
+        var _this16 = this;
+
+        return new _promise.default(function (resolve, reject) {
+          var _this17 = this;
+
+          _newArrowCheck(this, _this16);
+
+          if (userData && _typeof(userData) === "object") {
             if (userData.email) {
               var re = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-              if (re[Symbol.search](userData.email) !== 0) return reject(new Error("Invalid email address"));
+              if (re[_search.default](userData.email) !== 0) return reject(new Error("Invalid email address"));
             } else return reject(new Error("Email is required"));
 
             if (userData.password) {
@@ -746,19 +852,31 @@
           } else return reject(new Error("User data is not an object"));
 
           if (_API.default.UseSocketIO && _API.default.ShouldUseSocketIO) {
-            return new Promise(function (resolve, reject) {
+            return new _promise.default(function (resolve, reject) {
+              var _this18 = this;
+
+              _newArrowCheck(this, _this17);
+
               if (token) _API.default.GetSocket().then(function (socket) {
+                _newArrowCheck(this, _this18);
+
                 socket.emit("/API/User/Create", userData, resolve);
-              }, reject);else resolve(null);
-            });
+              }.bind(this), reject);else resolve(null);
+            }.bind(this));
           }
 
           return _API.default.Call("POST", "/API/User", userData).then(function (data) {
+            var _this19 = this;
+
+            _newArrowCheck(this, _this17);
+
             if (data) User.setUser(data).then(function (user) {
+              _newArrowCheck(this, _this19);
+
               resolve(user);
-            }, reject);else reject(new Error("".concat(JSON.stringify(data), " returned")));
-          }, reject);
-        });
+            }.bind(this), reject);else reject(new Error("".concat((0, _stringify.default)(data), " returned")));
+          }.bind(this), reject);
+        }.bind(this));
       }
     }, {
       key: "NotifyAdminsOfError",
@@ -766,12 +884,17 @@
         console.error("Not implemented yet.");
       }
     }]);
+
     return User;
   }(_RESTModel2.default);
 
   _exports.default = User;
-  User.ModelName = "User";
-  User.Current = null;
-  User.Callbacks = new Map();
-  User.agreement = null;
+
+  _defineProperty(User, "ModelName", "User");
+
+  _defineProperty(User, "Current", null);
+
+  _defineProperty(User, "Callbacks", new _map.default());
+
+  _defineProperty(User, "agreement", null);
 });

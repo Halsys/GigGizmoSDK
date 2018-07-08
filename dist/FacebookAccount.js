@@ -1,48 +1,69 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/helpers/typeof", "@babel/runtime/helpers/classCallCheck", "@babel/runtime/helpers/createClass", "@babel/runtime/helpers/possibleConstructorReturn", "@babel/runtime/helpers/getPrototypeOf", "@babel/runtime/helpers/inherits", "./RESTModel", "./User", "./API"], factory);
+    define(["exports", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/promise", "./RESTModel", "./User", "./API"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/helpers/typeof"), require("@babel/runtime/helpers/classCallCheck"), require("@babel/runtime/helpers/createClass"), require("@babel/runtime/helpers/possibleConstructorReturn"), require("@babel/runtime/helpers/getPrototypeOf"), require("@babel/runtime/helpers/inherits"), require("./RESTModel"), require("./User"), require("./API"));
+    factory(exports, require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/promise"), require("./RESTModel"), require("./User"), require("./API"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global._typeof, global.classCallCheck, global.createClass, global.possibleConstructorReturn, global.getPrototypeOf, global.inherits, global.RESTModel, global.User, global.API);
+    factory(mod.exports, global.iterator, global.symbol, global.defineProperty, global.getPrototypeOf, global.create, global.setPrototypeOf, global.promise, global.RESTModel, global.User, global.API);
     global.FacebookAccount = mod.exports;
   }
-})(this, function (_exports, _typeof2, _classCallCheck2, _createClass2, _possibleConstructorReturn2, _getPrototypeOf2, _inherits2, _RESTModel2, _User, _API) {
+})(this, function (_exports, _iterator, _symbol, _defineProperty2, _getPrototypeOf2, _create, _setPrototypeOf2, _promise, _RESTModel2, _User, _API) {
   "use strict";
-
-  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
-  _typeof2 = _interopRequireDefault(_typeof2);
-  _classCallCheck2 = _interopRequireDefault(_classCallCheck2);
-  _createClass2 = _interopRequireDefault(_createClass2);
-  _possibleConstructorReturn2 = _interopRequireDefault(_possibleConstructorReturn2);
+  _iterator = _interopRequireDefault(_iterator);
+  _symbol = _interopRequireDefault(_symbol);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
-  _inherits2 = _interopRequireDefault(_inherits2);
+  _create = _interopRequireDefault(_create);
+  _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _promise = _interopRequireDefault(_promise);
   _RESTModel2 = _interopRequireDefault(_RESTModel2);
   _User = _interopRequireDefault(_User);
   _API = _interopRequireDefault(_API);
 
-  /**
-   * Created by corynull on Nov 30 2017 9:08 AM.
-   */
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
+  function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
+
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+  function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+  function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+  function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+  function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
   var FacebookAccount =
   /*#__PURE__*/
   function (_RESTModel) {
-    (0, _inherits2.default)(FacebookAccount, _RESTModel);
+    _inherits(FacebookAccount, _RESTModel);
 
     function FacebookAccount() {
-      (0, _classCallCheck2.default)(this, FacebookAccount);
-      return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(FacebookAccount).apply(this, arguments));
+      _classCallCheck(this, FacebookAccount);
+
+      return _possibleConstructorReturn(this, _getPrototypeOf(FacebookAccount).apply(this, arguments));
     }
 
-    (0, _createClass2.default)(FacebookAccount, [{
+    _createClass(FacebookAccount, [{
       key: "getUser",
       value: function getUser() {
         return _User.default.getUserById(this.userId);
@@ -50,7 +71,7 @@
     }, {
       key: "userIsOwner",
       value: function userIsOwner(user) {
-        if (typeof user === "string") return user === this.userId;else if ((0, _typeof2.default)(user) === "object" && user) return user._id === this.userId;
+        if (typeof user === "string") return user === this.userId;else if (_typeof(user) === "object" && user) return user._id === this.userId;
         return false;
       }
     }, {
@@ -58,7 +79,7 @@
       value: function valid() {
         if (!_RESTModel2.default.prototype.valid.call(this)) return false;
         if (!this.userId || typeof this.userId !== "string") return false;
-        if (!this.profile || (0, _typeof2.default)(this.profile) !== "object") return false;
+        if (!this.profile || _typeof(this.profile) !== "object") return false;
         if (!this.accountId || typeof this.accountId !== "string") return false;
         return true;
       }
@@ -102,19 +123,31 @@
     }], [{
       key: "findById",
       value: function findById(id, token) {
-        return new Promise(function (resolve, reject) {
+        var _this = this;
+
+        return new _promise.default(function (resolve, reject) {
+          var _this2 = this;
+
+          _newArrowCheck(this, _this);
+
           if (typeof id === "string" && id !== "") _API.default.Call("GET", "/API/FacebookAccount/".concat(id), {
             token: token
           }).then(function (found) {
+            _newArrowCheck(this, _this2);
+
             var account = found || null;
             if (account) resolve(new FacebookAccount(account));else reject(new Error("".concat(account, " returned")));
-          }, reject);else resolve(null);
-        });
+          }.bind(this), reject);else resolve(null);
+        }.bind(this));
       }
     }, {
       key: "findPage",
       value: function findPage(pageName) {
-        return new Promise(function (resolve, reject) {
+        var _this3 = this;
+
+        return new _promise.default(function (resolve, reject) {
+          _newArrowCheck(this, _this3);
+
           if (typeof pageName !== "string") {
             reject(new Error("pageName is not a string!"));
           } else {
@@ -122,12 +155,16 @@
               name: pageName
             }).then(resolve, reject);
           }
-        });
+        }.bind(this));
       }
     }, {
       key: "PostToPage",
       value: function PostToPage(format, text, pageId, postDateTime) {
-        return new Promise(function (resolve, reject) {
+        var _this4 = this;
+
+        return new _promise.default(function (resolve, reject) {
+          _newArrowCheck(this, _this4);
+
           _API.default.Call("POST", "/API/Facebook/Page/Post", {
             post_format: format,
             post_text: text,
@@ -135,12 +172,14 @@
             publish_time: postDateTime // .getTime() / 1000
 
           }).then(resolve, reject);
-        });
+        }.bind(this));
       }
     }]);
+
     return FacebookAccount;
   }(_RESTModel2.default);
 
   _exports.default = FacebookAccount;
-  FacebookAccount.ModelName = "FacebookAccount";
+
+  _defineProperty(FacebookAccount, "ModelName", "FacebookAccount");
 });

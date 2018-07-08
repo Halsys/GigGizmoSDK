@@ -13,13 +13,13 @@
 })(this, function (_exports, _propTypes) {
   "use strict";
 
-  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
   _propTypes = _interopRequireDefault(_propTypes);
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   var _default = _propTypes.default.shape({
     _id: _propTypes.default.string.isRequired,

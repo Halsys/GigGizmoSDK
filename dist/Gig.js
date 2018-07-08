@@ -1,33 +1,33 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/regenerator", "@babel/runtime/helpers/asyncToGenerator", "@babel/runtime/helpers/typeof", "@babel/runtime/helpers/classCallCheck", "@babel/runtime/helpers/createClass", "@babel/runtime/helpers/possibleConstructorReturn", "@babel/runtime/helpers/getPrototypeOf", "@babel/runtime/helpers/get", "@babel/runtime/helpers/inherits", "moment", "./Band", "./Venue", "./Location", "./API", "./RESTModel"], factory);
+    define(["exports", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/array/from", "@babel/runtime/core-js/promise", "@babel/runtime/regenerator", "regenerator-runtime/runtime", "moment", "./Band", "./Venue", "./Location", "./API", "./RESTModel"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/regenerator"), require("@babel/runtime/helpers/asyncToGenerator"), require("@babel/runtime/helpers/typeof"), require("@babel/runtime/helpers/classCallCheck"), require("@babel/runtime/helpers/createClass"), require("@babel/runtime/helpers/possibleConstructorReturn"), require("@babel/runtime/helpers/getPrototypeOf"), require("@babel/runtime/helpers/get"), require("@babel/runtime/helpers/inherits"), require("moment"), require("./Band"), require("./Venue"), require("./Location"), require("./API"), require("./RESTModel"));
+    factory(exports, require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/array/from"), require("@babel/runtime/core-js/promise"), require("@babel/runtime/regenerator"), require("regenerator-runtime/runtime"), require("moment"), require("./Band"), require("./Venue"), require("./Location"), require("./API"), require("./RESTModel"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.regenerator, global.asyncToGenerator, global._typeof, global.classCallCheck, global.createClass, global.possibleConstructorReturn, global.getPrototypeOf, global.get, global.inherits, global.moment, global.Band, global.Venue, global.Location, global.API, global.RESTModel);
+    factory(mod.exports, global.iterator, global.symbol, global.defineProperty, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.from, global.promise, global.regenerator, global.runtime, global.moment, global.Band, global.Venue, global.Location, global.API, global.RESTModel);
     global.Gig = mod.exports;
   }
-})(this, function (_exports, _regenerator, _asyncToGenerator2, _typeof2, _classCallCheck2, _createClass2, _possibleConstructorReturn2, _getPrototypeOf2, _get2, _inherits2, _moment, _Band, _Venue, _Location, _API, _RESTModel2) {
+})(this, function (_exports, _iterator, _symbol, _defineProperty2, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _from, _promise, _regenerator, _runtime, _moment, _Band, _Venue, _Location, _API, _RESTModel2) {
   "use strict";
-
-  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
   _exports.default = void 0;
-  _regenerator = _interopRequireDefault(_regenerator);
-  _asyncToGenerator2 = _interopRequireDefault(_asyncToGenerator2);
-  _typeof2 = _interopRequireDefault(_typeof2);
-  _classCallCheck2 = _interopRequireDefault(_classCallCheck2);
-  _createClass2 = _interopRequireDefault(_createClass2);
-  _possibleConstructorReturn2 = _interopRequireDefault(_possibleConstructorReturn2);
-  _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
+  _iterator = _interopRequireDefault(_iterator);
+  _symbol = _interopRequireDefault(_symbol);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
+  _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
   _get2 = _interopRequireDefault(_get2);
-  _inherits2 = _interopRequireDefault(_inherits2);
+  _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
+  _create = _interopRequireDefault(_create);
+  _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _from = _interopRequireDefault(_from);
+  _promise = _interopRequireDefault(_promise);
+  _regenerator = _interopRequireDefault(_regenerator);
   _moment = _interopRequireDefault(_moment);
   _Band = _interopRequireDefault(_Band);
   _Venue = _interopRequireDefault(_Venue);
@@ -35,20 +35,50 @@
   _API = _interopRequireDefault(_API);
   _RESTModel2 = _interopRequireDefault(_RESTModel2);
 
-  /**
-   * Created by corynull on 4/5/17.
-   */
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+  function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { _promise.default.resolve(value).then(_next, _throw); } }
+
+  function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new _promise.default(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+  function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
+  function _typeof(obj) { if (typeof _symbol.default === "function" && typeof _iterator.default === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof _symbol.default === "function" && obj.constructor === _symbol.default && obj !== _symbol.default.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+  function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+  function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; (0, _defineProperty2.default)(target, descriptor.key, descriptor); } }
+
+  function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+  function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+  function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+  function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && _get2.default) { _get = _get2.default; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = (0, _getOwnPropertyDescriptor.default)(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+  function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+  function _getPrototypeOf(o) { _getPrototypeOf = _setPrototypeOf2.default ? _getPrototypeOf2.default : function _getPrototypeOf(o) { return o.__proto__ || (0, _getPrototypeOf2.default)(o); }; return _getPrototypeOf(o); }
+
+  function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = (0, _create.default)(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+  function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
   var Gig =
   /*#__PURE__*/
   function (_RESTModel) {
-    (0, _inherits2.default)(Gig, _RESTModel);
+    _inherits(Gig, _RESTModel);
 
     function Gig() {
-      (0, _classCallCheck2.default)(this, Gig);
-      return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(Gig).apply(this, arguments));
+      _classCallCheck(this, Gig);
+
+      return _possibleConstructorReturn(this, _getPrototypeOf(Gig).apply(this, arguments));
     }
 
-    (0, _createClass2.default)(Gig, [{
+    _createClass(Gig, [{
       key: "getBands",
       value: function getBands(token) {
         return _Band.default.findMany({
@@ -68,7 +98,7 @@
     }, {
       key: "valid",
       value: function valid() {
-        if (!(0, _get2.default)((0, _getPrototypeOf2.default)(Gig.prototype), "valid", this).call(this)) return false;
+        if (!_get(_getPrototypeOf(Gig.prototype), "valid", this).call(this)) return false;
         if (!Array.isArray(this.owners)) return false;
         if (this.owners.length === 0) return false;
         return true;
@@ -76,12 +106,16 @@
     }, {
       key: "userIsOwner",
       value: function userIsOwner(user) {
+        var _this = this;
+
         if (Array.isArray(this.owners)) {
           var userId = null;
-          if (typeof user === "string") userId = user;else if ((0, _typeof2.default)(user) === "object" && user) userId = user._id;
+          if (typeof user === "string") userId = user;else if (_typeof(user) === "object" && user) userId = user._id;
           return this.owners.find(function (id) {
+            _newArrowCheck(this, _this);
+
             return id === userId;
-          }) !== undefined;
+          }.bind(this)) !== undefined;
         }
 
         return false;
@@ -173,9 +207,11 @@
     }, {
       key: "findByBand",
       value: function () {
-        var _findByBand = (0, _asyncToGenerator2.default)(
+        var _findByBand = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee(bandId, token) {
+          var _this2 = this;
+
           var data;
           return _regenerator.default.wrap(function _callee$(_context) {
             while (1) {
@@ -195,12 +231,14 @@
                   }
 
                   return _context.abrupt("return", data.map(function (itemData) {
+                    _newArrowCheck(this, _this2);
+
                     var item = new Gig(itemData);
 
                     _RESTModel2.default.Cache.set(item._id, item);
 
                     return item;
-                  }));
+                  }.bind(this)));
 
                 case 5:
                   throw new Error("Expected Array, got ".concat(data));
@@ -220,9 +258,11 @@
     }, {
       key: "findByVenue",
       value: function () {
-        var _findByVenue = (0, _asyncToGenerator2.default)(
+        var _findByVenue = _asyncToGenerator(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee2(venueId, token) {
+          var _this3 = this;
+
           var data;
           return _regenerator.default.wrap(function _callee2$(_context2) {
             while (1) {
@@ -242,12 +282,14 @@
                   }
 
                   return _context2.abrupt("return", data.map(function (itemData) {
+                    _newArrowCheck(this, _this3);
+
                     var item = new Gig(itemData);
 
                     _RESTModel2.default.Cache.set(item._id, item);
 
                     return item;
-                  }));
+                  }.bind(this)));
 
                 case 5:
                   throw new Error("Expected Array, got ".concat(data));
@@ -277,14 +319,22 @@
     }, {
       key: "createGigs",
       value: function createGigs(gigData, token) {
-        return new Promise(function (resolve, reject) {
+        var _this4 = this;
+
+        return new _promise.default(function (resolve, reject) {
+          var _this5 = this;
+
+          _newArrowCheck(this, _this4);
+
           var data = gigData || {};
 
-          if (data && (0, _typeof2.default)(data) === "object") {
+          if (data && _typeof(data) === "object") {
             if (!data.band || data.band === "") return reject(new Error("Band is required"));
             if (!data.venue || data.venue === "") return reject(new Error("Venue is required"));
             if (!data.times || data.times.length === 0) return reject(new Error("Times is required"));
             var filtered = data.times.filter(function (time, i) {
+              _newArrowCheck(this, _this5);
+
               if (time.dayDate && time.startTime && time.stopTime) {
                 var dayDate = (0, _moment.default)(time.dayDate);
                 var startTime = (0, _moment.default)(time.startTime);
@@ -309,7 +359,7 @@
               }
 
               return false;
-            });
+            }.bind(this));
             if (filtered.length !== data.times.length) return reject(new Error("Not all times were valid"));
             data.times = filtered;
             data.token = token;
@@ -317,23 +367,35 @@
             var request = _API.default.Call("POST", "/API/Gig", data);
 
             return request.then(function (response) {
-              var gigs = Array.from(response || []);
+              var _this6 = this;
+
+              _newArrowCheck(this, _this5);
+
+              var gigs = (0, _from.default)(response || []);
               gigs = gigs.map(function (itemData) {
+                _newArrowCheck(this, _this6);
+
                 var gig = new Gig(itemData);
                 return gig;
-              });
+              }.bind(this));
               resolve(gigs);
-            }, reject);
+            }.bind(this), reject);
           }
 
           return null;
-        });
+        }.bind(this));
       }
     }, {
       key: "getAllInDistance",
       value: function getAllInDistance(location, distance) {
-        return new Promise(function (resolve, reject) {
-          if ((0, _typeof2.default)(location) !== "object") return reject(new Error("location is not a object!"));
+        var _this7 = this;
+
+        return new _promise.default(function (resolve, reject) {
+          var _this8 = this;
+
+          _newArrowCheck(this, _this7);
+
+          if (_typeof(location) !== "object") return reject(new Error("location is not a object!"));
           if (typeof location.lat !== "number" || typeof location.lng !== "number") return reject(new Error("location does not contain lat or lng!"));
           if (typeof distance !== "number") return reject(new Error("radius is not a number!"));
           return _API.default.Call("GET", "/API/Gig/InDistance", {
@@ -341,17 +403,25 @@
             lng: location.lng,
             dis: distance
           }).then(function (gigs) {
-            resolve(Array.from(gigs || []).map(function (item) {
+            var _this9 = this;
+
+            _newArrowCheck(this, _this8);
+
+            resolve((0, _from.default)(gigs || []).map(function (item) {
+              _newArrowCheck(this, _this9);
+
               var gig = new Gig(item);
               return gig;
-            }));
-          }, reject);
-        });
+            }.bind(this)));
+          }.bind(this), reject);
+        }.bind(this));
       }
     }]);
+
     return Gig;
   }(_RESTModel2.default);
 
   _exports.default = Gig;
-  Gig.ModelName = "Gig";
+
+  _defineProperty(Gig, "ModelName", "Gig");
 });

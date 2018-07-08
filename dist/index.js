@@ -1,3 +1,7 @@
+var _Object$getOwnPropertyDescriptor = require("@babel/runtime/core-js/object/get-own-property-descriptor");
+
+var _Object$defineProperty = require("@babel/runtime/core-js/object/define-property");
+
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
     define(["exports", "./PropTypes", "./API", "./Band", "./Conversation", "./ErrorReport", "./FacebookAccount", "./Gig", "./GooglePlace", "./Location", "./Notification", "./Page", "./Post", "./Request", "./RESTModel", "./TwitterAccount", "./Upload", "./User", "./Venue"], factory);
@@ -12,10 +16,6 @@
   }
 })(this, function (_exports, _PropTypes, _API, _Band, _Conversation, _ErrorReport, _FacebookAccount, _Gig, _GooglePlace, _Location, _Notification, _Page, _Post, _Request, _RESTModel, _TwitterAccount, _Upload, _User, _Venue) {
   "use strict";
-
-  var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
-
-  var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
@@ -153,6 +153,10 @@
   _Upload = _interopRequireDefault(_Upload);
   _User = _interopRequireDefault(_User);
   _Venue = _interopRequireDefault(_Venue);
+
+  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = _Object$defineProperty && _Object$getOwnPropertyDescriptor ? _Object$getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { _Object$defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   /**
    * Created by corynull on 7/15/17.

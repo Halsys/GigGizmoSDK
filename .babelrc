@@ -1,15 +1,37 @@
 {
-  presets: [["@babel/env", { modules: "umd" }]],
-  plugins: [
-    "syntax-dynamic-import",
-    "transform-class-properties",
-    "@babel/plugin-proposal-export-namespace-from",
-    [
-      "@babel/transform-runtime",
-      {
-        polyfill: false,
-        regenerator: true
-      }
-    ]
-  ]
+	compact: false,
+	presets: [
+		[
+			"@babel/preset-env",
+			{
+				targets: {
+					chrome: 52,
+					firefox: 60
+				},
+				forceAllTransforms: true,
+				modules: "umd",
+				useBuiltIns: "usage",
+				debug: false,
+				spec: true
+			}
+		],
+		["@babel/preset-stage-2", { decoratorsLegacy: true }]
+	],
+	env: {
+		test: {
+			plugins: ["rewire"]
+		}
+	},
+	ignore: ["/node_modules/"],
+	plugins: [
+		[
+			"@babel/plugin-transform-runtime",
+			{
+				helpers: false,
+				polyfill: true,
+				regenerator: true,
+				moduleName: "@babel/runtime"
+			}
+		]
+	]
 }
