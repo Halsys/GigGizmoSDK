@@ -97,6 +97,7 @@
     }, {
       key: "valid",
       value: function valid() {
+        var self = this;
         if (!(0, _get2.default)((0, _getPrototypeOf2.default)(Band.prototype), "valid", this).call(this)) return false;
         if (typeof this.cityPlaceID !== "string") return false;
         if (this.cityPlaceID === "") return false;
@@ -107,6 +108,9 @@
         if (this.description === "<p><br></p>") return false;
         if (!Array.isArray(this.owners)) return false;
         if (this.owners.length === 0) return false;
+        if (!this.owners.every(function (owner) {
+          return self.userIsOwner(owner);
+        })) return false;
         return true;
       }
     }, {

@@ -150,7 +150,7 @@
               switch (_context.prev = _context.next) {
                 case 0:
                   hasWebSocket = _args.length > 1 && _args[1] !== undefined ? _args[1] : false;
-                  modelName = Model.ModelName || Model.constructor.ModelName;
+                  modelName = this.ModelName || Model.ModelName || Model.constructor.ModelName;
                   response = null;
                   id = this.document.id || null;
                   data = this.changes;
@@ -270,7 +270,7 @@
                   }
 
                   response = null;
-                  modelName = Model.ModelName || Model.constructor.ModelName;
+                  modelName = this.ModelName || Model.ModelName || Model.constructor.ModelName;
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
                     _context2.next = 11;

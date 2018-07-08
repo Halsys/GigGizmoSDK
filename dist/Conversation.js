@@ -65,7 +65,7 @@
     }, {
       key: "events",
       get: function get() {
-        return this.getField("events");
+        return this.getField("events") || [];
       },
       set: function set(value) {
         this.setField("events", value);
@@ -73,7 +73,7 @@
     }, {
       key: "users",
       get: function get() {
-        return this.getField("users");
+        return this.getField("users") || [];
       },
       set: function set(value) {
         this.setField("users", value);
