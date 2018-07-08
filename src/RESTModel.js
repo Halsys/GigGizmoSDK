@@ -168,7 +168,6 @@ module.exports = class RESTModel {
 
 	static getModelName(Model) {
 		if (Model.ModelName) return Model.ModelName;
-		if (Model.default.ModelName) return Model.default.ModelName;
 		if (Model.constructor.ModelName) return Model.constructor.ModelName;
 		if (Model.prototype.ModelName) return Model.prototype.ModelName;
 	}
@@ -177,7 +176,6 @@ module.exports = class RESTModel {
 		if (RESTModel.isValidId(id)) {
 			let data = null;
 			let Model = ModelMaybe || null;
-			if (Model.default) Model = Model.default;
 			let modelName = RESTModel.getModelName(Model);
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				if (socket) {
@@ -204,7 +202,6 @@ module.exports = class RESTModel {
 		const criteria = criteriaMaybe || {};
 		let data = null;
 		let Model = ModelMaybe || null;
-		if (Model.default) Model = Model.default;
 		let modelName = RESTModel.getModelName(Model);
 		const route = `/API/${modelName}/FindOne`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
@@ -232,7 +229,6 @@ module.exports = class RESTModel {
 		let criteria = criteriaMaybe || null;
 		let data = null;
 		let Model = ModelMaybe || null;
-		if (Model.default) Model = Model.default;
 		let modelName = RESTModel.getModelName(Model);
 		const route = `/API/${modelName}/FindMany`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
