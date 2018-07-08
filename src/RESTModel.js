@@ -169,7 +169,6 @@ module.exports = class RESTModel {
 	static getModelName(Model) {
 		if (Model.ModelName) return Model.ModelName;
 		if (Model.constructor.ModelName) return Model.constructor.ModelName;
-		if (Model.prototype.ModelName) return Model.prototype.ModelName;
 	}
 
 	static async findById(ModelMaybe, id, token, hasWebSocket = false) {

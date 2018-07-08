@@ -377,7 +377,6 @@
       value: function getModelName(Model) {
         if (Model.ModelName) return Model.ModelName;
         if (Model.constructor.ModelName) return Model.constructor.ModelName;
-        if (Model.prototype.ModelName) return Model.prototype.ModelName;
       }
     }, {
       key: "findById",
