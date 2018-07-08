@@ -189,6 +189,7 @@ export default class Band extends RESTModel {
 	}
 
 	valid() {
+		const self = this;
 		if (!super.valid()) return false;
 
 		if (typeof this.cityPlaceID !== "string") return false;
@@ -203,6 +204,7 @@ export default class Band extends RESTModel {
 
 		if (!Array.isArray(this.owners)) return false;
 		if (this.owners.length === 0) return false;
+		if (!this.owners.every(owner => self.userIsOwner(owner))) return false;
 
 		return true;
 	}

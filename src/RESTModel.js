@@ -95,7 +95,8 @@ export default class RESTModel {
 	}
 
 	async save(token, hasWebSocket = false) {
-		const modelName = Model.ModelName || Model.constructor.ModelName;
+		const modelName =
+			this.ModelName || Model.ModelName || Model.constructor.ModelName;
 		let response = null;
 		const id = this.document.id || null;
 		const data = this.changes;
@@ -138,7 +139,8 @@ export default class RESTModel {
 		const id = this._id || null;
 		if (RESTModel.isValidId(id)) {
 			let response = null;
-			const modelName = Model.ModelName || Model.constructor.ModelName;
+			const modelName =
+				this.ModelName || Model.ModelName || Model.constructor.ModelName;
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				response = await new Promise((resolve, reject) =>
 					API.GetSocket(token).then(

@@ -187,16 +187,23 @@ export default class Venue extends RESTModel {
 	}
 
 	valid() {
+		const self = this;
 		if (!super.valid()) return false;
+
 		if (!RESTModel.isValidId(this.location)) return false;
 		if (this.location === "") return false;
+
 		if (typeof this.name !== "string") return false;
 		if (this.name === "") return false;
+
 		if (typeof this.description !== "string") return false;
 		if (this.description === "") return false;
 		if (this.description === "<p><br></p>") return false;
+
 		if (!Array.isArray(this.owners)) return false;
 		if (this.owners.length === 0) return false;
+		if (!this.owners.every(owner => self.userIsOwner(owner))) return false;
+
 		return true;
 	}
 

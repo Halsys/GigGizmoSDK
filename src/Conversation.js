@@ -10,7 +10,7 @@ export default class Conversation extends RESTModel {
 	static Callbacks = new Map();
 
 	get events() {
-		return this.getField("events");
+		return this.getField("events") || [];
 	}
 
 	set events(value) {
@@ -18,7 +18,7 @@ export default class Conversation extends RESTModel {
 	}
 
 	get users() {
-		return this.getField("users");
+		return this.getField("users") || [];
 	}
 
 	set users(value) {
