@@ -2,11 +2,11 @@
  * Created by corynull on 4/5/17.
  */
 import moment from "moment";
-import { default as Band } from "./Band";
-import { default as Venue } from "./Venue";
-import { default as Location } from "./Location";
+import Band from "./Band";
+import Venue from "./Venue";
+import Location from "./Location";
 import API from "./API";
-import { default as RESTModel } from "./RESTModel";
+import RESTModel from "./RESTModel";
 
 export default class Gig extends RESTModel {
 	static ModelName = "Gig";

@@ -2,8 +2,8 @@
  * Created by corynull on 5/17/17.
  */
 
-import { default as RESTModel } from "./RESTModel";
-import { default as User } from "./User";
+import RESTModel from "./RESTModel";
+import User from "./User";
 import API from "./API";
 
 export default class TwitterAccount extends RESTModel {

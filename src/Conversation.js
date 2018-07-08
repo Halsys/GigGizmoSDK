@@ -3,7 +3,7 @@
  */
 import moment from "moment";
 import API from "./API";
-import { default as RESTModel } from "./RESTModel";
+import RESTModel from "./RESTModel";
 
 export default class Conversation extends RESTModel {
 	static ModelName = "Conversation";

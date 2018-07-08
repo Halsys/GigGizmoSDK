@@ -3,7 +3,7 @@
  */
 
 import API from "./API";
-import { default as RESTModel } from "./RESTModel";
+import RESTModel from "./RESTModel";
 
 export default class Request extends RESTModel {
 	static ModelName = "Request";

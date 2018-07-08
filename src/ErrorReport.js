@@ -2,7 +2,7 @@
  * Created by corynull on Jan 8 2018 8:58:54 PM.
  */
 
-import { default as RESTModel } from "./RESTModel";
+import RESTModel from "./RESTModel";
 
 export default class ErrorReport extends RESTModel {
 	static ModelName = "ErrorReport";

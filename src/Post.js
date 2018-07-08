@@ -1,7 +1,7 @@
 /**
  * Created by corynull on 5/23/17.
  */
-import { default as RESTModel } from "./RESTModel";
+import RESTModel from "./RESTModel";
 
 export default class Post extends RESTModel {
 	static ModelName = "Post";

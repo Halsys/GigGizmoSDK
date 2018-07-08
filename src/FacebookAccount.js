@@ -2,8 +2,8 @@
  * Created by corynull on Nov 30 2017 9:08 AM.
  */
 
-import { default as RESTModel } from "./RESTModel";
-import { default as User } from "./User";
+import RESTModel from "./RESTModel";
+import User from "./User";
 import API from "./API";
 
 export default class FacebookAccount extends RESTModel {

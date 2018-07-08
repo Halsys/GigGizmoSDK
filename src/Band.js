@@ -2,12 +2,12 @@
  * Created by corynull on 4/3/17.
  */
 
-import { default as User } from "./User";
-import { default as Upload } from "./Upload";
-import { default as Gig } from "./Gig";
-import { default as RESTModel } from "./RESTModel";
-import { default as TwitterAccount } from "./TwitterAccount";
-import { default as FacebookAccount } from "./FacebookAccount";
+import User from "./User";
+import Upload from "./Upload";
+import Gig from "./Gig";
+import RESTModel from "./RESTModel";
+import TwitterAccount from "./TwitterAccount";
+import FacebookAccount from "./FacebookAccount";
 
 export default class Band extends RESTModel {
 	static ModelName = "Band";
