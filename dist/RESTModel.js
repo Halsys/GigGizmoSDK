@@ -376,7 +376,6 @@
       key: "getModelName",
       value: function getModelName(Model) {
         if (Model.ModelName) return Model.ModelName;
-        if (Model.default.ModelName) return Model.default.ModelName;
         if (Model.constructor.ModelName) return Model.constructor.ModelName;
         if (Model.prototype.ModelName) return Model.prototype.ModelName;
       }
@@ -401,26 +400,25 @@
                   hasWebSocket = _args3.length > 3 && _args3[3] !== undefined ? _args3[3] : false;
 
                   if (!RESTModel.isValidId(id)) {
-                    _context3.next = 17;
+                    _context3.next = 16;
                     break;
                   }
 
                   data = null;
                   _Model = ModelMaybe || null;
-                  if (_Model.default) _Model = _Model.default;
                   modelName = RESTModel.getModelName(_Model);
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
-                    _context3.next = 11;
+                    _context3.next = 10;
                     break;
                   }
 
                   if (!socket) {
-                    _context3.next = 11;
+                    _context3.next = 10;
                     break;
                   }
 
-                  _context3.next = 10;
+                  _context3.next = 9;
                   return new _promise.default(function (resolve, reject) {
                     var _this8 = this;
 
@@ -433,35 +431,35 @@
                     }.bind(this), reject);
                   }.bind(this));
 
-                case 10:
+                case 9:
                   data = _context3.sent;
 
-                case 11:
+                case 10:
                   if (data) {
-                    _context3.next = 15;
+                    _context3.next = 14;
                     break;
                   }
 
-                  _context3.next = 14;
+                  _context3.next = 13;
                   return _API.default.Call("GET", "/API/".concat(modelName, "/").concat(id), {
                     token: token
                   });
 
-                case 14:
+                case 13:
                   data = _context3.sent;
 
-                case 15:
+                case 14:
                   if (!(data && RESTModel.isValidId(data._id))) {
-                    _context3.next = 17;
+                    _context3.next = 16;
                     break;
                   }
 
                   return _context3.abrupt("return", new _Model(data));
 
-                case 17:
+                case 16:
                   return _context3.abrupt("return", null);
 
-                case 18:
+                case 17:
                 case "end":
                   return _context3.stop();
               }
@@ -498,27 +496,26 @@
                   criteria = criteriaMaybe || {};
                   data = null;
                   Model = ModelMaybe || null;
-                  if (Model.default) Model = Model.default;
                   modelName = RESTModel.getModelName(Model);
                   route = "/API/".concat(modelName, "/FindOne");
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
-                    _context4.next = 15;
+                    _context4.next = 14;
                     break;
                   }
 
-                  _context4.next = 10;
+                  _context4.next = 9;
                   return _API.default.GetSocket(token);
 
-                case 10:
+                case 9:
                   _socket = _context4.sent;
 
                   if (!_socket) {
-                    _context4.next = 15;
+                    _context4.next = 14;
                     break;
                   }
 
-                  _context4.next = 14;
+                  _context4.next = 13;
                   return new _promise.default(function (resolve, reject) {
                     _newArrowCheck(this, _this9);
 
@@ -529,35 +526,35 @@
                     }
                   }.bind(this));
 
-                case 14:
+                case 13:
                   data = _context4.sent;
 
-                case 15:
+                case 14:
                   if (data) {
-                    _context4.next = 19;
+                    _context4.next = 18;
                     break;
                   }
 
-                  _context4.next = 18;
+                  _context4.next = 17;
                   return _API.default.Call("GET", route, _objectSpread({}, criteria, {
                     token: token
                   }));
 
-                case 18:
+                case 17:
                   data = _context4.sent;
 
-                case 19:
+                case 18:
                   if (!(data && RESTModel.isValidId(data._id))) {
-                    _context4.next = 21;
+                    _context4.next = 20;
                     break;
                   }
 
                   return _context4.abrupt("return", new Model(data));
 
-                case 21:
+                case 20:
                   return _context4.abrupt("return", null);
 
-                case 22:
+                case 21:
                 case "end":
                   return _context4.stop();
               }
@@ -592,16 +589,15 @@
                   criteria = criteriaMaybe || null;
                   data = null;
                   Model = ModelMaybe || null;
-                  if (Model.default) Model = Model.default;
                   modelName = RESTModel.getModelName(Model);
                   route = "/API/".concat(modelName, "/FindMany");
 
                   if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
-                    _context5.next = 11;
+                    _context5.next = 10;
                     break;
                   }
 
-                  _context5.next = 10;
+                  _context5.next = 9;
                   return new _promise.default(function (resolve, reject) {
                     var _this11 = this;
 
@@ -614,28 +610,28 @@
                     }.bind(this), reject);
                   }.bind(this));
 
-                case 10:
+                case 9:
                   data = _context5.sent;
 
-                case 11:
+                case 10:
                   criteria = criteria || {};
 
                   if (data) {
-                    _context5.next = 16;
+                    _context5.next = 15;
                     break;
                   }
 
-                  _context5.next = 15;
+                  _context5.next = 14;
                   return _API.default.Call("GET", route, _objectSpread({}, criteria, {
                     token: token
                   }));
 
-                case 15:
+                case 14:
                   data = _context5.sent;
 
-                case 16:
+                case 15:
                   if (!Array.isArray(data)) {
-                    _context5.next = 18;
+                    _context5.next = 17;
                     break;
                   }
 
@@ -647,10 +643,10 @@
                     return item;
                   }.bind(this)));
 
-                case 18:
+                case 17:
                   return _context5.abrupt("return", []);
 
-                case 19:
+                case 18:
                 case "end":
                   return _context5.stop();
               }
