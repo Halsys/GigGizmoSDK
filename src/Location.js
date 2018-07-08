@@ -6,7 +6,7 @@ import API from "./API";
 import RESTModel from "./RESTModel";
 import GooglePlace from "./GooglePlace";
 
-export default class Location extends RESTModel {
+module.exports =  class Location extends RESTModel {
 	static ModelName = "Location";
 
 	get type() {

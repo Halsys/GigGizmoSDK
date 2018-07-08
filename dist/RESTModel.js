@@ -1,28 +1,24 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/core-js/map", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/object/get-own-property-symbols", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/regenerator", "@babel/runtime/core-js/promise", "@babel/runtime/core-js/object/keys", "core-js/modules/web.dom.iterable", "regenerator-runtime/runtime", "@babel/runtime/core-js/json/stringify", "@babel/runtime/core-js/object/assign", "moment", "./API"], factory);
+    define(["@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/object/get-own-property-symbols", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/map", "@babel/runtime/regenerator", "@babel/runtime/core-js/promise", "@babel/runtime/core-js/object/keys", "core-js/modules/web.dom.iterable", "regenerator-runtime/runtime", "@babel/runtime/core-js/json/stringify", "@babel/runtime/core-js/object/assign", "moment", "./API"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/object/get-own-property-symbols"), require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/regenerator"), require("@babel/runtime/core-js/promise"), require("@babel/runtime/core-js/object/keys"), require("core-js/modules/web.dom.iterable"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/json/stringify"), require("@babel/runtime/core-js/object/assign"), require("moment"), require("./API"));
+    factory(require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/object/get-own-property-symbols"), require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/map"), require("@babel/runtime/regenerator"), require("@babel/runtime/core-js/promise"), require("@babel/runtime/core-js/object/keys"), require("core-js/modules/web.dom.iterable"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/json/stringify"), require("@babel/runtime/core-js/object/assign"), require("moment"), require("./API"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.map, global.getOwnPropertyDescriptor, global.getOwnPropertySymbols, global.iterator, global.symbol, global.defineProperty, global.regenerator, global.promise, global.keys, global.webDom, global.runtime, global.stringify, global.assign, global.moment, global.API);
+    factory(global.getOwnPropertyDescriptor, global.getOwnPropertySymbols, global.iterator, global.symbol, global.defineProperty, global.map, global.regenerator, global.promise, global.keys, global.webDom, global.runtime, global.stringify, global.assign, global.moment, global.API);
     global.RESTModel = mod.exports;
   }
-})(this, function (_exports, _map, _getOwnPropertyDescriptor, _getOwnPropertySymbols, _iterator, _symbol, _defineProperty2, _regenerator, _promise, _keys, _webDom, _runtime, _stringify, _assign, _moment, _API) {
+})(this, function (_getOwnPropertyDescriptor, _getOwnPropertySymbols, _iterator, _symbol, _defineProperty2, _map, _regenerator, _promise, _keys, _webDom, _runtime, _stringify, _assign, _moment, _API) {
   "use strict";
 
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _map = _interopRequireDefault(_map);
   _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
   _getOwnPropertySymbols = _interopRequireDefault(_getOwnPropertySymbols);
   _iterator = _interopRequireDefault(_iterator);
   _symbol = _interopRequireDefault(_symbol);
   _defineProperty2 = _interopRequireDefault(_defineProperty2);
+  _map = _interopRequireDefault(_map);
   _regenerator = _interopRequireDefault(_regenerator);
   _promise = _interopRequireDefault(_promise);
   _keys = _interopRequireDefault(_keys);
@@ -30,6 +26,8 @@
   _assign = _interopRequireDefault(_assign);
   _moment = _interopRequireDefault(_moment);
   _API = _interopRequireDefault(_API);
+
+  var _class, _temp;
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51,7 +49,7 @@
 
   function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-  var RESTModel =
+  module.exports = (_temp = _class =
   /*#__PURE__*/
   function () {
     _createClass(RESTModel, [{
@@ -667,11 +665,7 @@
     }]);
 
     return RESTModel;
-  }();
-
-  _exports.default = RESTModel;
-
-  _defineProperty(RESTModel, "Cache", new _map.default
+  }(), _defineProperty(_class, "Cache", new _map.default
   /* [String, Object] */
-  ());
+  ()), _temp);
 });

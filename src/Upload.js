@@ -5,7 +5,7 @@
 import User from "./User";
 import RESTModel from "./RESTModel";
 
-export default class Upload extends RESTModel {
+module.exports =  class Upload extends RESTModel {
 	static ModelName = "Upload";
 
 	get fileName() {

@@ -1,33 +1,31 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/core-js/map", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/array/from", "@babel/runtime/core-js/promise", "core-js/modules/web.dom.iterable", "./API", "./RESTModel"], factory);
+    define(["@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/map", "@babel/runtime/core-js/array/from", "@babel/runtime/core-js/promise", "core-js/modules/web.dom.iterable", "./API", "./RESTModel"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/array/from"), require("@babel/runtime/core-js/promise"), require("core-js/modules/web.dom.iterable"), require("./API"), require("./RESTModel"));
+    factory(require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/array/from"), require("@babel/runtime/core-js/promise"), require("core-js/modules/web.dom.iterable"), require("./API"), require("./RESTModel"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.map, global.iterator, global.symbol, global.getPrototypeOf, global.defineProperty, global.create, global.setPrototypeOf, global.from, global.promise, global.webDom, global.API, global.RESTModel);
+    factory(global.iterator, global.symbol, global.getPrototypeOf, global.create, global.setPrototypeOf, global.defineProperty, global.map, global.from, global.promise, global.webDom, global.API, global.RESTModel);
     global.Notification = mod.exports;
   }
-})(this, function (_exports, _map, _iterator, _symbol, _getPrototypeOf2, _defineProperty2, _create, _setPrototypeOf2, _from, _promise, _webDom, _API, _RESTModel2) {
+})(this, function (_iterator, _symbol, _getPrototypeOf2, _create, _setPrototypeOf2, _defineProperty2, _map, _from, _promise, _webDom, _API, _RESTModel2) {
   "use strict";
 
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _map = _interopRequireDefault(_map);
   _iterator = _interopRequireDefault(_iterator);
   _symbol = _interopRequireDefault(_symbol);
   _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
-  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _create = _interopRequireDefault(_create);
   _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
+  _map = _interopRequireDefault(_map);
   _from = _interopRequireDefault(_from);
   _promise = _interopRequireDefault(_promise);
   _API = _interopRequireDefault(_API);
   _RESTModel2 = _interopRequireDefault(_RESTModel2);
+
+  var _class, _temp;
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53,7 +51,7 @@
 
   function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-  var Notification =
+  module.exports = (_temp = _class =
   /*#__PURE__*/
   function (_RESTModel) {
     _inherits(Notification, _RESTModel);
@@ -203,11 +201,5 @@
     }]);
 
     return Notification;
-  }(_RESTModel2.default);
-
-  _exports.default = Notification;
-
-  _defineProperty(Notification, "ModelName", "Notification");
-
-  _defineProperty(Notification, "Callbacks", new _map.default());
+  }(_RESTModel2.default), _defineProperty(_class, "ModelName", "Notification"), _defineProperty(_class, "Callbacks", new _map.default()), _temp);
 });

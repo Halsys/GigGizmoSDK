@@ -1,22 +1,18 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "./Band", "./Conversation", "./ErrorReport", "./FacebookAccount", "./Gig", "./Location", "./Notification", "./Page", "./Post", "./TwitterAccount", "./Upload", "./User", "./Venue"], factory);
+    define(["./Band", "./Conversation", "./ErrorReport", "./FacebookAccount", "./Gig", "./Location", "./Notification", "./Page", "./Post", "./TwitterAccount", "./Upload", "./User", "./Venue"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("./Band"), require("./Conversation"), require("./ErrorReport"), require("./FacebookAccount"), require("./Gig"), require("./Location"), require("./Notification"), require("./Page"), require("./Post"), require("./TwitterAccount"), require("./Upload"), require("./User"), require("./Venue"));
+    factory(require("./Band"), require("./Conversation"), require("./ErrorReport"), require("./FacebookAccount"), require("./Gig"), require("./Location"), require("./Notification"), require("./Page"), require("./Post"), require("./TwitterAccount"), require("./Upload"), require("./User"), require("./Venue"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.Band, global.Conversation, global.ErrorReport, global.FacebookAccount, global.Gig, global.Location, global.Notification, global.Page, global.Post, global.TwitterAccount, global.Upload, global.User, global.Venue);
+    factory(global.Band, global.Conversation, global.ErrorReport, global.FacebookAccount, global.Gig, global.Location, global.Notification, global.Page, global.Post, global.TwitterAccount, global.Upload, global.User, global.Venue);
     global.index = mod.exports;
   }
-})(this, function (_exports, _Band, _Conversation, _ErrorReport, _FacebookAccount, _Gig, _Location, _Notification, _Page, _Post, _TwitterAccount, _Upload, _User, _Venue) {
+})(this, function (_Band, _Conversation, _ErrorReport, _FacebookAccount, _Gig, _Location, _Notification, _Page, _Post, _TwitterAccount, _Upload, _User, _Venue) {
   "use strict";
 
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
   _Band = _interopRequireDefault(_Band);
   _Conversation = _interopRequireDefault(_Conversation);
   _ErrorReport = _interopRequireDefault(_ErrorReport);
@@ -33,7 +29,7 @@
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-  var _default = {
+  module.exports = {
     Band: _Band.default,
     Conversation: _Conversation.default,
     ErrorReport: _ErrorReport.default,
@@ -48,5 +44,4 @@
     User: _User.default,
     Venue: _Venue.default
   };
-  _exports.default = _default;
 });

@@ -5,7 +5,7 @@ import moment from "moment";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-export default class Conversation extends RESTModel {
+module.exports = class Conversation extends RESTModel {
 	static ModelName = "Conversation";
 	static Callbacks = new Map();
 
@@ -72,4 +72,4 @@ export default class Conversation extends RESTModel {
 	static getAllOwned(token) {
 		return RESTModel.findMany(Conversation, null, token, true);
 	}
-}
+};

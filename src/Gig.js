@@ -8,7 +8,7 @@ import Location from "./Location";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-export default class Gig extends RESTModel {
+module.exports = class Gig extends RESTModel {
 	static ModelName = "Gig";
 
 	get startTime() {
@@ -234,4 +234,4 @@ export default class Gig extends RESTModel {
 			}, reject);
 		});
 	}
-}
+};

@@ -1,35 +1,33 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/core-js/map", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "core-js/modules/web.dom.iterable", "@babel/runtime/core-js/object/assign", "moment", "./API", "./RESTModel"], factory);
+    define(["@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/map", "core-js/modules/web.dom.iterable", "@babel/runtime/core-js/object/assign", "moment", "./API", "./RESTModel"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("core-js/modules/web.dom.iterable"), require("@babel/runtime/core-js/object/assign"), require("moment"), require("./API"), require("./RESTModel"));
+    factory(require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/map"), require("core-js/modules/web.dom.iterable"), require("@babel/runtime/core-js/object/assign"), require("moment"), require("./API"), require("./RESTModel"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.map, global.iterator, global.symbol, global.defineProperty, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.webDom, global.assign, global.moment, global.API, global.RESTModel);
+    factory(global.iterator, global.symbol, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.defineProperty, global.map, global.webDom, global.assign, global.moment, global.API, global.RESTModel);
     global.Conversation = mod.exports;
   }
-})(this, function (_exports, _map, _iterator, _symbol, _defineProperty2, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _webDom, _assign, _moment, _API, _RESTModel2) {
+})(this, function (_iterator, _symbol, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _defineProperty2, _map, _webDom, _assign, _moment, _API, _RESTModel2) {
   "use strict";
 
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _map = _interopRequireDefault(_map);
   _iterator = _interopRequireDefault(_iterator);
   _symbol = _interopRequireDefault(_symbol);
-  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
   _get2 = _interopRequireDefault(_get2);
   _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
   _create = _interopRequireDefault(_create);
   _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
+  _map = _interopRequireDefault(_map);
   _assign = _interopRequireDefault(_assign);
   _moment = _interopRequireDefault(_moment);
   _API = _interopRequireDefault(_API);
   _RESTModel2 = _interopRequireDefault(_RESTModel2);
+
+  var _class, _temp;
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -59,7 +57,7 @@
 
   function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-  var Conversation =
+  module.exports = (_temp = _class =
   /*#__PURE__*/
   function (_RESTModel) {
     _inherits(Conversation, _RESTModel);
@@ -162,11 +160,5 @@
     }]);
 
     return Conversation;
-  }(_RESTModel2.default);
-
-  _exports.default = Conversation;
-
-  _defineProperty(Conversation, "ModelName", "Conversation");
-
-  _defineProperty(Conversation, "Callbacks", new _map.default());
+  }(_RESTModel2.default), _defineProperty(_class, "ModelName", "Conversation"), _defineProperty(_class, "Callbacks", new _map.default()), _temp);
 });

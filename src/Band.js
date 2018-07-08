@@ -9,7 +9,7 @@ import RESTModel from "./RESTModel";
 import TwitterAccount from "./TwitterAccount";
 import FacebookAccount from "./FacebookAccount";
 
-export default class Band extends RESTModel {
+module.exports = class Band extends RESTModel {
 	static ModelName = "Band";
 
 	get name() {
@@ -234,4 +234,4 @@ export default class Band extends RESTModel {
 	static getAllOwned(token) {
 		return RESTModel.findMany(Band, null, token, true);
 	}
-}
+};

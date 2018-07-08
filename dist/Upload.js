@@ -1,35 +1,33 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/regenerator", "regenerator-runtime/runtime", "@babel/runtime/core-js/promise", "@babel/runtime/core-js/array/from", "./User", "./RESTModel"], factory);
+    define(["@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/object/define-property", "@babel/runtime/regenerator", "regenerator-runtime/runtime", "@babel/runtime/core-js/promise", "@babel/runtime/core-js/array/from", "./User", "./RESTModel"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/regenerator"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/promise"), require("@babel/runtime/core-js/array/from"), require("./User"), require("./RESTModel"));
+    factory(require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/regenerator"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/promise"), require("@babel/runtime/core-js/array/from"), require("./User"), require("./RESTModel"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.iterator, global.symbol, global.defineProperty, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.regenerator, global.runtime, global.promise, global.from, global.User, global.RESTModel);
+    factory(global.iterator, global.symbol, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.defineProperty, global.regenerator, global.runtime, global.promise, global.from, global.User, global.RESTModel);
     global.Upload = mod.exports;
   }
-})(this, function (_exports, _iterator, _symbol, _defineProperty2, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _regenerator, _runtime, _promise, _from, _User, _RESTModel2) {
+})(this, function (_iterator, _symbol, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _defineProperty2, _regenerator, _runtime, _promise, _from, _User, _RESTModel2) {
   "use strict";
 
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
   _iterator = _interopRequireDefault(_iterator);
   _symbol = _interopRequireDefault(_symbol);
-  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
   _get2 = _interopRequireDefault(_get2);
   _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
   _create = _interopRequireDefault(_create);
   _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _regenerator = _interopRequireDefault(_regenerator);
   _promise = _interopRequireDefault(_promise);
   _from = _interopRequireDefault(_from);
   _User = _interopRequireDefault(_User);
   _RESTModel2 = _interopRequireDefault(_RESTModel2);
+
+  var _class, _temp;
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,7 +61,7 @@
 
   function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-  var Upload =
+  module.exports = (_temp = _class =
   /*#__PURE__*/
   function (_RESTModel) {
     _inherits(Upload, _RESTModel);
@@ -204,9 +202,5 @@
     }]);
 
     return Upload;
-  }(_RESTModel2.default);
-
-  _exports.default = Upload;
-
-  _defineProperty(Upload, "ModelName", "Upload");
+  }(_RESTModel2.default), _defineProperty(_class, "ModelName", "Upload"), _temp);
 });

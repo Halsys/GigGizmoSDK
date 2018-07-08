@@ -1,7 +1,7 @@
 import moment from "moment";
 import API from "./API";
 
-export default class RESTModel {
+module.exports = class RESTModel {
 	static Cache = new Map /* [String, Object] */();
 
 	setField(name, value) {
@@ -253,4 +253,4 @@ export default class RESTModel {
 			});
 		return [];
 	}
-}
+};

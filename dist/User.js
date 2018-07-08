@@ -1,33 +1,29 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/core-js/map", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-own-property-symbols", "@babel/runtime/core-js/object/keys", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/symbol/search", "@babel/runtime/regenerator", "regenerator-runtime/runtime", "@babel/runtime/core-js/json/stringify", "core-js/modules/web.dom.iterable", "@babel/runtime/core-js/number/is-finite", "@babel/runtime/core-js/promise", "moment", "./Band", "./Venue", "./Gig", "./Post", "./Page", "./Location", "./API", "./Upload", "./RESTModel", "./Notification", "./TwitterAccount", "./FacebookAccount", "./Conversation"], factory);
+    define(["@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-own-property-symbols", "@babel/runtime/core-js/object/keys", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/map", "@babel/runtime/core-js/symbol/search", "@babel/runtime/regenerator", "regenerator-runtime/runtime", "@babel/runtime/core-js/json/stringify", "core-js/modules/web.dom.iterable", "@babel/runtime/core-js/number/is-finite", "@babel/runtime/core-js/promise", "moment", "./Band", "./Venue", "./Gig", "./Post", "./Page", "./Location", "./API", "./Upload", "./RESTModel", "./Notification", "./TwitterAccount", "./FacebookAccount", "./Conversation"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-own-property-symbols"), require("@babel/runtime/core-js/object/keys"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/symbol/search"), require("@babel/runtime/regenerator"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/json/stringify"), require("core-js/modules/web.dom.iterable"), require("@babel/runtime/core-js/number/is-finite"), require("@babel/runtime/core-js/promise"), require("moment"), require("./Band"), require("./Venue"), require("./Gig"), require("./Post"), require("./Page"), require("./Location"), require("./API"), require("./Upload"), require("./RESTModel"), require("./Notification"), require("./TwitterAccount"), require("./FacebookAccount"), require("./Conversation"));
+    factory(require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-own-property-symbols"), require("@babel/runtime/core-js/object/keys"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/map"), require("@babel/runtime/core-js/symbol/search"), require("@babel/runtime/regenerator"), require("regenerator-runtime/runtime"), require("@babel/runtime/core-js/json/stringify"), require("core-js/modules/web.dom.iterable"), require("@babel/runtime/core-js/number/is-finite"), require("@babel/runtime/core-js/promise"), require("moment"), require("./Band"), require("./Venue"), require("./Gig"), require("./Post"), require("./Page"), require("./Location"), require("./API"), require("./Upload"), require("./RESTModel"), require("./Notification"), require("./TwitterAccount"), require("./FacebookAccount"), require("./Conversation"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.map, global.iterator, global.symbol, global.getOwnPropertySymbols, global.keys, global.defineProperty, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.search, global.regenerator, global.runtime, global.stringify, global.webDom, global.isFinite, global.promise, global.moment, global.Band, global.Venue, global.Gig, global.Post, global.Page, global.Location, global.API, global.Upload, global.RESTModel, global.Notification, global.TwitterAccount, global.FacebookAccount, global.Conversation);
+    factory(global.iterator, global.symbol, global.getOwnPropertySymbols, global.keys, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.defineProperty, global.map, global.search, global.regenerator, global.runtime, global.stringify, global.webDom, global.isFinite, global.promise, global.moment, global.Band, global.Venue, global.Gig, global.Post, global.Page, global.Location, global.API, global.Upload, global.RESTModel, global.Notification, global.TwitterAccount, global.FacebookAccount, global.Conversation);
     global.User = mod.exports;
   }
-})(this, function (_exports, _map, _iterator, _symbol, _getOwnPropertySymbols, _keys, _defineProperty2, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _search, _regenerator, _runtime, _stringify, _webDom, _isFinite, _promise, _moment, _Band, _Venue, _Gig, _Post, _Page, _Location, _API, _Upload, _RESTModel2, _Notification, _TwitterAccount, _FacebookAccount, _Conversation) {
+})(this, function (_iterator, _symbol, _getOwnPropertySymbols, _keys, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _defineProperty2, _map, _search, _regenerator, _runtime, _stringify, _webDom, _isFinite, _promise, _moment, _Band, _Venue, _Gig, _Post, _Page, _Location, _API, _Upload, _RESTModel2, _Notification, _TwitterAccount, _FacebookAccount, _Conversation) {
   "use strict";
 
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _map = _interopRequireDefault(_map);
   _iterator = _interopRequireDefault(_iterator);
   _symbol = _interopRequireDefault(_symbol);
   _getOwnPropertySymbols = _interopRequireDefault(_getOwnPropertySymbols);
   _keys = _interopRequireDefault(_keys);
-  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
   _get2 = _interopRequireDefault(_get2);
   _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
   _create = _interopRequireDefault(_create);
   _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
+  _map = _interopRequireDefault(_map);
   _search = _interopRequireDefault(_search);
   _regenerator = _interopRequireDefault(_regenerator);
   _stringify = _interopRequireDefault(_stringify);
@@ -47,6 +43,8 @@
   _TwitterAccount = _interopRequireDefault(_TwitterAccount);
   _FacebookAccount = _interopRequireDefault(_FacebookAccount);
   _Conversation = _interopRequireDefault(_Conversation);
+
+  var _class, _temp;
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -82,7 +80,7 @@
 
   function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-  var User =
+  module.exports = (_temp = _class =
   /*#__PURE__*/
   function (_RESTModel) {
     _inherits(User, _RESTModel);
@@ -886,15 +884,5 @@
     }]);
 
     return User;
-  }(_RESTModel2.default);
-
-  _exports.default = User;
-
-  _defineProperty(User, "ModelName", "User");
-
-  _defineProperty(User, "Current", null);
-
-  _defineProperty(User, "Callbacks", new _map.default());
-
-  _defineProperty(User, "agreement", null);
+  }(_RESTModel2.default), _defineProperty(_class, "ModelName", "User"), _defineProperty(_class, "Current", null), _defineProperty(_class, "Callbacks", new _map.default()), _defineProperty(_class, "agreement", null), _temp);
 });

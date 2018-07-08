@@ -1,34 +1,32 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(["exports", "@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/promise", "./API", "./RESTModel", "./GooglePlace"], factory);
+    define(["@babel/runtime/core-js/symbol/iterator", "@babel/runtime/core-js/symbol", "@babel/runtime/core-js/object/get-own-property-descriptor", "@babel/runtime/core-js/reflect/get", "@babel/runtime/core-js/object/get-prototype-of", "@babel/runtime/core-js/object/create", "@babel/runtime/core-js/object/set-prototype-of", "@babel/runtime/core-js/object/define-property", "@babel/runtime/core-js/promise", "./API", "./RESTModel", "./GooglePlace"], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/promise"), require("./API"), require("./RESTModel"), require("./GooglePlace"));
+    factory(require("@babel/runtime/core-js/symbol/iterator"), require("@babel/runtime/core-js/symbol"), require("@babel/runtime/core-js/object/get-own-property-descriptor"), require("@babel/runtime/core-js/reflect/get"), require("@babel/runtime/core-js/object/get-prototype-of"), require("@babel/runtime/core-js/object/create"), require("@babel/runtime/core-js/object/set-prototype-of"), require("@babel/runtime/core-js/object/define-property"), require("@babel/runtime/core-js/promise"), require("./API"), require("./RESTModel"), require("./GooglePlace"));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.iterator, global.symbol, global.defineProperty, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.promise, global.API, global.RESTModel, global.GooglePlace);
+    factory(global.iterator, global.symbol, global.getOwnPropertyDescriptor, global.get, global.getPrototypeOf, global.create, global.setPrototypeOf, global.defineProperty, global.promise, global.API, global.RESTModel, global.GooglePlace);
     global.Location = mod.exports;
   }
-})(this, function (_exports, _iterator, _symbol, _defineProperty2, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _promise, _API, _RESTModel2, _GooglePlace) {
+})(this, function (_iterator, _symbol, _getOwnPropertyDescriptor, _get2, _getPrototypeOf2, _create, _setPrototypeOf2, _defineProperty2, _promise, _API, _RESTModel2, _GooglePlace) {
   "use strict";
 
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
   _iterator = _interopRequireDefault(_iterator);
   _symbol = _interopRequireDefault(_symbol);
-  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _getOwnPropertyDescriptor = _interopRequireDefault(_getOwnPropertyDescriptor);
   _get2 = _interopRequireDefault(_get2);
   _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf2);
   _create = _interopRequireDefault(_create);
   _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf2);
+  _defineProperty2 = _interopRequireDefault(_defineProperty2);
   _promise = _interopRequireDefault(_promise);
   _API = _interopRequireDefault(_API);
   _RESTModel2 = _interopRequireDefault(_RESTModel2);
   _GooglePlace = _interopRequireDefault(_GooglePlace);
+
+  var _class, _temp;
 
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,7 +56,7 @@
 
   function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-  var Location =
+  module.exports = (_temp = _class =
   /*#__PURE__*/
   function (_RESTModel) {
     _inherits(Location, _RESTModel);
@@ -159,9 +157,5 @@
     }]);
 
     return Location;
-  }(_RESTModel2.default);
-
-  _exports.default = Location;
-
-  _defineProperty(Location, "ModelName", "Location");
+  }(_RESTModel2.default), _defineProperty(_class, "ModelName", "Location"), _temp);
 });

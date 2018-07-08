@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default PropTypes.shape({
+module.exports =  PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	dateCreated: PropTypes.object.isRequired,
 	dateModified: PropTypes.object.isRequired,

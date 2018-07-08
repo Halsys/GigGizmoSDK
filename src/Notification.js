@@ -5,7 +5,7 @@
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-export default class Notification extends RESTModel {
+module.exports =  class Notification extends RESTModel {
 	static ModelName = "Notification";
 	static Callbacks = new Map();
 

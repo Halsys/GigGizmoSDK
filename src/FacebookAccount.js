@@ -6,7 +6,7 @@ import RESTModel from "./RESTModel";
 import User from "./User";
 import API from "./API";
 
-export default class FacebookAccount extends RESTModel {
+module.exports = class FacebookAccount extends RESTModel {
 	static ModelName = "FacebookAccount";
 
 	get userId() {
@@ -97,4 +97,4 @@ export default class FacebookAccount extends RESTModel {
 			}).then(resolve, reject);
 		});
 	}
-}
+};

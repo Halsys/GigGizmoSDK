@@ -12,7 +12,7 @@ import Upload from "./Upload";
 import User from "./User";
 import Venue from "./Venue";
 
-export default {
+module.exports =  {
   Band,
   Conversation,
   ErrorReport,

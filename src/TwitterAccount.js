@@ -6,7 +6,7 @@ import RESTModel from "./RESTModel";
 import User from "./User";
 import API from "./API";
 
-export default class TwitterAccount extends RESTModel {
+module.exports =  class TwitterAccount extends RESTModel {
 	static ModelName = "TwitterAccount";
 
 	get userId() {

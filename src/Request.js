@@ -5,7 +5,7 @@
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-export default class Request extends RESTModel {
+module.exports =  class Request extends RESTModel {
 	static ModelName = "Request";
 
 	get to() {

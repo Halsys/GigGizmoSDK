@@ -10,7 +10,7 @@ import RESTModel from "./RESTModel";
 import TwitterAccount from "./TwitterAccount";
 import FacebookAccount from "./FacebookAccount";
 
-export default class Venue extends RESTModel {
+module.exports = class Venue extends RESTModel {
 	static ModelName = "Venue";
 
 	get name() {
@@ -234,4 +234,4 @@ export default class Venue extends RESTModel {
 	static getAllOwned(token) {
 		return RESTModel.findMany(Venue, null, token, true);
 	}
-}
+};

@@ -4,7 +4,7 @@
 
 import RESTModel from "./RESTModel";
 
-export default class ErrorReport extends RESTModel {
+module.exports = class ErrorReport extends RESTModel {
 	static ModelName = "ErrorReport";
 
 	get version() {
@@ -84,4 +84,4 @@ export default class ErrorReport extends RESTModel {
 	static findMany(criteria, token) {
 		return RESTModel.findMany(ErrorReport, criteria, token);
 	}
-}
+};

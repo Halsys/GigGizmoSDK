@@ -17,7 +17,7 @@ describe("Conversation class", () => {
 		});
 		it("Empty", () => {
 			const empty = new Conversation({});
-			expect(empty.events).to.equal(null);
+			expect(empty.events).to.be.a("array");
 		});
 		it("Copy Data", () => {
 			const copy = new Conversation({

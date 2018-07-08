@@ -3,7 +3,7 @@
  */
 import RESTModel from "./RESTModel";
 
-export default class Post extends RESTModel {
+module.exports =  class Post extends RESTModel {
 	static ModelName = "Post";
 
 	get userId() {

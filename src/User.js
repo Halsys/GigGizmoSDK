@@ -17,7 +17,7 @@ import TwitterAccount from "./TwitterAccount";
 import FacebookAccount from "./FacebookAccount";
 import Conversation from "./Conversation";
 
-export default class User extends RESTModel {
+module.exports =  class User extends RESTModel {
 	static ModelName = "User";
 	static Current = null;
 	static Callbacks = new Map();

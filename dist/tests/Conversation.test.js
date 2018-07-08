@@ -43,7 +43,7 @@
         _newArrowCheck(this, _this3);
 
         var empty = new _.Conversation({});
-        (0, _chai.expect)(empty.events).to.equal(null);
+        (0, _chai.expect)(empty.events).to.be.a("array");
       }.bind(this));
       it("Copy Data", function () {
         _newArrowCheck(this, _this3);
