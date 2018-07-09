@@ -1,8 +1,15 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
 var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
@@ -14,17 +21,15 @@ var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/crea
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
 var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+
+var _index = require("./index");
 
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
 var _GooglePlace = _interopRequireDefault(require("./GooglePlace"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54,7 +59,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var Location =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(Location, _RESTModel);
@@ -150,9 +155,13 @@ function (_RESTModel) {
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel2.default.findById(Location, id, token, true);
+      return _RESTModel2.default.findById("Location", id, token, true);
     }
   }]);
 
   return Location;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "Location"), _temp);
+}(_RESTModel2.default);
+
+exports.default = Location;
+
+_defineProperty(Location, "ModelName", "Location");

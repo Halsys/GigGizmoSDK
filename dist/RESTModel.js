@@ -1,5 +1,12 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
+
 var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
 var _getOwnPropertySymbols = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-symbols"));
@@ -9,8 +16,6 @@ var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/it
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
 
 var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
-var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -28,11 +33,9 @@ var _assign = _interopRequireDefault(require("@babel/runtime/core-js/object/assi
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _API = _interopRequireDefault(require("./API"));
-
 var _index = require("./index");
 
-var _class, _temp;
+var _API = _interopRequireDefault(require("./API"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54,7 +57,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var RESTModel =
 /*#__PURE__*/
 function () {
   _createClass(RESTModel, [{
@@ -724,6 +727,10 @@ function () {
   }]);
 
   return RESTModel;
-}(), _defineProperty(_class, "Cache", new _map.default
+}();
+
+exports.default = RESTModel;
+
+_defineProperty(RESTModel, "Cache", new _map.default
 /* [String, Object] */
-()), _temp);
+());

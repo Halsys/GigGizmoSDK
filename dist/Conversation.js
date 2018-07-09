@@ -1,8 +1,17 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
 var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
@@ -14,21 +23,17 @@ var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/crea
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
-var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
-
 require("core-js/modules/web.dom.iterable");
 
 var _assign = _interopRequireDefault(require("@babel/runtime/core-js/object/assign"));
 
 var _moment = _interopRequireDefault(require("moment"));
 
+var _index = require("./index");
+
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -58,7 +63,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var Conversation =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(Conversation, _RESTModel);
@@ -151,14 +156,20 @@ function (_RESTModel) {
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel2.default.findById(Conversation, id, token, true);
+      return _RESTModel2.default.findById("Conversation", id, token, true);
     }
   }, {
     key: "getAllOwned",
     value: function getAllOwned(token) {
-      return _RESTModel2.default.findMany(Conversation, null, token, true);
+      return _RESTModel2.default.findMany("Conversation", null, token, true);
     }
   }]);
 
   return Conversation;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "Conversation"), _defineProperty(_class, "Callbacks", new _map.default()), _temp);
+}(_RESTModel2.default);
+
+exports.default = Conversation;
+
+_defineProperty(Conversation, "ModelName", "Conversation");
+
+_defineProperty(Conversation, "Callbacks", new _map.default());

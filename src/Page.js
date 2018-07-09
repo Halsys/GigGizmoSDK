@@ -2,10 +2,11 @@
  * Created by corynull on 8/1/17.
  */
 
+import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-module.exports =  class Page extends RESTModel {
+export default class Page extends RESTModel {
 	static ModelName = "Page";
 
 	get data() {
@@ -107,15 +108,15 @@ module.exports =  class Page extends RESTModel {
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Page, criteria, token);
+		return RESTModel.findMany("Page", criteria, token);
 	}
 
 	static findOne(criteria, token) {
-		return RESTModel.findOne(Page, criteria, token);
+		return RESTModel.findOne("Page", criteria, token);
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Page, id, token);
+		return RESTModel.findById("Page", id, token);
 	}
 
 	static findByLink(link) {

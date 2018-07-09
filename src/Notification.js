@@ -2,10 +2,11 @@
  * Created by corynull on 8/15/17.
  */
 
+import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-module.exports =  class Notification extends RESTModel {
+export default class Notification extends RESTModel {
 	static ModelName = "Notification";
 	static Callbacks = new Map();
 
@@ -82,11 +83,11 @@ module.exports =  class Notification extends RESTModel {
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Notification, null, token, true);
+		return RESTModel.findMany("Notification", null, token, true);
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Notification, id, token, true);
+		return RESTModel.findById("Notification", id, token, true);
 	}
 
 	static connectSocket(token) {

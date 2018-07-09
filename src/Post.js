@@ -1,9 +1,11 @@
 /**
  * Created by corynull on 5/23/17.
  */
+
+import { ModelNameToModel } from "./index";
 import RESTModel from "./RESTModel";
 
-module.exports =  class Post extends RESTModel {
+export default class Post extends RESTModel {
 	static ModelName = "Post";
 
 	get userId() {
@@ -105,14 +107,14 @@ module.exports =  class Post extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Post, id, token);
+		return RESTModel.findById("Post", id, token);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Post, null, token);
+		return RESTModel.findMany("Post", null, token);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Post, criteria, token);
+		return RESTModel.findMany("Post", criteria, token);
 	}
 }

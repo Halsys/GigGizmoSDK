@@ -2,14 +2,11 @@
  * Created by corynull on 4/3/17.
  */
 
-import User from "./User";
-import Upload from "./Upload";
+import { ModelNameToModel } from "./index";
 import Gig from "./Gig";
 import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import FacebookAccount from "./FacebookAccount";
 
-module.exports = class Band extends RESTModel {
+export default class Band extends RESTModel {
 	static ModelName = "Band";
 
 	get name() {
@@ -149,17 +146,19 @@ module.exports = class Band extends RESTModel {
 	}
 
 	getIcon(token) {
-		return Upload.findById(this.icon, token);
+		return RESTModel.findById("Upload", this.icon, token, true);
 	}
 
 	getPhotos(token) {
 		const photos = Array.from(this.photos);
 		if (photos.length !== 0)
-			return Upload.findMany(
+			return RESTModel.findMany(
+				"Upload",
 				{
 					_id: photos
 				},
-				token
+				token,
+				true
 			);
 		return Promise.resolve([]);
 	}
@@ -167,11 +166,13 @@ module.exports = class Band extends RESTModel {
 	getOwners(token) {
 		const owners = Array.from(this.owners);
 		if (owners.length !== 0)
-			return User.findMany(
+			return RESTModel.findMany(
+				"User",
 				{
 					_id: owners
 				},
-				token
+				token,
+				true
 			);
 		return Promise.resolve([]);
 	}
@@ -181,11 +182,11 @@ module.exports = class Band extends RESTModel {
 	}
 
 	getTwitterAccount(token) {
-		return TwitterAccount.findById(this.twitter, token);
+		return RESTModel.findById("TwitterAccount", this.twitter, token, true);
 	}
 
 	getFacebookAccount(token) {
-		return FacebookAccount.findById(this.facebook, token);
+		return RESTModel.findById("FacebookAccount", this.facebook, token, true);
 	}
 
 	valid() {
@@ -220,18 +221,18 @@ module.exports = class Band extends RESTModel {
 	}
 
 	static findOne(criteria, token) {
-		return RESTModel.findOne(Band, criteria, token, true);
+		return RESTModel.findOne("Band", criteria, token, true);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Band, criteria, token, true);
+		return RESTModel.findMany("Band", criteria, token, true);
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Band, id, token, true);
+		return RESTModel.findById("Band", id, token, true);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Band, null, token, true);
+		return RESTModel.findMany("Band", null, token, true);
 	}
-};
+}

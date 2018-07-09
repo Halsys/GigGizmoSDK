@@ -2,13 +2,12 @@
  * Created by corynull on 4/5/17.
  */
 import moment from "moment";
-import Band from "./Band";
-import Venue from "./Venue";
-import Location from "./Location";
+
+import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-module.exports = class Gig extends RESTModel {
+export default class Gig extends RESTModel {
 	static ModelName = "Gig";
 
 	get startTime() {
@@ -90,15 +89,15 @@ module.exports = class Gig extends RESTModel {
 	}
 
 	getBands(token) {
-		return Band.findMany({ _id: this.bands }, token);
+		return RESTModel.findMany("Band", { _id: this.bands }, token, true);
 	}
 
 	getVenue(token) {
-		return Venue.findById(this.venue, token);
+		return RESTModel.findById("Venue", this.venue, token, true);
 	}
 
 	getLocation(token) {
-		return Location.findById(this.location, token);
+		return RESTModel.findById("Location", this.location, token, true);
 	}
 
 	valid() {
@@ -119,7 +118,7 @@ module.exports = class Gig extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Gig, id, token, true);
+		return RESTModel.findById("Gig", id, token, true);
 	}
 
 	static async findByBand(bandId, token) {
@@ -149,11 +148,11 @@ module.exports = class Gig extends RESTModel {
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Gig, null, token, true);
+		return RESTModel.findMany("Gig", null, token, true);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Gig, criteria, token, true);
+		return RESTModel.findMany("Gig", criteria, token, true);
 	}
 
 	static createGigs(gigData, token) {
@@ -234,4 +233,4 @@ module.exports = class Gig extends RESTModel {
 			}, reject);
 		});
 	}
-};
+}

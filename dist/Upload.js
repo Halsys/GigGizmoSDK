@@ -1,8 +1,15 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
 var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
@@ -14,8 +21,6 @@ var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/crea
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 require("regenerator-runtime/runtime");
@@ -24,11 +29,9 @@ var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"))
 
 var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"));
 
-var _User = _interopRequireDefault(require("./User"));
+var _index = require("./index");
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,7 +65,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var Upload =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(Upload, _RESTModel);
@@ -77,9 +80,9 @@ function (_RESTModel) {
     key: "getOwners",
     value: function getOwners(token) {
       var owners = (0, _from.default)(this.owners);
-      if (owners.length !== 0) return _User.default.findMany({
+      if (owners.length !== 0) return _RESTModel2.default.findMany("User", {
         _id: owners
-      }, token);
+      }, token, true);
       return _promise.default.resolve([]);
     }
   }, {
@@ -188,19 +191,23 @@ function (_RESTModel) {
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel2.default.findById(Upload, id, token, true);
+      return _RESTModel2.default.findById("Upload", id, token, true);
     }
   }, {
     key: "findMany",
     value: function findMany(criteria, token) {
-      return _RESTModel2.default.findMany(Upload, criteria, token, true);
+      return _RESTModel2.default.findMany("Upload", criteria, token, true);
     }
   }, {
     key: "getAllOwned",
     value: function getAllOwned(token) {
-      return _RESTModel2.default.findMany(Upload, null, token, true);
+      return _RESTModel2.default.findMany("Upload", null, token, true);
     }
   }]);
 
   return Upload;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "Upload"), _temp);
+}(_RESTModel2.default);
+
+exports.default = Upload;
+
+_defineProperty(Upload, "ModelName", "Upload");

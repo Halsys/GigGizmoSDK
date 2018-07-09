@@ -1,8 +1,15 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
 var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/get-prototype-of"));
 
@@ -10,17 +17,13 @@ var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/crea
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
 var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
+
+var _index = require("./index");
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
 
-var _User = _interopRequireDefault(require("./User"));
-
 var _API = _interopRequireDefault(require("./API"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46,7 +49,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var TwitterAccount =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(TwitterAccount, _RESTModel);
@@ -60,7 +63,7 @@ function (_RESTModel) {
   _createClass(TwitterAccount, [{
     key: "getUser",
     value: function getUser() {
-      return _User.default.getUserById(this.userId);
+      return _RESTModel2.default.findById("User", this.userId, token, true);
     }
   }, {
     key: "userIsOwner",
@@ -144,4 +147,8 @@ function (_RESTModel) {
   }]);
 
   return TwitterAccount;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "TwitterAccount"), _temp);
+}(_RESTModel2.default);
+
+exports.default = TwitterAccount;
+
+_defineProperty(TwitterAccount, "ModelName", "TwitterAccount");

@@ -2,11 +2,12 @@
  * Created by corynull on 9/7/17.
  */
 
+import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 import GooglePlace from "./GooglePlace";
 
-module.exports =  class Location extends RESTModel {
+export default class Location extends RESTModel {
 	static ModelName = "Location";
 
 	get type() {
@@ -79,6 +80,6 @@ module.exports =  class Location extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Location, id, token, true);
+		return RESTModel.findById("Location", id, token, true);
 	}
 }

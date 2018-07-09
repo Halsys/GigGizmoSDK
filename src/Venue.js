@@ -2,15 +2,11 @@
  * Created by corynull on 4/5/17.
  */
 
-import User from "./User";
-import Upload from "./Upload";
+import { ModelNameToModel } from "./index";
 import Gig from "./Gig";
-import Location from "./Location";
 import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import FacebookAccount from "./FacebookAccount";
 
-module.exports = class Venue extends RESTModel {
+export default class Venue extends RESTModel {
 	static ModelName = "Venue";
 
 	get name() {
@@ -142,18 +138,19 @@ module.exports = class Venue extends RESTModel {
 	}
 
 	getIcon(token) {
-		const icon = this.icon ? this.icon : null;
-		return Upload.findById(icon, token);
+		return RESTModel.findById("Upload", this.icon, token, true);
 	}
 
 	getPhotos(token) {
 		const photos = Array.from(this.photos);
 		if (photos.length !== 0)
-			return Upload.findMany(
+			return RESTModel.findMany(
+				"Upload",
 				{
 					_id: photos
 				},
-				token
+				token,
+				true
 			);
 		return Promise.resolve([]);
 	}
@@ -161,11 +158,13 @@ module.exports = class Venue extends RESTModel {
 	getOwners(token) {
 		const owners = Array.from(this.owners);
 		if (owners.length !== 0)
-			return User.findMany(
+			return RESTModel.findMany(
+				"User",
 				{
 					_id: owners
 				},
-				token
+				token,
+				true
 			);
 		return Promise.resolve([]);
 	}
@@ -175,15 +174,15 @@ module.exports = class Venue extends RESTModel {
 	}
 
 	getTwitterAccount(token) {
-		return TwitterAccount.findById(this.twitter, token);
+		return RESTModel.findById("TwitterAccount", this.twitter, token, true);
 	}
 
 	getFacebookAccount(token) {
-		return FacebookAccount.findById(this.facebook, token);
+		return RESTModel.findById("FacebookAccount", this.facebook, token, true);
 	}
 
 	getLocation(token) {
-		return Location.findById(this.location, token);
+		return RESTModel.findById("Location", this.location, token, true);
 	}
 
 	valid() {
@@ -220,18 +219,18 @@ module.exports = class Venue extends RESTModel {
 	}
 
 	static findOne(criteria, token) {
-		return RESTModel.findOne(Venue, criteria, token, true);
+		return RESTModel.findOne("Venue", criteria, token, true);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Venue, criteria, token, true);
+		return RESTModel.findMany("Venue", criteria, token, true);
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Venue, id, token, true);
+		return RESTModel.findById("Venue", id, token, true);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Venue, null, token, true);
+		return RESTModel.findMany("Venue", null, token, true);
 	}
-};
+}

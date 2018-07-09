@@ -2,9 +2,10 @@
  * Created by corynull on Jan 8 2018 8:58:54 PM.
  */
 
+import { ModelNameToModel } from "./index";
 import RESTModel from "./RESTModel";
 
-module.exports = class ErrorReport extends RESTModel {
+export default class ErrorReport extends RESTModel {
 	static ModelName = "ErrorReport";
 
 	get version() {
@@ -78,10 +79,10 @@ module.exports = class ErrorReport extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(ErrorReport, id, token);
+		return RESTModel.findById("ErrorReport", id, token);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(ErrorReport, criteria, token);
+		return RESTModel.findMany("ErrorReport", criteria, token);
 	}
-};
+}

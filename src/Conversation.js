@@ -2,10 +2,12 @@
  * Created by corynull on Dec 30 2017 11:14:11 AM.
  */
 import moment from "moment";
+
+import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-module.exports = class Conversation extends RESTModel {
+export default class Conversation extends RESTModel {
 	static ModelName = "Conversation";
 	static Callbacks = new Map();
 
@@ -66,10 +68,10 @@ module.exports = class Conversation extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Conversation, id, token, true);
+		return RESTModel.findById("Conversation", id, token, true);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Conversation, null, token, true);
+		return RESTModel.findMany("Conversation", null, token, true);
 	}
-};
+}

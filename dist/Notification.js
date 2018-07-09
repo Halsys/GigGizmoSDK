@@ -1,18 +1,23 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
 
 var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/get-prototype-of"));
 
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+
 var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
-var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
 
 var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"));
 
@@ -20,11 +25,11 @@ var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"))
 
 require("core-js/modules/web.dom.iterable");
 
+var _index = require("./index");
+
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,7 +55,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var Notification =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(Notification, _RESTModel);
@@ -173,12 +178,12 @@ function (_RESTModel) {
   }, {
     key: "getAllOwned",
     value: function getAllOwned(token) {
-      return _RESTModel2.default.findMany(Notification, null, token, true);
+      return _RESTModel2.default.findMany("Notification", null, token, true);
     }
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel2.default.findById(Notification, id, token, true);
+      return _RESTModel2.default.findById("Notification", id, token, true);
     }
   }, {
     key: "connectSocket",
@@ -200,4 +205,10 @@ function (_RESTModel) {
   }]);
 
   return Notification;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "Notification"), _defineProperty(_class, "Callbacks", new _map.default()), _temp);
+}(_RESTModel2.default);
+
+exports.default = Notification;
+
+_defineProperty(Notification, "ModelName", "Notification");
+
+_defineProperty(Notification, "Callbacks", new _map.default());

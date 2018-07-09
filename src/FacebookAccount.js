@@ -2,11 +2,11 @@
  * Created by corynull on Nov 30 2017 9:08 AM.
  */
 
+import { ModelNameToModel } from "./index";
 import RESTModel from "./RESTModel";
-import User from "./User";
 import API from "./API";
 
-module.exports = class FacebookAccount extends RESTModel {
+export default class FacebookAccount extends RESTModel {
 	static ModelName = "FacebookAccount";
 
 	get userId() {
@@ -46,7 +46,7 @@ module.exports = class FacebookAccount extends RESTModel {
 	}
 
 	getUser() {
-		return User.getUserById(this.userId);
+		return RESTModel.findById("User", this.userId, token, true);
 	}
 
 	userIsOwner(user) {
@@ -97,4 +97,4 @@ module.exports = class FacebookAccount extends RESTModel {
 			}).then(resolve, reject);
 		});
 	}
-};
+}

@@ -1,8 +1,15 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
 var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
@@ -14,25 +21,15 @@ var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/crea
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
 var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"));
 
 var _from = _interopRequireDefault(require("@babel/runtime/core-js/array/from"));
 
-var _User = _interopRequireDefault(require("./User"));
-
-var _Upload = _interopRequireDefault(require("./Upload"));
+var _index = require("./index");
 
 var _Gig = _interopRequireDefault(require("./Gig"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
-
-var _TwitterAccount = _interopRequireDefault(require("./TwitterAccount"));
-
-var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,7 +59,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var Band =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(Band, _RESTModel);
@@ -86,24 +83,24 @@ function (_RESTModel) {
   }, {
     key: "getIcon",
     value: function getIcon(token) {
-      return _Upload.default.findById(this.icon, token);
+      return _RESTModel2.default.findById("Upload", this.icon, token, true);
     }
   }, {
     key: "getPhotos",
     value: function getPhotos(token) {
       var photos = (0, _from.default)(this.photos);
-      if (photos.length !== 0) return _Upload.default.findMany({
+      if (photos.length !== 0) return _RESTModel2.default.findMany("Upload", {
         _id: photos
-      }, token);
+      }, token, true);
       return _promise.default.resolve([]);
     }
   }, {
     key: "getOwners",
     value: function getOwners(token) {
       var owners = (0, _from.default)(this.owners);
-      if (owners.length !== 0) return _User.default.findMany({
+      if (owners.length !== 0) return _RESTModel2.default.findMany("User", {
         _id: owners
-      }, token);
+      }, token, true);
       return _promise.default.resolve([]);
     }
   }, {
@@ -114,12 +111,12 @@ function (_RESTModel) {
   }, {
     key: "getTwitterAccount",
     value: function getTwitterAccount(token) {
-      return _TwitterAccount.default.findById(this.twitter, token);
+      return _RESTModel2.default.findById("TwitterAccount", this.twitter, token, true);
     }
   }, {
     key: "getFacebookAccount",
     value: function getFacebookAccount(token) {
-      return _FacebookAccount.default.findById(this.facebook, token);
+      return _RESTModel2.default.findById("FacebookAccount", this.facebook, token, true);
     }
   }, {
     key: "valid",
@@ -292,24 +289,28 @@ function (_RESTModel) {
   }], [{
     key: "findOne",
     value: function findOne(criteria, token) {
-      return _RESTModel2.default.findOne(Band, criteria, token, true);
+      return _RESTModel2.default.findOne("Band", criteria, token, true);
     }
   }, {
     key: "findMany",
     value: function findMany(criteria, token) {
-      return _RESTModel2.default.findMany(Band, criteria, token, true);
+      return _RESTModel2.default.findMany("Band", criteria, token, true);
     }
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel2.default.findById(Band, id, token, true);
+      return _RESTModel2.default.findById("Band", id, token, true);
     }
   }, {
     key: "getAllOwned",
     value: function getAllOwned(token) {
-      return _RESTModel2.default.findMany(Band, null, token, true);
+      return _RESTModel2.default.findMany("Band", null, token, true);
     }
   }]);
 
   return Band;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "Band"), _temp);
+}(_RESTModel2.default);
+
+exports.default = Band;
+
+_defineProperty(Band, "ModelName", "Band");

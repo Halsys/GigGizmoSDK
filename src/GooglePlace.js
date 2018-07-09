@@ -2,10 +2,11 @@
  * Created by corynull on 4/7/17.
  */
 
+import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-module.exports =  class GooglePlace extends RESTModel {
+export default class GooglePlace extends RESTModel {
 	static ModelName = "GooglePlace";
 
 	get placeId() {

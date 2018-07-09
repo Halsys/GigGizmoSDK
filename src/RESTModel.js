@@ -1,8 +1,9 @@
 import moment from "moment";
-import API from "./API";
-import { ModelNameToModel } from "./index";
 
-module.exports = class RESTModel {
+import { ModelNameToModel } from "./index";
+import API from "./API";
+
+export default class RESTModel {
 	static Cache = new Map /* [String, Object] */();
 
 	setField(name, value) {
@@ -262,4 +263,4 @@ module.exports = class RESTModel {
 			});
 		return [];
 	}
-};
+}

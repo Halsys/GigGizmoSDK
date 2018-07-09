@@ -1,5 +1,12 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
@@ -7,6 +14,8 @@ var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
 var _getOwnPropertySymbols = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-symbols"));
 
 var _keys = _interopRequireDefault(require("@babel/runtime/core-js/object/keys"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
 var _getOwnPropertyDescriptor = _interopRequireDefault(require("@babel/runtime/core-js/object/get-own-property-descriptor"));
 
@@ -17,10 +26,6 @@ var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/ob
 var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/create"));
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
-
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
-
-var _map = _interopRequireDefault(require("@babel/runtime/core-js/map"));
 
 var _search = _interopRequireDefault(require("@babel/runtime/core-js/symbol/search"));
 
@@ -43,8 +48,6 @@ var _index = require("./index");
 var _API = _interopRequireDefault(require("./API"));
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -80,7 +83,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var User =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(User, _RESTModel);
@@ -94,8 +97,7 @@ function (_RESTModel) {
   _createClass(User, [{
     key: "getIcon",
     value: function getIcon() {
-      var icon = this.icon;
-      return Upload.findById(icon);
+      return _RESTModel2.default.findById("Upload", this.icon, token, true);
     }
   }, {
     key: "getTwitterAccount",
@@ -555,12 +557,12 @@ function (_RESTModel) {
   }, {
     key: "findMany",
     value: function findMany(criteria, token) {
-      return _RESTModel2.default.findMany(User, criteria, token, true);
+      return _RESTModel2.default.findMany("User", criteria, token, true);
     }
   }, {
     key: "findOne",
     value: function findOne(criteria, token) {
-      return _RESTModel2.default.findOne(User, criteria, token, true);
+      return _RESTModel2.default.findOne("User", criteria, token, true);
     }
   }, {
     key: "onChange",
@@ -715,7 +717,7 @@ function (_RESTModel) {
   }, {
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel2.default.findById(User, id, token, true);
+      return _RESTModel2.default.findById("User", id, token, true);
     }
   }, {
     key: "connectFacebook",
@@ -876,4 +878,14 @@ function (_RESTModel) {
   }]);
 
   return User;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "User"), _defineProperty(_class, "Current", null), _defineProperty(_class, "Callbacks", new _map.default()), _defineProperty(_class, "agreement", null), _temp);
+}(_RESTModel2.default);
+
+exports.default = User;
+
+_defineProperty(User, "ModelName", "User");
+
+_defineProperty(User, "Current", null);
+
+_defineProperty(User, "Callbacks", new _map.default());
+
+_defineProperty(User, "agreement", null);

@@ -1,8 +1,15 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _iterator = _interopRequireDefault(require("@babel/runtime/core-js/symbol/iterator"));
 
 var _symbol = _interopRequireDefault(require("@babel/runtime/core-js/symbol"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
 
 var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/get-prototype-of"));
 
@@ -10,11 +17,9 @@ var _create = _interopRequireDefault(require("@babel/runtime/core-js/object/crea
 
 var _setPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/core-js/object/set-prototype-of"));
 
-var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/core-js/object/define-property"));
+var _index = require("./index");
 
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
-
-var _class, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38,7 +43,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = _setPrototypeOf2.default || f
 
 function _defineProperty(obj, key, value) { if (key in obj) { (0, _defineProperty2.default)(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-module.exports = (_temp = _class =
+var Post =
 /*#__PURE__*/
 function (_RESTModel) {
   _inherits(Post, _RESTModel);
@@ -157,19 +162,23 @@ function (_RESTModel) {
   }], [{
     key: "findById",
     value: function findById(id, token) {
-      return _RESTModel2.default.findById(Post, id, token);
+      return _RESTModel2.default.findById("Post", id, token);
     }
   }, {
     key: "getAllOwned",
     value: function getAllOwned(token) {
-      return _RESTModel2.default.findMany(Post, null, token);
+      return _RESTModel2.default.findMany("Post", null, token);
     }
   }, {
     key: "findMany",
     value: function findMany(criteria, token) {
-      return _RESTModel2.default.findMany(Post, criteria, token);
+      return _RESTModel2.default.findMany("Post", criteria, token);
     }
   }]);
 
   return Post;
-}(_RESTModel2.default), _defineProperty(_class, "ModelName", "Post"), _temp);
+}(_RESTModel2.default);
+
+exports.default = Post;
+
+_defineProperty(Post, "ModelName", "Post");

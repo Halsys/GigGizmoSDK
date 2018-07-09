@@ -2,10 +2,10 @@
  * Created by corynull on 4/10/17.
  */
 
-import User from "./User";
+import { ModelNameToModel } from "./index";
 import RESTModel from "./RESTModel";
 
-module.exports =  class Upload extends RESTModel {
+export default class Upload extends RESTModel {
 	static ModelName = "Upload";
 
 	get fileName() {
@@ -51,11 +51,13 @@ module.exports =  class Upload extends RESTModel {
 	getOwners(token) {
 		const owners = Array.from(this.owners);
 		if (owners.length !== 0)
-			return User.findMany(
+			return RESTModel.findMany(
+				"User",
 				{
 					_id: owners
 				},
-				token
+				token,
+				true
 			);
 		return Promise.resolve([]);
 	}
@@ -88,14 +90,14 @@ module.exports =  class Upload extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(Upload, id, token, true);
+		return RESTModel.findById("Upload", id, token, true);
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(Upload, criteria, token, true);
+		return RESTModel.findMany("Upload", criteria, token, true);
 	}
 
 	static getAllOwned(token) {
-		return RESTModel.findMany(Upload, null, token, true);
+		return RESTModel.findMany("Upload", null, token, true);
 	}
 }

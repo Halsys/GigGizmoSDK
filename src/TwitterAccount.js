@@ -2,11 +2,11 @@
  * Created by corynull on 5/17/17.
  */
 
+import { ModelNameToModel } from "./index";
 import RESTModel from "./RESTModel";
-import User from "./User";
 import API from "./API";
 
-module.exports =  class TwitterAccount extends RESTModel {
+export default class TwitterAccount extends RESTModel {
 	static ModelName = "TwitterAccount";
 
 	get userId() {
@@ -50,7 +50,7 @@ module.exports =  class TwitterAccount extends RESTModel {
 	}
 
 	getUser() {
-		return User.getUserById(this.userId);
+		return RESTModel.findById("User", this.userId, token, true);
 	}
 
 	userIsOwner(user) {

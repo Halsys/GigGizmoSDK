@@ -7,7 +7,7 @@ import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 
-module.exports = class User extends RESTModel {
+export default class User extends RESTModel {
 	static ModelName = "User";
 	static Current = null;
 	static Callbacks = new Map();
@@ -256,8 +256,7 @@ module.exports = class User extends RESTModel {
 	}
 
 	getIcon() {
-		const { icon } = this;
-		return Upload.findById(icon);
+		return RESTModel.findById("Upload", this.icon, token, true);
 	}
 
 	getTwitterAccount(token) {
@@ -436,11 +435,11 @@ module.exports = class User extends RESTModel {
 	}
 
 	static findMany(criteria, token) {
-		return RESTModel.findMany(User, criteria, token, true);
+		return RESTModel.findMany("User", criteria, token, true);
 	}
 
 	static findOne(criteria, token) {
-		return RESTModel.findOne(User, criteria, token, true);
+		return RESTModel.findOne("User", criteria, token, true);
 	}
 
 	static onChange(callback) {
@@ -502,7 +501,7 @@ module.exports = class User extends RESTModel {
 	}
 
 	static findById(id, token) {
-		return RESTModel.findById(User, id, token, true);
+		return RESTModel.findById("User", id, token, true);
 	}
 
 	static connectFacebook() {
@@ -641,4 +640,4 @@ module.exports = class User extends RESTModel {
 	static NotifyAdminsOfError() {
 		console.error("Not implemented yet.");
 	}
-};
+}
