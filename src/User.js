@@ -3,21 +3,11 @@
  */
 import moment from "moment";
 
-import Band from "./Band";
-import Venue from "./Venue";
-import Gig from "./Gig";
-import Post from "./Post";
-import Page from "./Page";
-import Location from "./Location";
+import { ModelNameToModel } from "./index";
 import API from "./API";
-import Upload from "./Upload";
 import RESTModel from "./RESTModel";
-import Notification from "./Notification";
-import TwitterAccount from "./TwitterAccount";
-import FacebookAccount from "./FacebookAccount";
-import Conversation from "./Conversation";
 
-module.exports =  class User extends RESTModel {
+module.exports = class User extends RESTModel {
 	static ModelName = "User";
 	static Current = null;
 	static Callbacks = new Map();
@@ -271,11 +261,11 @@ module.exports =  class User extends RESTModel {
 	}
 
 	getTwitterAccount(token) {
-		return TwitterAccount.findById(this.twitter, token);
+		return RESTModel.findById("TwitterAccount", this.twitter, token);
 	}
 
 	getFacebookAccount(token) {
-		return FacebookAccount.findById(this.facebook, token);
+		return RESTModel.findById("FacebookAccount", this.facebook, token);
 	}
 
 	validatePassword(maybePassword) {
@@ -338,31 +328,31 @@ module.exports =  class User extends RESTModel {
 	}
 
 	static getAllConversations(token) {
-		return RESTModel.findMany(Conversation, null, token, true);
+		return RESTModel.findMany("Conversation", null, token, true);
 	}
 
 	static getAllNotifications(token) {
-		return RESTModel.findMany(Notification, null, token, true);
+		return RESTModel.findMany("Notification", null, token, true);
 	}
 
 	static getAllPosts(token) {
-		return RESTModel.findMany(Post, null, token, true);
+		return RESTModel.findMany("Post", null, token, true);
 	}
 
 	static getAllBands(token) {
-		return RESTModel.findMany(Band, null, token, true);
+		return RESTModel.findMany("Band", null, token, true);
 	}
 
 	static getAllVenues(token) {
-		return RESTModel.findMany(Venue, null, token, true);
+		return RESTModel.findMany("Venue", null, token, true);
 	}
 
 	static getAllGigs(token) {
-		return RESTModel.findMany(Gig, null, token, true);
+		return RESTModel.findMany("Gig", null, token, true);
 	}
 
 	static getAllUploads(token) {
-		return RESTModel.findMany(Upload, null, token, true);
+		return RESTModel.findMany("Upload", null, token, true);
 	}
 
 	static findFacebookPages(term) {
@@ -399,14 +389,6 @@ module.exports =  class User extends RESTModel {
 					const { query, totalFound } = results || {};
 
 					if (!query) reject(query);
-					const classMap = {
-						Band,
-						Venue,
-						User,
-						Page,
-						Location,
-						Upload
-					};
 					const bands = [];
 					const venues = [];
 					const users = [];
@@ -416,7 +398,7 @@ module.exports =  class User extends RESTModel {
 					query.forEach(item => {
 						if (item && item.ModelName) {
 							const mName = item.ModelName;
-							const ClassType = classMap[mName] || null;
+							const ClassType = ModelNameToModel(mName);
 							if (ClassType) {
 								const instance = new ClassType(item);
 								if (mName === "Band") bands.push(instance);
@@ -659,4 +641,4 @@ module.exports =  class User extends RESTModel {
 	static NotifyAdminsOfError() {
 		console.error("Not implemented yet.");
 	}
-}
+};

@@ -38,31 +38,11 @@ var _promise = _interopRequireDefault(require("@babel/runtime/core-js/promise"))
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _Band = _interopRequireDefault(require("./Band"));
-
-var _Venue = _interopRequireDefault(require("./Venue"));
-
-var _Gig = _interopRequireDefault(require("./Gig"));
-
-var _Post = _interopRequireDefault(require("./Post"));
-
-var _Page = _interopRequireDefault(require("./Page"));
-
-var _Location = _interopRequireDefault(require("./Location"));
+var _index = require("./index");
 
 var _API = _interopRequireDefault(require("./API"));
 
-var _Upload = _interopRequireDefault(require("./Upload"));
-
 var _RESTModel2 = _interopRequireDefault(require("./RESTModel"));
-
-var _Notification = _interopRequireDefault(require("./Notification"));
-
-var _TwitterAccount = _interopRequireDefault(require("./TwitterAccount"));
-
-var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
-
-var _Conversation = _interopRequireDefault(require("./Conversation"));
 
 var _class, _temp;
 
@@ -115,17 +95,17 @@ function (_RESTModel) {
     key: "getIcon",
     value: function getIcon() {
       var icon = this.icon;
-      return _Upload.default.findById(icon);
+      return Upload.findById(icon);
     }
   }, {
     key: "getTwitterAccount",
     value: function getTwitterAccount(token) {
-      return _TwitterAccount.default.findById(this.twitter, token);
+      return _RESTModel2.default.findById("TwitterAccount", this.twitter, token);
     }
   }, {
     key: "getFacebookAccount",
     value: function getFacebookAccount(token) {
-      return _FacebookAccount.default.findById(this.facebook, token);
+      return _RESTModel2.default.findById("FacebookAccount", this.facebook, token);
     }
   }, {
     key: "validatePassword",
@@ -444,37 +424,37 @@ function (_RESTModel) {
   }, {
     key: "getAllConversations",
     value: function getAllConversations(token) {
-      return _RESTModel2.default.findMany(_Conversation.default, null, token, true);
+      return _RESTModel2.default.findMany("Conversation", null, token, true);
     }
   }, {
     key: "getAllNotifications",
     value: function getAllNotifications(token) {
-      return _RESTModel2.default.findMany(_Notification.default, null, token, true);
+      return _RESTModel2.default.findMany("Notification", null, token, true);
     }
   }, {
     key: "getAllPosts",
     value: function getAllPosts(token) {
-      return _RESTModel2.default.findMany(_Post.default, null, token, true);
+      return _RESTModel2.default.findMany("Post", null, token, true);
     }
   }, {
     key: "getAllBands",
     value: function getAllBands(token) {
-      return _RESTModel2.default.findMany(_Band.default, null, token, true);
+      return _RESTModel2.default.findMany("Band", null, token, true);
     }
   }, {
     key: "getAllVenues",
     value: function getAllVenues(token) {
-      return _RESTModel2.default.findMany(_Venue.default, null, token, true);
+      return _RESTModel2.default.findMany("Venue", null, token, true);
     }
   }, {
     key: "getAllGigs",
     value: function getAllGigs(token) {
-      return _RESTModel2.default.findMany(_Gig.default, null, token, true);
+      return _RESTModel2.default.findMany("Gig", null, token, true);
     }
   }, {
     key: "getAllUploads",
     value: function getAllUploads(token) {
-      return _RESTModel2.default.findMany(_Upload.default, null, token, true);
+      return _RESTModel2.default.findMany("Upload", null, token, true);
     }
   }, {
     key: "findFacebookPages",
@@ -527,14 +507,6 @@ function (_RESTModel) {
                 totalFound = _ref.totalFound;
 
             if (!query) reject(query);
-            var classMap = {
-              Band: _Band.default,
-              Venue: _Venue.default,
-              User: User,
-              Page: _Page.default,
-              Location: _Location.default,
-              Upload: _Upload.default
-            };
             var bands = [];
             var venues = [];
             var users = [];
@@ -546,7 +518,7 @@ function (_RESTModel) {
 
               if (item && item.ModelName) {
                 var mName = item.ModelName;
-                var ClassType = classMap[mName] || null;
+                var ClassType = (0, _index.ModelNameToModel)(mName);
 
                 if (ClassType) {
                   var instance = new ClassType(item);
