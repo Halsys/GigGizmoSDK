@@ -404,13 +404,13 @@ function () {
                 hasWebSocket = _args3.length > 3 && _args3[3] !== undefined ? _args3[3] : false;
 
                 if (!RESTModel.isValidId(id)) {
-                  _context3.next = 20;
+                  _context3.next = 22;
                   break;
                 }
 
                 data = null;
                 Model = ModelMaybe || null;
-                modelName = "";
+                modelName = null;
 
                 if (!(Model === null)) {
                   _context3.next = 7;
@@ -423,17 +423,25 @@ function () {
                 if (typeof Model === "string") Model = (0, _index.ModelNameToModel)(ModelMaybe);
                 if (_typeof(Model) === "object") modelName = RESTModel.getModelName(Model);
 
+                if (modelName) {
+                  _context3.next = 11;
+                  break;
+                }
+
+                throw new Error("Missing model name");
+
+              case 11:
                 if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
-                  _context3.next = 14;
+                  _context3.next = 16;
                   break;
                 }
 
                 if (!socket) {
-                  _context3.next = 14;
+                  _context3.next = 16;
                   break;
                 }
 
-                _context3.next = 13;
+                _context3.next = 15;
                 return new _promise.default(function (resolve, reject) {
                   var _this8 = this;
 
@@ -446,35 +454,35 @@ function () {
                   }.bind(this), reject);
                 }.bind(this));
 
-              case 13:
+              case 15:
                 data = _context3.sent;
 
-              case 14:
+              case 16:
                 if (data) {
-                  _context3.next = 18;
+                  _context3.next = 20;
                   break;
                 }
 
-                _context3.next = 17;
+                _context3.next = 19;
                 return _API.default.Call("GET", "/API/".concat(modelName, "/").concat(id), {
                   token: token
                 });
 
-              case 17:
+              case 19:
                 data = _context3.sent;
 
-              case 18:
+              case 20:
                 if (!(data && RESTModel.isValidId(data._id))) {
-                  _context3.next = 20;
+                  _context3.next = 22;
                   break;
                 }
 
                 return _context3.abrupt("return", new Model(data));
 
-              case 20:
+              case 22:
                 return _context3.abrupt("return", null);
 
-              case 21:
+              case 23:
               case "end":
                 return _context3.stop();
             }
@@ -511,7 +519,7 @@ function () {
                 criteria = criteriaMaybe || {};
                 data = null;
                 Model = ModelMaybe || null;
-                modelName = "";
+                modelName = null;
 
                 if (!(Model === null)) {
                   _context4.next = 7;
@@ -523,25 +531,34 @@ function () {
               case 7:
                 if (typeof Model === "string") Model = (0, _index.ModelNameToModel)(ModelMaybe);
                 if (_typeof(Model) === "object") modelName = RESTModel.getModelName(Model);
+
+                if (modelName) {
+                  _context4.next = 11;
+                  break;
+                }
+
+                throw new Error("Missing model name");
+
+              case 11:
                 route = "/API/".concat(modelName, "/FindOne");
 
                 if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
-                  _context4.next = 18;
+                  _context4.next = 20;
                   break;
                 }
 
-                _context4.next = 13;
+                _context4.next = 15;
                 return _API.default.GetSocket(token);
 
-              case 13:
+              case 15:
                 _socket = _context4.sent;
 
                 if (!_socket) {
-                  _context4.next = 18;
+                  _context4.next = 20;
                   break;
                 }
 
-                _context4.next = 17;
+                _context4.next = 19;
                 return new _promise.default(function (resolve, reject) {
                   _newArrowCheck(this, _this9);
 
@@ -552,35 +569,35 @@ function () {
                   }
                 }.bind(this));
 
-              case 17:
+              case 19:
                 data = _context4.sent;
 
-              case 18:
+              case 20:
                 if (data) {
-                  _context4.next = 22;
+                  _context4.next = 24;
                   break;
                 }
 
-                _context4.next = 21;
+                _context4.next = 23;
                 return _API.default.Call("GET", route, _objectSpread({}, criteria, {
                   token: token
                 }));
 
-              case 21:
+              case 23:
                 data = _context4.sent;
 
-              case 22:
+              case 24:
                 if (!(data && RESTModel.isValidId(data._id))) {
-                  _context4.next = 24;
+                  _context4.next = 26;
                   break;
                 }
 
                 return _context4.abrupt("return", new Model(data));
 
-              case 24:
+              case 26:
                 return _context4.abrupt("return", null);
 
-              case 25:
+              case 27:
               case "end":
                 return _context4.stop();
             }
@@ -615,7 +632,7 @@ function () {
                 criteria = criteriaMaybe || null;
                 data = null;
                 Model = ModelMaybe || null;
-                modelName = "";
+                modelName = null;
 
                 if (!(Model === null)) {
                   _context5.next = 7;
@@ -627,14 +644,23 @@ function () {
               case 7:
                 if (typeof Model === "string") Model = (0, _index.ModelNameToModel)(ModelMaybe);
                 if (_typeof(Model) === "object") modelName = RESTModel.getModelName(Model);
-                route = "/API/".concat(modelName, "/FindMany");
 
-                if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
-                  _context5.next = 14;
+                if (modelName) {
+                  _context5.next = 11;
                   break;
                 }
 
-                _context5.next = 13;
+                throw new Error("Missing model name");
+
+              case 11:
+                route = "/API/".concat(modelName, "/FindMany");
+
+                if (!(_API.default.UseSocketIO && _API.default.ShouldUseSocketIO && hasWebSocket)) {
+                  _context5.next = 16;
+                  break;
+                }
+
+                _context5.next = 15;
                 return new _promise.default(function (resolve, reject) {
                   var _this11 = this;
 
@@ -647,28 +673,28 @@ function () {
                   }.bind(this), reject);
                 }.bind(this));
 
-              case 13:
+              case 15:
                 data = _context5.sent;
 
-              case 14:
+              case 16:
                 criteria = criteria || {};
 
                 if (data) {
-                  _context5.next = 19;
+                  _context5.next = 21;
                   break;
                 }
 
-                _context5.next = 18;
+                _context5.next = 20;
                 return _API.default.Call("GET", route, _objectSpread({}, criteria, {
                   token: token
                 }));
 
-              case 18:
+              case 20:
                 data = _context5.sent;
 
-              case 19:
+              case 21:
                 if (!Array.isArray(data)) {
-                  _context5.next = 21;
+                  _context5.next = 23;
                   break;
                 }
 
@@ -680,10 +706,10 @@ function () {
                   return item;
                 }.bind(this)));
 
-              case 21:
+              case 23:
                 return _context5.abrupt("return", []);
 
-              case 22:
+              case 24:
               case "end":
                 return _context5.stop();
             }

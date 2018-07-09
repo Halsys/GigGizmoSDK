@@ -176,10 +176,11 @@ module.exports = class RESTModel {
 		if (RESTModel.isValidId(id)) {
 			let data = null;
 			let Model = ModelMaybe || null;
-			let modelName = "";
+			let modelName = null;
 			if (Model === null) throw new Error("Model Name or Model Missing");
 			if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
 			if (typeof Model === "object") modelName = RESTModel.getModelName(Model);
+			if (!modelName) throw new Error("Missing model name");
 			if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 				if (socket) {
 					data = await new Promise((resolve, reject) =>
@@ -205,10 +206,11 @@ module.exports = class RESTModel {
 		const criteria = criteriaMaybe || {};
 		let data = null;
 		let Model = ModelMaybe || null;
-		let modelName = "";
+		let modelName = null;
 		if (Model === null) throw new Error("Model Name or Model Missing");
 		if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
 		if (typeof Model === "object") modelName = RESTModel.getModelName(Model);
+		if (!modelName) throw new Error("Missing model name");
 		const route = `/API/${modelName}/FindOne`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			const socket = await API.GetSocket(token);
@@ -235,10 +237,11 @@ module.exports = class RESTModel {
 		let criteria = criteriaMaybe || null;
 		let data = null;
 		let Model = ModelMaybe || null;
-		let modelName = "";
+		let modelName = null;
 		if (Model === null) throw new Error("Model Name or Model Missing");
 		if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
 		if (typeof Model === "object") modelName = RESTModel.getModelName(Model);
+		if (!modelName) throw new Error("Missing model name");
 		const route = `/API/${modelName}/FindMany`;
 		if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			data = await new Promise((resolve, reject) =>
