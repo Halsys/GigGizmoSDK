@@ -5,11 +5,12 @@
 			"@babel/preset-env",
 			{
 				targets: {
+					node: "current",
 					chrome: 52,
 					firefox: 60
 				},
 				forceAllTransforms: true,
-				modules: "umd",
+				modules: "commonjs",
 				useBuiltIns: "usage",
 				debug: false,
 				spec: true

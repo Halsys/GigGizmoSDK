@@ -1,47 +1,45 @@
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["./Band", "./Conversation", "./ErrorReport", "./FacebookAccount", "./Gig", "./Location", "./Notification", "./Page", "./Post", "./TwitterAccount", "./Upload", "./User", "./Venue"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(require("./Band"), require("./Conversation"), require("./ErrorReport"), require("./FacebookAccount"), require("./Gig"), require("./Location"), require("./Notification"), require("./Page"), require("./Post"), require("./TwitterAccount"), require("./Upload"), require("./User"), require("./Venue"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(global.Band, global.Conversation, global.ErrorReport, global.FacebookAccount, global.Gig, global.Location, global.Notification, global.Page, global.Post, global.TwitterAccount, global.Upload, global.User, global.Venue);
-    global.index = mod.exports;
-  }
-})(this, function (_Band, _Conversation, _ErrorReport, _FacebookAccount, _Gig, _Location, _Notification, _Page, _Post, _TwitterAccount, _Upload, _User, _Venue) {
-  "use strict";
+"use strict";
 
-  _Band = _interopRequireDefault(_Band);
-  _Conversation = _interopRequireDefault(_Conversation);
-  _ErrorReport = _interopRequireDefault(_ErrorReport);
-  _FacebookAccount = _interopRequireDefault(_FacebookAccount);
-  _Gig = _interopRequireDefault(_Gig);
-  _Location = _interopRequireDefault(_Location);
-  _Notification = _interopRequireDefault(_Notification);
-  _Page = _interopRequireDefault(_Page);
-  _Post = _interopRequireDefault(_Post);
-  _TwitterAccount = _interopRequireDefault(_TwitterAccount);
-  _Upload = _interopRequireDefault(_Upload);
-  _User = _interopRequireDefault(_User);
-  _Venue = _interopRequireDefault(_Venue);
+var _Band = _interopRequireDefault(require("./Band"));
 
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _Conversation = _interopRequireDefault(require("./Conversation"));
 
-  module.exports = {
-    Band: _Band.default,
-    Conversation: _Conversation.default,
-    ErrorReport: _ErrorReport.default,
-    FacebookAccount: _FacebookAccount.default,
-    Gig: _Gig.default,
-    Location: _Location.default,
-    Notification: _Notification.default,
-    Page: _Page.default,
-    Post: _Post.default,
-    TwitterAccount: _TwitterAccount.default,
-    Upload: _Upload.default,
-    User: _User.default,
-    Venue: _Venue.default
-  };
-});
+var _ErrorReport = _interopRequireDefault(require("./ErrorReport"));
+
+var _FacebookAccount = _interopRequireDefault(require("./FacebookAccount"));
+
+var _Gig = _interopRequireDefault(require("./Gig"));
+
+var _Location = _interopRequireDefault(require("./Location"));
+
+var _Notification = _interopRequireDefault(require("./Notification"));
+
+var _Page = _interopRequireDefault(require("./Page"));
+
+var _Post = _interopRequireDefault(require("./Post"));
+
+var _TwitterAccount = _interopRequireDefault(require("./TwitterAccount"));
+
+var _Upload = _interopRequireDefault(require("./Upload"));
+
+var _User = _interopRequireDefault(require("./User"));
+
+var _Venue = _interopRequireDefault(require("./Venue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = {
+  Band: _Band.default,
+  Conversation: _Conversation.default,
+  ErrorReport: _ErrorReport.default,
+  FacebookAccount: _FacebookAccount.default,
+  Gig: _Gig.default,
+  Location: _Location.default,
+  Notification: _Notification.default,
+  Page: _Page.default,
+  Post: _Post.default,
+  TwitterAccount: _TwitterAccount.default,
+  Upload: _Upload.default,
+  User: _User.default,
+  Venue: _Venue.default
+};

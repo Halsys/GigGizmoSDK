@@ -4,7 +4,7 @@
 
 // Extras
 import GigGizmoPropTypes from "./PropTypes";
-import API, { version } from "./API";
+import API from "./API";
 
 // Models
 import Band from "./Band";
@@ -25,63 +25,59 @@ import User from "./User";
 import Venue from "./Venue";
 
 export function ModelNameToModel(name) {
-  switch (name) {
-    case "Band":
-      return Band;
-    case "Conversation":
-      return Conversation;
-    case "ErrorReport":
-      return ErrorReport;
-    case "FacebookAccount":
-      return FacebookAccount;
-    case "Gig":
-      return Gig;
-    case "GooglePlace":
-      return GooglePlace;
-    case "Location":
-      return Location;
-    case "Notification":
-      return Notification;
-    case "Page":
-      return Page;
-    case "Post":
-      return Post;
-    case "Request":
-      return Request;
-    case "TwitterAccount":
-      return TwitterAccount;
-    case "Upload":
-      return Upload;
-    case "User":
-      return User;
-    case "Venue":
-      return Venue;
-    default:
-      return null;
-  }
+	switch (name) {
+		case "Band":
+			return Band;
+		case "Conversation":
+			return Conversation;
+		case "ErrorReport":
+			return ErrorReport;
+		case "FacebookAccount":
+			return FacebookAccount;
+		case "Gig":
+			return Gig;
+		case "GooglePlace":
+			return GooglePlace;
+		case "Location":
+			return Location;
+		case "Notification":
+			return Notification;
+		case "Page":
+			return Page;
+		case "Post":
+			return Post;
+		case "Request":
+			return Request;
+		case "TwitterAccount":
+			return TwitterAccount;
+		case "Upload":
+			return Upload;
+		case "User":
+			return User;
+		case "Venue":
+			return Venue;
+		default:
+			return null;
+	}
 }
 
 export {
-  GigGizmoPropTypes,
-  Band,
-  Conversation,
-  ErrorReport,
-  FacebookAccount,
-  Gig,
-  GooglePlace,
-  Location,
-  Notification,
-  Page,
-  Post,
-  Request,
-  RESTModel,
-  TwitterAccount,
-  Upload,
-  User,
-  Venue,
-  API,
-  version
+	GigGizmoPropTypes,
+	Band,
+	Conversation,
+	ErrorReport,
+	FacebookAccount,
+	Gig,
+	GooglePlace,
+	Location,
+	Notification,
+	Page,
+	Post,
+	Request,
+	RESTModel,
+	TwitterAccount,
+	Upload,
+	User,
+	Venue,
+	API
 };
-
-if (typeof window !== "undefined") window.GigGizmoAPI = exports;
-if (typeof process !== "undefined") process.GigGizmoAPI = exports;
