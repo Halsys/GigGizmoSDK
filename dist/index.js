@@ -207,3 +207,6 @@ function ModelNameToModel(name) {
       return null;
   }
 }
+
+if (typeof window !== "undefined") window.GigGizmoAPI = exports;
+if (typeof process !== "undefined") process.GigGizmoAPI = exports;

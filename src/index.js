@@ -81,3 +81,6 @@ export {
 	Venue,
 	API
 };
+
+if (typeof window !== "undefined") window.GigGizmoAPI = exports;
+if (typeof process !== "undefined") process.GigGizmoAPI = exports;
