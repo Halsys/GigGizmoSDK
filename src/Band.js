@@ -178,7 +178,8 @@ export default class Band extends RESTModel {
 	}
 
 	getGigs(token) {
-		return Gig.findByBand(this._id, token);
+		const GigClass = Gig || ModelNameToModel("Gig");
+		return GigClass.findByBand(this._id, token);
 	}
 
 	getTwitterAccount(token) {

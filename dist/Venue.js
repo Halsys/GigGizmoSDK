@@ -96,7 +96,8 @@ function (_RESTModel) {
   }, {
     key: "getGigs",
     value: function getGigs(token) {
-      return _Gig.default.findByVenue(this._id, token);
+      var GigClass = _Gig.default || (0, _index.ModelNameToModel)("Gig");
+      return GigClass.findByVenue(this._id, token);
     }
   }, {
     key: "getTwitterAccount",

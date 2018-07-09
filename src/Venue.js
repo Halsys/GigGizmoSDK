@@ -170,7 +170,8 @@ export default class Venue extends RESTModel {
 	}
 
 	getGigs(token) {
-		return Gig.findByVenue(this._id, token);
+		const GigClass = Gig || ModelNameToModel("Gig");
+		return GigClass.findByVenue(this._id, token);
 	}
 
 	getTwitterAccount(token) {
