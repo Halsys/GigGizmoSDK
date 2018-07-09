@@ -421,7 +421,7 @@ function () {
 
               case 7:
                 if (typeof Model === "string") Model = (0, _index.ModelNameToModel)(ModelMaybe);
-                if (_typeof(Model) === "object") modelName = RESTModel.getModelName(Model);
+                if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
 
                 if (modelName) {
                   _context3.next = 11;
@@ -530,7 +530,7 @@ function () {
 
               case 7:
                 if (typeof Model === "string") Model = (0, _index.ModelNameToModel)(ModelMaybe);
-                if (_typeof(Model) === "object") modelName = RESTModel.getModelName(Model);
+                if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
 
                 if (modelName) {
                   _context4.next = 11;
@@ -643,7 +643,7 @@ function () {
 
               case 7:
                 if (typeof Model === "string") Model = (0, _index.ModelNameToModel)(ModelMaybe);
-                if (_typeof(Model) === "object") modelName = RESTModel.getModelName(Model);
+                if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
 
                 if (modelName) {
                   _context5.next = 11;
