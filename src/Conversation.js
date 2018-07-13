@@ -1,16 +1,13 @@
 /**
  * Created by corynull on Dec 30 2017 11:14:11 AM.
  */
-import moment from "moment";
+const moment = require("moment");
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
 
-export default class Conversation extends RESTModel {
-	static ModelName = "Conversation";
-	static Callbacks = new Map();
-
+class Conversation extends RESTModel {
 	get events() {
 		return this.getField("events") || [];
 	}
@@ -75,3 +72,8 @@ export default class Conversation extends RESTModel {
 		return RESTModel.findMany("Conversation", null, token, true);
 	}
 }
+
+Conversation.ModelName = "Conversation";
+Conversation.Callbacks = new Map();
+
+module.exports = Conversation;

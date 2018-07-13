@@ -1,5 +1,5 @@
-import { expect } from "chai";
-import { Upload, User } from "../";
+const { expect } = require("chai");
+const { Upload, User } = require("../");
 
 describe("Upload class", () => {
 	it("ModelName exists", () => {

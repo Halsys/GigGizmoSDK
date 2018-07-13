@@ -1,6 +1,6 @@
-import { expect } from "chai";
-import moment from "moment";
-import { User } from "../";
+const { expect } = require("chai");
+const moment = require("moment");
+const { User } = require("../");
 
 describe("User class", () => {
   it("ModelName exists", () => {

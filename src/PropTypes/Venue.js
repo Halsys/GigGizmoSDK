@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+const PropTypes = require("prop-types");
 
 module.exports =  PropTypes.shape({
 	_id: PropTypes.string.isRequired,

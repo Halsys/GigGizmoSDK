@@ -1,5 +1,5 @@
-import { expect } from "chai";
-import {
+const { expect } = require("chai");
+const {
 	ModelNameToModel,
 	Band,
 	Conversation,
@@ -17,7 +17,7 @@ import {
 	Upload,
 	User,
 	Venue
-} from "../index";
+} = require("../index");
 
 describe("ModelNameToModel", () => {
 	it("Null", () => {

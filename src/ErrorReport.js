@@ -2,12 +2,10 @@
  * Created by corynull on Jan 8 2018 8:58:54 PM.
  */
 
-import { ModelNameToModel } from "./index";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const RESTModel = require("./RESTModel");
 
-export default class ErrorReport extends RESTModel {
-	static ModelName = "ErrorReport";
-
+class ErrorReport extends RESTModel {
 	get version() {
 		return this.getField("version");
 	}
@@ -86,3 +84,7 @@ export default class ErrorReport extends RESTModel {
 		return RESTModel.findMany("ErrorReport", criteria, token);
 	}
 }
+
+ErrorReport.ModelName = "ErrorReport";
+
+module.exports = ErrorReport;

@@ -2,14 +2,12 @@
  * Created by corynull on 9/7/17.
  */
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
-import GooglePlace from "./GooglePlace";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
+const GooglePlace = require("./GooglePlace");
 
-export default class Location extends RESTModel {
-	static ModelName = "Location";
-
+class Location extends RESTModel {
 	get type() {
 		return this.getField("type") || "Point";
 	}
@@ -83,3 +81,7 @@ export default class Location extends RESTModel {
 		return RESTModel.findById("Location", id, token, true);
 	}
 }
+
+Location.ModelName = "Location";
+
+module.exports = Location;

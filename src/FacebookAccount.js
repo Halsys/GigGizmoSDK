@@ -2,13 +2,11 @@
  * Created by corynull on Nov 30 2017 9:08 AM.
  */
 
-import { ModelNameToModel } from "./index";
-import RESTModel from "./RESTModel";
-import API from "./API";
+const { ModelNameToModel } = require("./index");
+const RESTModel = require("./RESTModel");
+const API = require("./API");
 
-export default class FacebookAccount extends RESTModel {
-	static ModelName = "FacebookAccount";
-
+class FacebookAccount extends RESTModel {
 	get userId() {
 		return this.getField("userId");
 	}
@@ -98,3 +96,7 @@ export default class FacebookAccount extends RESTModel {
 		});
 	}
 }
+
+FacebookAccount.ModelName = "FacebookAccount";
+
+module.exports = FacebookAccount;

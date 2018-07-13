@@ -1,5 +1,5 @@
-import { expect } from "chai";
-import { Page, User, RESTModel } from "../";
+const { expect } = require("chai");
+const { Page, User, RESTModel } = require("../");
 
 describe("Page class", () => {
 	it("ModelName exists", () => {

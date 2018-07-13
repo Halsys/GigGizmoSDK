@@ -2,13 +2,11 @@
  * Created by corynull on 4/7/17.
  */
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
 
-export default class GooglePlace extends RESTModel {
-	static ModelName = "GooglePlace";
-
+class GooglePlace extends RESTModel {
 	get placeId() {
 		return this.getField("placeId");
 	}
@@ -49,3 +47,7 @@ export default class GooglePlace extends RESTModel {
 		});
 	}
 }
+
+GooglePlace.ModelName = "GooglePlace";
+
+module.exports = GooglePlace;

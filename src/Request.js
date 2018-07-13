@@ -2,13 +2,11 @@
  * Created by corynull on Nov 30 2017 5:27 AM.
  */
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
 
-export default class Request extends RESTModel {
-	static ModelName = "Request";
-
+class Request extends RESTModel {
 	get to() {
 		return this.getField("to");
 	}
@@ -133,3 +131,7 @@ export default class Request extends RESTModel {
 		return RESTModel.findById("Request", id, token);
 	}
 }
+
+Request.ModelName = "Request";
+
+module.exports = Request;

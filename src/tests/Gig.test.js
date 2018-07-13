@@ -1,6 +1,6 @@
-import moment from "moment";
-import { expect } from "chai";
-import { Gig, User, RESTModel } from "../";
+const moment = require("moment");
+const { expect } = require("chai");
+const { Gig, User, RESTModel } = require("../");
 
 describe("Gig class", () => {
   it("ModelName exists", () => {

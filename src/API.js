@@ -2,9 +2,9 @@
  * Created by corynull on 6/19/17.
  */
 
-import axios from "axios";
-import ParseCookie from "cookie-parser";
-import io from "socket.io-client";
+const axios = require("axios");
+const ParseCookie = require("cookie-parser");
+const io = require("socket.io-client");
 
 const dev =
 	typeof process.env.NODE_ENV !== "undefined"

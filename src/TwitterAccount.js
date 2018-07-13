@@ -2,13 +2,11 @@
  * Created by corynull on 5/17/17.
  */
 
-import { ModelNameToModel } from "./index";
-import RESTModel from "./RESTModel";
-import API from "./API";
+const { ModelNameToModel } = require("./index");
+const RESTModel = require("./RESTModel");
+const API = require("./API");
 
-export default class TwitterAccount extends RESTModel {
-	static ModelName = "TwitterAccount";
-
+class TwitterAccount extends RESTModel {
 	get userId() {
 		return this.getField("userId");
 	}
@@ -83,3 +81,7 @@ export default class TwitterAccount extends RESTModel {
 		});
 	}
 }
+
+TwitterAccount.ModelName = "TwitterAccount";
+
+module.exports = TwitterAccount;

@@ -1,23 +1,22 @@
-import { expect } from "chai";
-import moment from "moment";
-import {
-	RESTModel,
-	Band,
-	Conversation,
-	ErrorReport,
-	FacebookAccount,
-	Gig,
-	GooglePlace,
-	Location,
-	Notification,
-	Page,
-	Post,
-	Request,
-	TwitterAccount,
-	Upload,
-	User,
-	Venue
-} from "../";
+const { expect } = require("chai");
+const moment = require("moment");
+
+const Band = require("../Band");
+const Conversation = require("../Conversation");
+const ErrorReport = require("../ErrorReport");
+const FacebookAccount = require("../FacebookAccount");
+const Gig = require("../Gig");
+const GooglePlace = require("../GooglePlace");
+const Location = require("../Location");
+const Notification = require("../Notification");
+const Page = require("../Page");
+const Post = require("../Post");
+const Request = require("../Request");
+const RESTModel = require("../RESTModel");
+const TwitterAccount = require("../TwitterAccount");
+const Upload = require("../Upload");
+const User = require("../User");
+const Venue = require("../Venue");
 
 describe("RESTModel class", () => {
 	describe("Constructor", () => {

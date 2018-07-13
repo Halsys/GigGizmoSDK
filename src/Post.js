@@ -2,12 +2,10 @@
  * Created by corynull on 5/23/17.
  */
 
-import { ModelNameToModel } from "./index";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const RESTModel = require("./RESTModel");
 
-export default class Post extends RESTModel {
-	static ModelName = "Post";
-
+class Post extends RESTModel {
 	get userId() {
 		return this.getField("userId");
 	}
@@ -118,3 +116,7 @@ export default class Post extends RESTModel {
 		return RESTModel.findMany("Post", criteria, token);
 	}
 }
+
+Post.ModelName = "Post";
+
+module.exports = Post;

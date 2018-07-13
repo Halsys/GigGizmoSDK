@@ -2,13 +2,11 @@
  * Created by corynull on 4/5/17.
  */
 
-import { ModelNameToModel } from "./index";
-import Gig from "./Gig";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const Gig = require("./Gig");
+const RESTModel = require("./RESTModel");
 
-export default class Venue extends RESTModel {
-	static ModelName = "Venue";
-
+class Venue extends RESTModel {
 	get name() {
 		return this.getField("name");
 	}
@@ -235,3 +233,7 @@ export default class Venue extends RESTModel {
 		return RESTModel.findMany("Venue", null, token, true);
 	}
 }
+
+Venue.ModelName = "Venue";
+
+module.exports = Venue;

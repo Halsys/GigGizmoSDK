@@ -1,18 +1,13 @@
 /**
  * Created by corynull on 4/1/17.
  */
-import moment from "moment";
+const moment = require("moment");
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
 
-export default class User extends RESTModel {
-	static ModelName = "User";
-	static Current = null;
-	static Callbacks = new Map();
-	static agreement = null;
-
+class User extends RESTModel {
 	get password() {
 		return this.getField("password");
 	}
@@ -641,3 +636,10 @@ export default class User extends RESTModel {
 		console.error("Not implemented yet.");
 	}
 }
+
+User.ModelName = "User";
+User.Current = null;
+User.Callbacks = new Map();
+User.agreement = null;
+
+module.exports = User;

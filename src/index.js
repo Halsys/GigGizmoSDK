@@ -3,28 +3,28 @@
  */
 
 // Extras
-import GigGizmoPropTypes from "./PropTypes";
-import API from "./API";
+const GigGizmoPropTypes = require("./PropTypes");
+const API = require("./API");
 
 // Models
-import Band from "./Band";
-import Conversation from "./Conversation";
-import ErrorReport from "./ErrorReport";
-import FacebookAccount from "./FacebookAccount";
-import Gig from "./Gig";
-import GooglePlace from "./GooglePlace";
-import Location from "./Location";
-import Notification from "./Notification";
-import Page from "./Page";
-import Post from "./Post";
-import Request from "./Request";
-import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import Upload from "./Upload";
-import User from "./User";
-import Venue from "./Venue";
+const Band = require("./Band");
+const Conversation = require("./Conversation");
+const ErrorReport = require("./ErrorReport");
+const FacebookAccount = require("./FacebookAccount");
+const Gig = require("./Gig");
+const GooglePlace = require("./GooglePlace");
+const Location = require("./Location");
+const Notification = require("./Notification");
+const Page = require("./Page");
+const Post = require("./Post");
+const Request = require("./Request");
+const RESTModel = require("./RESTModel");
+const TwitterAccount = require("./TwitterAccount");
+const Upload = require("./Upload");
+const User = require("./User");
+const Venue = require("./Venue");
 
-export function ModelNameToModel(name) {
+function ModelNameToModel(name) {
 	switch (name) {
 		case "Band":
 			return Band;
@@ -61,7 +61,8 @@ export function ModelNameToModel(name) {
 	}
 }
 
-export {
+module.exports = {
+	ModelNameToModel,
 	GigGizmoPropTypes,
 	Band,
 	Conversation,

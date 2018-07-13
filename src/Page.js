@@ -2,13 +2,11 @@
  * Created by corynull on 8/1/17.
  */
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
 
-export default class Page extends RESTModel {
-	static ModelName = "Page";
-
+class Page extends RESTModel {
 	get data() {
 		return this.getField("data");
 	}
@@ -127,3 +125,7 @@ export default class Page extends RESTModel {
 		});
 	}
 }
+
+Page.ModelName = "Page";
+
+module.exports = Page;

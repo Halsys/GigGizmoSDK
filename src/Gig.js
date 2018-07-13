@@ -1,15 +1,13 @@
 /**
  * Created by corynull on 4/5/17.
  */
-import moment from "moment";
+const moment = require("moment");
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
 
-export default class Gig extends RESTModel {
-	static ModelName = "Gig";
-
+class Gig extends RESTModel {
 	get startTime() {
 		const startTime = this.getField("startTime");
 		return startTime ? moment(startTime) : startTime;
@@ -234,3 +232,7 @@ export default class Gig extends RESTModel {
 		});
 	}
 }
+
+Gig.ModelName = "Gig";
+
+module.exports = Gig;

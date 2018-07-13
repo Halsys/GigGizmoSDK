@@ -1,5 +1,5 @@
-import { expect } from "chai";
-import { GooglePlace } from "../";
+const { expect } = require("chai");
+const { GooglePlace } = require("../");
 
 describe("GooglePlace class", () => {
 	it("ModelName exists", () => {

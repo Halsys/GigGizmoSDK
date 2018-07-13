@@ -1,11 +1,9 @@
-import moment from "moment";
+const moment = require("moment");
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
 
-export default class RESTModel {
-	static Cache = new Map /* [String, Object] */();
-
+class RESTModel {
 	setField(name, value) {
 		const currentValue = this.getField(name) || undefined;
 		if (currentValue !== value) {
@@ -264,3 +262,7 @@ export default class RESTModel {
 		return [];
 	}
 }
+
+RESTModel.Cache = new Map /* [String, Object] */();
+
+module.exports = RESTModel;

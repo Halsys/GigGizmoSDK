@@ -2,14 +2,11 @@
  * Created by corynull on 8/15/17.
  */
 
-import { ModelNameToModel } from "./index";
-import API from "./API";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const API = require("./API");
+const RESTModel = require("./RESTModel");
 
-export default class Notification extends RESTModel {
-	static ModelName = "Notification";
-	static Callbacks = new Map();
-
+class Notification extends RESTModel {
 	get userId() {
 		return this.getField("userId");
 	}
@@ -99,3 +96,8 @@ export default class Notification extends RESTModel {
 			}, console.error);
 	}
 }
+
+Notification.ModelName = "Notification";
+Notification.Callbacks = new Map();
+
+module.exports = Notification;

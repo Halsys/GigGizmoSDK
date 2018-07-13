@@ -2,12 +2,10 @@
  * Created by corynull on 4/10/17.
  */
 
-import { ModelNameToModel } from "./index";
-import RESTModel from "./RESTModel";
+const { ModelNameToModel } = require("./index");
+const RESTModel = require("./RESTModel");
 
-export default class Upload extends RESTModel {
-	static ModelName = "Upload";
-
+class Upload extends RESTModel {
 	get fileName() {
 		return this.getField("fileName");
 	}
@@ -101,3 +99,7 @@ export default class Upload extends RESTModel {
 		return RESTModel.findMany("Upload", null, token, true);
 	}
 }
+
+Upload.ModelName = "Upload";
+
+module.exports = Upload;

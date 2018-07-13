@@ -1,5 +1,5 @@
-import { expect } from "chai";
-import { Notification, User, RESTModel } from "../";
+const { expect } = require("chai");
+const { Notification, User, RESTModel } = require("../");
 
 describe("Notification class", () => {
 	it("ModelName exists", () => {
