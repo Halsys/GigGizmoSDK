@@ -83,5 +83,5 @@ module.exports = {
 	API
 };
 
-if (typeof window !== "undefined") window.GigGizmoAPI = exports;
-if (typeof process !== "undefined") process.GigGizmoAPI = exports;
+if (typeof window !== "undefined") window.GigGizmoAPI = module.exports;
+if (typeof process !== "undefined") process.GigGizmoAPI = module.exports;
