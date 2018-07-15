@@ -7,9 +7,9 @@ const ModelNameToModel = name => {
 	// The ModelNameToModel function won't be decaled until RESTModel is.
 	// So we have to write a function that look for it later.
 	// This is a lot like a forward declaration from C/C++
-	if (window && window.GigGizmoAPI)
+	if (typeof window !== "undefined" && window.GigGizmoAPI)
 		return window.GigGizmoAPI.ModelNameToModel(name);
-	if (process && process.GigGizmoAPI)
+	if (typeof process !== "undefined" && process.GigGizmoAPI)
 		return process.GigGizmoAPI.ModelNameToModel(name);
 	return GigGizmoIndex.ModelNameToModel(name);
 };
