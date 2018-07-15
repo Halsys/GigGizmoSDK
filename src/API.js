@@ -5,15 +5,13 @@
 const axios = require("axios");
 const ParseCookie = require("cookie-parser");
 const io = require("socket.io-client");
+const package = require("../package.json");
 
 const dev =
 	typeof process.env.NODE_ENV !== "undefined"
 		? process.env.NODE_ENV === "development"
 		: false;
-const version =
-	typeof process.env.npm_package_version !== "undefined"
-		? process.env.npm_package_version
-		: null;
+const { version } = package;
 const secure = !dev;
 const port = dev ? 58000 : 80;
 const securePort = dev ? 54430 : 443;
