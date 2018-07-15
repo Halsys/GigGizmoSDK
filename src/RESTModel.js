@@ -1,8 +1,18 @@
 const moment = require("moment");
 
-const GigGizmoAPI =
-	window.GigGizmoAPI || process.GigGizmoAPI || require("./index");
+let GigGizmoIndex = require("./index");
 const API = require("./API");
+
+const ModelNameToModel = name => {
+	// The ModelNameToModel function won't be decaled until RESTModel is.
+	// So we have to write a function that look for it later.
+	// This is a lot like a forward declaration from C/C++
+	if (window && window.GigGizmoAPI)
+		return window.GigGizmoAPI.ModelNameToModel(name);
+	if (process && process.GigGizmoAPI)
+		return process.GigGizmoAPI.ModelNameToModel(name);
+	return GigGizmoIndex.ModelNameToModel(name);
+};
 
 class RESTModel {
 	setField(name, value) {
@@ -178,8 +188,7 @@ class RESTModel {
 			let Model = ModelMaybe || null;
 			let modelName = null;
 			if (Model === null) throw new Error("Model Name or Model Missing");
-			if (typeof Model === "string")
-				Model = GigGizmoAPI.ModelNameToModel(ModelMaybe);
+			if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
 			if (typeof Model === "function")
 				modelName = RESTModel.getModelName(Model);
 			if (!modelName) throw new Error("Missing model name");
@@ -210,8 +219,7 @@ class RESTModel {
 		let Model = ModelMaybe || null;
 		let modelName = null;
 		if (Model === null) throw new Error("Model Name or Model Missing");
-		if (typeof Model === "string")
-			Model = GigGizmoAPI.ModelNameToModel(ModelMaybe);
+		if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
 		if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
 		if (!modelName) throw new Error("Missing model name");
 		const route = `/API/${modelName}/FindOne`;
@@ -242,8 +250,7 @@ class RESTModel {
 		let Model = ModelMaybe || null;
 		let modelName = null;
 		if (Model === null) throw new Error("Model Name or Model Missing");
-		if (typeof Model === "string")
-			Model = GigGizmoAPI.ModelNameToModel(ModelMaybe);
+		if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
 		if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
 		if (!modelName) throw new Error("Missing model name");
 		const route = `/API/${modelName}/FindMany`;
