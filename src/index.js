@@ -61,7 +61,7 @@ function ModelNameToModel(name) {
 	}
 }
 
-module.exports = {
+const GigGizmoAPI = {
 	ModelNameToModel,
 	GigGizmoPropTypes,
 	Band,
@@ -83,5 +83,7 @@ module.exports = {
 	API
 };
 
-if (typeof window !== "undefined") window.GigGizmoAPI = module.exports;
-if (typeof process !== "undefined") process.GigGizmoAPI = module.exports;
+module.exports = GigGizmoAPI;
+
+if (typeof window !== "undefined") window.GigGizmoAPI = GigGizmoAPI;
+if (typeof process !== "undefined") process.GigGizmoAPI = GigGizmoAPI;
