@@ -1,6 +1,7 @@
 const moment = require("moment");
 
-const GigGizmoAPI = require("./index");
+const GigGizmoAPI =
+	window.GigGizmoAPI || process.GigGizmoAPI || require("./index");
 const API = require("./API");
 
 class RESTModel {
