@@ -6,10 +6,7 @@ import { parse as ParseCookie } from "cookie";
 import * as WebSocket from "socket.io-client";
 import { version } from "../package.json";
 
-const dev =
-  typeof process.env.NODE_ENV !== "undefined"
-    ? process.env.NODE_ENV === "development"
-    : false;
+const dev = process.env.NODE_ENV === "development";
 const secure = !dev;
 const port = dev ? 58000 : 80;
 const securePort = dev ? 54430 : 443;
