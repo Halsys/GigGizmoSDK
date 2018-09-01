@@ -3,84 +3,24 @@
  */
 
 // Extras
-import * as GigGizmoPropTypes from "./PropTypes";
-import * as API from "./API";
+export { default as GigGizmoPropTypes } from "./PropTypes";
+export { default as API } from "./API";
 
 // Models
-import Band from "./Band";
-import Conversation from "./Conversation";
-import ErrorReport from "./ErrorReport";
-import FacebookAccount from "./FacebookAccount";
-import Gig from "./Gig";
-import GooglePlace from "./GooglePlace";
-import Location from "./Location";
-import Notification from "./Notification";
-import Page from "./Page";
-import Post from "./Post";
-import Request from "./Request";
-import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import Upload from "./Upload";
-import User from "./User";
-import Venue from "./Venue";
-
-export function ModelNameToModel(name: string) {
-  switch (name) {
-    case "Band":
-      return Band;
-    case "Conversation":
-      return Conversation;
-    case "ErrorReport":
-      return ErrorReport;
-    case "FacebookAccount":
-      return FacebookAccount;
-    case "Gig":
-      return Gig;
-    case "GooglePlace":
-      return GooglePlace;
-    case "Location":
-      return Location;
-    case "Notification":
-      return Notification;
-    case "Page":
-      return Page;
-    case "Post":
-      return Post;
-    case "Request":
-      return Request;
-    case "TwitterAccount":
-      return TwitterAccount;
-    case "Upload":
-      return Upload;
-    case "User":
-      return User;
-    case "Venue":
-      return Venue;
-    default:
-      return null;
-  }
-}
-
-const GigGizmoAPI = {
-  ModelNameToModel,
-  GigGizmoPropTypes,
-  Band,
-  Conversation,
-  ErrorReport,
-  FacebookAccount,
-  Gig,
-  GooglePlace,
-  Location,
-  Notification,
-  Page,
-  Post,
-  Request,
-  RESTModel,
-  TwitterAccount,
-  Upload,
-  User,
-  Venue,
-  API
-};
-
-export default GigGizmoAPI;
+export { default as Band } from "./Band";
+export { default as Conversation } from "./Conversation";
+export { default as ErrorReport } from "./ErrorReport";
+export { default as FacebookAccount } from "./FacebookAccount";
+export { default as Gig } from "./Gig";
+export { default as GooglePlace } from "./GooglePlace";
+export { default as Location } from "./Location";
+export { default as Notification } from "./Notification";
+export { default as Page } from "./Page";
+export { default as Post } from "./Post";
+export { default as Request } from "./Request";
+export { default as RESTModel } from "./RESTModel";
+export { default as TwitterAccount } from "./TwitterAccount";
+export { default as Upload } from "./Upload";
+export { default as User } from "./User";
+export { default as Venue } from "./Venue";
+export { default as ModelNameToModel } from "./ModelNameToModel";

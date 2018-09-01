@@ -1,6 +1,5 @@
-const moment = require("moment");
 const { expect } = require("chai");
-const { Gig, User, RESTModel } = require("../");
+const { Gig, User, RESTModel } = require("../../dist/bundle.js");
 
 describe("Gig class", () => {
   it("ModelName exists", () => {
@@ -21,8 +20,8 @@ describe("Gig class", () => {
       expect(gig.location).to.equal("d7dd992d9be2f20b6f504e0c");
       expect(gig.venue).to.equal("2d9be2f20b6f504e0cd7dd99");
       expect(gig.bands).to.deep.equal(["f20b6f504e0cd7dd992d9be2"]);
-      expect(gig.startTime).to.deep.equal(moment("2018-04-29T12:00:00Z"));
-      expect(gig.stopTime).to.deep.equal(moment("2018-04-29T14:00:00Z"));
+      expect(gig.startTime).to.deep.equal(new Date("2018-04-29T12:00:00Z"));
+      expect(gig.stopTime).to.deep.equal(new Date("2018-04-29T14:00:00Z"));
     });
     it("Empty", () => {
       const empty = new Gig();
@@ -45,8 +44,8 @@ describe("Gig class", () => {
       expect(gig.location).to.equal("d7dd992d9be2f20b6f504e0c");
       expect(gig.venue).to.equal("2d9be2f20b6f504e0cd7dd99");
       expect(gig.bands).to.deep.equal(["f20b6f504e0cd7dd992d9be2"]);
-      expect(gig.startTime).to.deep.equal(moment("2018-04-29T12:00:00Z"));
-      expect(gig.stopTime).to.deep.equal(moment("2018-04-29T14:00:00Z"));
+      expect(gig.startTime).to.deep.equal(new Date("2018-04-29T12:00:00Z"));
+      expect(gig.stopTime).to.deep.equal(new Date("2018-04-29T14:00:00Z"));
     });
   });
 

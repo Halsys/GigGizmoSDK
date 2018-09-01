@@ -1,6 +1,5 @@
 const { expect } = require("chai");
-const moment = require("moment");
-const { User } = require("../");
+const { User } = require("../../dist/bundle.js");
 
 describe("User class", () => {
   it("ModelName exists", () => {
