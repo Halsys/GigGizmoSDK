@@ -184,7 +184,10 @@ export default class RESTModel {
       let Model = ModelMaybe || null;
       let modelName: string | null = null;
       if (Model === null) throw new Error("Model Name or Model Missing");
-      if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
+      if (typeof Model === "string") {
+        Model = ModelNameToModel(ModelMaybe);
+        modelName = ModelMaybe;
+      }
       if (typeof Model === "function")
         modelName = RESTModel.getModelName(Model);
       if (!modelName) throw new Error("Missing model name");
@@ -218,7 +221,10 @@ export default class RESTModel {
     let Model: any = ModelMaybe || null;
     let modelName: string | null = null;
     if (Model === null) throw new Error("Model Name or Model Missing");
-    if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
+    if (typeof Model === "string") {
+      Model = ModelNameToModel(ModelMaybe);
+      modelName = ModelMaybe;
+    }
     if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
     if (!modelName) throw new Error("Missing model name");
     const route = `/API/${modelName}/FindOne`;
@@ -249,7 +255,10 @@ export default class RESTModel {
     let Model: any = ModelMaybe || null;
     let modelName: string | null = null;
     if (Model === null) throw new Error("Model Name or Model Missing");
-    if (typeof Model === "string") Model = ModelNameToModel(ModelMaybe);
+    if (typeof Model === "string") {
+      Model = ModelNameToModel(ModelMaybe);
+      modelName = ModelMaybe;
+    }
     if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
     if (!modelName) throw new Error("Missing model name");
     const route = `/API/${modelName}/FindMany`;
