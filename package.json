@@ -1,28 +1,40 @@
 {
-	"name": "gig-gizmo-sdk",
-	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-	"version": "0.2.7",
-	"private": false,
-	"main": "./src/index.js",
-	"dependencies": {
-		"axios": "^0.18.0",
-		"cookie": "^0.3.1",
-		"cookie-parser": "^1.4.3",
-		"moment": "^2.22.0",
-		"prop-types": "^15.6.2",
-		"socket.io-client": "^2.1.0"
-	},
-	"devDependencies": {
-		"chai": "^3.5.0",
-		"mocha": "^5.2.0"
-	},
-	"scripts": {
-		"start": "npm run dev",
-		"dev": "npm test -- -w",
-		"test": "mocha ./src/**/*.test.js",
-		"test:single": "mocha"
-	},
-	"files": [
-		"src"
-	]
+  "name": "gig-gizmo-sdk",
+  "author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
+  "version": "0.3.0",
+  "private": false,
+  "main": "./src/index.js",
+  "dependencies": {
+    "@types/cookie": "^0.3.1",
+    "@types/node": "^10.9.4",
+    "@types/prop-types": "^15.5.5",
+    "@types/socket.io-client": "^1.4.32",
+    "axios": "^0.18.0",
+    "cookie": "^0.3.1",
+    "prop-types": "^15.6.2",
+    "socket.io-client": "^2.1.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.0",
+    "chai": "^3.5.0",
+    "mocha": "^5.2.0",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^4.5.0",
+    "tslint": "^5.11.0",
+    "tslint-loader": "^3.6.0",
+    "typescript": "^3.0.3",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "npm test -- -w",
+    "test": "mocha ./src/**/*.test.js",
+    "test:single": "mocha",
+    "prepublish": "webpack -p --release",
+    "build": "webpack --debug"
+  },
+  "files": [
+    "src"
+  ]
 }
