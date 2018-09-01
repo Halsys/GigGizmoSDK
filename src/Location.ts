@@ -2,7 +2,6 @@
  * Created by corynull on 9/7/17.
  */
 
-import { ModelNameToModel } from "./index";
 import API from "./API";
 import RESTModel from "./RESTModel";
 import GooglePlace from "./GooglePlace";

@@ -2,7 +2,7 @@
  * Created by corynull on 4/1/17.
  */
 
-import { ModelNameToModel } from "./index";
+import ModelNameToModel from "./ModelNameToModel";
 import API from "./API";
 import Band from "./Band";
 import Venue from "./Venue";

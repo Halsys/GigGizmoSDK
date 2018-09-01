@@ -1,4 +1,4 @@
-import { ModelNameToModel } from "./index";
+import ModelNameToModel from "./ModelNameToModel";
 import API from "./API";
 
 export default class RESTModel {

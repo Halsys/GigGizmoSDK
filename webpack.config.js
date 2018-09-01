@@ -4,6 +4,7 @@ module.exports = {
   mode: isDebug ? "development" : "production",
   entry: "./src/index.ts",
   output: {
+    libraryTarget: "this",
     filename: "bundle.js",
     path: __dirname + "/dist"
   },

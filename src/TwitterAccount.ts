@@ -2,7 +2,6 @@
  * Created by corynull on 5/17/17.
  */
 
-import { ModelNameToModel } from "./index";
 import RESTModel from "./RESTModel";
 import API from "./API";
 

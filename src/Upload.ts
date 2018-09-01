@@ -2,7 +2,6 @@
  * Created by corynull on 4/10/17.
  */
 
-import { ModelNameToModel } from "./index";
 import RESTModel from "./RESTModel";
 
 export default class Upload extends RESTModel {

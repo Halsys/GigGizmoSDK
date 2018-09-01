@@ -1,52 +1,35 @@
-import Band from "./Band";
-import Conversation from "./Conversation";
-import ErrorReport from "./ErrorReport";
-import FacebookAccount from "./FacebookAccount";
-import Gig from "./Gig";
-import GooglePlace from "./GooglePlace";
-import Location from "./Location";
-import Notification from "./Notification";
-import Page from "./Page";
-import Post from "./Post";
-import Request from "./Request";
-import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import Upload from "./Upload";
-import User from "./User";
-import Venue from "./Venue";
-
 export default function ModelNameToModel(name: string) {
   switch (name) {
     case "Band":
-      return Band;
+      return import("./Band");
     case "Conversation":
-      return Conversation;
+      return import("./Conversation");
     case "ErrorReport":
-      return ErrorReport;
+      return import("./ErrorReport");
     case "FacebookAccount":
-      return FacebookAccount;
+      return import("./FacebookAccount");
     case "Gig":
-      return Gig;
+      return import("./Gig");
     case "GooglePlace":
-      return GooglePlace;
+      return import("./GooglePlace");
     case "Location":
-      return Location;
+      return import("./Location");
     case "Notification":
-      return Notification;
+      return import("./Notification");
     case "Page":
-      return Page;
+      return import("./Page");
     case "Post":
-      return Post;
+      return import("./Post");
     case "Request":
-      return Request;
+      return import("./Request");
     case "TwitterAccount":
-      return TwitterAccount;
+      return import("./TwitterAccount");
     case "Upload":
-      return Upload;
+      return import("./Upload");
     case "User":
-      return User;
+      return import("./User");
     case "Venue":
-      return Venue;
+      return import("./Venue");
     default:
       return null;
   }
