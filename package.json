@@ -35,6 +35,6 @@
     "build": "webpack --debug"
   },
   "files": [
-    "src"
+    "dist"
   ]
 }
