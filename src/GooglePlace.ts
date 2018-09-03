@@ -28,7 +28,7 @@ export default class GooglePlace extends RESTModel {
     return new Promise((resolve, reject) => {
       if (typeof placeId !== "string")
         return reject(new Error("placeId is not a string!"));
-      return API.Call("GET", "/API/GooglePlace", { placeId }).then(
+      return API.call("GET", "/API/GooglePlace", { placeId }).then(
         resolve,
         reject
       );
@@ -41,7 +41,7 @@ export default class GooglePlace extends RESTModel {
       if (typeof text !== "string")
         return reject(new Error("text is not a string!"));
       if (text === "") return reject(new Error("text is blank"));
-      return API.Call("GET", "/API/GooglePlace/Query", {
+      return API.call("GET", "/API/GooglePlace/Query", {
         term: text,
         type
       }).then(resolve, reject);

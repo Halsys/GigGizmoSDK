@@ -62,12 +62,12 @@ export default class Location extends RESTModel {
     return GooglePlace.getPlaceDetails(this.placeId);
   }
 
-  static getLocationByPlaceId(placeId: string, token: string) {
+  static getLocationByPlaceId(placeId: string) {
     return new Promise((resolve, reject) => {
       if (!placeId) {
         reject(new Error(`Invaild placeId: ${placeId}`));
       } else {
-        API.Call("GET", `/API/Place/${placeId}`, { token }).then(location => {
+        API.call("GET", `/API/Place/${placeId}`, null).then((location: any) => {
           if (location) {
             resolve(new Location(location));
           } else {
@@ -78,7 +78,7 @@ export default class Location extends RESTModel {
     });
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("Location", id, token, true);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("Location", id);
   }
 }

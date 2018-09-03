@@ -44,8 +44,8 @@ export default class FacebookAccount extends RESTModel {
     return this.getField("profile");
   }
 
-  getUser(token: string) {
-    return RESTModel.findManyBase("User", this.userId, token, true);
+  getUser() {
+    return RESTModel.findManyBase("User", this.userId, true);
   }
 
   userIsOwner(user: any) {
@@ -62,14 +62,17 @@ export default class FacebookAccount extends RESTModel {
     return true;
   }
 
-  static findById(id: string, token: string) {
+  static findById(id: string) {
     return new Promise((resolve, reject) => {
       if (typeof id === "string" && id !== "")
-        API.Call("GET", `/API/FacebookAccount/${id}`, { token }).then(found => {
-          const account = found || null;
-          if (account) resolve(new FacebookAccount(account));
-          else reject(new Error(`${account} returned`));
-        }, reject);
+        API.call("GET", `/API/FacebookAccount/${id}`, null).then(
+          (found: any) => {
+            const account = found || null;
+            if (account) resolve(new FacebookAccount(account));
+            else reject(new Error(`${account} returned`));
+          },
+          reject
+        );
       else resolve(null);
     });
   }
@@ -79,7 +82,7 @@ export default class FacebookAccount extends RESTModel {
       if (typeof pageName !== "string") {
         reject(new Error("pageName is not a string!"));
       } else {
-        API.Call("GET", "/API/Facebook/Page/Find", {
+        API.call("GET", "/API/Facebook/Page/Find", {
           name: pageName
         }).then(resolve, reject);
       }
@@ -93,7 +96,7 @@ export default class FacebookAccount extends RESTModel {
     postDateTime: string
   ) {
     return new Promise((resolve, reject) => {
-      API.Call("POST", "/API/Facebook/Page/Post", {
+      API.call("POST", "/API/Facebook/Page/Post", {
         post_format: format,
         post_text: text,
         fb_page_id: pageId,

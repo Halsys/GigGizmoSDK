@@ -1,36 +1,36 @@
-export default function ModelNameToModel(name: string) {
+export default async function ModelNameToModel(name: string) {
   switch (name) {
     case "Band":
-      return import("./Band");
+      return (await import("./Band")).default;
     case "Conversation":
-      return import("./Conversation");
+      return (await import("./Conversation")).default;
     case "ErrorReport":
-      return import("./ErrorReport");
+      return (await import("./ErrorReport")).default;
     case "FacebookAccount":
-      return import("./FacebookAccount");
+      return (await import("./FacebookAccount")).default;
     case "Gig":
-      return import("./Gig");
+      return (await import("./Gig")).default;
     case "GooglePlace":
-      return import("./GooglePlace");
+      return (await import("./GooglePlace")).default;
     case "Location":
-      return import("./Location");
+      return (await import("./Location")).default;
     case "Notification":
-      return import("./Notification");
+      return (await import("./Notification")).default;
     case "Page":
-      return import("./Page");
+      return (await import("./Page")).default;
     case "Post":
-      return import("./Post");
+      return (await import("./Post")).default;
     case "Request":
-      return import("./Request");
+      return (await import("./Request")).default;
     case "TwitterAccount":
-      return import("./TwitterAccount");
+      return (await import("./TwitterAccount")).default;
     case "Upload":
-      return import("./Upload");
+      return (await import("./Upload")).default;
     case "User":
-      return import("./User");
+      return (await import("./User")).default;
     case "Venue":
-      return import("./Venue");
+      return (await import("./Venue")).default;
     default:
-      return null;
+      return Promise.resolve(null);
   }
 }

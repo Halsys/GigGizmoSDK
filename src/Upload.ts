@@ -47,7 +47,7 @@ export default class Upload extends RESTModel {
     this.setField("owners", value);
   }
 
-  getOwners(token: string) {
+  getOwners() {
     const owners = Array.from(this.owners);
     if (owners.length !== 0)
       return RESTModel.findManyBase(
@@ -55,7 +55,6 @@ export default class Upload extends RESTModel {
         {
           _id: owners
         },
-        token,
         true
       );
     return Promise.resolve([]);
@@ -82,21 +81,21 @@ export default class Upload extends RESTModel {
     return true;
   }
 
-  static async uploadFile(dataUrl: string, fileName: string, token: string) {
+  static async uploadFile(dataUrl: string, fileName: string) {
     let upload = new Upload({ fileData: dataUrl, fileName });
-    upload = await upload.save(token, true);
+    upload = await upload.save(true);
     return upload;
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("Upload", id, token, true);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("Upload", id);
   }
 
-  static findMany(criteria: object | null, token: string) {
-    return RESTModel.findManyBase("Upload", criteria, token, true);
+  static findMany(criteria: object | null) {
+    return RESTModel.findManyBase("Upload", criteria, true);
   }
 
-  static getAllOwned(token: string) {
-    return RESTModel.findManyBase("Upload", null, token, true);
+  static getAllOwned() {
+    return RESTModel.findManyBase("Upload", null, true);
   }
 }

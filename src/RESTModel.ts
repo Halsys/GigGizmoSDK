@@ -1,7 +1,7 @@
 import ModelNameToModel from "./ModelNameToModel";
 import API from "./API";
 
-export default class RESTModel {
+export default abstract class RESTModel {
   static ModelName: string = "RESTModel";
   static Cache = new Map();
   private changes: any = new Object();
@@ -82,8 +82,9 @@ export default class RESTModel {
 
   valid() {
     if (!RESTModel.isValidId(this.id)) return false;
-    if (!this.dateModified || !this.dateModified.isValid()) return false;
-    if (!this.dateCreated || !this.dateCreated.isValid()) return false;
+    if (!this.dateModified || Date.parse(this.dateModified) === NaN)
+      return false;
+    if (!this.dateCreated || Date.parse(this.dateCreated) === NaN) return false;
     return true;
   }
 
@@ -92,7 +93,7 @@ export default class RESTModel {
     return this;
   }
 
-  async save(token: string | null, hasWebSocket: boolean = false) {
+  async save(hasWebSocket: boolean = false) {
     const modelName = (<any>this.constructor).ModelName;
     let response: any = null;
     const id = this.document._id || null;
@@ -101,10 +102,10 @@ export default class RESTModel {
       if (data[key] === this.document[key]) delete data[key];
     });
     data.id = this.changes._id || this.document._id || null;
-    if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+    if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
       if (RESTModel.isValidId(id))
         response = await new Promise((resolve, reject) =>
-          API.GetSocket(token).then(
+          API.getSocket().then(
             (socket: SocketIOClient.Socket) =>
               socket.emit(`/API/${modelName}/Update`, data, resolve),
             reject
@@ -112,17 +113,16 @@ export default class RESTModel {
         );
       else
         response = await new Promise((resolve, reject) =>
-          API.GetSocket(token).then(
+          API.getSocket().then(
             (socket: SocketIOClient.Socket) =>
               socket.emit(`/API/${modelName}/Create`, data, resolve),
             reject
           )
         );
     } else {
-      data.token = token;
       if (RESTModel.isValidId(id))
-        response = await API.Call("PUT", `/API/${modelName}/${id}`, data);
-      else response = await API.Call("POST", `/API/${modelName}/`, data);
+        response = await API.call("PUT", `/API/${modelName}/${id}`, data);
+      else response = await API.call("POST", `/API/${modelName}/`, data);
     }
     if (response && response._id) {
       this.document = response;
@@ -134,14 +134,14 @@ export default class RESTModel {
     throw new Error(`returned ${response}`);
   }
 
-  async remove(token: string | null, hasWebSocket: boolean = false) {
+  async remove(hasWebSocket: boolean = false) {
     const id = this._id || null;
     if (RESTModel.isValidId(id)) {
       let response: any = null;
       const modelName = (<any>this.constructor).ModelName;
-      if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+      if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
         response = await new Promise((resolve, reject) =>
-          API.GetSocket(token).then(
+          API.getSocket().then(
             (socket: SocketIOClient.Socket) =>
               socket.emit(`/API/${modelName}/Delete`, id, (res: any) =>
                 resolve(res)
@@ -150,9 +150,7 @@ export default class RESTModel {
           )
         );
       } else
-        response = await API.Call("DELETE", `/API/${modelName}/${id}`, {
-          token
-        });
+        response = await API.call("DELETE", `/API/${modelName}/${id}`, null);
 
       RESTModel.Cache.set(id, null);
       return response;
@@ -176,7 +174,6 @@ export default class RESTModel {
   static async findByIdBase(
     ModelMaybe: any,
     id: string,
-    token: string | null,
     hasWebSocket: boolean = false
   ) {
     if (RESTModel.isValidId(id)) {
@@ -191,17 +188,15 @@ export default class RESTModel {
       if (typeof Model === "function")
         modelName = RESTModel.getModelName(Model);
       if (!modelName) throw new Error("Missing model name");
-      if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+      if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
         data = await new Promise((resolve, reject) =>
-          API.GetSocket(token).then((socket: SocketIOClient.Socket) => {
+          API.getSocket().then((socket: SocketIOClient.Socket) => {
             return socket.emit(`/API/${modelName}/Retreive`, id, resolve);
           }, reject)
         );
       }
       if (!data) {
-        data = await API.Call("GET", `/API/${modelName}/${id}`, {
-          token
-        });
+        data = await API.call("GET", `/API/${modelName}/${id}`, null);
       }
       if (data && RESTModel.isValidId((<any>data)._id)) {
         return new Model(data);
@@ -213,7 +208,6 @@ export default class RESTModel {
   static async findOneBase(
     ModelMaybe: any,
     criteriaMaybe: object | null,
-    token: string | null,
     hasWebSocket: boolean = false
   ) {
     const criteria = criteriaMaybe || {};
@@ -228,8 +222,8 @@ export default class RESTModel {
     if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
     if (!modelName) throw new Error("Missing model name");
     const route = `/API/${modelName}/FindOne`;
-    if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-      const socket: any = await API.GetSocket(token);
+    if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+      const socket: any = await API.getSocket();
       if (socket)
         data = await new Promise((resolve, reject) => {
           try {
@@ -239,7 +233,7 @@ export default class RESTModel {
           }
         });
     }
-    if (!data) data = await API.Call("GET", route, { ...criteria, token });
+    if (!data) data = await API.call("GET", route, criteria);
     if (data && RESTModel.isValidId(data._id)) return new Model(data);
     return null;
   }
@@ -247,7 +241,6 @@ export default class RESTModel {
   static async findManyBase(
     ModelMaybe: any,
     criteriaMaybe: object | null,
-    token: string | null,
     hasWebSocket: boolean = false
   ) {
     let criteria = criteriaMaybe || null;
@@ -262,9 +255,9 @@ export default class RESTModel {
     if (typeof Model === "function") modelName = RESTModel.getModelName(Model);
     if (!modelName) throw new Error("Missing model name");
     const route = `/API/${modelName}/FindMany`;
-    if (API.UseSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+    if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
       data = await new Promise((resolve, reject) =>
-        API.GetSocket(token).then(
+        API.getSocket().then(
           (socket: SocketIOClient.Socket) =>
             socket.emit(route, criteria, resolve),
           reject
@@ -272,7 +265,7 @@ export default class RESTModel {
       );
     }
     criteria = criteria || {};
-    if (!data) data = await API.Call("GET", route, { ...criteria, token });
+    if (!data) data = await API.call("GET", route, criteria);
     if (Array.isArray(data))
       return data.map(itemData => {
         const item = new Model(itemData);

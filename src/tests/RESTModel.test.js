@@ -28,8 +28,12 @@ describe("RESTModel class", () => {
 			  "dateModified": "2018-04-29T12:00:00Z"
 			}`);
       expect(doc._id).to.equal("de4e0cd7dd992d9be2f20b42");
-      expect(doc.dateCreated).to.deep.equal(moment("2018-04-29T12:00:00Z"));
-      expect(doc.dateModified).to.deep.equal(moment("2018-04-29T12:00:00Z"));
+      expect(doc.dateCreated.toString()).to.equal(
+        new Date("2018-04-29T12:00:00Z").toString()
+      );
+      expect(doc.dateModified.toString()).to.equal(
+        new Date("2018-04-29T12:00:00Z").toString()
+      );
     });
     it("Empty", () => {
       const empty = new RESTModel({});
@@ -44,8 +48,8 @@ describe("RESTModel class", () => {
         dateModified: "2018-04-29T12:00:00Z"
       });
       expect(copy._id).to.equal("de4e0cd7dd992d9be2f20b42");
-      expect(copy.dateCreated).to.deep.equal(moment("2018-04-29T12:00:00Z"));
-      expect(copy.dateModified).to.deep.equal(moment("2018-04-29T12:00:00Z"));
+      expect(copy.dateCreated).to.deep.equal(new Date("2018-04-29T12:00:00Z"));
+      expect(copy.dateModified).to.deep.equal(new Date("2018-04-29T12:00:00Z"));
     });
   });
 

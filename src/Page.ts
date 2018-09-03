@@ -57,7 +57,8 @@ export default class Page extends RESTModel {
   }
 
   get hide() {
-    return this.getField("hide");
+    let value = this.getField("hide");
+    return value === null ? true : Boolean(value);
   }
 
   set hide(value) {
@@ -65,7 +66,8 @@ export default class Page extends RESTModel {
   }
 
   get blog() {
-    return this.getField("blog");
+    let value = this.getField("blog");
+    return Boolean(value);
   }
 
   set blog(value) {
@@ -73,7 +75,8 @@ export default class Page extends RESTModel {
   }
 
   get doc() {
-    return this.getField("doc");
+    let value = this.getField("doc");
+    return Boolean(value);
   }
 
   set doc(value) {
@@ -103,21 +106,21 @@ export default class Page extends RESTModel {
     return false;
   }
 
-  static findMany(criteria: any, token: string) {
-    return RESTModel.findManyBase("Page", criteria, token);
+  static findMany(criteria: any) {
+    return RESTModel.findManyBase("Page", criteria);
   }
 
-  static findOne(criteria: any, token: string) {
-    return RESTModel.findOneBase("Page", criteria, token);
+  static findOne(criteria: any) {
+    return RESTModel.findOneBase("Page", criteria);
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("Page", id, token);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("Page", id);
   }
 
   static findByLink(link: string) {
     return new Promise((resolve, reject) => {
-      API.Call("GET", `/API/Link/${link}`, null).then((page: any) => {
+      API.call("GET", `/API/Link/${link}`, null).then((page: any) => {
         resolve(new Page(page));
       }, reject);
     });

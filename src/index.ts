@@ -24,5 +24,3 @@ export { default as Upload } from "./Upload";
 export { default as User } from "./User";
 export { default as Venue } from "./Venue";
 export { default as ModelNameToModel } from "./ModelNameToModel";
-
-console.log(module.exports);

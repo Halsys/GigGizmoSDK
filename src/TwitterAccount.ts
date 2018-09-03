@@ -48,8 +48,8 @@ export default class TwitterAccount extends RESTModel {
     this.setField("accountId", value);
   }
 
-  getUser(token: string) {
-    return RESTModel.findByIdBase("User", this.userId, token, true);
+  getUser() {
+    return RESTModel.findByIdBase("User", this.userId, true);
   }
 
   userIsOwner(user: any) {
@@ -72,10 +72,10 @@ export default class TwitterAccount extends RESTModel {
     return true;
   }
 
-  static findById(id: string, token: string) {
+  static findById(id: string) {
     return new Promise((resolve, reject) => {
       if (typeof id === "string" && id !== "")
-        API.Call("GET", `/API/TwitterAccount/${id}`, { token }).then(
+        API.call("GET", `/API/TwitterAccount/${id}`, null).then(
           (response: any) => {
             const account = response || null;
             if (account) resolve(new TwitterAccount(account));

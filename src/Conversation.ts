@@ -30,7 +30,7 @@ export default class Conversation extends RESTModel {
     return true;
   }
 
-  pushMessage(user: string, message: string, token: string) {
+  pushMessage(user: string, message: string) {
     const { events } = this;
     events.push({
       user,
@@ -38,7 +38,7 @@ export default class Conversation extends RESTModel {
       dateTimePosted: new Date()
     });
     this.events = events;
-    return this.save(token);
+    return this.save();
   }
 
   // TODO: inviteNewUser(user, newUser, token) {}
@@ -49,26 +49,25 @@ export default class Conversation extends RESTModel {
     return () => Conversation.Callbacks.delete(callbackId);
   }
 
-  static connectSocket(token: string) {
-    if (token)
-      API.GetSocket(token).then((socket: SocketIOClient.Socket) => {
-        socket.on("/API/Conversation/Update", (data: any) => {
-          if (data) {
-            let conv = RESTModel.Cache.get(data._id) || null;
-            if (conv) conv = Object.assign(conv, data);
-            else conv = new Conversation(data);
-            RESTModel.Cache.set(conv._id, conv);
-            Conversation.Callbacks.forEach(cb => cb(conv));
-          }
-        });
-      }, console.error);
+  static connectSocket() {
+    API.getSocket().then((socket: SocketIOClient.Socket) => {
+      socket.on("/API/Conversation/Update", (data: any) => {
+        if (data) {
+          let conv = RESTModel.Cache.get(data._id) || null;
+          if (conv) conv = Object.assign(conv, data);
+          else conv = new Conversation(data);
+          RESTModel.Cache.set(conv._id, conv);
+          Conversation.Callbacks.forEach(cb => cb(conv));
+        }
+      });
+    }, console.error);
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("Conversation", id, token, true);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("Conversation", id, true);
   }
 
-  static getAllOwned(token: string) {
-    return RESTModel.findManyBase("Conversation", null, token, true);
+  static getAllOwned() {
+    return RESTModel.findManyBase("Conversation", null, true);
   }
 }

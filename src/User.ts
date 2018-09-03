@@ -2,12 +2,12 @@
  * Created by corynull on 4/1/17.
  */
 
-import ModelNameToModel from "./ModelNameToModel";
 import API from "./API";
 import Band from "./Band";
 import Venue from "./Venue";
 import Page from "./Page";
 import Upload from "./Upload";
+import Location from "./Location";
 import RESTModel from "./RESTModel";
 
 export default class User extends RESTModel {
@@ -258,16 +258,16 @@ export default class User extends RESTModel {
     this.setField("options", value);
   }
 
-  getIcon(token: string) {
-    return RESTModel.findByIdBase("Upload", this.icon, token, true);
+  getIcon() {
+    return RESTModel.findByIdBase("Upload", this.icon, true);
   }
 
-  getTwitterAccount(token: string) {
-    return RESTModel.findByIdBase("TwitterAccount", this.twitter, token);
+  getTwitterAccount() {
+    return RESTModel.findByIdBase("TwitterAccount", this.twitter);
   }
 
-  getFacebookAccount(token: string) {
-    return RESTModel.findByIdBase("FacebookAccount", this.facebook, token);
+  getFacebookAccount() {
+    return RESTModel.findByIdBase("FacebookAccount", this.facebook);
   }
 
   validatePassword(maybePassword: string) {
@@ -309,52 +309,51 @@ export default class User extends RESTModel {
     return true;
   }
 
-  save(token: string) {
-    return RESTModel.prototype.save.call(this, token, true);
+  save() {
+    return RESTModel.prototype.save.call(this, true);
   }
 
-  remove(token: string) {
-    return RESTModel.prototype.remove.call(this, token, true);
+  remove() {
+    return RESTModel.prototype.remove.call(this, true);
   }
 
   static verifyEmail(id: string, secret: string) {
-    return API.Call("GET", "/API/User/Verify", {
-      token: null,
+    return API.call("GET", "/API/User/Verify", {
       id,
       secret
     });
   }
 
-  static sendEmailVerification(token: string) {
-    return API.Call("POST", "/API/User/Verify", { token });
+  static sendEmailVerification() {
+    return API.call("POST", "/API/User/Verify", null);
   }
 
-  static getAllConversations(token: string) {
-    return RESTModel.findManyBase("Conversation", null, token, true);
+  static getAllConversations() {
+    return RESTModel.findManyBase("Conversation", null, true);
   }
 
-  static getAllNotifications(token: string) {
-    return RESTModel.findManyBase("Notification", null, token, true);
+  static getAllNotifications() {
+    return RESTModel.findManyBase("Notification", null, true);
   }
 
-  static getAllPosts(token: string) {
-    return RESTModel.findManyBase("Post", null, token, true);
+  static getAllPosts() {
+    return RESTModel.findManyBase("Post", null, true);
   }
 
-  static getAllBands(token: string) {
-    return RESTModel.findManyBase("Band", null, token, true);
+  static getAllBands() {
+    return RESTModel.findManyBase("Band", null, true);
   }
 
-  static getAllVenues(token: string) {
-    return RESTModel.findManyBase("Venue", null, token, true);
+  static getAllVenues() {
+    return RESTModel.findManyBase("Venue", null, true);
   }
 
-  static getAllGigs(token: string) {
-    return RESTModel.findManyBase("Gig", null, token, true);
+  static getAllGigs() {
+    return RESTModel.findManyBase("Gig", null, true);
   }
 
-  static getAllUploads(token: string) {
-    return RESTModel.findManyBase("Upload", null, token, true);
+  static getAllUploads() {
+    return RESTModel.findManyBase("Upload", null, true);
   }
 
   static findFacebookPages(term: string) {
@@ -362,7 +361,7 @@ export default class User extends RESTModel {
       if (term === "") {
         resolve();
       } else {
-        API.Call("GET", "/API/FacebookAccount/FindPages", { term }).then(
+        API.call("GET", "/API/FacebookAccount/FindPages", { term }).then(
           resolve,
           reject
         );
@@ -374,8 +373,7 @@ export default class User extends RESTModel {
     q: string,
     modelName: string = null,
     skip: number = 0,
-    limit: number = Number.POSITIVE_INFINITY,
-    token: string = API.findToken()
+    limit: number = Number.POSITIVE_INFINITY
   ) {
     return new Promise((resolve, reject) => {
       if (q === "") {
@@ -404,19 +402,15 @@ export default class User extends RESTModel {
           const pages: Page[] = [];
           const locations: Location[] = [];
           const uploads: Upload[] = [];
-          query.forEach((item: any) => {
+          query.forEach(async (item: any) => {
             if (item && item.ModelName) {
               const mName = item.ModelName;
-              const ClassType: any = ModelNameToModel(mName);
-              if (ClassType) {
-                const instance = new ClassType(item);
-                if (mName === "Band") bands.push(instance);
-                else if (mName === "Venue") venues.push(instance);
-                else if (mName === "User") users.push(instance);
-                else if (mName === "Page") pages.push(instance);
-                else if (mName === "Location") locations.push(instance);
-                else if (mName === "Upload") uploads.push(instance);
-              }
+              if (mName === "Band") bands.push(new Band(item));
+              else if (mName === "Venue") venues.push(new Venue(item));
+              else if (mName === "User") users.push(new User(item));
+              else if (mName === "Page") pages.push(new Page(item));
+              else if (mName === "Location") locations.push(new Location(item));
+              else if (mName === "Upload") uploads.push(new Upload(item));
             }
           });
           const sorted = {
@@ -430,26 +424,23 @@ export default class User extends RESTModel {
           };
           resolve(sorted);
         };
-        if (API.UseSocketIO && API.ShouldUseSocketIO) {
-          API.GetSocket(token).then((socket: SocketIOClient.Socket) => {
+        if (API.useSocketIO && API.ShouldUseSocketIO) {
+          API.getSocket().then((socket: SocketIOClient.Socket) => {
             socket.emit("/API/TextSearch", data, Return);
           }, reject);
         } else {
-          API.Call("GET", "/API/TextSearch", { ...data, token }).then(
-            Return,
-            reject
-          );
+          API.call("GET", "/API/TextSearch", data).then(Return, reject);
         }
       }
     });
   }
 
-  static findMany(criteria: object | null, token: string) {
-    return RESTModel.findManyBase("User", criteria, token, true);
+  static findMany(criteria: object | null) {
+    return RESTModel.findManyBase("User", criteria, true);
   }
 
-  static findOne(criteria: object | null, token: string) {
-    return RESTModel.findOneBase("User", criteria, token, true);
+  static findOne(criteria: object | null) {
+    return RESTModel.findOneBase("User", criteria, true);
   }
 
   static onChange(callback: any) {
@@ -475,7 +466,6 @@ export default class User extends RESTModel {
           User.Current = null;
           API.token = null;
           if (API.SessionStorageSupported) sessionStorage.removeItem("user");
-          if (API.LocalStorageSupported) localStorage.removeItem("token");
           if (typeof document !== "undefined") document.cookie = "";
           User.Callbacks.forEach((callback: any) => callback(null));
           resolve(null);
@@ -486,8 +476,7 @@ export default class User extends RESTModel {
     });
   }
 
-  static async getUser(force: boolean, tokenMaybe: string) {
-    const token = tokenMaybe || API.findToken();
+  static async getUser(force: boolean) {
     let data = null;
     if (!force && User.Current)
       /* If we already have the current user cached, return it... */
@@ -497,33 +486,31 @@ export default class User extends RESTModel {
       data = JSON.parse(sessionStorage.getItem("user"));
       if (data) return User.setUser(data);
     }
-    if (API.UseSocketIO && API.ShouldUseSocketIO) {
+    if (API.useSocketIO && API.ShouldUseSocketIO) {
       data = await new Promise((resolve, reject) => {
-        if (token)
-          API.GetSocket(token).then((socket: SocketIOClient.Socket) => {
-            socket.emit("/API/User/Retreive", null, resolve);
-          }, reject);
-        else resolve(null);
+        API.getSocket().then((socket: SocketIOClient.Socket) => {
+          socket.emit("/API/User/Retreive", null, resolve);
+        }, reject);
       });
-    } else data = await API.Call("GET", "/API/User", { token });
+    } else data = await API.call("GET", "/API/User", null);
     if (data) return User.setUser(data);
     return User.setUser(null);
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("User", id, token, true);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("User", id, true);
   }
 
   static connectFacebook() {
-    window.location.href = `${API.root}/API/Auth/Facebook`;
+    window.location.href = `${API.rootURL}/API/Auth/Facebook`;
   }
 
   static facebookLogIn() {
-    window.location.href = `${API.root}/API/Login/Facebook`;
+    window.location.href = `${API.rootURL}/API/Login/Facebook`;
   }
 
   static payPalLogIn() {
-    window.location.href = `${API.root}/API/Auth/PayPal`;
+    window.location.href = `${API.rootURL}/API/Auth/PayPal`;
   }
 
   static userLogIn(email: string, password: string) {
@@ -536,14 +523,11 @@ export default class User extends RESTModel {
       if (!email) onError(new Error("No email"));
       else if (!password) onError(new Error("No password"));
       else {
-        API.Call("POST", "/API/User/SignIn", {
+        API.call("POST", "/API/User/SignIn", {
           email,
           password
         }).then((response: any) => {
           if (response && response.user && response.token) {
-            if (API.LocalStorageSupported) {
-              localStorage.setItem("token", response.token);
-            }
             API.token = response.token;
             User.setUser(response.user).then(resolve, onError);
           } else onError(new Error(`${JSON.stringify(response)} returned`));
@@ -552,10 +536,9 @@ export default class User extends RESTModel {
     });
   }
 
-  static userLogOut(tokenMaybe: string) {
-    const token = tokenMaybe || API.findToken();
+  static userLogOut() {
     return new Promise((resolve, reject) => {
-      API.Call("POST", "/API/User/SignOut", { token }).then(() => {
+      API.call("POST", "/API/User/SignOut", null).then(() => {
         User.setUser(null).then((user: any) => {
           if (user && user.valid())
             reject(
@@ -568,7 +551,7 @@ export default class User extends RESTModel {
   }
 
   static sendPasswordResetEmail(email: string) {
-    return API.Call("POST", "/User/Reset", { email });
+    return API.call("POST", "/User/Reset", { email });
   }
 
   static registerUser(userData: any) {
@@ -628,14 +611,14 @@ export default class User extends RESTModel {
         } else return reject(new Error("Last name is required"));
       } else return reject(new Error("User data is not an object"));
 
-      if (API.UseSocketIO && API.ShouldUseSocketIO) {
+      if (API.useSocketIO && API.ShouldUseSocketIO) {
         return new Promise((resolve, reject) => {
-          API.GetSocket().then((socket: SocketIOClient.Socket) => {
+          API.getSocket().then((socket: SocketIOClient.Socket) => {
             socket.emit("/API/User/Create", userData, resolve);
           }, reject);
         });
       }
-      return API.Call("POST", "/API/User", userData).then(data => {
+      return API.call("POST", "/API/User", userData).then(data => {
         if (data)
           User.setUser(data).then((user: any) => {
             resolve(user);

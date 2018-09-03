@@ -135,19 +135,19 @@ export default class Band extends RESTModel {
     this.setField("google", value);
   }
 
-  save(token: string) {
-    return RESTModel.prototype.save.call(this, token, true);
+  save() {
+    return RESTModel.prototype.save.call(this, true);
   }
 
-  remove(token: string) {
-    return RESTModel.prototype.remove.call(this, token, true);
+  remove() {
+    return RESTModel.prototype.remove.call(this, true);
   }
 
-  getIcon(token: string) {
-    return RESTModel.findByIdBase("Upload", this.icon, token, true);
+  getIcon() {
+    return RESTModel.findByIdBase("Upload", this.icon, true);
   }
 
-  getPhotos(token: string) {
+  getPhotos() {
     const photos = Array.from(this.photos);
     if (photos.length !== 0)
       return RESTModel.findManyBase(
@@ -155,13 +155,12 @@ export default class Band extends RESTModel {
         {
           _id: photos
         },
-        token,
         true
       );
     return Promise.resolve([]);
   }
 
-  getOwners(token: string) {
+  getOwners() {
     const owners = Array.from(this.owners);
     if (owners.length !== 0)
       return RESTModel.findManyBase(
@@ -169,27 +168,21 @@ export default class Band extends RESTModel {
         {
           _id: owners
         },
-        token,
         true
       );
     return Promise.resolve([]);
   }
 
-  getGigs(token: string) {
-    return Gig.findByBand(this._id, token);
+  getGigs() {
+    return Gig.findByBand(this._id);
   }
 
-  getTwitterAccount(token: string) {
-    return RESTModel.findByIdBase("TwitterAccount", this.twitter, token, true);
+  getTwitterAccount() {
+    return RESTModel.findByIdBase("TwitterAccount", this.twitter, true);
   }
 
-  getFacebookAccount(token: string) {
-    return RESTModel.findByIdBase(
-      "FacebookAccount",
-      this.facebook,
-      token,
-      true
-    );
+  getFacebookAccount() {
+    return RESTModel.findByIdBase("FacebookAccount", this.facebook, true);
   }
 
   valid() {
@@ -223,19 +216,19 @@ export default class Band extends RESTModel {
     return false;
   }
 
-  static findOne(criteria: object | null, token: string) {
-    return RESTModel.findOneBase("Band", criteria, token, true);
+  static findOne(criteria: object | null) {
+    return RESTModel.findOneBase("Band", criteria, true);
   }
 
-  static findMany(criteria: object | null, token: string) {
-    return RESTModel.findManyBase("Band", criteria, token, true);
+  static findMany(criteria: object | null) {
+    return RESTModel.findManyBase("Band", criteria, true);
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("Band", id, token, true);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("Band", id, true);
   }
 
-  static getAllOwned(token: string) {
-    return RESTModel.findManyBase("Band", null, token, true);
+  static getAllOwned() {
+    return RESTModel.findManyBase("Band", null, true);
   }
 }

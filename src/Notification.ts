@@ -66,10 +66,9 @@ export default class Notification extends RESTModel {
     return () => Notification.Callbacks.delete(callbackId);
   }
 
-  static getNewNotifications(token: string) {
+  static getNewNotifications() {
     return new Promise((resolve, reject) => {
-      API.Call("GET", "/API/Notification", {
-        token,
+      API.call("GET", "/API/Notification", {
         returnNew: true
       }).then((notes: any[]) => {
         resolve(Array.from(notes).map((item: any) => new Notification(item)));
@@ -77,20 +76,19 @@ export default class Notification extends RESTModel {
     });
   }
 
-  static getAllOwned(token: string) {
-    return RESTModel.findManyBase("Notification", null, token, true);
+  static getAllOwned() {
+    return RESTModel.findManyBase("Notification", null, true);
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("Notification", id, token, true);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("Notification", id, true);
   }
 
-  static connectSocket(token: string) {
-    if (token)
-      API.GetSocket(token).then((socket: SocketIOClient.Socket) => {
-        socket.on("notification", (data: any) =>
-          Notification.onNewNotification(new Notification(data))
-        );
-      }, console.error);
+  static connectSocket() {
+    API.getSocket().then((socket: SocketIOClient.Socket) => {
+      socket.on("notification", (data: any) =>
+        Notification.onNewNotification(new Notification(data))
+      );
+    }, console.error);
   }
 }

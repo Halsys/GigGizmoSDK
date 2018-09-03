@@ -86,16 +86,16 @@ export default class Gig extends RESTModel {
     this.setField("owners", value);
   }
 
-  getBands(token: string) {
-    return RESTModel.findManyBase("Band", { _id: this.bands }, token, true);
+  getBands() {
+    return RESTModel.findManyBase("Band", { _id: this.bands }, true);
   }
 
-  getVenue(token: string) {
-    return RESTModel.findByIdBase("Venue", this.venue, token, true);
+  getVenue() {
+    return RESTModel.findByIdBase("Venue", this.venue, true);
   }
 
-  getLocation(token: string) {
-    return RESTModel.findByIdBase("Location", this.location, token, true);
+  getLocation() {
+    return RESTModel.findByIdBase("Location", this.location, true);
   }
 
   valid() {
@@ -115,14 +115,12 @@ export default class Gig extends RESTModel {
     return false;
   }
 
-  static findById(id: string, token: string) {
-    return RESTModel.findByIdBase("Gig", id, token, true);
+  static findById(id: string) {
+    return RESTModel.findByIdBase("Gig", id, true);
   }
 
-  static async findByBand(bandId: string, token: string) {
-    const data = await API.Call("GET", `/API/Band/${bandId}/Gigs`, {
-      token
-    });
+  static async findByBand(bandId: string) {
+    const data = await API.call("GET", `/API/Band/${bandId}/Gigs`, null);
     if (data && Array.isArray(data))
       return data.map(itemData => {
         const item = new Gig(itemData);
@@ -132,10 +130,8 @@ export default class Gig extends RESTModel {
     throw new Error(`Expected Array, got ${data}`);
   }
 
-  static async findByVenue(venueId: string, token: string) {
-    const data = await API.Call("GET", `/API/Venue/${venueId}/Gigs`, {
-      token
-    });
+  static async findByVenue(venueId: string) {
+    const data = await API.call("GET", `/API/Venue/${venueId}/Gigs`, null);
     if (data && Array.isArray(data))
       return data.map(itemData => {
         const item = new Gig(itemData);
@@ -145,15 +141,15 @@ export default class Gig extends RESTModel {
     throw new Error(`Expected Array, got ${data}`);
   }
 
-  static getAllOwned(token: string) {
-    return RESTModel.findManyBase("Gig", null, token, true);
+  static getAllOwned() {
+    return RESTModel.findManyBase("Gig", null, true);
   }
 
-  static findMany(criteria: object | null, token: string) {
-    return RESTModel.findManyBase("Gig", criteria, token, true);
+  static findMany(criteria: object | null) {
+    return RESTModel.findManyBase("Gig", criteria, true);
   }
 
-  static createGigs(gigData: object, token: string) {
+  static createGigs(gigData: object) {
     return new Promise((resolve, reject) => {
       const data: any = gigData || {};
       if (data && typeof data === "object") {
@@ -198,8 +194,7 @@ export default class Gig extends RESTModel {
         if (filtered.length !== data.times.length)
           return reject(new Error("Not all times were valid"));
         data.times = filtered;
-        data.token = token;
-        const request = API.Call("POST", "/API/Gig", data);
+        const request = API.call("POST", "/API/Gig", data);
         return request.then((response: any) => {
           let gigs = Array.from(response || []);
           gigs = gigs.map((itemData: any) => {
@@ -225,7 +220,7 @@ export default class Gig extends RESTModel {
       if (typeof distance !== "number")
         return reject(new Error("radius is not a number!"));
 
-      return API.Call("GET", "/API/Gig/InDistance", {
+      return API.call("GET", "/API/Gig/InDistance", {
         lat: location.lat,
         lng: location.lng,
         dis: distance
