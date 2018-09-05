@@ -1,7 +1,7 @@
 {
   "name": "gig-gizmo-sdk",
   "author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "private": false,
   "main": "./dist/bundle.js",
   "dependencies": {
@@ -11,9 +11,11 @@
     "@types/prop-types": "^15.5.5",
     "@types/socket.io-client": "^1.4.32",
     "axios": "^0.18.0",
+    "bufferutil": "^4.0.0",
     "cookie": "^0.3.1",
     "prop-types": "^15.6.2",
-    "socket.io-client": "^2.1.0"
+    "socket.io-client": "^2.1.0",
+    "utf-8-validate": "^5.0.1"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^5.2.0",

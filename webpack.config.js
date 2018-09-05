@@ -1,6 +1,7 @@
 const isDebug = !process.argv.includes("--release");
 
 module.exports = {
+  target: "node",
   mode: isDebug ? "development" : "production",
   entry: "./src/index.ts",
   output: {
