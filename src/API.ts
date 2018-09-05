@@ -14,6 +14,7 @@ export default abstract class API {
   public static readonly ShouldUseSocketIO =
     process && !process.title.includes("node");
   public static dev = false;
+  public static secure = !API.dev;
   public static port = 80;
   public static securePort = 443;
   public static hostname = "giggizmo.com";
@@ -42,7 +43,22 @@ export default abstract class API {
     }
   }
   public static get rootURL(): string {
-    return `http${API.dev ? "s" : ""}://${API.hostname}`;
+    let url = "";
+    if (API.secure) url += "https://";
+    else url += "http://";
+    url += `${API.hostname}`;
+    if (API.port != 80 && !API.secure) url += `:${API.port}`;
+    else if (API.securePort != 443 && API.secure) url += `:${API.securePort}`;
+    return url;
+  }
+  public static get webSocketRootURL(): string {
+    let url = "";
+    if (API.secure) url += "wss://";
+    else url += "ws://";
+    url += `${API.hostname}`;
+    if (API.port != 80 && !API.secure) url += `:${API.port}`;
+    else if (API.securePort != 443 && API.secure) url += `:${API.securePort}`;
+    return url;
   }
   private constructor() {
     throw new Error("Cannot instantiate.");
@@ -103,7 +119,7 @@ export default abstract class API {
     return new Promise((resolve, reject) => {
       if (API.token) {
         if (API.webSocket) return resolve(API.webSocket);
-        API.webSocket = WebSocket(API.rootURL);
+        API.webSocket = WebSocket(API.webSocketRootURL);
         API.webSocket.on("connect", () => resolve(API.webSocket));
         API.webSocket.on("connect_timeout", () => reject(new Error("Timeout")));
         API.webSocket.on("connect_error", (error: any) => reject(error));
