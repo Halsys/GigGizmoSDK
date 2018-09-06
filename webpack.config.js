@@ -1,14 +1,7 @@
 const isDebug = !process.argv.includes("--release");
 
-module.exports = {
-  target: "node",
+const baseConfig = {
   mode: isDebug ? "development" : "production",
-  entry: "./src/index.ts",
-  output: {
-    libraryTarget: "this",
-    filename: "bundle.js",
-    path: __dirname + "/dist"
-  },
 
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
@@ -28,3 +21,38 @@ module.exports = {
     ]
   }
 };
+
+const clientConfig = {
+  ...baseConfig,
+  entry: "./src/client/index.ts",
+  target: "web",
+  output: {
+    libraryTarget: "this",
+    filename: "bundle.client.js",
+    path: __dirname + "/dist"
+  }
+};
+
+const serverConfig = {
+  ...baseConfig,
+  entry: "./src/server/index.ts",
+  target: "node",
+  output: {
+    libraryTarget: "this",
+    filename: "bundle.server.js",
+    path: __dirname + "/dist"
+  }
+};
+
+const libConfig = {
+  ...baseConfig,
+  entry: "./src/index.ts",
+  target: "node",
+  output: {
+    libraryTarget: "this",
+    filename: "bundle.js",
+    path: __dirname + "/dist"
+  }
+};
+
+module.exports = [clientConfig, serverConfig, libConfig];
