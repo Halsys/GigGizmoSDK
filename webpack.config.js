@@ -56,6 +56,10 @@ const libConfig = {
     libraryTarget: "this",
     filename: "bundle.js",
     path: __dirname + "/dist"
+  },
+  externals: {
+    child_process: "child_process",
+    fs: "fs"
   }
 };
 
