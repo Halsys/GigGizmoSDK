@@ -30,6 +30,10 @@ const clientConfig = {
     libraryTarget: "this",
     filename: "bundle.client.js",
     path: __dirname + "/dist"
+  },
+  externals: {
+    child_process: "child_process",
+    fs: "fs"
   }
 };
 
