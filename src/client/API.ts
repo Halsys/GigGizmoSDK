@@ -89,9 +89,8 @@ export default abstract class API {
       if (error.response) {
         const msg = error.response.data;
         if (typeof msg === "string") throw new Error(msg);
-        else if (typeof msg === "object" && msg) {
-          const errorObject = new Error();
-          Object.assign(errorObject, {
+        else if (typeof msg === "object" && msg)
+          throw Object.assign(new Error(error.message), {
             name: error.name,
             stack: error.stack,
             message: error.message,
@@ -99,19 +98,15 @@ export default abstract class API {
             columnNumber: error.columnNumber,
             fileName: error.fileName
           });
-          throw errorObject;
-        }
       } else if (error.request) {
         const x = error.request;
         if (x.response === null) throw new Error("No response");
-        throw new Error(
-          JSON.stringify({
-            readyState: x.readyState,
-            response: x.response,
-            status: x.status,
-            statusText: x.statusText
-          })
-        );
+        throw Object.assign(new Error(x.response), {
+          readyState: x.readyState,
+          response: x.response,
+          status: x.status,
+          statusText: x.statusText
+        });
       } else throw error;
     }
   }
