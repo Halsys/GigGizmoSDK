@@ -17,6 +17,10 @@ class APIError extends Error {
   response: string;
   statusText: string;
   prototype: any;
+  constructor (data: any) {
+    super(data.message);
+    Error.apply(this, data);
+  }
 }
 
 export default abstract class API {
@@ -103,8 +107,7 @@ export default abstract class API {
         const msg = error.response.data;
         if (typeof msg === "string") throw new APIError(msg);
         else if (typeof msg === "object" && msg) {
-          const errObj = new APIError(error.message)
-          throw Object.assign(errObj.prototype, {
+          throw new APIError({
             name: error.name,
             stack: error.stack,
             message: error.message,
@@ -116,12 +119,12 @@ export default abstract class API {
       } else if (error.request) {
         const x = error.request;
         if (x.response === null) throw new APIError("No response");
-        const errObj = new APIError(x.response);
-        throw Object.assign(errObj.prototype, {
+        throw new APIError({
           readyState: x.readyState,
           response: x.response,
           status: x.status,
-          statusText: x.statusText
+          statusText: x.statusText,
+          message: x.statusText
         });
       } else throw error;
     }
