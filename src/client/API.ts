@@ -19,7 +19,8 @@ class APIError extends Error {
   public prototype: any;
   constructor (data: any) {
     super(data.message);
-    Object.setPrototypeOf(this, APIError.prototype);
+    (<any>this).__proto__ = APIError.prototype;
+    Object.assign((<any>this).__proto__, data);
   }
 }
 
