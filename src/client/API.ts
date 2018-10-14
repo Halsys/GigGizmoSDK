@@ -6,6 +6,18 @@ import { parse as ParseCookie } from "cookie";
 import * as WebSocket from "socket.io-client";
 import { version } from "../../package.json";
 
+class APIError extends Error {
+  name: string;
+  stack: string;
+  message: string;
+  lineNumber: number;
+  columnNumber: number;
+  fileName: string;
+  readyState: number;
+  response: string;
+  statusText: string;
+}
+
 export default abstract class API {
   public static readonly SessionStorageSupported =
     typeof Storage !== "undefined";
@@ -88,9 +100,10 @@ export default abstract class API {
     } catch (error) {
       if (error.response) {
         const msg = error.response.data;
-        if (typeof msg === "string") throw new Error(msg);
-        else if (typeof msg === "object" && msg)
-          throw Object.assign(new Error(error.message), {
+        if (typeof msg === "string") throw new APIError(msg);
+        else if (typeof msg === "object" && msg) {
+          const errObj = new APIError(error.message)
+          throw Object.assign(errObj, {
             name: error.name,
             stack: error.stack,
             message: error.message,
@@ -98,10 +111,12 @@ export default abstract class API {
             columnNumber: error.columnNumber,
             fileName: error.fileName
           });
+        }
       } else if (error.request) {
         const x = error.request;
-        if (x.response === null) throw new Error("No response");
-        throw Object.assign(new Error(x.response), {
+        if (x.response === null) throw new APIError("No response");
+        const errObj = new APIError(x.response);
+        throw Object.assign(errObj, {
           readyState: x.readyState,
           response: x.response,
           status: x.status,
@@ -116,9 +131,9 @@ export default abstract class API {
         if (API.webSocket) return resolve(API.webSocket);
         API.webSocket = WebSocket(API.webSocketRootURL);
         API.webSocket.on("connect", () => resolve(API.webSocket));
-        API.webSocket.on("connect_timeout", () => reject(new Error("Timeout")));
+        API.webSocket.on("connect_timeout", () => reject(new APIError("Timeout")));
         API.webSocket.on("connect_error", (error: any) => reject(error));
-        API.webSocket.on("disconnect", () => reject(new Error("Disconnected")));
+        API.webSocket.on("disconnect", () => reject(new APIError("Disconnected")));
         API.webSocket.on("error", (error: any) => reject(error));
         return null;
       }
