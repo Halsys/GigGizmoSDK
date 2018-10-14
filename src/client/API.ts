@@ -19,7 +19,7 @@ class APIError extends Error {
   prototype: any;
   constructor (data: any) {
     super(data.message);
-    Error.apply(this, data);
+    Object.setPrototypeOf(this, APIError.prototype);
   }
 }
 
