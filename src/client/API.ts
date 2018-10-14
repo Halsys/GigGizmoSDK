@@ -6,22 +6,6 @@ import { parse as ParseCookie } from "cookie";
 import * as WebSocket from "socket.io-client";
 import { version } from "../../package.json";
 
-class APIError {
-  public name: string;
-  public stack: string;
-  public message: string;
-  public lineNumber: number;
-  public columnNumber: number;
-  public fileName: string;
-  public readyState: number;
-  public response: string;
-  public statusText: string;
-  constructor (data: any) {
-    Object.assign((<any>this), data);
-    if(!this.stack) this.stack = (new Error()).stack;
-  }
-}
-
 export default abstract class API {
   public static readonly SessionStorageSupported =
     typeof Storage !== "undefined";
@@ -96,37 +80,10 @@ export default abstract class API {
       else fetchRequest.data = data;
     }
 
-    try {
-      let response = await axios(fetchRequest);
-      if (response.data) return response.data;
-      else if (response.statusText) return response.statusText;
-      else if (response.status) return null;
-    } catch (error) {
-      if (error.response) {
-        const msg = error.response.data;
-        if (typeof msg === "string") throw new Error(msg);
-        else if (typeof msg === "object" && msg) {
-          throw new APIError({
-            name: msg.name,
-            stack: msg.stack,
-            message: msg.message,
-            lineNumber: msg.lineNumber,
-            columnNumber: msg.columnNumber,
-            fileName: msg.fileName
-          });
-        }
-      } else if (error.request) {
-        const x = error.request;
-        if (x.response === null) throw new APIError("No response");
-        throw new APIError({
-          readyState: x.readyState,
-          response: x.response,
-          status: x.status,
-          statusText: x.statusText,
-          message: x.statusText
-        });
-      } else throw error;
-    }
+    let response = await axios(fetchRequest);
+    if (response.data) return response.data;
+    else if (response.statusText) return response.statusText;
+    else if (response.status) return null;
   }
   public static getSocket() {
     return new Promise((resolve, reject) => {
