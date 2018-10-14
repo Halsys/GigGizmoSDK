@@ -16,13 +16,9 @@ class APIError {
   public readyState: number;
   public response: string;
   public statusText: string;
-  public prototype: any;
   constructor (data: any) {
     Object.assign((<any>this), data);
-    (<any>this).__proto__ = new Error();
-  }
-  toString(): string {
-    return JSON.stringify((<any>this));
+    if(!this.stack) this.stack = (new Error()).stack;
   }
 }
 
@@ -108,15 +104,15 @@ export default abstract class API {
     } catch (error) {
       if (error.response) {
         const msg = error.response.data;
-        if (typeof msg === "string") throw new APIError(msg);
+        if (typeof msg === "string") throw new Error(msg);
         else if (typeof msg === "object" && msg) {
           throw new APIError({
-            name: error.name,
-            stack: error.stack,
-            message: error.message,
-            lineNumber: error.lineNumber,
-            columnNumber: error.columnNumber,
-            fileName: error.fileName
+            name: msg.name,
+            stack: msg.stack,
+            message: msg.message,
+            lineNumber: msg.lineNumber,
+            columnNumber: msg.columnNumber,
+            fileName: msg.fileName
           });
         }
       } else if (error.request) {
@@ -138,9 +134,9 @@ export default abstract class API {
         if (API.webSocket) return resolve(API.webSocket);
         API.webSocket = WebSocket(API.webSocketRootURL);
         API.webSocket.on("connect", () => resolve(API.webSocket));
-        API.webSocket.on("connect_timeout", () => reject(new APIError("Timeout")));
+        API.webSocket.on("connect_timeout", () => reject(new Error("Timeout")));
         API.webSocket.on("connect_error", (error: any) => reject(error));
-        API.webSocket.on("disconnect", () => reject(new APIError("Disconnected")));
+        API.webSocket.on("disconnect", () => reject(new Error("Disconnected")));
         API.webSocket.on("error", (error: any) => reject(error));
         return null;
       }
