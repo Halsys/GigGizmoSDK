@@ -7,16 +7,16 @@ import * as WebSocket from "socket.io-client";
 import { version } from "../../package.json";
 
 class APIError extends Error {
-  name: string;
-  stack: string;
-  message: string;
-  lineNumber: number;
-  columnNumber: number;
-  fileName: string;
-  readyState: number;
-  response: string;
-  statusText: string;
-  prototype: any;
+  public name: string;
+  public stack: string;
+  public message: string;
+  public lineNumber: number;
+  public columnNumber: number;
+  public fileName: string;
+  public readyState: number;
+  public response: string;
+  public statusText: string;
+  public prototype: any;
   constructor (data: any) {
     super(data.message);
     Object.setPrototypeOf(this, APIError.prototype);
