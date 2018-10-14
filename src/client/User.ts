@@ -527,10 +527,11 @@ export default class User extends RESTModel {
           email,
           password
         }).then((response: any) => {
+          //TODO: Create error for unauthorized access vs general error
           if (response && response.user && response.token) {
             API.token = response.token;
             User.setUser(response.user).then(resolve, onError);
-          } else onError(new Error(`${JSON.stringify(response)} returned`));
+          } else onError(new Error(`Unauthorized`));
         }, onError);
       }
     });
