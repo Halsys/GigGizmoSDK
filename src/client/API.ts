@@ -6,7 +6,7 @@ import { parse as ParseCookie } from "cookie";
 import * as WebSocket from "socket.io-client";
 import { version } from "../../package.json";
 
-class APIError extends Error {
+class APIError {
   public name: string;
   public stack: string;
   public message: string;
@@ -18,9 +18,8 @@ class APIError extends Error {
   public statusText: string;
   public prototype: any;
   constructor (data: any) {
-    super(data.message);
-    (<any>this).__proto__ = APIError.prototype;
     Object.assign((<any>this), data);
+    (<any>this).__proto__ = new Error();
   }
   toString(): string {
     return JSON.stringify((<any>this));
