@@ -20,7 +20,7 @@ class APIError extends Error {
   constructor (data: any) {
     super(data.message);
     (<any>this).__proto__ = APIError.prototype;
-    Object.assign((<any>this).__proto__, data);
+    Object.assign((<any>this), data);
   }
 }
 
