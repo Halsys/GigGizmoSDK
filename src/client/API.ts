@@ -99,5 +99,5 @@ export default abstract class API {
   }
 }
 
-axios.defaults.headers.common['Authorization'] = API.token;
+axios.defaults.headers.common['gig-gizmo-token'] = API.token;
 document.cookie = `gig-gizmo-token=${encodeURIComponent(API.token)}`;
