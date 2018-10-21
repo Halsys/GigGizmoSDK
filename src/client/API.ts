@@ -65,9 +65,6 @@ export default abstract class API {
   }
   public static async call(method: string, route: string, data: any) {
     let fetchRequest: AxiosRequestConfig = {
-      headers: {
-        "gig-gizmo-token": API.token
-      },
       url: `${API.rootURL}${route}`,
       method: method.toLowerCase(),
       data: null,
@@ -101,3 +98,6 @@ export default abstract class API {
     });
   }
 }
+
+axios.defaults.headers.common['Authorization'] = API.token;
+document.cookie = `gig-gizmo-token=${encodeURIComponent(API.token)}`;
