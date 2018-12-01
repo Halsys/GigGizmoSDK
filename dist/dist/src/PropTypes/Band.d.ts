@@ -1,0 +1,23 @@
+import * as PropTypes from "prop-types";
+declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+    _id: PropTypes.Validator<string>;
+    dateCreated: PropTypes.Validator<string | Date>;
+    dateModified: PropTypes.Validator<string | Date>;
+    name: PropTypes.Validator<string>;
+    website: PropTypes.Requireable<string>;
+    email: PropTypes.Requireable<string>;
+    cityName: PropTypes.Requireable<string>;
+    cityPlaceID: PropTypes.Requireable<string>;
+    description: PropTypes.Requireable<string>;
+    icon: PropTypes.Requireable<string>;
+    photos: PropTypes.Requireable<string[]>;
+    owners: PropTypes.Requireable<string[]>;
+    facebook: PropTypes.Requireable<string>;
+    twitter: PropTypes.Requireable<string>;
+    google: PropTypes.Requireable<string>;
+    metadata: PropTypes.Requireable<string>;
+    facebookPageId: PropTypes.Requireable<string>;
+    facebookPageName: PropTypes.Requireable<string>;
+    facebookPageToken: PropTypes.Requireable<string>;
+}>>;
+export default _default;
