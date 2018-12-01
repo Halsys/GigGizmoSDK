@@ -81,10 +81,70 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./index.ts");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./index.ts":
+/*!******************!*\
+  !*** ./index.ts ***!
+  \******************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/**
+ * Created by corynull on 7/15/17.
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+// Extras
+var PropTypes_1 = __webpack_require__(/*! ./src/PropTypes */ "./src/PropTypes/index.ts");
+exports.GigGizmoPropTypes = PropTypes_1.default;
+var API_1 = __webpack_require__(/*! ./src/API */ "./src/API.ts");
+exports.API = API_1.default;
+// Models
+var Band_1 = __webpack_require__(/*! ./src/Band */ "./src/Band.ts");
+exports.Band = Band_1.default;
+var Conversation_1 = __webpack_require__(/*! ./src/Conversation */ "./src/Conversation.ts");
+exports.Conversation = Conversation_1.default;
+var ErrorReport_1 = __webpack_require__(/*! ./src/ErrorReport */ "./src/ErrorReport.ts");
+exports.ErrorReport = ErrorReport_1.default;
+var FacebookAccount_1 = __webpack_require__(/*! ./src/FacebookAccount */ "./src/FacebookAccount.ts");
+exports.FacebookAccount = FacebookAccount_1.default;
+var Gig_1 = __webpack_require__(/*! ./src/Gig */ "./src/Gig.ts");
+exports.Gig = Gig_1.default;
+var GooglePlace_1 = __webpack_require__(/*! ./src/GooglePlace */ "./src/GooglePlace.ts");
+exports.GooglePlace = GooglePlace_1.default;
+var Location_1 = __webpack_require__(/*! ./src/Location */ "./src/Location.ts");
+exports.Location = Location_1.default;
+var Notification_1 = __webpack_require__(/*! ./src/Notification */ "./src/Notification.ts");
+exports.Notification = Notification_1.default;
+var Page_1 = __webpack_require__(/*! ./src/Page */ "./src/Page.ts");
+exports.Page = Page_1.default;
+var Post_1 = __webpack_require__(/*! ./src/Post */ "./src/Post.ts");
+exports.Post = Post_1.default;
+var Request_1 = __webpack_require__(/*! ./src/Request */ "./src/Request.ts");
+exports.Request = Request_1.default;
+var RESTModel_1 = __webpack_require__(/*! ./src/RESTModel */ "./src/RESTModel.ts");
+exports.RESTModel = RESTModel_1.default;
+var TwitterAccount_1 = __webpack_require__(/*! ./src/TwitterAccount */ "./src/TwitterAccount.ts");
+exports.TwitterAccount = TwitterAccount_1.default;
+var Upload_1 = __webpack_require__(/*! ./src/Upload */ "./src/Upload.ts");
+exports.Upload = Upload_1.default;
+var User_1 = __webpack_require__(/*! ./src/User */ "./src/User.ts");
+exports.User = User_1.default;
+var Venue_1 = __webpack_require__(/*! ./src/Venue */ "./src/Venue.ts");
+exports.Venue = Venue_1.default;
+var ModelNameToModel_1 = __webpack_require__(/*! ./src/ModelNameToModel */ "./src/ModelNameToModel.ts");
+exports.ModelNameToModel = ModelNameToModel_1.default;
+if (typeof window !== "undefined") {
+    window.GigGizmoAPI = module.exports;
+}
+
+
+/***/ }),
 
 /***/ "./node_modules/axios/lib/adapters/http.js":
 /*!*************************************************!*\
@@ -8942,66 +9002,6 @@ var Venue = /** @class */ (function (_super) {
     return Venue;
 }(RESTModel_1.default));
 exports.default = Venue;
-
-
-/***/ }),
-
-/***/ "./src/index.ts":
-/*!**********************!*\
-  !*** ./src/index.ts ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Created by corynull on 7/15/17.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-// Extras
-var PropTypes_1 = __webpack_require__(/*! ./PropTypes */ "./src/PropTypes/index.ts");
-exports.GigGizmoPropTypes = PropTypes_1.default;
-var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
-exports.API = API_1.default;
-// Models
-var Band_1 = __webpack_require__(/*! ./Band */ "./src/Band.ts");
-exports.Band = Band_1.default;
-var Conversation_1 = __webpack_require__(/*! ./Conversation */ "./src/Conversation.ts");
-exports.Conversation = Conversation_1.default;
-var ErrorReport_1 = __webpack_require__(/*! ./ErrorReport */ "./src/ErrorReport.ts");
-exports.ErrorReport = ErrorReport_1.default;
-var FacebookAccount_1 = __webpack_require__(/*! ./FacebookAccount */ "./src/FacebookAccount.ts");
-exports.FacebookAccount = FacebookAccount_1.default;
-var Gig_1 = __webpack_require__(/*! ./Gig */ "./src/Gig.ts");
-exports.Gig = Gig_1.default;
-var GooglePlace_1 = __webpack_require__(/*! ./GooglePlace */ "./src/GooglePlace.ts");
-exports.GooglePlace = GooglePlace_1.default;
-var Location_1 = __webpack_require__(/*! ./Location */ "./src/Location.ts");
-exports.Location = Location_1.default;
-var Notification_1 = __webpack_require__(/*! ./Notification */ "./src/Notification.ts");
-exports.Notification = Notification_1.default;
-var Page_1 = __webpack_require__(/*! ./Page */ "./src/Page.ts");
-exports.Page = Page_1.default;
-var Post_1 = __webpack_require__(/*! ./Post */ "./src/Post.ts");
-exports.Post = Post_1.default;
-var Request_1 = __webpack_require__(/*! ./Request */ "./src/Request.ts");
-exports.Request = Request_1.default;
-var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
-exports.RESTModel = RESTModel_1.default;
-var TwitterAccount_1 = __webpack_require__(/*! ./TwitterAccount */ "./src/TwitterAccount.ts");
-exports.TwitterAccount = TwitterAccount_1.default;
-var Upload_1 = __webpack_require__(/*! ./Upload */ "./src/Upload.ts");
-exports.Upload = Upload_1.default;
-var User_1 = __webpack_require__(/*! ./User */ "./src/User.ts");
-exports.User = User_1.default;
-var Venue_1 = __webpack_require__(/*! ./Venue */ "./src/Venue.ts");
-exports.Venue = Venue_1.default;
-var ModelNameToModel_1 = __webpack_require__(/*! ./ModelNameToModel */ "./src/ModelNameToModel.ts");
-exports.ModelNameToModel = ModelNameToModel_1.default;
-if (typeof window !== "undefined") {
-    window.GigGizmoAPI = module.exports;
-}
 
 
 /***/ }),

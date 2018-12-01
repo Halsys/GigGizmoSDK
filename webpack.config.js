@@ -27,10 +27,10 @@ module.exports = {
     ]
   },
 
-  entry: "./src/index.ts",
+  entry: "./index.ts",
   output: {
     libraryTarget: "this",
     filename: "bundle.js",
-    path: __dirname + "/dist"
+    path: __dirname + "/"
   }
 };
