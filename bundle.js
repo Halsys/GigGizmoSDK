@@ -7317,6 +7317,8 @@ var RESTModel = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        if (criteria === null)
+                            criteria = {};
                         if (Array.from(Object.keys(criteria)).length === 1 && criteria._id) {
                             id = criteria._id;
                             if (RESTModel.Cache.has(id)) {
@@ -7368,6 +7370,8 @@ var RESTModel = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        if (criteria === null)
+                            criteria = {};
                         if (Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
                             items_1 = [];
                             (criteria._id || criteria.id).forEach(function (id) {

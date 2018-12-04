@@ -271,6 +271,7 @@ export default abstract class RESTModel {
     criteria: any = {},
     hasWebSocket: boolean = false
   ) {
+    if(criteria === null) criteria = {};
     if(Array.from(Object.keys(criteria)).length === 1 && criteria._id) {
       const id = criteria._id;
       if(RESTModel.Cache.has(id)) {
@@ -303,6 +304,7 @@ export default abstract class RESTModel {
     criteria: any = {},
     hasWebSocket: boolean = false
   ) {
+    if(criteria === null) criteria = {};
     if(Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
       const items: RESTModel[] = [];
       (criteria._id || criteria.id).forEach((id: string) => {
