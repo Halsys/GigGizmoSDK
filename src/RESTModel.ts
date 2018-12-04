@@ -4,6 +4,16 @@ import API from "./API";
 export default abstract class RESTModel {
   static ModelName: string = "RESTModel";
   static Cache = new Map();
+  private expiration: Date = (
+    new Date(
+      (new Date())
+        .getTime() +
+      1 * // Hours
+      60 * // Minutes
+      60 * // Seconds
+      1000 // Milliseconds
+    )
+  );
   private changes: any = new Object();
   private document: any = new Object();
 
@@ -108,17 +118,17 @@ export default abstract class RESTModel {
   toObject() {
     const object = this.valid() ?
       Object.assign({}, this.changes, this.document) : null;
-    if(typeof object === "object" && object) {
-      if(typeof object.id !== "undefined") delete object.id;
-      if(typeof object._id !== "undefined")
+    if (typeof object === "object" && object) {
+      if (typeof object.id !== "undefined") delete object.id;
+      if (typeof object._id !== "undefined")
         object._id = (object._id.toString() ? object._id : null);
     }
     return object;
   }
 
   toString() {
-		const object = this.toObject();
-		return JSON.stringify(object);
+    const object = this.toObject();
+    return JSON.stringify(object);
   }
 
   valid() {
@@ -230,22 +240,28 @@ export default abstract class RESTModel {
     id: string,
     hasWebSocket: boolean = false
   ) {
-    if (RESTModel.isValidId(id)) {
-      let data = null;
-      let { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
-      if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-        data = await new Promise((resolve, reject) =>
-          API.getSocket().then((socket: SocketIOClient.Socket) => {
-            return socket.emit(`/API/${modelName}/Retreive`, id, resolve);
-          }, reject)
-        );
-      }
-      if (!data) {
-        data = await API.call("GET", `/API/${modelName}/${id}`, null);
-      }
-      if (data && RESTModel.isValidId((<any>data)._id)) {
-        return new Model(data);
-      }
+      if (RESTModel.isValidId(id)) {
+        if (RESTModel.Cache.has(id)) {
+          const cache = RESTModel.Cache.get(id);
+          if (cache && cache.expiration < new Date())
+            return cache;
+        }
+        let data = null;
+        let { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
+
+        if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+          data = await new Promise((resolve, reject) =>
+            API.getSocket().then((socket: SocketIOClient.Socket) => {
+              return socket.emit(`/API/${modelName}/Retreive`, id, resolve);
+            }, reject)
+          );
+        }
+        if (!data) {
+          data = await API.call("GET", `/API/${modelName}/${id}`, null);
+        }
+        if (data && RESTModel.isValidId((<any>data)._id)) {
+          return new Model(data);
+        }
     }
     return null;
   }

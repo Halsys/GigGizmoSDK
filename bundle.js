@@ -6997,6 +6997,13 @@ var ModelNameToModel_1 = __webpack_require__(/*! ./ModelNameToModel */ "./src/Mo
 var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
 var RESTModel = /** @class */ (function () {
     function RESTModel(dataMaybe) {
+        this.expiration = (new Date((new Date())
+            .getTime() +
+            1 * // Hours
+                60 * // Minutes
+                60 * // Seconds
+                1000 // Milliseconds
+        ));
         this.changes = new Object();
         this.document = new Object();
         this.document = new Object();
@@ -7263,11 +7270,16 @@ var RESTModel = /** @class */ (function () {
     RESTModel.findByIdBase = function (ModelMaybe, id, hasWebSocket) {
         if (hasWebSocket === void 0) { hasWebSocket = false; }
         return __awaiter(this, void 0, void 0, function () {
-            var data, _a, Model, modelName_2;
+            var cache, data, _a, Model, modelName_2;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         if (!RESTModel.isValidId(id)) return [3 /*break*/, 6];
+                        if (RESTModel.Cache.has(id)) {
+                            cache = RESTModel.Cache.get(id);
+                            if (cache && cache.expiration < new Date())
+                                return [2 /*return*/, cache];
+                        }
                         data = null;
                         return [4 /*yield*/, RESTModel.deduceModelAndName(ModelMaybe)];
                     case 1:

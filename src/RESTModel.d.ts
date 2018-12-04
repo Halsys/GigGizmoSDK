@@ -1,6 +1,7 @@
 export default abstract class RESTModel {
     static ModelName: string;
     static Cache: Map<any, any>;
+    private expiration;
     private changes;
     private document;
     static deduceModelAndName(ModelMaybe: any): Promise<{
