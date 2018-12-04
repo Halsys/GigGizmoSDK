@@ -64,10 +64,10 @@ export default class Conversation extends RESTModel {
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Conversation", id, true);
+    return RESTModel.findByIdBase(Conversation, id, true);
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Conversation", null, true);
+    return RESTModel.findManyBase(Conversation, null, true);
   }
 }

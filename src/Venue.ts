@@ -3,6 +3,10 @@
  */
 
 import Gig from "./Gig";
+import User from "./User";
+import Upload from "./Upload";
+import TwitterAccount from "./TwitterAccount";
+import FacebookAccount from "./FacebookAccount";
 import RESTModel from "./RESTModel";
 
 export default class Venue extends RESTModel {
@@ -145,14 +149,14 @@ export default class Venue extends RESTModel {
   }
 
   getIcon() {
-    return RESTModel.findByIdBase("Upload", this.icon, true);
+    return RESTModel.findByIdBase(Upload, this.icon, true);
   }
 
   getPhotos() {
     const photos = Array.from(this.photos);
     if (photos.length !== 0)
       return RESTModel.findManyBase(
-        "Upload",
+        Upload,
         {
           _id: photos
         },
@@ -165,7 +169,7 @@ export default class Venue extends RESTModel {
     const owners = Array.from(this.owners);
     if (owners.length !== 0)
       return RESTModel.findManyBase(
-        "User",
+        User,
         {
           _id: owners
         },
@@ -179,15 +183,15 @@ export default class Venue extends RESTModel {
   }
 
   getTwitterAccount() {
-    return RESTModel.findByIdBase("TwitterAccount", this.twitter, true);
+    return RESTModel.findByIdBase(TwitterAccount, this.twitter, true);
   }
 
   getFacebookAccount() {
-    return RESTModel.findByIdBase("FacebookAccount", this.facebook, true);
+    return RESTModel.findByIdBase(FacebookAccount, this.facebook, true);
   }
 
   getLocation() {
-    return RESTModel.findByIdBase("Location", this.location, true);
+    return RESTModel.findByIdBase(Location, this.location, true);
   }
 
   isValid() {
@@ -224,18 +228,18 @@ export default class Venue extends RESTModel {
   }
 
   static findOne(criteria: object | null) {
-    return RESTModel.findOneBase("Venue", criteria, true);
+    return RESTModel.findOneBase(Venue, criteria, true);
   }
 
   static findMany(criteria: object | null) {
-    return RESTModel.findManyBase("Venue", criteria, true);
+    return RESTModel.findManyBase(Venue, criteria, true);
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Venue", id, true);
+    return RESTModel.findByIdBase(Venue, id, true);
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Venue", null, true);
+    return RESTModel.findManyBase(Venue, null, true);
   }
 }

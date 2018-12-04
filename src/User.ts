@@ -8,6 +8,11 @@ import Venue from "./Venue";
 import Page from "./Page";
 import Upload from "./Upload";
 import Location from "./Location";
+import Gig from "./Gig";
+import FacebookAccount from "./FacebookAccount";
+import TwitterAccount from "./TwitterAccount";
+import Conversation from "./Conversation";
+import Post from "./Post";
 import RESTModel from "./RESTModel";
 
 export default class User extends RESTModel {
@@ -260,15 +265,15 @@ export default class User extends RESTModel {
   }
 
   getIcon() {
-    return RESTModel.findByIdBase("Upload", this.icon, true);
+    return RESTModel.findByIdBase(Upload, this.icon, true);
   }
 
   getTwitterAccount() {
-    return RESTModel.findByIdBase("TwitterAccount", this.twitter);
+    return RESTModel.findByIdBase(TwitterAccount, this.twitter);
   }
 
   getFacebookAccount() {
-    return RESTModel.findByIdBase("FacebookAccount", this.facebook);
+    return RESTModel.findByIdBase(FacebookAccount, this.facebook);
   }
 
   validatePassword(maybePassword: string) {
@@ -346,31 +351,31 @@ export default class User extends RESTModel {
   }
 
   static getAllConversations() {
-    return RESTModel.findManyBase("Conversation", null, true);
+    return RESTModel.findManyBase(Conversation, null, true);
   }
 
   static getAllNotifications() {
-    return RESTModel.findManyBase("Notification", null, true);
+    return RESTModel.findManyBase(Notification, null, true);
   }
 
   static getAllPosts() {
-    return RESTModel.findManyBase("Post", null, true);
+    return RESTModel.findManyBase(Post, null, true);
   }
 
   static getAllBands() {
-    return RESTModel.findManyBase("Band", null, true);
+    return RESTModel.findManyBase(Band, null, true);
   }
 
   static getAllVenues() {
-    return RESTModel.findManyBase("Venue", null, true);
+    return RESTModel.findManyBase(Venue, null, true);
   }
 
   static getAllGigs() {
-    return RESTModel.findManyBase("Gig", null, true);
+    return RESTModel.findManyBase(Gig, null, true);
   }
 
   static getAllUploads() {
-    return RESTModel.findManyBase("Upload", null, true);
+    return RESTModel.findManyBase(Upload, null, true);
   }
 
   static findFacebookPages(term: string) {
@@ -462,11 +467,11 @@ export default class User extends RESTModel {
   }
 
   static findMany(criteria: object | null) {
-    return RESTModel.findManyBase("User", criteria, true);
+    return RESTModel.findManyBase(User, criteria, true);
   }
 
   static findOne(criteria: object | null) {
-    return RESTModel.findOneBase("User", criteria, true);
+    return RESTModel.findOneBase(User, criteria, true);
   }
 
   static onChange(callback: any) {
@@ -523,7 +528,7 @@ export default class User extends RESTModel {
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("User", id, true);
+    return RESTModel.findByIdBase(User, id, true);
   }
 
   static connectFacebook() {

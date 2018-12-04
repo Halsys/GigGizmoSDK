@@ -120,10 +120,10 @@ export default class Request extends RESTModel {
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Request", null);
+    return RESTModel.findManyBase(Request, null);
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Request", id);
+    return RESTModel.findByIdBase(Request, id);
   }
 }

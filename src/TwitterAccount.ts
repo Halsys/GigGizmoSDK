@@ -3,6 +3,7 @@
  */
 
 import RESTModel from "./RESTModel";
+import User from "./User";
 import API from "./API";
 
 export default class TwitterAccount extends RESTModel {
@@ -49,7 +50,7 @@ export default class TwitterAccount extends RESTModel {
   }
 
   getUser() {
-    return RESTModel.findByIdBase("User", this.userId, true);
+    return RESTModel.findByIdBase(User, this.userId, true);
   }
 
   userIsOwner(user: any) {

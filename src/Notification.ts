@@ -77,11 +77,11 @@ export default class Notification extends RESTModel {
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Notification", null, true);
+    return RESTModel.findManyBase(Notification, null, true);
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Notification", id, true);
+    return RESTModel.findByIdBase(Notification, id, true);
   }
 
   static connectSocket() {

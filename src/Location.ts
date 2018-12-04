@@ -79,6 +79,6 @@ export default class Location extends RESTModel {
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Location", id);
+    return RESTModel.findByIdBase(Location, id);
   }
 }

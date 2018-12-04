@@ -3,6 +3,7 @@
  */
 
 import RESTModel from "./RESTModel";
+import User from "./User";
 
 export default class Upload extends RESTModel {
   static ModelName: string = "Upload";
@@ -51,7 +52,7 @@ export default class Upload extends RESTModel {
     const owners = Array.from(this.owners);
     if (owners.length !== 0)
       return RESTModel.findManyBase(
-        "User",
+        User,
         {
           _id: owners
         },
@@ -88,14 +89,14 @@ export default class Upload extends RESTModel {
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Upload", id);
+    return RESTModel.findByIdBase(Upload, id);
   }
 
   static findMany(criteria: object | null) {
-    return RESTModel.findManyBase("Upload", criteria, true);
+    return RESTModel.findManyBase(Upload, criteria, true);
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Upload", null, true);
+    return RESTModel.findManyBase(Upload, null, true);
   }
 }

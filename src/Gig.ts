@@ -3,6 +3,8 @@
  */
 
 import API from "./API";
+import Band from "./Band";
+import Venue from "./Venue";
 import RESTModel from "./RESTModel";
 
 export default class Gig extends RESTModel {
@@ -87,15 +89,15 @@ export default class Gig extends RESTModel {
   }
 
   getBands() {
-    return RESTModel.findManyBase("Band", { _id: this.bands }, true);
+    return RESTModel.findManyBase(Band, { _id: this.bands }, true);
   }
 
   getVenue() {
-    return RESTModel.findByIdBase("Venue", this.venue, true);
+    return RESTModel.findByIdBase(Venue, this.venue, true);
   }
 
   getLocation() {
-    return RESTModel.findByIdBase("Location", this.location, true);
+    return RESTModel.findByIdBase(Location, this.location, true);
   }
 
   isValid() {
@@ -116,7 +118,7 @@ export default class Gig extends RESTModel {
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Gig", id, true);
+    return RESTModel.findByIdBase(Gig, id, true);
   }
 
   static async findByBand(bandId: string) {
@@ -142,11 +144,11 @@ export default class Gig extends RESTModel {
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Gig", null, true);
+    return RESTModel.findManyBase(Gig, null, true);
   }
 
   static findMany(criteria: object | null) {
-    return RESTModel.findManyBase("Gig", criteria, true);
+    return RESTModel.findManyBase(Gig, criteria, true);
   }
 
   static createGigs(gigData: object) {

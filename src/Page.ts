@@ -107,15 +107,15 @@ export default class Page extends RESTModel {
   }
 
   static findMany(criteria: any) {
-    return RESTModel.findManyBase("Page", criteria);
+    return RESTModel.findManyBase(Page, criteria);
   }
 
   static findOne(criteria: any) {
-    return RESTModel.findOneBase("Page", criteria);
+    return RESTModel.findOneBase(Page, criteria);
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Page", id);
+    return RESTModel.findByIdBase(Page, id);
   }
 
   static findByLink(link: string) {

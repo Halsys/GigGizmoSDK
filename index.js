@@ -4627,6 +4627,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Gig_1 = __webpack_require__(/*! ./Gig */ "./src/Gig.ts");
+var Upload_1 = __webpack_require__(/*! ./Upload */ "./src/Upload.ts");
+var User_1 = __webpack_require__(/*! ./User */ "./src/User.ts");
+var TwitterAccount_1 = __webpack_require__(/*! ./TwitterAccount */ "./src/TwitterAccount.ts");
+var FacebookAccount_1 = __webpack_require__(/*! ./FacebookAccount */ "./src/FacebookAccount.ts");
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
 var Band = /** @class */ (function (_super) {
     __extends(Band, _super);
@@ -4800,12 +4804,12 @@ var Band = /** @class */ (function (_super) {
         return RESTModel_1.default.prototype.remove.call(this, true);
     };
     Band.prototype.getIcon = function () {
-        return RESTModel_1.default.findByIdBase("Upload", this.icon, true);
+        return RESTModel_1.default.findByIdBase(Upload_1.default, this.icon, true);
     };
     Band.prototype.getPhotos = function () {
         var photos = Array.from(this.photos);
         if (photos.length !== 0)
-            return RESTModel_1.default.findManyBase("Upload", {
+            return RESTModel_1.default.findManyBase(Upload_1.default, {
                 _id: photos
             }, true);
         return Promise.resolve([]);
@@ -4813,7 +4817,7 @@ var Band = /** @class */ (function (_super) {
     Band.prototype.getOwners = function () {
         var owners = Array.from(this.owners);
         if (owners.length !== 0)
-            return RESTModel_1.default.findManyBase("User", {
+            return RESTModel_1.default.findManyBase(User_1.default, {
                 _id: owners
             }, true);
         return Promise.resolve([]);
@@ -4822,10 +4826,10 @@ var Band = /** @class */ (function (_super) {
         return Gig_1.default.findByBand(this._id);
     };
     Band.prototype.getTwitterAccount = function () {
-        return RESTModel_1.default.findByIdBase("TwitterAccount", this.twitter, true);
+        return RESTModel_1.default.findByIdBase(TwitterAccount_1.default, this.twitter, true);
     };
     Band.prototype.getFacebookAccount = function () {
-        return RESTModel_1.default.findByIdBase("FacebookAccount", this.facebook, true);
+        return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook, true);
     };
     Band.prototype.isValid = function () {
         var self = this;
@@ -4865,16 +4869,16 @@ var Band = /** @class */ (function (_super) {
         return false;
     };
     Band.findOne = function (criteria) {
-        return RESTModel_1.default.findOneBase("Band", criteria, true);
+        return RESTModel_1.default.findOneBase(Band, criteria, true);
     };
     Band.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("Band", criteria, true);
+        return RESTModel_1.default.findManyBase(Band, criteria, true);
     };
     Band.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Band", id, true);
+        return RESTModel_1.default.findByIdBase(Band, id, true);
     };
     Band.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Band", null, true);
+        return RESTModel_1.default.findManyBase(Band, null, true);
     };
     Band.ModelName = "Band";
     return Band;
@@ -4975,10 +4979,10 @@ var Conversation = /** @class */ (function (_super) {
         }, console.error);
     };
     Conversation.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Conversation", id, true);
+        return RESTModel_1.default.findByIdBase(Conversation, id, true);
     };
     Conversation.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Conversation", null, true);
+        return RESTModel_1.default.findManyBase(Conversation, null, true);
     };
     Conversation.ModelName = "Conversation";
     Conversation.Callbacks = new Map();
@@ -5108,10 +5112,10 @@ var ErrorReport = /** @class */ (function (_super) {
         return true;
     };
     ErrorReport.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("ErrorReport", id);
+        return RESTModel_1.default.findByIdBase(ErrorReport, id);
     };
     ErrorReport.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("ErrorReport", criteria);
+        return RESTModel_1.default.findManyBase(ErrorReport, criteria);
     };
     ErrorReport.ModelName = "ErrorReport";
     return ErrorReport;
@@ -5148,6 +5152,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
+var User_1 = __webpack_require__(/*! ./User */ "./src/User.ts");
 var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
 var FacebookAccount = /** @class */ (function (_super) {
     __extends(FacebookAccount, _super);
@@ -5202,7 +5207,7 @@ var FacebookAccount = /** @class */ (function (_super) {
         configurable: true
     });
     FacebookAccount.prototype.getUser = function () {
-        return RESTModel_1.default.findManyBase("User", this.userId, true);
+        return RESTModel_1.default.findManyBase(User_1.default, this.userId, true);
     };
     FacebookAccount.prototype.userIsOwner = function (user) {
         if (typeof user === "string")
@@ -5328,6 +5333,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
+var Band_1 = __webpack_require__(/*! ./Band */ "./src/Band.ts");
+var Venue_1 = __webpack_require__(/*! ./Venue */ "./src/Venue.ts");
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
 var Gig = /** @class */ (function (_super) {
     __extends(Gig, _super);
@@ -5434,13 +5441,13 @@ var Gig = /** @class */ (function (_super) {
         configurable: true
     });
     Gig.prototype.getBands = function () {
-        return RESTModel_1.default.findManyBase("Band", { _id: this.bands }, true);
+        return RESTModel_1.default.findManyBase(Band_1.default, { _id: this.bands }, true);
     };
     Gig.prototype.getVenue = function () {
-        return RESTModel_1.default.findByIdBase("Venue", this.venue, true);
+        return RESTModel_1.default.findByIdBase(Venue_1.default, this.venue, true);
     };
     Gig.prototype.getLocation = function () {
-        return RESTModel_1.default.findByIdBase("Location", this.location, true);
+        return RESTModel_1.default.findByIdBase(Location, this.location, true);
     };
     Gig.prototype.isValid = function () {
         if (!_super.prototype.isValid.call(this))
@@ -5463,7 +5470,7 @@ var Gig = /** @class */ (function (_super) {
         return false;
     };
     Gig.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Gig", id, true);
+        return RESTModel_1.default.findByIdBase(Gig, id, true);
     };
     Gig.findByBand = function (bandId) {
         return __awaiter(this, void 0, void 0, function () {
@@ -5504,10 +5511,10 @@ var Gig = /** @class */ (function (_super) {
         });
     };
     Gig.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Gig", null, true);
+        return RESTModel_1.default.findManyBase(Gig, null, true);
     };
     Gig.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("Gig", criteria, true);
+        return RESTModel_1.default.findManyBase(Gig, criteria, true);
     };
     Gig.createGigs = function (gigData) {
         return new Promise(function (resolve, reject) {
@@ -5788,7 +5795,7 @@ var Location = /** @class */ (function (_super) {
         });
     };
     Location.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Location", id);
+        return RESTModel_1.default.findByIdBase(Location, id);
     };
     Location.ModelName = "Location";
     return Location;
@@ -6061,10 +6068,10 @@ var Notification = /** @class */ (function (_super) {
         });
     };
     Notification.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Notification", null, true);
+        return RESTModel_1.default.findManyBase(Notification, null, true);
     };
     Notification.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Notification", id, true);
+        return RESTModel_1.default.findByIdBase(Notification, id, true);
     };
     Notification.connectSocket = function () {
         API_1.default.getSocket().then(function (socket) {
@@ -6236,13 +6243,13 @@ var Page = /** @class */ (function (_super) {
         return false;
     };
     Page.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("Page", criteria);
+        return RESTModel_1.default.findManyBase(Page, criteria);
     };
     Page.findOne = function (criteria) {
-        return RESTModel_1.default.findOneBase("Page", criteria);
+        return RESTModel_1.default.findOneBase(Page, criteria);
     };
     Page.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Page", id);
+        return RESTModel_1.default.findByIdBase(Page, id);
     };
     Page.findByLink = function (link) {
         return new Promise(function (resolve, reject) {
@@ -6404,13 +6411,13 @@ var Post = /** @class */ (function (_super) {
         return false;
     };
     Post.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Post", id);
+        return RESTModel_1.default.findByIdBase(Post, id);
     };
     Post.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Post", null);
+        return RESTModel_1.default.findManyBase(Post, null);
     };
     Post.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("Post", criteria);
+        return RESTModel_1.default.findManyBase(Post, criteria);
     };
     Post.ModelName = "Post";
     return Post;
@@ -7625,10 +7632,10 @@ var Request = /** @class */ (function (_super) {
         });
     };
     Request.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Request", null);
+        return RESTModel_1.default.findManyBase(Request, null);
     };
     Request.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Request", id);
+        return RESTModel_1.default.findByIdBase(Request, id);
     };
     Request.ModelName = "Request";
     return Request;
@@ -7665,6 +7672,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
+var User_1 = __webpack_require__(/*! ./User */ "./src/User.ts");
 var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
 var TwitterAccount = /** @class */ (function (_super) {
     __extends(TwitterAccount, _super);
@@ -7722,7 +7730,7 @@ var TwitterAccount = /** @class */ (function (_super) {
         configurable: true
     });
     TwitterAccount.prototype.getUser = function () {
-        return RESTModel_1.default.findByIdBase("User", this.userId, true);
+        return RESTModel_1.default.findByIdBase(User_1.default, this.userId, true);
     };
     TwitterAccount.prototype.userIsOwner = function (user) {
         if (typeof user === "string")
@@ -7830,6 +7838,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
+var User_1 = __webpack_require__(/*! ./User */ "./src/User.ts");
 var Upload = /** @class */ (function (_super) {
     __extends(Upload, _super);
     function Upload() {
@@ -7888,7 +7897,7 @@ var Upload = /** @class */ (function (_super) {
     Upload.prototype.getOwners = function () {
         var owners = Array.from(this.owners);
         if (owners.length !== 0)
-            return RESTModel_1.default.findManyBase("User", {
+            return RESTModel_1.default.findManyBase(User_1.default, {
                 _id: owners
             }, true);
         return Promise.resolve([]);
@@ -7937,13 +7946,13 @@ var Upload = /** @class */ (function (_super) {
         });
     };
     Upload.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Upload", id);
+        return RESTModel_1.default.findByIdBase(Upload, id);
     };
     Upload.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("Upload", criteria, true);
+        return RESTModel_1.default.findManyBase(Upload, criteria, true);
     };
     Upload.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Upload", null, true);
+        return RESTModel_1.default.findManyBase(Upload, null, true);
     };
     Upload.ModelName = "Upload";
     return Upload;
@@ -8020,6 +8029,11 @@ var Venue_1 = __webpack_require__(/*! ./Venue */ "./src/Venue.ts");
 var Page_1 = __webpack_require__(/*! ./Page */ "./src/Page.ts");
 var Upload_1 = __webpack_require__(/*! ./Upload */ "./src/Upload.ts");
 var Location_1 = __webpack_require__(/*! ./Location */ "./src/Location.ts");
+var Gig_1 = __webpack_require__(/*! ./Gig */ "./src/Gig.ts");
+var FacebookAccount_1 = __webpack_require__(/*! ./FacebookAccount */ "./src/FacebookAccount.ts");
+var TwitterAccount_1 = __webpack_require__(/*! ./TwitterAccount */ "./src/TwitterAccount.ts");
+var Conversation_1 = __webpack_require__(/*! ./Conversation */ "./src/Conversation.ts");
+var Post_1 = __webpack_require__(/*! ./Post */ "./src/Post.ts");
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
 var User = /** @class */ (function (_super) {
     __extends(User, _super);
@@ -8338,13 +8352,13 @@ var User = /** @class */ (function (_super) {
         configurable: true
     });
     User.prototype.getIcon = function () {
-        return RESTModel_1.default.findByIdBase("Upload", this.icon, true);
+        return RESTModel_1.default.findByIdBase(Upload_1.default, this.icon, true);
     };
     User.prototype.getTwitterAccount = function () {
-        return RESTModel_1.default.findByIdBase("TwitterAccount", this.twitter);
+        return RESTModel_1.default.findByIdBase(TwitterAccount_1.default, this.twitter);
     };
     User.prototype.getFacebookAccount = function () {
-        return RESTModel_1.default.findByIdBase("FacebookAccount", this.facebook);
+        return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook);
     };
     User.prototype.validatePassword = function (maybePassword) {
         var password = maybePassword || "";
@@ -8427,25 +8441,25 @@ var User = /** @class */ (function (_super) {
         return API_1.default.call("POST", "/API/User/Verify", null);
     };
     User.getAllConversations = function () {
-        return RESTModel_1.default.findManyBase("Conversation", null, true);
+        return RESTModel_1.default.findManyBase(Conversation_1.default, null, true);
     };
     User.getAllNotifications = function () {
-        return RESTModel_1.default.findManyBase("Notification", null, true);
+        return RESTModel_1.default.findManyBase(Notification, null, true);
     };
     User.getAllPosts = function () {
-        return RESTModel_1.default.findManyBase("Post", null, true);
+        return RESTModel_1.default.findManyBase(Post_1.default, null, true);
     };
     User.getAllBands = function () {
-        return RESTModel_1.default.findManyBase("Band", null, true);
+        return RESTModel_1.default.findManyBase(Band_1.default, null, true);
     };
     User.getAllVenues = function () {
-        return RESTModel_1.default.findManyBase("Venue", null, true);
+        return RESTModel_1.default.findManyBase(Venue_1.default, null, true);
     };
     User.getAllGigs = function () {
-        return RESTModel_1.default.findManyBase("Gig", null, true);
+        return RESTModel_1.default.findManyBase(Gig_1.default, null, true);
     };
     User.getAllUploads = function () {
-        return RESTModel_1.default.findManyBase("Upload", null, true);
+        return RESTModel_1.default.findManyBase(Upload_1.default, null, true);
     };
     User.findFacebookPages = function (term) {
         return new Promise(function (resolve, reject) {
@@ -8535,10 +8549,10 @@ var User = /** @class */ (function (_super) {
         });
     };
     User.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("User", criteria, true);
+        return RESTModel_1.default.findManyBase(User, criteria, true);
     };
     User.findOne = function (criteria) {
-        return RESTModel_1.default.findOneBase("User", criteria, true);
+        return RESTModel_1.default.findOneBase(User, criteria, true);
     };
     User.onChange = function (callback) {
         var id = Date.now();
@@ -8615,7 +8629,7 @@ var User = /** @class */ (function (_super) {
         });
     };
     User.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("User", id, true);
+        return RESTModel_1.default.findByIdBase(User, id, true);
     };
     User.connectFacebook = function () {
         window.location.href = API_1.default.rootURL + "/API/Auth/Facebook";
@@ -8785,6 +8799,10 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Gig_1 = __webpack_require__(/*! ./Gig */ "./src/Gig.ts");
+var User_1 = __webpack_require__(/*! ./User */ "./src/User.ts");
+var Upload_1 = __webpack_require__(/*! ./Upload */ "./src/Upload.ts");
+var TwitterAccount_1 = __webpack_require__(/*! ./TwitterAccount */ "./src/TwitterAccount.ts");
+var FacebookAccount_1 = __webpack_require__(/*! ./FacebookAccount */ "./src/FacebookAccount.ts");
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
 var Venue = /** @class */ (function (_super) {
     __extends(Venue, _super);
@@ -8958,12 +8976,12 @@ var Venue = /** @class */ (function (_super) {
         return RESTModel_1.default.prototype.remove.call(this, true);
     };
     Venue.prototype.getIcon = function () {
-        return RESTModel_1.default.findByIdBase("Upload", this.icon, true);
+        return RESTModel_1.default.findByIdBase(Upload_1.default, this.icon, true);
     };
     Venue.prototype.getPhotos = function () {
         var photos = Array.from(this.photos);
         if (photos.length !== 0)
-            return RESTModel_1.default.findManyBase("Upload", {
+            return RESTModel_1.default.findManyBase(Upload_1.default, {
                 _id: photos
             }, true);
         return Promise.resolve([]);
@@ -8971,7 +8989,7 @@ var Venue = /** @class */ (function (_super) {
     Venue.prototype.getOwners = function () {
         var owners = Array.from(this.owners);
         if (owners.length !== 0)
-            return RESTModel_1.default.findManyBase("User", {
+            return RESTModel_1.default.findManyBase(User_1.default, {
                 _id: owners
             }, true);
         return Promise.resolve([]);
@@ -8980,13 +8998,13 @@ var Venue = /** @class */ (function (_super) {
         return Gig_1.default.findByVenue(this._id);
     };
     Venue.prototype.getTwitterAccount = function () {
-        return RESTModel_1.default.findByIdBase("TwitterAccount", this.twitter, true);
+        return RESTModel_1.default.findByIdBase(TwitterAccount_1.default, this.twitter, true);
     };
     Venue.prototype.getFacebookAccount = function () {
-        return RESTModel_1.default.findByIdBase("FacebookAccount", this.facebook, true);
+        return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook, true);
     };
     Venue.prototype.getLocation = function () {
-        return RESTModel_1.default.findByIdBase("Location", this.location, true);
+        return RESTModel_1.default.findByIdBase(Location, this.location, true);
     };
     Venue.prototype.isValid = function () {
         var self = this;
@@ -9027,16 +9045,16 @@ var Venue = /** @class */ (function (_super) {
         return false;
     };
     Venue.findOne = function (criteria) {
-        return RESTModel_1.default.findOneBase("Venue", criteria, true);
+        return RESTModel_1.default.findOneBase(Venue, criteria, true);
     };
     Venue.findMany = function (criteria) {
-        return RESTModel_1.default.findManyBase("Venue", criteria, true);
+        return RESTModel_1.default.findManyBase(Venue, criteria, true);
     };
     Venue.findById = function (id) {
-        return RESTModel_1.default.findByIdBase("Venue", id, true);
+        return RESTModel_1.default.findByIdBase(Venue, id, true);
     };
     Venue.getAllOwned = function () {
-        return RESTModel_1.default.findManyBase("Venue", null, true);
+        return RESTModel_1.default.findManyBase(Venue, null, true);
     };
     Venue.ModelName = "Venue";
     return Venue;

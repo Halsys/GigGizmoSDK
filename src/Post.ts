@@ -101,14 +101,14 @@ export default class Post extends RESTModel {
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Post", id);
+    return RESTModel.findByIdBase(Post, id);
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Post", null);
+    return RESTModel.findManyBase(Post, null);
   }
 
   static findMany(criteria: object | null) {
-    return RESTModel.findManyBase("Post", criteria);
+    return RESTModel.findManyBase(Post, criteria);
   }
 }

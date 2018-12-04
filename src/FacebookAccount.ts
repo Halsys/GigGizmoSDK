@@ -3,6 +3,7 @@
  */
 
 import RESTModel from "./RESTModel";
+import User from "./User";
 import API from "./API";
 
 export default class FacebookAccount extends RESTModel {
@@ -45,7 +46,7 @@ export default class FacebookAccount extends RESTModel {
   }
 
   getUser() {
-    return RESTModel.findManyBase("User", this.userId, true);
+    return RESTModel.findManyBase(User, this.userId, true);
   }
 
   userIsOwner(user: any) {

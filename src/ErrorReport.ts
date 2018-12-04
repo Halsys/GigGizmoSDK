@@ -78,10 +78,10 @@ export default class ErrorReport extends RESTModel {
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("ErrorReport", id);
+    return RESTModel.findByIdBase(ErrorReport, id);
   }
 
   static findMany(criteria: object | null) {
-    return RESTModel.findManyBase("ErrorReport", criteria);
+    return RESTModel.findManyBase(ErrorReport, criteria);
   }
 }

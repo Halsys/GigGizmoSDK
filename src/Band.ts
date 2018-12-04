@@ -3,6 +3,10 @@
  */
 
 import Gig from "./Gig";
+import Upload from "./Upload";
+import User from "./User";
+import TwitterAccount from "./TwitterAccount";
+import FacebookAccount from "./FacebookAccount";
 import RESTModel from "./RESTModel";
 
 export default class Band extends RESTModel {
@@ -144,14 +148,14 @@ export default class Band extends RESTModel {
   }
 
   getIcon() {
-    return RESTModel.findByIdBase("Upload", this.icon, true);
+    return RESTModel.findByIdBase(Upload, this.icon, true);
   }
 
   getPhotos() {
     const photos = Array.from(this.photos);
     if (photos.length !== 0)
       return RESTModel.findManyBase(
-        "Upload",
+        Upload,
         {
           _id: photos
         },
@@ -164,7 +168,7 @@ export default class Band extends RESTModel {
     const owners = Array.from(this.owners);
     if (owners.length !== 0)
       return RESTModel.findManyBase(
-        "User",
+        User,
         {
           _id: owners
         },
@@ -178,11 +182,11 @@ export default class Band extends RESTModel {
   }
 
   getTwitterAccount() {
-    return RESTModel.findByIdBase("TwitterAccount", this.twitter, true);
+    return RESTModel.findByIdBase(TwitterAccount, this.twitter, true);
   }
 
   getFacebookAccount() {
-    return RESTModel.findByIdBase("FacebookAccount", this.facebook, true);
+    return RESTModel.findByIdBase(FacebookAccount, this.facebook, true);
   }
 
   isValid() {
@@ -217,18 +221,18 @@ export default class Band extends RESTModel {
   }
 
   static findOne(criteria: object | null) {
-    return RESTModel.findOneBase("Band", criteria, true);
+    return RESTModel.findOneBase(Band, criteria, true);
   }
 
   static findMany(criteria: object | null) {
-    return RESTModel.findManyBase("Band", criteria, true);
+    return RESTModel.findManyBase(Band, criteria, true);
   }
 
   static findById(id: string) {
-    return RESTModel.findByIdBase("Band", id, true);
+    return RESTModel.findByIdBase(Band, id, true);
   }
 
   static getAllOwned() {
-    return RESTModel.findManyBase("Band", null, true);
+    return RESTModel.findManyBase(Band, null, true);
   }
 }
