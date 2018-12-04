@@ -7319,7 +7319,7 @@ var RESTModel = /** @class */ (function () {
                     case 0:
                         if (criteria === null)
                             criteria = {};
-                        if (Array.from(Object.keys(criteria)).length === 1 && criteria._id) {
+                        if (Array.from(Object.keys(criteria)).length === 1 && typeof criteria._id === "string") {
                             id = criteria._id;
                             if (RESTModel.Cache.has(id)) {
                                 cache = RESTModel.Cache.get(id);
@@ -7375,7 +7375,7 @@ var RESTModel = /** @class */ (function () {
                         if (Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
                             items_1 = [];
                             (criteria._id || criteria.id).forEach(function (id) {
-                                if (RESTModel.Cache.has(id)) {
+                                if (typeof id === "string" && RESTModel.Cache.has(id)) {
                                     var cache = RESTModel.Cache.get(id);
                                     if (cache && cache.expiration < new Date())
                                         items_1.push(cache);
