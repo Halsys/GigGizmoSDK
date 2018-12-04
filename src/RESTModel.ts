@@ -48,18 +48,22 @@ export default abstract class RESTModel {
   }
 
   setField(name: string, value: any) {
-    const currentValue = this.getField(name) || undefined;
-    if (currentValue !== value) {
-      this.changes[name] = value;
-      this.dateModified = Date.now();
+    if(this) {
+      const currentValue = this.getField(name) || undefined;
+      if (currentValue !== value) {
+        this.changes[name] = value;
+        this.dateModified = Date.now();
+      }
     }
   }
 
   getField(name: string) {
-    let data = this.changes[name];
-    if (typeof data !== "undefined") return data;
-    data = this.document[name];
-    if (typeof data !== "undefined") return data;
+    if(this) {
+      let data = this.changes[name];
+      if (typeof data !== "undefined") return data;
+      data = this.document[name];
+      if (typeof data !== "undefined") return data;
+    }
     return null;
   }
 

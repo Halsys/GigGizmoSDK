@@ -7070,19 +7070,23 @@ var RESTModel = /** @class */ (function () {
         });
     };
     RESTModel.prototype.setField = function (name, value) {
-        var currentValue = this.getField(name) || undefined;
-        if (currentValue !== value) {
-            this.changes[name] = value;
-            this.dateModified = Date.now();
+        if (this) {
+            var currentValue = this.getField(name) || undefined;
+            if (currentValue !== value) {
+                this.changes[name] = value;
+                this.dateModified = Date.now();
+            }
         }
     };
     RESTModel.prototype.getField = function (name) {
-        var data = this.changes[name];
-        if (typeof data !== "undefined")
-            return data;
-        data = this.document[name];
-        if (typeof data !== "undefined")
-            return data;
+        if (this) {
+            var data = this.changes[name];
+            if (typeof data !== "undefined")
+                return data;
+            data = this.document[name];
+            if (typeof data !== "undefined")
+                return data;
+        }
         return null;
     };
     Object.defineProperty(RESTModel.prototype, "dateCreated", {
