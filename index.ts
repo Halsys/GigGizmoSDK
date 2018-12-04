@@ -1,6 +1,7 @@
 /**
  * Created by corynull on 7/15/17.
  */
+import "source-map-support/register"
 
 // Extras
 export { default as GigGizmoPropTypes } from "./src/PropTypes";

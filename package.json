@@ -1,7 +1,7 @@
 {
 	"name": "gig-gizmo-sdk",
 	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-	"version": "0.4.8",
+	"version": "0.4.9",
 	"private": false,
 	"main": "./bundle.js",
 	"typings": "./index.d.ts",
@@ -17,6 +17,7 @@
 		"fs": "0.0.1-security",
 		"prop-types": "^15.6.2",
 		"socket.io-client": "^2.1.0",
+		"source-map-support": "^0.5.9",
 		"utf-8-validate": "^5.0.1"
 	},
 	"devDependencies": {

@@ -1,6 +1,7 @@
 /**
  * Created by corynull on 7/15/17.
  */
+import "source-map-support/register";
 export { default as GigGizmoPropTypes } from "./src/PropTypes";
 export { default as API } from "./src/API";
 export { default as Band } from "./src/Band";
