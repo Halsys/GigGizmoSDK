@@ -7004,13 +7004,13 @@ var ModelNameToModel_1 = __webpack_require__(/*! ./ModelNameToModel */ "./src/Mo
 var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
 var RESTModel = /** @class */ (function () {
     function RESTModel(dataMaybe) {
-        this.expiration = (new Date((new Date())
+        this.expiration = ((new Date())
             .getTime() +
             1 * // Hours
                 60 * // Minutes
                 60 * // Seconds
                 1000 // Milliseconds
-        ));
+        );
         this.changes = new Object();
         this.document = new Object();
         this.document = new Object();
@@ -7288,7 +7288,7 @@ var RESTModel = /** @class */ (function () {
                         if (!RESTModel.isValidId(id)) return [3 /*break*/, 6];
                         if (RESTModel.Cache.has(id)) {
                             cache = RESTModel.Cache.get(id);
-                            if (cache && cache.expiration < new Date())
+                            if (cache && new Date(cache.expiration) < new Date())
                                 return [2 /*return*/, cache];
                         }
                         data = null;
@@ -7312,7 +7312,9 @@ var RESTModel = /** @class */ (function () {
                         _b.label = 5;
                     case 5:
                         if (data && RESTModel.isValidId(data._id)) {
-                            return [2 /*return*/, new Model(data)];
+                            data = new Model(data);
+                            RESTModel.Cache.set(data._id, data);
+                            return [2 /*return*/, data];
                         }
                         _b.label = 6;
                     case 6: return [2 /*return*/, null];
@@ -7334,7 +7336,7 @@ var RESTModel = /** @class */ (function () {
                             id = criteria._id;
                             if (RESTModel.Cache.has(id)) {
                                 cache = RESTModel.Cache.get(id);
-                                if (cache && cache.expiration < new Date())
+                                if (cache && new Date(cache.expiration) < new Date())
                                     return [2 /*return*/, cache];
                             }
                         }
@@ -7366,8 +7368,11 @@ var RESTModel = /** @class */ (function () {
                         data = _b.sent();
                         _b.label = 6;
                     case 6:
-                        if (data && RESTModel.isValidId(data._id))
-                            return [2 /*return*/, new Model(data)];
+                        if (data && RESTModel.isValidId(data._id)) {
+                            data = new Model(data);
+                            RESTModel.Cache.set(data._id, data);
+                            return [2 /*return*/, data];
+                        }
                         return [2 /*return*/, null];
                 }
             });
@@ -7388,7 +7393,7 @@ var RESTModel = /** @class */ (function () {
                             (criteria._id || criteria.id).forEach(function (id) {
                                 if (typeof id === "string" && RESTModel.Cache.has(id)) {
                                     var cache = RESTModel.Cache.get(id);
-                                    if (cache && cache.expiration < new Date())
+                                    if (cache && new Date(cache.expiration) < new Date())
                                         items_1.push(cache);
                                 }
                             });

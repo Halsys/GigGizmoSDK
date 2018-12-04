@@ -4,15 +4,13 @@ import API from "./API";
 export default abstract class RESTModel {
   static ModelName: string = "RESTModel";
   static Cache = new Map();
-  private expiration: Date = (
-    new Date(
-      (new Date())
-        .getTime() +
-      1 * // Hours
-      60 * // Minutes
-      60 * // Seconds
-      1000 // Milliseconds
-    )
+  private expiration: Number = (
+    (new Date())
+      .getTime() +
+    1 * // Hours
+    60 * // Minutes
+    60 * // Seconds
+    1000 // Milliseconds
   );
   private changes: any = new Object();
   private document: any = new Object();
@@ -247,10 +245,10 @@ export default abstract class RESTModel {
       if (RESTModel.isValidId(id)) {
         if (RESTModel.Cache.has(id)) {
           const cache = RESTModel.Cache.get(id);
-          if (cache && cache.expiration < new Date())
+          if (cache && new Date(cache.expiration) < new Date())
             return cache;
         }
-        let data = null;
+        let data: any = null;
         let { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
 
         if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
@@ -263,8 +261,10 @@ export default abstract class RESTModel {
         if (!data) {
           data = await API.call("GET", `/API/${modelName}/${id}`, null);
         }
-        if (data && RESTModel.isValidId((<any>data)._id)) {
-          return new Model(data);
+        if (data && RESTModel.isValidId(data._id)) {
+          data = new Model(data);
+          RESTModel.Cache.set(data._id, data);
+          return data;
         }
     }
     return null;
@@ -280,7 +280,7 @@ export default abstract class RESTModel {
       const id = criteria._id;
       if(RESTModel.Cache.has(id)) {
         const cache = RESTModel.Cache.get(id);
-        if (cache && cache.expiration < new Date())
+        if (cache && new Date(cache.expiration) < new Date())
           return cache;
       }
     }
@@ -299,7 +299,11 @@ export default abstract class RESTModel {
         });
     }
     if (!data) data = await API.call("GET", route, criteria);
-    if (data && RESTModel.isValidId(data._id)) return new Model(data);
+    if (data && RESTModel.isValidId(data._id)) {
+      data = new Model(data);
+      RESTModel.Cache.set(data._id, data);
+      return data;
+    }
     return null;
   }
 
@@ -314,7 +318,7 @@ export default abstract class RESTModel {
       (criteria._id || criteria.id).forEach((id: string) => {
         if(typeof id === "string" && RESTModel.Cache.has(id)) {
           const cache = RESTModel.Cache.get(id);
-          if (cache && cache.expiration < new Date())
+          if (cache && new Date(cache.expiration) < new Date())
             items.push(cache);
         }
       });
