@@ -30,7 +30,7 @@ module.exports = {
   entry: "./index.ts",
   output: {
     libraryTarget: "this",
-    filename: "bundle.js",
+    filename: "index.js",
     path: __dirname + "/"
   }
 };
