@@ -7309,14 +7309,21 @@ var RESTModel = /** @class */ (function () {
             });
         });
     };
-    RESTModel.findOneBase = function (ModelMaybe, criteriaMaybe, hasWebSocket) {
+    RESTModel.findOneBase = function (ModelMaybe, criteria, hasWebSocket) {
         if (hasWebSocket === void 0) { hasWebSocket = false; }
         return __awaiter(this, void 0, void 0, function () {
-            var criteria, data, _a, Model, modelName, route, socket_1;
+            var id, cache, data, _a, Model, modelName, route, socket_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        criteria = criteriaMaybe || {};
+                        if (Array.from(Object.keys(criteria)).length === 1 && criteria._id) {
+                            id = criteria._id;
+                            if (RESTModel.Cache.has(id)) {
+                                cache = RESTModel.Cache.get(id);
+                                if (cache && cache.expiration < new Date())
+                                    return [2 /*return*/, cache];
+                            }
+                        }
                         data = null;
                         return [4 /*yield*/, RESTModel.deduceModelAndName(ModelMaybe)];
                     case 1:
@@ -7352,14 +7359,25 @@ var RESTModel = /** @class */ (function () {
             });
         });
     };
-    RESTModel.findManyBase = function (ModelMaybe, criteriaMaybe, hasWebSocket) {
+    RESTModel.findManyBase = function (ModelMaybe, criteria, hasWebSocket) {
         if (hasWebSocket === void 0) { hasWebSocket = false; }
         return __awaiter(this, void 0, void 0, function () {
-            var criteria, data, _a, Model, modelName, route;
+            var items_1, data, _a, Model, modelName, route;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        criteria = criteriaMaybe || null;
+                        if (Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
+                            items_1 = [];
+                            (criteria._id || criteria.id).forEach(function (id) {
+                                if (RESTModel.Cache.has(id)) {
+                                    var cache = RESTModel.Cache.get(id);
+                                    if (cache && cache.expiration < new Date())
+                                        items_1.push(cache);
+                                }
+                            });
+                            if (items_1.length === (criteria._id || criteria.id))
+                                return [2 /*return*/, items_1];
+                        }
                         data = null;
                         return [4 /*yield*/, RESTModel.deduceModelAndName(ModelMaybe)];
                     case 1:

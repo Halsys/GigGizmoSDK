@@ -268,10 +268,17 @@ export default abstract class RESTModel {
 
   static async findOneBase(
     ModelMaybe: any,
-    criteriaMaybe: object | null,
+    criteria: any,
     hasWebSocket: boolean = false
   ) {
-    const criteria = criteriaMaybe || {};
+    if(Array.from(Object.keys(criteria)).length === 1 && criteria._id) {
+      const id = criteria._id;
+      if(RESTModel.Cache.has(id)) {
+        const cache = RESTModel.Cache.get(id);
+        if (cache && cache.expiration < new Date())
+          return cache;
+      }
+    }
     let data: any = null;
     let { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
     const route = `/API/${modelName}/FindOne`;
@@ -293,10 +300,20 @@ export default abstract class RESTModel {
 
   static async findManyBase(
     ModelMaybe: any,
-    criteriaMaybe: object | null,
+    criteria: any,
     hasWebSocket: boolean = false
   ) {
-    let criteria = criteriaMaybe || null;
+    if(Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
+      const items: RESTModel[] = [];
+      (criteria._id || criteria.id).forEach((id: string) => {
+        if(RESTModel.Cache.has(id)) {
+          const cache = RESTModel.Cache.get(id);
+          if (cache && cache.expiration < new Date())
+            items.push(cache);
+        }
+      });
+      if(items.length === (criteria._id || criteria.id)) return items;
+    }
     let data: any = null;
     let { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
     const route = `/API/${modelName}/FindMany`;
