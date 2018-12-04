@@ -268,7 +268,7 @@ export default abstract class RESTModel {
 
   static async findOneBase(
     ModelMaybe: any,
-    criteria: any,
+    criteria: any = {},
     hasWebSocket: boolean = false
   ) {
     if(Array.from(Object.keys(criteria)).length === 1 && criteria._id) {
@@ -300,7 +300,7 @@ export default abstract class RESTModel {
 
   static async findManyBase(
     ModelMaybe: any,
-    criteria: any,
+    criteria: any = {},
     hasWebSocket: boolean = false
   ) {
     if(Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {

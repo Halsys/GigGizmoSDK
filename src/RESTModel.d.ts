@@ -25,6 +25,6 @@ export default abstract class RESTModel {
     static isValidId(id: string): boolean;
     static getModelName(Model: object): any;
     static findByIdBase(ModelMaybe: any, id: string, hasWebSocket?: boolean): Promise<any>;
-    static findOneBase(ModelMaybe: any, criteria: any, hasWebSocket?: boolean): Promise<any>;
-    static findManyBase(ModelMaybe: any, criteria: any, hasWebSocket?: boolean): Promise<any[]>;
+    static findOneBase(ModelMaybe: any, criteria?: any, hasWebSocket?: boolean): Promise<any>;
+    static findManyBase(ModelMaybe: any, criteria?: any, hasWebSocket?: boolean): Promise<any[]>;
 }

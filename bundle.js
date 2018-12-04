@@ -7310,6 +7310,7 @@ var RESTModel = /** @class */ (function () {
         });
     };
     RESTModel.findOneBase = function (ModelMaybe, criteria, hasWebSocket) {
+        if (criteria === void 0) { criteria = {}; }
         if (hasWebSocket === void 0) { hasWebSocket = false; }
         return __awaiter(this, void 0, void 0, function () {
             var id, cache, data, _a, Model, modelName, route, socket_1;
@@ -7360,6 +7361,7 @@ var RESTModel = /** @class */ (function () {
         });
     };
     RESTModel.findManyBase = function (ModelMaybe, criteria, hasWebSocket) {
+        if (criteria === void 0) { criteria = {}; }
         if (hasWebSocket === void 0) { hasWebSocket = false; }
         return __awaiter(this, void 0, void 0, function () {
             var items_1, data, _a, Model, modelName, route;
