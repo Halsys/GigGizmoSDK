@@ -7,7 +7,7 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
     stopTime: PropTypes.Validator<string | Date>;
     location: PropTypes.Validator<string>;
     venue: PropTypes.Validator<string>;
-    band: PropTypes.Requireable<string>;
+    bands: PropTypes.Validator<string[]>;
     toBeAnnounced: PropTypes.Requireable<boolean>;
     bandOwnerAccepted: PropTypes.Requireable<string>;
     venueOwnerAccepted: PropTypes.Requireable<string>;

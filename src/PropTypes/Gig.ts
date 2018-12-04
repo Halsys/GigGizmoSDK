@@ -20,7 +20,7 @@ export default  PropTypes.shape({
 	]).isRequired, // Date,
 	location: PropTypes.string.isRequired,
 	venue: PropTypes.string.isRequired,
-	band: PropTypes.string,
+	bands: PropTypes.arrayOf(PropTypes.string).isRequired,
 	toBeAnnounced: PropTypes.bool,
 	bandOwnerAccepted: PropTypes.string,
 	venueOwnerAccepted: PropTypes.string,

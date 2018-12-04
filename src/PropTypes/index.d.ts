@@ -62,7 +62,7 @@ declare const _default: {
         stopTime: import("prop-types").Validator<string | Date>;
         location: import("prop-types").Validator<string>;
         venue: import("prop-types").Validator<string>;
-        band: import("prop-types").Requireable<string>;
+        bands: import("prop-types").Validator<string[]>;
         toBeAnnounced: import("prop-types").Requireable<boolean>;
         bandOwnerAccepted: import("prop-types").Requireable<string>;
         venueOwnerAccepted: import("prop-types").Requireable<string>;
