@@ -5,6 +5,7 @@
 import API from "./API";
 import Band from "./Band";
 import Venue from "./Venue";
+import Location from "./Location";
 import RESTModel from "./RESTModel";
 
 export default class Gig extends RESTModel {

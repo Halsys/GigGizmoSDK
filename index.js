@@ -5335,6 +5335,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var API_1 = __webpack_require__(/*! ./API */ "./src/API.ts");
 var Band_1 = __webpack_require__(/*! ./Band */ "./src/Band.ts");
 var Venue_1 = __webpack_require__(/*! ./Venue */ "./src/Venue.ts");
+var Location_1 = __webpack_require__(/*! ./Location */ "./src/Location.ts");
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
 var Gig = /** @class */ (function (_super) {
     __extends(Gig, _super);
@@ -5447,7 +5448,7 @@ var Gig = /** @class */ (function (_super) {
         return RESTModel_1.default.findByIdBase(Venue_1.default, this.venue, true);
     };
     Gig.prototype.getLocation = function () {
-        return RESTModel_1.default.findByIdBase(Location, this.location, true);
+        return RESTModel_1.default.findByIdBase(Location_1.default, this.location, true);
     };
     Gig.prototype.isValid = function () {
         if (!_super.prototype.isValid.call(this))
