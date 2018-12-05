@@ -5,6 +5,7 @@
 import Gig from "./Gig";
 import User from "./User";
 import Upload from "./Upload";
+import Location from "./Location";
 import TwitterAccount from "./TwitterAccount";
 import FacebookAccount from "./FacebookAccount";
 import RESTModel from "./RESTModel";

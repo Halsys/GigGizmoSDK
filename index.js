@@ -8807,6 +8807,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Gig_1 = __webpack_require__(/*! ./Gig */ "./src/Gig.ts");
 var User_1 = __webpack_require__(/*! ./User */ "./src/User.ts");
 var Upload_1 = __webpack_require__(/*! ./Upload */ "./src/Upload.ts");
+var Location_1 = __webpack_require__(/*! ./Location */ "./src/Location.ts");
 var TwitterAccount_1 = __webpack_require__(/*! ./TwitterAccount */ "./src/TwitterAccount.ts");
 var FacebookAccount_1 = __webpack_require__(/*! ./FacebookAccount */ "./src/FacebookAccount.ts");
 var RESTModel_1 = __webpack_require__(/*! ./RESTModel */ "./src/RESTModel.ts");
@@ -9010,7 +9011,7 @@ var Venue = /** @class */ (function (_super) {
         return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook, true);
     };
     Venue.prototype.getLocation = function () {
-        return RESTModel_1.default.findByIdBase(Location, this.location, true);
+        return RESTModel_1.default.findByIdBase(Location_1.default, this.location, true);
     };
     Venue.prototype.isValid = function () {
         var self = this;
