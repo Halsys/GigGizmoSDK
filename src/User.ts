@@ -355,7 +355,7 @@ export default class User extends RESTModel {
   }
 
   static getAllNotifications() {
-    return RESTModel.findManyBase(Notification, null, true);
+    return RESTModel.findManyBase("Notification", null, true);
   }
 
   static getAllPosts() {
