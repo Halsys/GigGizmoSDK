@@ -93,4 +93,29 @@ export default class Notification extends RESTModel {
       }
     }, console.error);
   }
+
+  static setUpPushNotifications() {
+    const PushSupported =
+      typeof window !== "undefined" &&
+      typeof (window as any).Notification !== "undefined";
+    const webNotification = (PushSupported) ? (window as any).Notification : null;
+    if(PushSupported) {
+      const setup = (permission: string) => {
+        if(permission === "granted")
+          Notification.onNewNotification((note: Notification) => {
+            new webNotification(note.label, {
+              icon: "/LogoSmall.png",
+              body: note.message,
+              timestamp: note.dateCreated,
+              data: note
+            });
+          });
+      };
+      if (webNotification.permission === "granted") {
+        setup(webNotification.permission);
+      } else {
+        webNotification.requestPermission(setup);
+      }
+    }
+  }
 }

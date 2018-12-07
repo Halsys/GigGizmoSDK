@@ -18,4 +18,5 @@ export default class Notification extends RESTModel {
     static getAllOwned(): Promise<any[]>;
     static findById(id: string): Promise<any>;
     static connectSocket(): void;
+    static setUpPushNotifications(): void;
 }
