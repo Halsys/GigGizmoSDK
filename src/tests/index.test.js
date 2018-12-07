@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
 global["axios"] = require("axios");
-const GigGizmoSDK = require("../../dist/bundle.js");
+const GigGizmoSDK = require("../../index.js");
 const {
   Band,
   Conversation,

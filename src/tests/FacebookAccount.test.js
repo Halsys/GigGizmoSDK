@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
 global["axios"] = require("axios");
-const { FacebookAccount, User, RESTModel } = require("../../dist/bundle.js");
+const { FacebookAccount, User, RESTModel } = require("../../index.js");
 
 describe("FacebookAccount class", () => {
   it("ModelName exists", () => {

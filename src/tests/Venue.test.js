@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
 global["axios"] = require("axios");
-const { Venue, User } = require("../../dist/bundle.js");
+const { Venue, User } = require("../../index.js");
 
 describe("Venue class", () => {
   it("ModelName exists", () => {

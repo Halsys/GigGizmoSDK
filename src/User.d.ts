@@ -67,8 +67,8 @@ export default class User extends RESTModel {
     static connectFacebook(): void;
     static facebookLogIn(): void;
     static payPalLogIn(): void;
-    static userLogIn(email: string, password: string): Promise<{}>;
-    static userLogOut(): Promise<{}>;
+    static userLogIn(email: string, password: string): Promise<any>;
+    static userLogOut(): Promise<void>;
     static sendPasswordResetEmail(email: string): Promise<any>;
     static registerUser(userData: any): Promise<{}>;
     static NotifyAdminsOfError(): void;

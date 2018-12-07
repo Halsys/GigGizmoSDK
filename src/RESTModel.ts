@@ -171,18 +171,20 @@ export default abstract class RESTModel {
       if (RESTModel.isValidId(id))
         response = await new Promise((resolve, reject) =>
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) =>
-              socket.emit(`/API/${modelName}/Update`, data, resolve),
-            reject
-          )
+            (socket: SocketIOClient.Socket) => {
+              if(socket) {
+                socket.emit(`/API/${modelName}/Update`, data, resolve)
+              }
+            }, reject)
         );
       else
         response = await new Promise((resolve, reject) =>
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) =>
-              socket.emit(`/API/${modelName}/Create`, data, resolve),
-            reject
-          )
+            (socket: SocketIOClient.Socket) => {
+              if(socket) {
+                socket.emit(`/API/${modelName}/Create`, data, resolve)
+              }
+            }, reject)
         );
     } else {
       if (RESTModel.isValidId(id))
@@ -207,12 +209,12 @@ export default abstract class RESTModel {
       if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
         response = await new Promise((resolve, reject) =>
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) =>
-              socket.emit(`/API/${modelName}/Delete`, id, (res: any) =>
-                resolve(res)
-              ),
-            reject
-          )
+            (socket: SocketIOClient.Socket) => {
+              if(socket) {
+                socket.emit(`/API/${modelName}/Delete`, id, (res: any) =>
+                  resolve(res));
+              }
+            }, reject)
         );
       } else
         response = await API.call("DELETE", `/API/${modelName}/${id}`, null);
@@ -254,7 +256,9 @@ export default abstract class RESTModel {
         if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
           data = await new Promise((resolve, reject) =>
             API.getSocket().then((socket: SocketIOClient.Socket) => {
-              return socket.emit(`/API/${modelName}/Retreive`, id, resolve);
+              if(socket) {
+                return socket.emit(`/API/${modelName}/Retreive`, id, resolve);
+              }
             }, reject)
           );
         }
@@ -330,10 +334,11 @@ export default abstract class RESTModel {
     if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
       data = await new Promise((resolve, reject) =>
         API.getSocket().then(
-          (socket: SocketIOClient.Socket) =>
-            socket.emit(route, criteria, resolve),
-          reject
-        )
+          (socket: SocketIOClient.Socket) => {
+            if(socket) {
+              socket.emit(route, criteria, resolve);
+            }
+          }, reject)
       );
     }
     criteria = criteria || {};

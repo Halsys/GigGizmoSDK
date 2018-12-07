@@ -457,7 +457,9 @@ export default class User extends RESTModel {
         };
         if (API.useSocketIO && API.ShouldUseSocketIO) {
           API.getSocket().then((socket: SocketIOClient.Socket) => {
-            socket.emit("/API/TextSearch", data, Return);
+            if(socket) {
+              socket.emit("/API/TextSearch", data, Return);
+            }
           }, reject);
         } else {
           API.call("GET", "/API/TextSearch", data).then(Return, reject);
@@ -493,7 +495,6 @@ export default class User extends RESTModel {
         User.Current = null;
         API.token = null;
         if (API.SessionStorageSupported) sessionStorage.removeItem("user");
-        if (typeof document !== "undefined") document.cookie = "";
         User.Callbacks.forEach((callback: any) => callback(null));
       }
     } catch (e) {
@@ -519,7 +520,9 @@ export default class User extends RESTModel {
     if (API.useSocketIO && API.ShouldUseSocketIO) {
       data = await new Promise((resolve, reject) => {
         API.getSocket().then((socket: SocketIOClient.Socket) => {
-          socket.emit("/API/User/Retreive", null, resolve);
+          if(socket) {
+            socket.emit("/API/User/Retreive", resolve);
+          }
         }, reject);
       });
     } else data = await API.call("GET", "/API/User", null);
@@ -543,43 +546,51 @@ export default class User extends RESTModel {
     window.location.href = `${API.rootURL}/API/Auth/PayPal`;
   }
 
-  static userLogIn(email: string, password: string) {
-    return new Promise((resolve, reject) => {
-      function onError(error: any) {
-        User.setUser(null).then(() => {
-          reject(error);
+  static async userLogIn(email: string, password: string) {
+    if (!email) throw new Error("No email");
+    else if (!password) throw new Error("No password");
+    else {
+      let response = null;
+      if (API.useSocketIO && API.ShouldUseSocketIO) {
+        response = await new Promise((resolve, reject) => {
+          API.getSocket().then((socket: SocketIOClient.Socket) => {
+            if(socket) {
+              socket.emit("/API/User/SignIn", {
+                email,
+                password
+              }, resolve);
+            }
+          }, reject);
         });
-      }
-      if (!email) onError(new Error("No email"));
-      else if (!password) onError(new Error("No password"));
-      else {
-        API.call("POST", "/API/User/SignIn", {
-          email,
-          password
-        }).then((response: any) => {
-          //TODO: Create error for unauthorized access vs general error
-          if (response && response.user && response.token) {
-            API.expires = response.expires;
-            API.token = response.token.toString();
-            User.setUser(response.user).then(resolve, onError);
-          } else onError(new Error(`Unauthorized`));
-        }, onError);
-      }
-    });
+      } else response = await API.call("POST", "/API/User/SignIn", {
+        email,
+        password
+      });
+      //TODO: Create error for unauthorized access vs general error
+      if (response && response.user && response.token) {
+        API.expires = response.expires;
+        API.token = response.token.toString();
+        return User.setUser(response.user);
+      } else throw new Error(`Unauthorized`);
+    }
   }
 
-  static userLogOut() {
-    return new Promise((resolve, reject) => {
-      API.call("POST", "/API/User/SignOut", null).then(() => {
-        User.setUser(null).then((user: any) => {
-          if (user && user.valid())
-            reject(
-              new Error(`${JSON.stringify(user)} returned, failed to log out?`)
-            );
-          else resolve(user);
-        });
-      }, reject);
-    });
+  static async userLogOut() {
+    let response = null;
+    if (API.useSocketIO && API.ShouldUseSocketIO) {
+      response = await new Promise((resolve, reject) => {
+        API.getSocket().then((socket: SocketIOClient.Socket) => {
+          if(socket) {
+            socket.emit("/API/User/SignOut", null, resolve);
+          }
+        }, reject);
+      });
+    } else
+      response = await API.call("POST", "/API/User/SignOut", null);
+    let user = await User.setUser(null);
+    if (user && user.valid())
+      throw new Error(`${JSON.stringify(user)} returned, failed to log out?`)
+    else user;
   }
 
   static sendPasswordResetEmail(email: string) {
@@ -646,7 +657,9 @@ export default class User extends RESTModel {
       if (API.useSocketIO && API.ShouldUseSocketIO) {
         return new Promise((resolve, reject) => {
           API.getSocket().then((socket: SocketIOClient.Socket) => {
-            socket.emit("/API/User/Create", userData, resolve);
+            if(socket) {
+              socket.emit("/API/User/Create", userData, resolve);
+            }
           }, reject);
         });
       }

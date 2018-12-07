@@ -19,7 +19,7 @@ const {
   Upload,
   User,
   Venue
-} = require("../../dist/bundle.js");
+} = require("../../index.js");
 
 describe("RESTModel class", () => {
   describe("Constructor", () => {

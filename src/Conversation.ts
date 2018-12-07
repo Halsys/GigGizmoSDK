@@ -51,15 +51,17 @@ export default class Conversation extends RESTModel {
 
   static connectSocket() {
     API.getSocket().then((socket: SocketIOClient.Socket) => {
-      socket.on("/API/Conversation/Update", (data: any) => {
-        if (data) {
-          let conv = RESTModel.Cache.get(data._id) || null;
-          if (conv) conv = Object.assign(conv, data);
-          else conv = new Conversation(data);
-          RESTModel.Cache.set(conv._id, conv);
-          Conversation.Callbacks.forEach(cb => cb(conv));
-        }
-      });
+      if(socket) {
+        socket.on("/API/Conversation/Update", (data: any) => {
+          if (data) {
+            let conv = RESTModel.Cache.get(data._id) || null;
+            if (conv) conv = Object.assign(conv, data);
+            else conv = new Conversation(data);
+            RESTModel.Cache.set(conv._id, conv);
+            Conversation.Callbacks.forEach(cb => cb(conv));
+          }
+        });
+      }
     }, console.error);
   }
 

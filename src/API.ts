@@ -141,17 +141,41 @@ export default abstract class API {
   }
   public static getSocket() {
     return new Promise((resolve, reject) => {
-      if (API.token) {
-        if (API.webSocket) return resolve(API.webSocket);
-        API.webSocket = API.WebSocket(API.webSocketRootURL);
-        API.webSocket.on("connect", () => resolve(API.webSocket));
-        API.webSocket.on("connect_timeout", () => reject(new Error("Timeout")));
-        API.webSocket.on("connect_error", (error: any) => reject(error));
-        API.webSocket.on("disconnect", () => reject(new Error("Disconnected")));
-        API.webSocket.on("error", (error: any) => reject(error));
-        return null;
+      try {
+        const killSocket =  (error: any) => {
+          if(error) console.error(error);
+          API.webSocket.open();
+        };
+        const onReady = () => {
+          if(!API.webSocket) {
+            API.webSocket = API.WebSocket();
+            API.webSocket.on("connect_timeout", killSocket);
+            API.webSocket.on("connect_error", killSocket);
+            API.webSocket.on("disconnect", killSocket);
+            API.webSocket.on("error", killSocket);
+            API.webSocket.open();
+          }
+          return resolve(API.webSocket);
+        };
+        if(API.WebSocket) {
+          if(typeof document !== "undefined") {
+            switch (document.readyState) {
+              case "loading":
+                document.addEventListener("DOMContentLoaded", onReady);
+                break;
+              case "interactive":
+              case "complete":
+                onReady();
+                break;
+            }
+          } else {
+            onReady();
+          }
+        }
+        return resolve(null);
+      } catch(e) {
+        reject(e);
       }
-      return resolve(null);
     });
   }
 }
