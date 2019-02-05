@@ -4,14 +4,14 @@
 import RESTModel from "./RESTModel";
 export default class TwitterAccount extends RESTModel {
     static ModelName: string;
-    userId: any;
-    accessToken: any;
-    tokenSecret: any;
-    profile: any;
-    accountId: any;
+    userId: string;
+    accessToken: string;
+    tokenSecret: string;
+    profile: string;
+    accountId: string;
+    static findById(id: string): Promise<{}>;
     getUser(): Promise<any>;
     userIsOwner(user: any): boolean;
     goToTwitterAccount(): void;
     isValid(): boolean;
-    static findById(id: string): Promise<{}>;
 }

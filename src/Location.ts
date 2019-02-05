@@ -3,17 +3,17 @@
  */
 
 import API from "./API";
-import RESTModel from "./RESTModel";
 import GooglePlace from "./GooglePlace";
+import RESTModel from "./RESTModel";
 
 export default class Location extends RESTModel {
-  static ModelName: string = "Location";
+  public static ModelName: string = "Location";
 
   get type() {
     return this.getField("type") || "Point";
   }
 
-  set type(value) {
+  set type(value: string) {
     this.setField("type", value);
   }
 
@@ -21,7 +21,7 @@ export default class Location extends RESTModel {
     return this.getField("placeId");
   }
 
-  set placeId(value) {
+  set placeId(value: string) {
     this.setField("placeId", value);
   }
 
@@ -29,7 +29,7 @@ export default class Location extends RESTModel {
     return this.getField("address");
   }
 
-  set address(value) {
+  set address(value: string) {
     this.setField("address", value);
   }
 
@@ -37,7 +37,7 @@ export default class Location extends RESTModel {
     return this.getField("point");
   }
 
-  set point(value) {
+  set point(value: number[]) {
     this.setField("point", value);
   }
 
@@ -45,40 +45,42 @@ export default class Location extends RESTModel {
     return this.getField("utcOffset");
   }
 
-  set utcOffset(value) {
+  set utcOffset(value: number) {
     this.setField("utcOffset", value);
   }
 
-  isValid() {
-    if (!super.isValid()) return false;
-    if (!this.placeId) return false;
-    if (!this.address) return false;
-    if (!this.utcOffset) return false;
-    if (!Array.isArray(this.point)) return false;
-    return true;
-  }
-
-  getPlaceDetails() {
-    return GooglePlace.getPlaceDetails(this.placeId);
-  }
-
-  static getLocationByPlaceId(placeId: string) {
+  public static getLocationByPlaceId(placeId: string) {
     return new Promise((resolve, reject) => {
       if (!placeId) {
         reject(new Error(`Invaild placeId: ${placeId}`));
       } else {
-        API.call("GET", `/API/Place/${placeId}`, null).then((location: any) => {
-          if (location) {
-            resolve(new Location(location));
-          } else {
-            reject(new Error(`${location} returned`));
-          }
-        }, reject);
+        API.call("GET", `/API/Place/${placeId}`, null).then(
+          ((location: any) => {
+            if (location) {
+              resolve(new Location(location));
+            } else {
+              reject(new Error(`${location} returned`));
+            }
+          }),
+          reject);
       }
     });
   }
 
-  static findById(id: string) {
+  public static findById(id: string) {
     return RESTModel.findByIdBase(Location, id);
+  }
+
+  public isValid() {
+    if (!super.isValid()) { return false; }
+    if (!this.placeId) { return false; }
+    if (!this.address) { return false; }
+    if (!this.utcOffset) { return false; }
+    if (!Array.isArray(this.point)) { return false; }
+    return true;
+  }
+
+  public getPlaceDetails() {
+    return GooglePlace.getPlaceDetails(this.placeId);
   }
 }

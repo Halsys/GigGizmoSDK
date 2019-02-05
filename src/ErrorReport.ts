@@ -5,13 +5,13 @@
 import RESTModel from "./RESTModel";
 
 export default class ErrorReport extends RESTModel {
-  static ModelName: string = "ErrorReport";
+  public static ModelName: string = "ErrorReport";
 
   get version() {
     return this.getField("version");
   }
 
-  set version(value) {
+  set version(value: string) {
     this.setField("version", value);
   }
 
@@ -19,7 +19,7 @@ export default class ErrorReport extends RESTModel {
     return this.getField("userId");
   }
 
-  set userId(value) {
+  set userId(value: string) {
     this.setField("userId", value);
   }
 
@@ -27,7 +27,7 @@ export default class ErrorReport extends RESTModel {
     return this.getField("stack");
   }
 
-  set stack(value) {
+  set stack(value: string) {
     this.setField("stack", value);
   }
 
@@ -35,7 +35,7 @@ export default class ErrorReport extends RESTModel {
     return this.getField("message");
   }
 
-  set message(value) {
+  set message(value: string) {
     this.setField("message", value);
   }
 
@@ -43,7 +43,7 @@ export default class ErrorReport extends RESTModel {
     return this.getField("name");
   }
 
-  set name(value) {
+  set name(value: string) {
     this.setField("name", value);
   }
 
@@ -51,7 +51,7 @@ export default class ErrorReport extends RESTModel {
     return this.getField("fileName");
   }
 
-  set fileName(value) {
+  set fileName(value: string) {
     this.setField("fileName", value);
   }
 
@@ -59,7 +59,7 @@ export default class ErrorReport extends RESTModel {
     return this.getField("columnNumber");
   }
 
-  set columnNumber(value) {
+  set columnNumber(value: number) {
     this.setField("columnNumber", value);
   }
 
@@ -67,21 +67,22 @@ export default class ErrorReport extends RESTModel {
     return this.getField("lineNumber");
   }
 
-  set lineNumber(value) {
+  set lineNumber(value: number) {
     this.setField("lineNumber", value);
   }
 
-  isValid() {
-    if (!super.isValid()) return false;
+  public static findById(id: string) {
+    return RESTModel.findByIdBase(ErrorReport, id);
+  }
+
+  public static findMany(criteria: object | null) {
+    return RESTModel.findManyBase(ErrorReport, criteria);
+  }
+
+  public isValid() {
+    if (!super.isValid()) { return false; }
     // TODO: do more tests...
     return true;
   }
 
-  static findById(id: string) {
-    return RESTModel.findByIdBase(ErrorReport, id);
-  }
-
-  static findMany(criteria: object | null) {
-    return RESTModel.findManyBase(ErrorReport, criteria);
-  }
 }

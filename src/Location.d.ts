@@ -4,13 +4,13 @@
 import RESTModel from "./RESTModel";
 export default class Location extends RESTModel {
     static ModelName: string;
-    type: any;
-    placeId: any;
-    address: any;
-    point: any;
-    utcOffset: any;
-    isValid(): boolean;
-    getPlaceDetails(): Promise<{}>;
+    type: string;
+    placeId: string;
+    address: string;
+    point: number[];
+    utcOffset: number;
     static getLocationByPlaceId(placeId: string): Promise<{}>;
     static findById(id: string): Promise<any>;
+    isValid(): boolean;
+    getPlaceDetails(): Promise<{}>;
 }

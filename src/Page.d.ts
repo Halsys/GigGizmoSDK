@@ -4,20 +4,20 @@
 import RESTModel from "./RESTModel";
 export default class Page extends RESTModel {
     static ModelName: string;
-    data: any;
-    metadata: any;
-    title: any;
-    link: any;
-    visits: any;
-    revisions: any;
+    data: string;
+    metadata: string;
+    title: string;
+    link: string;
+    visits: number;
+    revisions: number;
     hide: boolean;
     blog: boolean;
     doc: boolean;
-    admin: any;
-    isValid(): boolean;
-    userIsOwner(user: any): any;
+    admin: string;
     static findMany(criteria: any): Promise<any[]>;
     static findOne(criteria: any): Promise<any>;
     static findById(id: string): Promise<any>;
     static findByLink(link: string): Promise<{}>;
+    isValid(): boolean;
+    userIsOwner(user: any): any;
 }

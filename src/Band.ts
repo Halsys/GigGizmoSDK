@@ -2,20 +2,20 @@
  * Created by corynull on 4/3/17.
  */
 
+import FacebookAccount from "./FacebookAccount";
 import Gig from "./Gig";
+import RESTModel from "./RESTModel";
+import TwitterAccount from "./TwitterAccount";
 import Upload from "./Upload";
 import User from "./User";
-import TwitterAccount from "./TwitterAccount";
-import FacebookAccount from "./FacebookAccount";
-import RESTModel from "./RESTModel";
 
 export default class Band extends RESTModel {
-  static ModelName: string = "Band";
+  public static ModelName: string = "Band";
   get name() {
     return this.getField("name");
   }
 
-  set name(value) {
+  set name(value: string) {
     this.setField("name", value);
   }
 
@@ -23,7 +23,7 @@ export default class Band extends RESTModel {
     return this.getField("website");
   }
 
-  set website(value) {
+  set website(value: string) {
     this.setField("website", value);
   }
 
@@ -31,7 +31,7 @@ export default class Band extends RESTModel {
     return this.getField("email");
   }
 
-  set email(value) {
+  set email(value: string) {
     this.setField("email", value);
   }
 
@@ -39,7 +39,7 @@ export default class Band extends RESTModel {
     return this.getField("cityName");
   }
 
-  set cityName(value) {
+  set cityName(value: string) {
     this.setField("cityName", value);
   }
 
@@ -47,7 +47,7 @@ export default class Band extends RESTModel {
     return this.getField("cityPlaceID");
   }
 
-  set cityPlaceID(value) {
+  set cityPlaceID(value: string) {
     this.setField("cityPlaceID", value);
   }
 
@@ -55,7 +55,7 @@ export default class Band extends RESTModel {
     return this.getField("description");
   }
 
-  set description(value) {
+  set description(value: string) {
     this.setField("description", value);
   }
 
@@ -63,7 +63,7 @@ export default class Band extends RESTModel {
     return this.getField("metadata");
   }
 
-  set metadata(value) {
+  set metadata(value: string) {
     this.setField("metadata", value);
   }
 
@@ -71,7 +71,7 @@ export default class Band extends RESTModel {
     return this.getField("icon");
   }
 
-  set icon(value) {
+  set icon(value: string) {
     this.setField("icon", value);
   }
 
@@ -79,7 +79,7 @@ export default class Band extends RESTModel {
     return this.getField("photos");
   }
 
-  set photos(value) {
+  set photos(value: string[]) {
     this.setField("photos", value);
   }
 
@@ -87,7 +87,7 @@ export default class Band extends RESTModel {
     return this.getField("owners");
   }
 
-  set owners(value) {
+  set owners(value:  string[]) {
     this.setField("owners", value);
   }
 
@@ -95,7 +95,7 @@ export default class Band extends RESTModel {
     return this.getField("facebook");
   }
 
-  set facebook(value) {
+  set facebook(value: string) {
     this.setField("facebook", value);
   }
 
@@ -103,7 +103,7 @@ export default class Band extends RESTModel {
     return this.getField("facebookPageId");
   }
 
-  set facebookPageId(value) {
+  set facebookPageId(value: string) {
     this.setField("facebookPageId", value);
   }
 
@@ -111,7 +111,7 @@ export default class Band extends RESTModel {
     return this.getField("facebookPageName");
   }
 
-  set facebookPageName(value) {
+  set facebookPageName(value: string) {
     this.setField("facebookPageName", value);
   }
 
@@ -119,7 +119,7 @@ export default class Band extends RESTModel {
     return this.getField("facebookPageToken");
   }
 
-  set facebookPageToken(value) {
+  set facebookPageToken(value: string) {
     this.setField("facebookPageToken", value);
   }
 
@@ -127,7 +127,7 @@ export default class Band extends RESTModel {
     return this.getField("twitter");
   }
 
-  set twitter(value) {
+  set twitter(value: string) {
     this.setField("twitter", value);
   }
 
@@ -135,38 +135,55 @@ export default class Band extends RESTModel {
     return this.getField("google");
   }
 
-  set google(value) {
+  set google(value: string) {
     this.setField("google", value);
   }
 
-  save() {
+  public static findOne(criteria: object | null) {
+    return RESTModel.findOneBase(Band, criteria, true);
+  }
+
+  public static findMany(criteria: object | null) {
+    return RESTModel.findManyBase(Band, criteria, true);
+  }
+
+  public static findById(id: string) {
+    return RESTModel.findByIdBase(Band, id, true);
+  }
+
+  public static getAllOwned() {
+    return RESTModel.findManyBase(Band, null, true);
+  }
+
+  public save() {
     return RESTModel.prototype.save.call(this, true);
   }
 
-  remove() {
+  public remove() {
     return RESTModel.prototype.remove.call(this, true);
   }
 
-  getIcon() {
+  public getIcon() {
     return RESTModel.findByIdBase(Upload, this.icon, true);
   }
 
-  getPhotos() {
+  public getPhotos() {
     const photos = Array.from(this.photos);
-    if (photos.length !== 0)
-      return RESTModel.findManyBase(
-        Upload,
-        {
-          _id: photos
-        },
-        true
-      );
+    if (photos.length !== 0) {
+        return RESTModel.findManyBase(
+          Upload,
+          {
+            _id: photos
+          },
+          true
+        );
+    }
     return Promise.resolve([]);
   }
 
-  getOwners() {
+  public getOwners() {
     const owners = Array.from(this.owners);
-    if (owners.length !== 0)
+    if (owners.length !== 0) {
       return RESTModel.findManyBase(
         User,
         {
@@ -174,65 +191,53 @@ export default class Band extends RESTModel {
         },
         true
       );
+    }
     return Promise.resolve([]);
   }
 
-  getGigs() {
+  public getGigs() {
     return Gig.findByBand(this._id);
   }
 
-  getTwitterAccount() {
+  public getTwitterAccount() {
     return RESTModel.findByIdBase(TwitterAccount, this.twitter, true);
   }
 
-  getFacebookAccount() {
+  public getFacebookAccount() {
     return RESTModel.findByIdBase(FacebookAccount, this.facebook, true);
   }
 
-  isValid() {
+  public isValid() {
     const self = this;
-    if (!super.isValid()) return false;
+    if (!super.isValid()) { return false; }
 
-    if (typeof this.cityPlaceID !== "string") return false;
-    if (this.cityPlaceID === "") return false;
+    if (typeof this.cityPlaceID !== "string") { return false; }
+    if (this.cityPlaceID === "") { return false; }
 
-    if (typeof this.name !== "string") return false;
-    if (this.name === "") return false;
+    if (typeof this.name !== "string") { return false; }
+    if (this.name === "") { return false; }
 
-    if (typeof this.description !== "string") return false;
-    if (this.description === "") return false;
-    if (this.description === "<p><br></p>") return false;
+    if (typeof this.description !== "string") { return false; }
+    if (this.description === "") { return false; }
+    if (this.description === "<p><br></p>") { return false; }
 
-    if (!Array.isArray(this.owners)) return false;
-    if (this.owners.length === 0) return false;
-    if (!this.owners.every(owner => self.userIsOwner(owner))) return false;
+    if (!Array.isArray(this.owners)) { return false; }
+    if (this.owners.length === 0) { return false; }
+    if (!this.owners.every((owner: string) => self.userIsOwner(owner))) { return false; }
 
     return true;
   }
 
-  userIsOwner(user: any) {
+  public userIsOwner(user: any) {
     if (Array.isArray(this.owners)) {
       let userId: string;
-      if (typeof user === "string") userId = user;
-      else if (typeof user === "object" && user) userId = user._id;
-      return this.owners.find(id => id === userId) !== undefined;
+      if (typeof user === "string") {
+        userId = user;
+      } else if (typeof user === "object" && user) {
+        userId = user._id;
+      }
+      return this.owners.find((id: string) => id === userId) !== undefined;
     }
     return false;
-  }
-
-  static findOne(criteria: object | null) {
-    return RESTModel.findOneBase(Band, criteria, true);
-  }
-
-  static findMany(criteria: object | null) {
-    return RESTModel.findManyBase(Band, criteria, true);
-  }
-
-  static findById(id: string) {
-    return RESTModel.findByIdBase(Band, id, true);
-  }
-
-  static getAllOwned() {
-    return RESTModel.findManyBase(Band, null, true);
   }
 }

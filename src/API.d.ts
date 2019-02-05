@@ -18,7 +18,7 @@ export default abstract class API {
     static token: any;
     static readonly rootURL: string;
     static readonly webSocketRootURL: string;
-    private constructor();
     static call(method: string, route: string, data: any): Promise<any>;
     static getSocket(): Promise<{}>;
+    private constructor();
 }

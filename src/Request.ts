@@ -6,13 +6,13 @@ import API from "./API";
 import RESTModel from "./RESTModel";
 
 export default class Request extends RESTModel {
-  static ModelName: string = "Request";
+  public static ModelName: string = "Request";
 
   get to() {
     return this.getField("to");
   }
 
-  set to(value) {
+  set to(value: string) {
     this.setField("to", value);
   }
 
@@ -20,7 +20,7 @@ export default class Request extends RESTModel {
     return this.getField("from");
   }
 
-  set from(value) {
+  set from(value: string) {
     this.setField("from", value);
   }
 
@@ -28,7 +28,7 @@ export default class Request extends RESTModel {
     return this.getField("status");
   }
 
-  set status(value) {
+  set status(value: string) {
     this.setField("status", value);
   }
 
@@ -36,7 +36,7 @@ export default class Request extends RESTModel {
     return this.getField("options");
   }
 
-  set options(value) {
+  set options(value: string[]) {
     this.setField("options", value);
   }
 
@@ -44,7 +44,7 @@ export default class Request extends RESTModel {
     return this.getField("type");
   }
 
-  set type(value) {
+  set type(value: string) {
     this.setField("type", value);
   }
 
@@ -52,7 +52,7 @@ export default class Request extends RESTModel {
     return this.getField("userData");
   }
 
-  set userData(value) {
+  set userData(value: any) {
     this.setField("userData", value);
   }
 
@@ -60,21 +60,11 @@ export default class Request extends RESTModel {
     return this.getField("emailSent");
   }
 
-  set emailSent(value) {
+  set emailSent(value: boolean) {
     this.setField("emailSent", value);
   }
 
-  async execute(option: string) {
-    const request = await API.call(
-      "POST",
-      `/API/Request/${this._id}/${option}`,
-      null
-    );
-    this.assign(request);
-    return this;
-  }
-
-  static createBandOwnershipRequest(band: string, from: string, to: string) {
+  public static createBandOwnershipRequest(band: string, from: string, to: string) {
     return new Promise((resolve, reject) => {
       API.call("POST", "/API/Request", {
         from,
@@ -83,13 +73,15 @@ export default class Request extends RESTModel {
         userData: {
           bandId: band
         }
-      }).then((data: any) => {
-        resolve(new Request(data));
-      }, reject);
+      }).then(
+        (data: any) => {
+          resolve(new Request(data));
+        },
+        reject);
     });
   }
 
-  static createVenueOwnershipRequest(venue: string, from: string, to: string) {
+  public static createVenueOwnershipRequest(venue: string, from: string, to: string) {
     return new Promise((resolve, reject) => {
       API.call("POST", "/API/Request", {
         from,
@@ -98,13 +90,15 @@ export default class Request extends RESTModel {
         userData: {
           venueId: venue
         }
-      }).then((data: any) => {
-        resolve(new Request(data));
-      }, reject);
+      }).then(
+        (data: any) => {
+          resolve(new Request(data));
+        },
+        reject);
     });
   }
 
-  static createGigNegotiation(gig: string, from: string, to: string) {
+  public static createGigNegotiation(gig: string, from: string, to: string) {
     return new Promise((resolve, reject) => {
       API.call("POST", "/API/Request", {
         from,
@@ -113,17 +107,29 @@ export default class Request extends RESTModel {
         userData: {
           gigId: gig
         }
-      }).then((data: any) => {
-        resolve(new Request(data));
-      }, reject);
+      }).then(
+        (data: any) => {
+          resolve(new Request(data));
+        },
+        reject);
     });
   }
 
-  static getAllOwned() {
+  public static getAllOwned() {
     return RESTModel.findManyBase(Request, null);
   }
 
-  static findById(id: string) {
+  public static findById(id: string) {
     return RESTModel.findByIdBase(Request, id);
+  }
+
+  public async execute(option: string) {
+    const request = await API.call(
+      "POST",
+      `/API/Request/${this._id}/${option}`,
+      null
+    );
+    this.assign(request);
+    return this;
   }
 }

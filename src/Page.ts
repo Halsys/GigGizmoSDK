@@ -6,13 +6,13 @@ import API from "./API";
 import RESTModel from "./RESTModel";
 
 export default class Page extends RESTModel {
-  static ModelName: string = "Page";
+  public static ModelName: string = "Page";
 
   get data() {
     return this.getField("data");
   }
 
-  set data(value) {
+  set data(value: string) {
     this.setField("data", value);
   }
 
@@ -20,7 +20,7 @@ export default class Page extends RESTModel {
     return this.getField("metadata");
   }
 
-  set metadata(value) {
+  set metadata(value: string) {
     this.setField("metadata", value);
   }
 
@@ -28,7 +28,7 @@ export default class Page extends RESTModel {
     return this.getField("title");
   }
 
-  set title(value) {
+  set title(value: string) {
     this.setField("title", value);
   }
 
@@ -36,7 +36,7 @@ export default class Page extends RESTModel {
     return this.getField("link");
   }
 
-  set link(value) {
+  set link(value: string) {
     this.setField("link", value);
   }
 
@@ -44,7 +44,7 @@ export default class Page extends RESTModel {
     return this.getField("visits") || 0;
   }
 
-  set visits(value) {
+  set visits(value: number) {
     this.setField("visits", value);
   }
 
@@ -52,34 +52,34 @@ export default class Page extends RESTModel {
     return this.getField("revisions") || 0;
   }
 
-  set revisions(value) {
+  set revisions(value: number) {
     this.setField("revisions", value);
   }
 
   get hide() {
-    let value = this.getField("hide");
+    const value = this.getField("hide");
     return value === null ? true : Boolean(value);
   }
 
-  set hide(value) {
+  set hide(value: boolean) {
     this.setField("hide", value);
   }
 
   get blog() {
-    let value = this.getField("blog");
+    const value = this.getField("blog");
     return Boolean(value);
   }
 
-  set blog(value) {
+  set blog(value: boolean) {
     this.setField("blog", value);
   }
 
   get doc() {
-    let value = this.getField("doc");
+    const value = this.getField("doc");
     return Boolean(value);
   }
 
-  set doc(value) {
+  set doc(value: boolean) {
     this.setField("doc", value);
   }
 
@@ -87,42 +87,44 @@ export default class Page extends RESTModel {
     return this.getField("admin");
   }
 
-  set admin(value) {
+  set admin(value: string) {
     this.setField("admin", value);
   }
 
-  isValid() {
-    if (!super.isValid()) return false;
-    if (!this.title) return false;
-    if (this.title === "") return false;
+  public static findMany(criteria: any) {
+    return RESTModel.findManyBase(Page, criteria);
+  }
+
+  public static findOne(criteria: any) {
+    return RESTModel.findOneBase(Page, criteria);
+  }
+
+  public static findById(id: string) {
+    return RESTModel.findByIdBase(Page, id);
+  }
+
+  public static findByLink(link: string) {
+    return new Promise((resolve, reject) => {
+      API.call("GET", `/API/Link/${link}`, null).then(
+        (page: any) => {
+          resolve(new Page(page));
+        },
+        reject);
+    });
+  }
+
+  public isValid() {
+    if (!super.isValid()) { return false; }
+    if (!this.title) { return false; }
+    if (this.title === "") { return false; }
     return true;
   }
 
-  userIsOwner(user: any) {
-    if (typeof user === "string") return user === this.admin;
+  public userIsOwner(user: any) {
+    if (typeof user === "string") { return user === this.admin; }
     if (typeof user === "function" && user && user.isValid()) {
       return user._id === this.admin || user.admin;
     }
     return false;
-  }
-
-  static findMany(criteria: any) {
-    return RESTModel.findManyBase(Page, criteria);
-  }
-
-  static findOne(criteria: any) {
-    return RESTModel.findOneBase(Page, criteria);
-  }
-
-  static findById(id: string) {
-    return RESTModel.findByIdBase(Page, id);
-  }
-
-  static findByLink(link: string) {
-    return new Promise((resolve, reject) => {
-      API.call("GET", `/API/Link/${link}`, null).then((page: any) => {
-        resolve(new Page(page));
-      }, reject);
-    });
   }
 }

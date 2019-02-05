@@ -6,13 +6,13 @@ import RESTModel from "./RESTModel";
 import User from "./User";
 
 export default class Upload extends RESTModel {
-  static ModelName: string = "Upload";
+  public static ModelName: string = "Upload";
 
   get fileName() {
     return this.getField("fileName");
   }
 
-  set fileName(value) {
+  set fileName(value: string) {
     this.setField("fileName", value);
   }
 
@@ -20,7 +20,7 @@ export default class Upload extends RESTModel {
     return this.getField("fileData");
   }
 
-  set fileData(value) {
+  set fileData(value: string) {
     this.setField("fileData", value);
   }
 
@@ -28,7 +28,7 @@ export default class Upload extends RESTModel {
     return this.getField("title");
   }
 
-  set title(value) {
+  set title(value: string) {
     this.setField("title", value);
   }
 
@@ -36,7 +36,7 @@ export default class Upload extends RESTModel {
     return this.getField("description");
   }
 
-  set description(value) {
+  set description(value: string) {
     this.setField("description", value);
   }
 
@@ -44,13 +44,31 @@ export default class Upload extends RESTModel {
     return this.getField("owners");
   }
 
-  set owners(value) {
+  set owners(value: string[]) {
     this.setField("owners", value);
   }
 
-  getOwners() {
+  public static async uploadFile(dataUrl: string, fileName: string) {
+    let upload = new Upload({ fileData: dataUrl, fileName });
+    upload = await upload.save(true);
+    return upload;
+  }
+
+  public static findById(id: string) {
+    return RESTModel.findByIdBase(Upload, id);
+  }
+
+  public static findMany(criteria: object | null) {
+    return RESTModel.findManyBase(Upload, criteria, true);
+  }
+
+  public static getAllOwned() {
+    return RESTModel.findManyBase(Upload, null, true);
+  }
+
+  public getOwners() {
     const owners = Array.from(this.owners);
-    if (owners.length !== 0)
+    if (owners.length !== 0) {
       return RESTModel.findManyBase(
         User,
         {
@@ -58,45 +76,31 @@ export default class Upload extends RESTModel {
         },
         true
       );
+    }
     return Promise.resolve([]);
   }
 
-  userIsOwner(user: any) {
+  public userIsOwner(user: any) {
     if (Array.isArray(this.owners)) {
       let userId: string;
-      if (typeof user === "string") userId = user;
-      else if (typeof user === "object" && user) userId = user._id;
+      if (typeof user === "string") {
+        userId = user;
+      } else if (typeof user === "object" && user) {
+        userId = user._id;
+      }
       return this.owners.find((id: string) => id === userId) !== undefined;
     }
     return false;
   }
 
-  isValid() {
-    if (!super.isValid()) return false;
-    if (!this.title) return false;
-    if (!this.description) return false;
-    if (!this.fileData) return false;
-    if (!this.fileName) return false;
-    if (!Array.isArray(this.owners)) return false;
-    if (this.owners.length === 0) return false;
+  public isValid() {
+    if (!super.isValid()) { return false; }
+    if (!this.title) { return false; }
+    if (!this.description) { return false; }
+    if (!this.fileData) { return false; }
+    if (!this.fileName) { return false; }
+    if (!Array.isArray(this.owners)) { return false; }
+    if (this.owners.length === 0) { return false; }
     return true;
-  }
-
-  static async uploadFile(dataUrl: string, fileName: string) {
-    let upload = new Upload({ fileData: dataUrl, fileName });
-    upload = await upload.save(true);
-    return upload;
-  }
-
-  static findById(id: string) {
-    return RESTModel.findByIdBase(Upload, id);
-  }
-
-  static findMany(criteria: object | null) {
-    return RESTModel.findManyBase(Upload, criteria, true);
-  }
-
-  static getAllOwned() {
-    return RESTModel.findManyBase(Upload, null, true);
   }
 }

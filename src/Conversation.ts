@@ -6,13 +6,13 @@ import API from "./API";
 import RESTModel from "./RESTModel";
 
 export default class Conversation extends RESTModel {
-  static ModelName: string = "Conversation";
-  static Callbacks = new Map();
+  public static ModelName: string = "Conversation";
+  public static Callbacks = new Map();
   get events() {
     return this.getField("events") || [];
   }
 
-  set events(value) {
+  set events(value: any[]) {
     this.setField("events", value);
   }
 
@@ -20,22 +20,57 @@ export default class Conversation extends RESTModel {
     return this.getField("users") || [];
   }
 
-  set users(value) {
+  set users(value: string[]) {
     this.setField("users", value);
   }
 
-  isValid() {
-    if (!super.isValid()) return false;
+  public static newCallback(callback: any) {
+    const callbackId = Date.now();
+    Conversation.Callbacks.set(callbackId, callback);
+    return () => Conversation.Callbacks.delete(callbackId);
+  }
+
+  public static connectSocket() {
+    API.getSocket().then(
+      (socket: SocketIOClient.Socket) => {
+        if (socket) {
+          socket.on("/API/Conversation/Update", (data: any) => {
+            if (data) {
+              let conv = RESTModel.Cache.get(data._id) || null;
+              if (conv) {
+                Object.assign(conv, data);
+              } else {
+                conv = new Conversation(data);
+              }
+              RESTModel.Cache.set(conv._id, conv);
+              Conversation.Callbacks.forEach((cb) => cb(conv));
+            }
+          });
+        }
+      },
+      console.error);
+  }
+
+  public static findById(id: string) {
+    return RESTModel.findByIdBase(Conversation, id, true);
+  }
+
+  public static getAllOwned() {
+    return RESTModel.findManyBase(Conversation, null, true);
+  }
+
+  public isValid() {
+    if (!super.isValid()) { return false; }
     // TODO: do more tests...
     return true;
   }
 
-  pushMessage(user: string, message: string) {
+  public pushMessage(user: string, message: string) {
     const { events } = this;
     events.push({
-      user,
+      dateTimePosted: new Date(),
       message,
-      dateTimePosted: new Date()
+      user,
     });
     this.events = events;
     return this.save();
@@ -43,33 +78,4 @@ export default class Conversation extends RESTModel {
 
   // TODO: inviteNewUser(user, newUser, token) {}
 
-  static newCallback(callback: any) {
-    const callbackId = Date.now();
-    Conversation.Callbacks.set(callbackId, callback);
-    return () => Conversation.Callbacks.delete(callbackId);
-  }
-
-  static connectSocket() {
-    API.getSocket().then((socket: SocketIOClient.Socket) => {
-      if(socket) {
-        socket.on("/API/Conversation/Update", (data: any) => {
-          if (data) {
-            let conv = RESTModel.Cache.get(data._id) || null;
-            if (conv) conv = Object.assign(conv, data);
-            else conv = new Conversation(data);
-            RESTModel.Cache.set(conv._id, conv);
-            Conversation.Callbacks.forEach(cb => cb(conv));
-          }
-        });
-      }
-    }, console.error);
-  }
-
-  static findById(id: string) {
-    return RESTModel.findByIdBase(Conversation, id, true);
-  }
-
-  static getAllOwned() {
-    return RESTModel.findManyBase(Conversation, null, true);
-  }
 }

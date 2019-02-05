@@ -4,15 +4,15 @@
 import RESTModel from "./RESTModel";
 export default class ErrorReport extends RESTModel {
     static ModelName: string;
-    version: any;
-    userId: any;
-    stack: any;
-    message: any;
-    name: any;
-    fileName: any;
-    columnNumber: any;
-    lineNumber: any;
-    isValid(): boolean;
+    version: string;
+    userId: string;
+    stack: string;
+    message: string;
+    name: string;
+    fileName: string;
+    columnNumber: number;
+    lineNumber: number;
     static findById(id: string): Promise<any>;
     static findMany(criteria: object | null): Promise<any[]>;
+    isValid(): boolean;
 }
