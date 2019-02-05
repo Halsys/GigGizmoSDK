@@ -1876,13 +1876,11 @@ var Conversation = /** @class */ (function (_super) {
         return true;
     };
     Conversation.prototype.pushMessage = function (user, message) {
-        var events = this.events;
-        events.push({
+        this.events.push({
             dateTimePosted: new Date(),
             message: message,
             user: user,
         });
-        this.events = events;
         return this.save();
     };
     Conversation.ModelName = "Conversation";

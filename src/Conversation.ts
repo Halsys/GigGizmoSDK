@@ -66,13 +66,11 @@ export default class Conversation extends RESTModel {
   }
 
   public pushMessage(user: string, message: string) {
-    const { events } = this;
-    events.push({
+    this.events.push({
       dateTimePosted: new Date(),
       message,
       user,
     });
-    this.events = events;
     return this.save();
   }
 
