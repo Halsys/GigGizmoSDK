@@ -32,5 +32,9 @@ module.exports = {
     libraryTarget: "this",
     filename: "index.js",
     path: __dirname + "/"
+  },
+  externals: {
+    "socket.io-client": "socket.io-client",
+    axios: "axios"
   }
 };

@@ -1,28 +1,14 @@
 /**
  * Created by corynull on 6/19/17.
  */
-import { AxiosRequestConfig } from "axios";
+import Axios, { AxiosRequestConfig } from "axios";
 import { parse as ParseCookie, serialize as SerializeCookie } from "cookie";
-import "socket.io-client";
+import * as SocketIO from "socket.io-client";
 import { version } from "../package.json";
 
-if (typeof (global as any).axios === "undefined") {
-  (global as any).axios = import("axios") as any;
-  if (typeof (global as any).axios === "undefined") {
-    throw new Error("Missing axios in global");
-  }
-}
-
-if (typeof (global as any)["socket.io-client"] === "undefined") {
-  (global as any)["socket.io-client"] = import("socket.io-client") as any;
-  if (typeof (global as any)["socket.io-client"] === "undefined") {
-    throw new Error("Missing socket.io-client in global");
-  }
-}
-
 export default abstract class API {
-  public static readonly WebSocket = (global as any)["socket.io-client"];
-  public static readonly axios = (global as any).axios;
+  public static readonly WebSocket = SocketIO;
+  public static readonly axios = Axios;
   public static readonly SessionStorageSupported =
     typeof Storage !== "undefined";
   public static readonly LocalStorageSupported =

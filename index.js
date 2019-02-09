@@ -1229,20 +1229,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Created by corynull on 6/19/17.
+ */
+var axios_1 = __webpack_require__(/*! axios */ "axios");
 var cookie_1 = __webpack_require__(/*! cookie */ "./node_modules/cookie/index.js");
-__webpack_require__(/*! socket.io-client */ "socket.io-client");
-if (typeof global.axios === "undefined") {
-    global.axios = Promise.resolve().then(function () { return __webpack_require__(/*! axios */ "axios"); });
-    if (typeof global.axios === "undefined") {
-        throw new Error("Missing axios in global");
-    }
-}
-if (typeof global["socket.io-client"] === "undefined") {
-    global["socket.io-client"] = Promise.resolve().then(function () { return __webpack_require__(/*! socket.io-client */ "socket.io-client"); });
-    if (typeof global["socket.io-client"] === "undefined") {
-        throw new Error("Missing socket.io-client in global");
-    }
-}
+var SocketIO = __webpack_require__(/*! socket.io-client */ "socket.io-client");
 var API = /** @class */ (function () {
     function API() {
         throw new Error("Cannot instantiate.");
@@ -1458,8 +1450,8 @@ var API = /** @class */ (function () {
             }
         });
     };
-    API.WebSocket = global["socket.io-client"];
-    API.axios = global.axios;
+    API.WebSocket = SocketIO;
+    API.axios = axios_1.default;
     API.SessionStorageSupported = typeof Storage !== "undefined";
     API.LocalStorageSupported = typeof window !== "undefined" && typeof window.localStorage !== "undefined";
     API.ShouldUseSocketIO = true;
@@ -5167,7 +5159,7 @@ var User = /** @class */ (function (_super) {
             return birthday ? new Date(birthday) : birthday;
         },
         set: function (value) {
-            this.setField("birthday", new Date(value || undefined).toJSON());
+            this.setField("birthday", value.toJSON());
         },
         enumerable: true,
         configurable: true
@@ -5357,7 +5349,7 @@ var User = /** @class */ (function (_super) {
             return lastLogin ? new Date(lastLogin) : lastLogin;
         },
         set: function (value) {
-            this.setField("lastLogin", new Date(value).toJSON());
+            this.setField("lastLogin", value.toJSON());
         },
         enumerable: true,
         configurable: true
@@ -5904,6 +5896,10 @@ var User = /** @class */ (function (_super) {
     User.Current = null;
     User.Callbacks = new Map();
     User.agreement = null;
+    User.EmailRegex = new RegExp(["^(([^<>()[].,;:s@\"]+",
+        "(.[^<>()[].,;:s@\"]+)*)|(\".+\"))",
+        "@(([^<>()[].,;:s@\"]+.)+",
+        "[^<>()[].,;:s@\"]{2,})$"].join(""), "i");
     return User;
 }(RESTModel_1.default));
 exports.default = User;

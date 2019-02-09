@@ -18,10 +18,16 @@ import Venue from "./Venue";
 export default class User extends RESTModel {
   public static ModelName: string = "User";
   public static Current: any = null;
-  public static Callbacks = new Map();
+  public static Callbacks: Map<number, (user: User) => any> = new Map();
   public static agreement: any = null;
+  public static EmailRegex: RegExp = new RegExp(
+    [`^(([^<>()[\].,;:\s@"]+`,
+     `(\.[^<>()[\].,;:\s@"]+)*)|(".+"))`,
+     `@(([^<>()[\].,;:\s@"]+\.)+`,
+     `[^<>()[\].,;:\s@"]{2,})$`].join(""),
+    "i");
 
-  get password() {
+  get password(): string {
     return this.getField("password");
   }
 
@@ -29,7 +35,7 @@ export default class User extends RESTModel {
     this.setField("password", value);
   }
 
-  get confirmPassword() {
+  get confirmPassword(): string {
     return this.getField("confirmPassword");
   }
 
@@ -37,7 +43,7 @@ export default class User extends RESTModel {
     this.setField("confirmPassword", value);
   }
 
-  get icon() {
+  get icon(): string {
     return this.getField("icon");
   }
 
@@ -49,7 +55,7 @@ export default class User extends RESTModel {
     this.setField("active", value);
   }
 
-  get active() {
+  get active(): boolean {
     return this.getField("active");
   }
 
@@ -57,11 +63,11 @@ export default class User extends RESTModel {
     this.setField("admin", value);
   }
 
-  get admin() {
+  get admin(): boolean {
     return this.getField("admin") === true;
   }
 
-  get firstName() {
+  get firstName(): string {
     return this.getField("firstName");
   }
 
@@ -69,7 +75,7 @@ export default class User extends RESTModel {
     this.setField("firstName", value);
   }
 
-  get middleName() {
+  get middleName(): string {
     return this.getField("middleName");
   }
 
@@ -77,7 +83,7 @@ export default class User extends RESTModel {
     this.setField("middleName", value);
   }
 
-  get lastName() {
+  get lastName(): string {
     return this.getField("lastName");
   }
 
@@ -85,16 +91,16 @@ export default class User extends RESTModel {
     this.setField("lastName", value);
   }
 
-  get birthday() {
+  get birthday(): Date {
     const birthday = this.getField("birthday") || null;
     return birthday ? new Date(birthday) : birthday;
   }
 
-  set birthday(value: any) {
-    this.setField("birthday", new Date(value || undefined).toJSON());
+  set birthday(value: Date) {
+    this.setField("birthday", value.toJSON());
   }
 
-  get country() {
+  get country(): string {
     return this.getField("country");
   }
 
@@ -102,7 +108,7 @@ export default class User extends RESTModel {
     this.setField("country", value);
   }
 
-  get bandManager() {
+  get bandManager(): boolean {
     return this.getField("bandManager") === true;
   }
 
@@ -110,7 +116,7 @@ export default class User extends RESTModel {
     this.setField("bandManager", value);
   }
 
-  get venueManager() {
+  get venueManager(): boolean {
     return this.getField("venueManager") === true;
   }
 
@@ -118,7 +124,7 @@ export default class User extends RESTModel {
     this.setField("venueManager", value);
   }
 
-  get betaFeatureUser() {
+  get betaFeatureUser(): boolean {
     return this.getField("betaFeatureUser") === true;
   }
 
@@ -126,7 +132,7 @@ export default class User extends RESTModel {
     this.setField("betaFeatureUser", value);
   }
 
-  get sendAnonymousReports() {
+  get sendAnonymousReports(): boolean {
     return this.getField("sendAnonymousReports") === true;
   }
 
@@ -134,7 +140,7 @@ export default class User extends RESTModel {
     this.setField("sendAnonymousReports", value);
   }
 
-  get sendErrorReports() {
+  get sendErrorReports(): boolean {
     return this.getField("sendErrorReports") === true;
   }
 
@@ -142,7 +148,7 @@ export default class User extends RESTModel {
     this.setField("sendErrorReports", value);
   }
 
-  get sendEmails() {
+  get sendEmails(): boolean {
     return this.getField("sendEmails") === true;
   }
 
@@ -150,7 +156,7 @@ export default class User extends RESTModel {
     this.setField("sendEmails", value);
   }
 
-  get sendPromotions() {
+  get sendPromotions(): boolean {
     return this.getField("sendPromotions") === true;
   }
 
@@ -158,7 +164,7 @@ export default class User extends RESTModel {
     this.setField("sendPromotions", value);
   }
 
-  get useCookies() {
+  get useCookies(): boolean {
     return this.getField("useCookies") === true;
   }
 
@@ -166,12 +172,12 @@ export default class User extends RESTModel {
     this.setField("useCookies", value);
   }
 
-  get fullName() {
+  get fullName(): string {
     return `${this.firstName || ""} ${this.middleName || ""} ${this.lastName ||
       ""}`;
   }
 
-  get email() {
+  get email(): string {
     return this.getField("email");
   }
 
@@ -179,15 +185,15 @@ export default class User extends RESTModel {
     this.setField("email", value);
   }
 
-  get salt() {
+  get salt(): string {
     return this.getField("salt");
   }
 
-  get hash() {
+  get hash(): string {
     return this.getField("hash");
   }
 
-  get facebook() {
+  get facebook(): string {
     return this.getField("facebook");
   }
 
@@ -195,7 +201,7 @@ export default class User extends RESTModel {
     this.setField("facebook", value);
   }
 
-  get twitter() {
+  get twitter(): string {
     return this.getField("twitter");
   }
 
@@ -203,7 +209,7 @@ export default class User extends RESTModel {
     this.setField("twitter", value);
   }
 
-  get description() {
+  get description(): string {
     return this.getField("description");
   }
 
@@ -211,7 +217,7 @@ export default class User extends RESTModel {
     this.setField("description", value);
   }
 
-  get emailVerified() {
+  get emailVerified(): boolean {
     return this.getField("emailVerified");
   }
 
@@ -219,11 +225,11 @@ export default class User extends RESTModel {
     this.setField("emailVerified", value);
   }
 
-  get attempts() {
+  get attempts(): number {
     return this.getField("attempts");
   }
 
-  get lastLoginIP() {
+  get lastLoginIP(): string {
     return this.getField("lastLoginIP");
   }
 
@@ -231,16 +237,16 @@ export default class User extends RESTModel {
     this.setField("lastLoginIP", value);
   }
 
-  get lastLogin() {
+  get lastLogin(): Date {
     const lastLogin = this.getField("lastLogin") || null;
     return lastLogin ? new Date(lastLogin) : lastLogin;
   }
 
-  set lastLogin(value: any) {
-    this.setField("lastLogin", new Date(value).toJSON());
+  set lastLogin(value: Date) {
+    this.setField("lastLogin", value.toJSON());
   }
 
-  get canContact() {
+  get canContact(): boolean {
     return this.getField("canContact") === true;
   }
 
@@ -248,7 +254,7 @@ export default class User extends RESTModel {
     this.setField("canContact", value);
   }
 
-  get canFind() {
+  get canFind(): boolean {
     return this.getField("canFind") === true;
   }
 
@@ -256,7 +262,7 @@ export default class User extends RESTModel {
     this.setField("canFind", value);
   }
 
-  get options() {
+  get options(): any {
     return this.getField("options");
   }
 
