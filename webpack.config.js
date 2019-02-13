@@ -23,8 +23,7 @@ module.exports = {
       { test: /\.ts?$/, loader: "ts-loader" },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
-      { test: /\.json$/, loader: "json-loader" }
+      { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
     ],
   },
 
@@ -33,9 +32,5 @@ module.exports = {
     libraryTarget: "this",
     filename: "index.js",
     path: __dirname + "/"
-  },
-  externals: {
-    "socket.io-client": "socket.io-client",
-    axios: "axios"
   }
 };
