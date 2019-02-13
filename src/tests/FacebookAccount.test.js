@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { FacebookAccount, User, RESTModel } = require("../../index.js");
 
 describe("FacebookAccount class", () => {
@@ -35,7 +35,7 @@ describe("FacebookAccount class", () => {
         userId: "504e0cd7dd992d9be2f20b6f",
         accountId: 12139127392167393,
         userAccessToken: "Something",
-        userRefreshToken: "Something"
+        userRefreshToken: "Something",
       });
       expect(RESTModel.isValidId(acc.userId)).to.equal(true);
       expect(acc.userId).to.equal("504e0cd7dd992d9be2f20b6f");
@@ -57,13 +57,13 @@ describe("FacebookAccount class", () => {
       lastName: "User",
       birthday: "1994-09-04T12:00:00Z",
       country: "US",
-      email: "user@network.com"
+      email: "user@network.com",
     });
     const acc = new FacebookAccount({
       userId: "504e0cd7dd992d9be2f20b6f",
       accountId: 12139127392167393,
       userAccessToken: "Something",
-      userRefreshToken: "Something"
+      userRefreshToken: "Something",
     });
     it("valid id string argument", () =>
       expect(acc.userIsOwner(basicUser.id)).to.equal(true));

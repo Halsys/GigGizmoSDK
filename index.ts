@@ -25,6 +25,6 @@ export { default as User } from "./src/User";
 export { default as Venue } from "./src/Venue";
 export { default as ModelNameToModel } from "./src/ModelNameToModel";
 
-if(typeof window !== "undefined") {
-  (<any>window).GigGizmoAPI = module.exports;
+if (typeof window !== "undefined") {
+	(window as any).GigGizmoAPI = module.exports;
 }

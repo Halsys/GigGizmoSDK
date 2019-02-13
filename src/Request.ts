@@ -6,130 +6,130 @@ import API from "./API";
 import RESTModel from "./RESTModel";
 
 export default class Request extends RESTModel {
-  public static ModelName: string = "Request";
+	public static ModelName: string = "Request";
 
-  get to() {
-    return this.getField("to");
-  }
+	get to() {
+		return this.getField("to");
+	}
 
-  set to(value: string) {
-    this.setField("to", value);
-  }
+	set to(value: string) {
+		this.setField("to", value);
+	}
 
-  get from() {
-    return this.getField("from");
-  }
+	get from() {
+		return this.getField("from");
+	}
 
-  set from(value: string) {
-    this.setField("from", value);
-  }
+	set from(value: string) {
+		this.setField("from", value);
+	}
 
-  get status() {
-    return this.getField("status");
-  }
+	get status() {
+		return this.getField("status");
+	}
 
-  set status(value: string) {
-    this.setField("status", value);
-  }
+	set status(value: string) {
+		this.setField("status", value);
+	}
 
-  get options() {
-    return this.getField("options");
-  }
+	get options() {
+		return this.getField("options");
+	}
 
-  set options(value: string[]) {
-    this.setField("options", value);
-  }
+	set options(value: string[]) {
+		this.setField("options", value);
+	}
 
-  get type() {
-    return this.getField("type");
-  }
+	get type() {
+		return this.getField("type");
+	}
 
-  set type(value: string) {
-    this.setField("type", value);
-  }
+	set type(value: string) {
+		this.setField("type", value);
+	}
 
-  get userData() {
-    return this.getField("userData");
-  }
+	get userData() {
+		return this.getField("userData");
+	}
 
-  set userData(value: any) {
-    this.setField("userData", value);
-  }
+	set userData(value: any) {
+		this.setField("userData", value);
+	}
 
-  get emailSent() {
-    return this.getField("emailSent");
-  }
+	get emailSent() {
+		return this.getField("emailSent");
+	}
 
-  set emailSent(value: boolean) {
-    this.setField("emailSent", value);
-  }
+	set emailSent(value: boolean) {
+		this.setField("emailSent", value);
+	}
 
-  public static createBandOwnershipRequest(band: string, from: string, to: string) {
-    return new Promise((resolve, reject) => {
-      API.call("POST", "/API/Request", {
-        from,
-        to,
-        type: "BandOwnership",
-        userData: {
-          bandId: band
-        }
-      }).then(
-        (data: any) => {
-          resolve(new Request(data));
-        },
-        reject);
-    });
-  }
+	public static createBandOwnershipRequest(band: string, from: string, to: string) {
+		return new Promise((resolve, reject) => {
+			API.call("POST", "/API/Request", {
+				from,
+				to,
+				type: "BandOwnership",
+				userData: {
+					bandId: band
+				}
+			}).then(
+				(data: any) => {
+					resolve(new Request(data));
+				},
+				reject);
+		});
+	}
 
-  public static createVenueOwnershipRequest(venue: string, from: string, to: string) {
-    return new Promise((resolve, reject) => {
-      API.call("POST", "/API/Request", {
-        from,
-        to,
-        type: "VenueOwnership",
-        userData: {
-          venueId: venue
-        }
-      }).then(
-        (data: any) => {
-          resolve(new Request(data));
-        },
-        reject);
-    });
-  }
+	public static createVenueOwnershipRequest(venue: string, from: string, to: string) {
+		return new Promise((resolve, reject) => {
+			API.call("POST", "/API/Request", {
+				from,
+				to,
+				type: "VenueOwnership",
+				userData: {
+					venueId: venue
+				}
+			}).then(
+				(data: any) => {
+					resolve(new Request(data));
+				},
+				reject);
+		});
+	}
 
-  public static createGigNegotiation(gig: string, from: string, to: string) {
-    return new Promise((resolve, reject) => {
-      API.call("POST", "/API/Request", {
-        from,
-        to,
-        type: "GigNegotiation",
-        userData: {
-          gigId: gig
-        }
-      }).then(
-        (data: any) => {
-          resolve(new Request(data));
-        },
-        reject);
-    });
-  }
+	public static createGigNegotiation(gig: string, from: string, to: string) {
+		return new Promise((resolve, reject) => {
+			API.call("POST", "/API/Request", {
+				from,
+				to,
+				type: "GigNegotiation",
+				userData: {
+					gigId: gig
+				}
+			}).then(
+				(data: any) => {
+					resolve(new Request(data));
+				},
+				reject);
+		});
+	}
 
-  public static getAllOwned() {
-    return RESTModel.findManyBase(Request, null);
-  }
+	public static getAllOwned() {
+		return RESTModel.findManyBase(Request, null);
+	}
 
-  public static findById(id: string) {
-    return RESTModel.findByIdBase(Request, id);
-  }
+	public static findById(id: string) {
+		return RESTModel.findByIdBase(Request, id);
+	}
 
-  public async execute(option: string) {
-    const request = await API.call(
-      "POST",
-      `/API/Request/${this._id}/${option}`,
-      null
-    );
-    this.assign(request);
-    return this;
-  }
+	public async execute(option: string) {
+		const request = await API.call(
+			"POST",
+			`/API/Request/${this._id}/${option}`,
+			null
+		);
+		this.assign(request);
+		return this;
+	}
 }

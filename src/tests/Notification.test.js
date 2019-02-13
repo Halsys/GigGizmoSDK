@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Notification, User, RESTModel } = require("../../index.js");
 
 describe("Notification class", () => {
@@ -36,7 +36,7 @@ describe("Notification class", () => {
         userId: "504e0cd7dd992d9be2f20b6f",
         message: "Test",
         label: "Not a notification",
-        actions: [{ link: "/fake", label: "Fake" }]
+        actions: [{ link: "/fake", label: "Fake" }],
       });
       expect(RESTModel.isValidId(note.userId)).to.equal(true);
       expect(note.userId).to.equal("504e0cd7dd992d9be2f20b6f");

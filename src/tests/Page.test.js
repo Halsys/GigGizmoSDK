@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Page, User, RESTModel } = require("../../index.js");
 
 describe("Page class", () => {
@@ -53,7 +53,7 @@ describe("Page class", () => {
         revisions: 0,
         hide: false,
         blog: false,
-        doc: false
+        doc: false,
       });
       expect(page.data).to.equal("NOT HTML");
       expect(page.metadata).to.equal("Test");

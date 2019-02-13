@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Upload, User } = require("../../index.js");
 
 describe("Upload class", () => {
@@ -33,7 +33,7 @@ describe("Upload class", () => {
         description: "Something",
         fileName: "Something",
         fileData: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(copy.title).to.equal("Basic");
     });
@@ -49,7 +49,7 @@ describe("Upload class", () => {
         description: "Something",
         fileName: "Something",
         fileData: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(upload.isValid()).to.equal(true);
     });
@@ -61,7 +61,7 @@ describe("Upload class", () => {
         description: "Something",
         fileName: "Something",
         fileData: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -73,7 +73,7 @@ describe("Upload class", () => {
         description: "Something",
         fileName: "Something",
         fileData: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -85,7 +85,7 @@ describe("Upload class", () => {
         description: "Something",
         fileName: "Something",
         fileData: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -97,7 +97,7 @@ describe("Upload class", () => {
         title: "Basic",
         description: "Something",
         fileData: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -109,7 +109,7 @@ describe("Upload class", () => {
         title: "Basic",
         description: "Something",
         fileName: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -121,7 +121,7 @@ describe("Upload class", () => {
         description: "Something",
         fileName: "Something",
         fileData: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -133,7 +133,7 @@ describe("Upload class", () => {
         title: "Basic",
         fileName: "Something",
         fileData: "Something",
-        description: "Something"
+        description: "Something",
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -146,7 +146,7 @@ describe("Upload class", () => {
         fileName: "Something",
         fileData: "Something",
         description: "Something",
-        owners: []
+        owners: [],
       });
       expect(upload.isValid()).to.equal(false);
     });
@@ -162,7 +162,7 @@ describe("Upload class", () => {
       lastName: "User",
       birthday: "1994-09-04T12:00:00Z",
       country: "US",
-      email: "user@network.com"
+      email: "user@network.com",
     });
     const basicUpload = new Upload({
       _id: "de4e0cd7dd992d9be2f20b42",
@@ -172,7 +172,7 @@ describe("Upload class", () => {
       description: "Something",
       fileName: "Something",
       fileData: "Something",
-      owners: ["504e0cd7dd992d9be2f20b6f"]
+      owners: ["504e0cd7dd992d9be2f20b6f"],
     });
     it("valid id string argument", () =>
       expect(basicUpload.userIsOwner(basicUser.id)).to.equal(true));

@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const {
   ModelNameToModel,
   Band,
@@ -18,7 +18,7 @@ const {
   TwitterAccount,
   Upload,
   User,
-  Venue
+  Venue,
 } = require("../../index.js");
 
 describe("RESTModel class", () => {
@@ -31,10 +31,10 @@ describe("RESTModel class", () => {
 			}`);
       expect(doc._id).to.equal("de4e0cd7dd992d9be2f20b42");
       expect(doc.dateCreated.toString()).to.equal(
-        new Date("2018-04-29T12:00:00Z").toString()
+        new Date("2018-04-29T12:00:00Z").toString(),
       );
       expect(doc.dateModified.toString()).to.equal(
-        new Date("2018-04-29T12:00:00Z").toString()
+        new Date("2018-04-29T12:00:00Z").toString(),
       );
     });
     it("Empty", () => {
@@ -47,7 +47,7 @@ describe("RESTModel class", () => {
       const copy = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(copy._id).to.equal("de4e0cd7dd992d9be2f20b42");
       expect(copy.dateCreated).to.deep.equal(new Date("2018-04-29T12:00:00Z"));
@@ -66,12 +66,12 @@ describe("RESTModel class", () => {
       const copy = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(copy.toObject()).to.deep.equal({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
     });
   });
@@ -87,11 +87,11 @@ describe("RESTModel class", () => {
       const copy = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       const json = copy.toString();
       expect(json).to.equal(
-        '{"_id":"de4e0cd7dd992d9be2f20b42","dateCreated":"2018-04-29T12:00:00Z","dateModified":"2018-04-29T12:00:00Z"}'
+        '{"_id":"de4e0cd7dd992d9be2f20b42","dateCreated":"2018-04-29T12:00:00Z","dateModified":"2018-04-29T12:00:00Z"}',
       );
     });
   });
@@ -101,28 +101,28 @@ describe("RESTModel class", () => {
       const doc = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(doc.isValid()).to.equal(true);
     });
     it("Missing id", () => {
       const doc = new RESTModel({
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(doc.isValid()).to.equal(false);
     });
     it("Missing dateCreated", () => {
       const doc = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(doc.isValid()).to.equal(false);
     });
     it("Missing dateModified", () => {
       const doc = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
-        dateCreated: "2018-04-29T12:00:00Z"
+        dateCreated: "2018-04-29T12:00:00Z",
       });
       expect(doc.isValid()).to.equal(false);
     });
@@ -133,12 +133,12 @@ describe("RESTModel class", () => {
       const doc = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(doc.toObject()).to.deep.equal({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(doc.isValid()).to.equal(true);
     });
@@ -146,7 +146,7 @@ describe("RESTModel class", () => {
       const doc = new RESTModel({
         _id: "de4e0cd7dd992d9be2f20b42",
         dateCreated: "2018-04-29T12:00:00Z",
-        dateModified: "2018-04-29T12:00:00Z"
+        dateModified: "2018-04-29T12:00:00Z",
       });
       expect(doc.isValid()).to.equal(true);
       doc.assign({ _id: "", dateCreated: "", dateModified: "" });
@@ -177,7 +177,7 @@ describe("RESTModel class", () => {
     });
     it("FacebookAccount", () => {
       expect(RESTModel.getModelName(FacebookAccount)).to.equal(
-        "FacebookAccount"
+        "FacebookAccount",
       );
     });
     it("Gig", () => {

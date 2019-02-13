@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { User } = require("../../index.js");
 
 describe("User class", () => {
@@ -22,7 +22,7 @@ describe("User class", () => {
       expect(JSONUser.middleName).to.equal("F");
       expect(JSONUser.lastName).to.equal("User");
       expect(JSONUser.birthday.toISOString()).to.equal(
-        "1994-09-04T12:00:00.000Z"
+        "1994-09-04T12:00:00.000Z",
       );
       expect(JSONUser.country).to.equal("US");
       expect(JSONUser.email).to.equal("user@network.com");
@@ -43,13 +43,13 @@ describe("User class", () => {
         lastName: "User",
         birthday: "1994-09-04T12:00:00Z",
         country: "US",
-        email: "user@network.com"
+        email: "user@network.com",
       });
       expect(basicUser.firstName).to.equal("Basic");
       expect(basicUser.middleName).to.equal("F");
       expect(basicUser.lastName).to.equal("User");
       expect(basicUser.birthday.toISOString()).to.equal(
-        "1994-09-04T12:00:00.000Z"
+        "1994-09-04T12:00:00.000Z",
       );
       expect(basicUser.country).to.equal("US");
       expect(basicUser.email).to.equal("user@network.com");
@@ -59,35 +59,35 @@ describe("User class", () => {
   describe("Validation", () => {
     const user = new User({
       firstName: "Basic",
-      lastName: "User"
+      lastName: "User",
     });
     it("Password missing", () => {
       expect(user.validatePassword("").message).to.equal("Password missing");
     });
     it("Password short", () => {
       expect(user.validatePassword("****").message).to.equal(
-        "Password is too short"
+        "Password is too short",
       );
     });
     it("Password long", () => {
       const tooLong = "*".repeat(257);
       expect(user.validatePassword(tooLong).message).to.equal(
-        "Password is too long"
+        "Password is too long",
       );
     });
     it("Without number", () => {
       expect(user.validatePassword("Deadbeef").message).to.equal(
-        "Password does not have atleast one number"
+        "Password does not have atleast one number",
       );
     });
     it("With firstName", () => {
       expect(user.validatePassword("De@db33fBasic").message).to.equal(
-        "Password cannot contain your first name"
+        "Password cannot contain your first name",
       );
     });
     it("With lastName", () => {
       expect(user.validatePassword("De@db33fUser").message).to.equal(
-        "Password cannot contain your last name"
+        "Password cannot contain your last name",
       );
     });
     it("Valid password", () => {
@@ -103,7 +103,7 @@ describe("User class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         firstName: "Basic",
         lastName: "User",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       expect(user.isValid()).to.equal(true);
     });
@@ -112,7 +112,7 @@ describe("User class", () => {
         _id: "504e0cd7dd992d9be2f20b6f",
         firstName: "Basic",
         lastName: "User",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       expect(user.isValid()).to.equal(false);
     });
@@ -122,7 +122,7 @@ describe("User class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         firstName: "Basic",
         lastName: "User",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       expect(user.isValid()).to.equal(false);
     });
@@ -132,7 +132,7 @@ describe("User class", () => {
         dateCreated: "2018-04-29T12:00:00Z",
         firstName: "Basic",
         lastName: "User",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       expect(user.isValid()).to.equal(false);
     });
@@ -142,7 +142,7 @@ describe("User class", () => {
         dateCreated: "2018-04-29T12:00:00Z",
         dateModified: "2018-04-29T12:00:00Z",
         lastName: "User",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       expect(user.isValid()).to.equal(false);
     });
@@ -152,7 +152,7 @@ describe("User class", () => {
         dateCreated: "2018-04-29T12:00:00Z",
         dateModified: "2018-04-29T12:00:00Z",
         firstName: "Basic",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       expect(user.isValid()).to.equal(false);
     });
@@ -162,7 +162,7 @@ describe("User class", () => {
         dateCreated: "2018-04-29T12:00:00Z",
         dateModified: "2018-04-29T12:00:00Z",
         firstName: "Basic",
-        lastName: "User"
+        lastName: "User",
       });
       expect(user.isValid()).to.equal(false);
     });
@@ -185,7 +185,7 @@ describe("User class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         firstName: "Basic",
         lastName: "User",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       destructor();
     });
@@ -207,7 +207,7 @@ describe("User class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         firstName: "Basic",
         lastName: "User",
-        email: "Basic@network.com"
+        email: "Basic@network.com",
       });
       const promise = User.getUser(false).then(user => {
         expect(user).to.be.a("object");

@@ -13,17 +13,17 @@ import User from "./User";
 import Venue from "./Venue";
 
 export default {
-  Band,
-  Conversation,
-  ErrorReport,
-  FacebookAccount,
-  Gig,
-  Location,
-  Notification,
-  Page,
-  Post,
-  TwitterAccount,
-  Upload,
-  User,
-  Venue
+	Band,
+	Conversation,
+	ErrorReport,
+	FacebookAccount,
+	Gig,
+	Location,
+	Notification,
+	Page,
+	Post,
+	TwitterAccount,
+	Upload,
+	User,
+	Venue
 };

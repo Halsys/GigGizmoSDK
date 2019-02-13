@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Conversation, User } = require("../../index.js");
 
 describe("Conversation class", () => {
@@ -24,7 +24,7 @@ describe("Conversation class", () => {
     it("Copy Data", () => {
       const copy = new Conversation({
         events: [],
-        users: []
+        users: [],
       });
       expect(copy.events).to.be.a("array");
       expect(copy.users).to.be.a("array");

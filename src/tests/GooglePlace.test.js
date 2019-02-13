@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { GooglePlace } = require("../../index.js");
 
 describe("GooglePlace class", () => {
@@ -28,7 +28,7 @@ describe("GooglePlace class", () => {
     it("Copy Data", () => {
       const place = new GooglePlace({
         placeId: "Something",
-        details: {}
+        details: {},
       });
       expect(place.placeId).to.be.a("string");
       expect(place.placeId).to.equal("Something");

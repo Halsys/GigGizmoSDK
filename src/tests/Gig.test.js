@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Gig, User, RESTModel } = require("../../index.js");
 
 describe("Gig class", () => {
@@ -39,7 +39,7 @@ describe("Gig class", () => {
         stopTime: "2018-04-29T14:00:00Z",
         location: "d7dd992d9be2f20b6f504e0c",
         venue: "2d9be2f20b6f504e0cd7dd99",
-        bands: ["f20b6f504e0cd7dd992d9be2"]
+        bands: ["f20b6f504e0cd7dd992d9be2"],
       });
       expect(RESTModel.isValidId(gig.location)).to.equal(true);
       expect(RESTModel.isValidId(gig.venue)).to.equal(true);
@@ -62,7 +62,7 @@ describe("Gig class", () => {
         location: "d7dd992d9be2f20b6f504e0c",
         venue: "2d9be2f20b6f504e0cd7dd99",
         bands: ["f20b6f504e0cd7dd992d9be2"],
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(gig.isValid()).to.equal(true);
     });
@@ -75,7 +75,7 @@ describe("Gig class", () => {
         location: "d7dd992d9be2f20b6f504e0c",
         venue: "2d9be2f20b6f504e0cd7dd99",
         bands: ["f20b6f504e0cd7dd992d9be2"],
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(gig.isValid()).to.equal(false);
     });
@@ -88,7 +88,7 @@ describe("Gig class", () => {
         location: "d7dd992d9be2f20b6f504e0c",
         venue: "2d9be2f20b6f504e0cd7dd99",
         bands: ["f20b6f504e0cd7dd992d9be2"],
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(gig.isValid()).to.equal(false);
     });
@@ -101,7 +101,7 @@ describe("Gig class", () => {
         location: "d7dd992d9be2f20b6f504e0c",
         venue: "2d9be2f20b6f504e0cd7dd99",
         bands: ["f20b6f504e0cd7dd992d9be2"],
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(gig.isValid()).to.equal(false);
     });
@@ -117,7 +117,7 @@ describe("Gig class", () => {
       lastName: "User",
       birthday: "1994-09-04T12:00:00Z",
       country: "US",
-      email: "user@network.com"
+      email: "user@network.com",
     });
     const gig = new Gig({
       startTime: "2018-04-29T12:00:00Z",
@@ -125,7 +125,7 @@ describe("Gig class", () => {
       location: "d7dd992d9be2f20b6f504e0c",
       venue: "2d9be2f20b6f504e0cd7dd99",
       bands: ["f20b6f504e0cd7dd992d9be2"],
-      owners: ["504e0cd7dd992d9be2f20b6f"]
+      owners: ["504e0cd7dd992d9be2f20b6f"],
     });
     it("valid id string argument", () =>
       expect(gig.userIsOwner(basicUser.id)).to.equal(true));

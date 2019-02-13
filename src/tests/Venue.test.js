@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Venue, User } = require("../../index.js");
 
 describe("Venue class", () => {
@@ -30,7 +30,7 @@ describe("Venue class", () => {
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(copy.name).to.equal("Basic");
     });
@@ -45,7 +45,7 @@ describe("Venue class", () => {
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(venue.isValid()).to.equal(true);
     });
@@ -56,7 +56,7 @@ describe("Venue class", () => {
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -67,7 +67,7 @@ describe("Venue class", () => {
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -78,7 +78,7 @@ describe("Venue class", () => {
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -89,7 +89,7 @@ describe("Venue class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         location: "2d9be2f20b6f504e0cd7dd99",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -100,7 +100,7 @@ describe("Venue class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         name: "Basic",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -111,7 +111,7 @@ describe("Venue class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -122,7 +122,7 @@ describe("Venue class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
-        description: "Something"
+        description: "Something",
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -134,7 +134,7 @@ describe("Venue class", () => {
         name: "Basic",
         location: "2d9be2f20b6f504e0cd7dd99",
         description: "Something",
-        owners: []
+        owners: [],
       });
       expect(venue.isValid()).to.equal(false);
     });
@@ -150,7 +150,7 @@ describe("Venue class", () => {
       lastName: "User",
       birthday: "1994-09-04T12:00:00Z",
       country: "US",
-      email: "user@network.com"
+      email: "user@network.com",
     });
     const basicVenue = new Venue({
       _id: "de4e0cd7dd992d9be2f20b42",
@@ -159,7 +159,7 @@ describe("Venue class", () => {
       name: "Basic",
       location: "2d9be2f20b6f504e0cd7dd99",
       description: "Something",
-      owners: ["504e0cd7dd992d9be2f20b6f"]
+      owners: ["504e0cd7dd992d9be2f20b6f"],
     });
     it("valid id string argument", () =>
       expect(basicVenue.userIsOwner(basicUser.id)).to.equal(true));

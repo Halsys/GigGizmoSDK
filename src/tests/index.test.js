@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const GigGizmoSDK = require("../../index.js");
 const {
   Band,
@@ -17,7 +17,7 @@ const {
   TwitterAccount,
   Upload,
   User,
-  Venue
+  Venue,
 } = GigGizmoSDK;
 const ModelNameToModel = GigGizmoSDK.ModelNameToModel;
 
@@ -45,7 +45,7 @@ describe("ModelNameToModel", () => {
   });
   it("FacebookAccount", async () => {
     expect(await ModelNameToModel(
-      "FacebookAccount"
+      "FacebookAccount",
     )).to.equal(FacebookAccount);
   });
   it("Gig", async () => {

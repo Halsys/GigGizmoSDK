@@ -1,6 +1,6 @@
 const expect = require("chai").expect;
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Band, User } = require("../../index.js");
 
 describe("Band class", () => {
@@ -27,10 +27,10 @@ describe("Band class", () => {
     });
     it("Copy Data", () => {
       const copy = new Band({
-        name: "Basic",
         cityPlaceID: "Something",
+        name: "Basic",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(copy.name).to.equal("Basic");
     });
@@ -45,7 +45,7 @@ describe("Band class", () => {
         name: "Basic",
         cityPlaceID: "Something",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(band.isValid()).to.equal(true);
     });
@@ -56,7 +56,7 @@ describe("Band class", () => {
         name: "Basic",
         cityPlaceID: "Something",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -67,7 +67,7 @@ describe("Band class", () => {
         name: "Basic",
         cityPlaceID: "Something",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -78,7 +78,7 @@ describe("Band class", () => {
         name: "Basic",
         cityPlaceID: "Something",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -89,7 +89,7 @@ describe("Band class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         cityPlaceID: "Something",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -100,7 +100,7 @@ describe("Band class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         name: "Basic",
         description: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -111,7 +111,7 @@ describe("Band class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         name: "Basic",
         cityPlaceID: "Something",
-        owners: ["504e0cd7dd992d9be2f20b6f"]
+        owners: ["504e0cd7dd992d9be2f20b6f"],
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -122,7 +122,7 @@ describe("Band class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         name: "Basic",
         cityPlaceID: "Something",
-        description: "Something"
+        description: "Something",
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -134,7 +134,7 @@ describe("Band class", () => {
         name: "Basic",
         cityPlaceID: "Something",
         description: "Something",
-        owners: []
+        owners: [],
       });
       expect(band.isValid()).to.equal(false);
     });
@@ -150,7 +150,7 @@ describe("Band class", () => {
       lastName: "User",
       birthday: "1994-09-04T12:00:00Z",
       country: "US",
-      email: "user@network.com"
+      email: "user@network.com",
     });
     const basicBand = new Band({
       _id: "de4e0cd7dd992d9be2f20b42",
@@ -159,7 +159,7 @@ describe("Band class", () => {
       name: "Basic",
       cityPlaceID: "Something",
       description: "Something",
-      owners: ["504e0cd7dd992d9be2f20b6f"]
+      owners: ["504e0cd7dd992d9be2f20b6f"],
     });
     it("valid id string argument", () =>
       expect(basicBand.userIsOwner(basicUser.id)).to.equal(true));

@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { ErrorReport, User, RESTModel } = require("../../index.js");
 
 describe("ErrorReport class", () => {
@@ -34,7 +34,7 @@ describe("ErrorReport class", () => {
         userId: "504e0cd7dd992d9be2f20b6f",
         version: "1.0.0",
         message: "Test",
-        name: "Not an error"
+        name: "Not an error",
       });
       expect(RESTModel.isValidId(copy.userId)).to.equal(true);
       expect(copy.userId).to.equal("504e0cd7dd992d9be2f20b6f");

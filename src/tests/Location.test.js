@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 global["socket.io-client"] = require("socket.io-client");
-global["axios"] = require("axios");
+global.axios = require("axios");
 const { Location } = require("../../index.js");
 
 describe("Location class", () => {
@@ -42,7 +42,7 @@ describe("Location class", () => {
         placeId: "Something",
         address: "Something Street",
         point: [0, 0],
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.placeId).to.be.a("string");
       expect(place.placeId).to.equal("Something");
@@ -67,7 +67,7 @@ describe("Location class", () => {
         placeId: "Something",
         address: "Something Street",
         point: [0, 0],
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.isValid()).to.equal(true);
     });
@@ -78,7 +78,7 @@ describe("Location class", () => {
         placeId: "Something",
         address: "Something Street",
         point: [0, 0],
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.isValid()).to.equal(false);
     });
@@ -89,7 +89,7 @@ describe("Location class", () => {
         placeId: "Something",
         address: "Something Street",
         point: [0, 0],
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.isValid()).to.equal(false);
     });
@@ -100,7 +100,7 @@ describe("Location class", () => {
         placeId: "Something",
         address: "Something Street",
         point: [0, 0],
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.isValid()).to.equal(false);
     });
@@ -112,7 +112,7 @@ describe("Location class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         address: "Something Street",
         point: [0, 0],
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.isValid()).to.equal(false);
     });
@@ -124,7 +124,7 @@ describe("Location class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         placeId: "Something",
         point: [0, 0],
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.isValid()).to.equal(false);
     });
@@ -136,7 +136,7 @@ describe("Location class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         placeId: "Something",
         address: "Something Street",
-        point: [0, 0]
+        point: [0, 0],
       });
       expect(place.isValid()).to.equal(false);
     });
@@ -148,7 +148,7 @@ describe("Location class", () => {
         dateModified: "2018-04-29T12:00:00Z",
         placeId: "Something",
         address: "Something Street",
-        utcOffset: -600
+        utcOffset: -600,
       });
       expect(place.isValid()).to.equal(false);
     });

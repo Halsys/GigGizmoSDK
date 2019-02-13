@@ -5,112 +5,112 @@
 import RESTModel from "./RESTModel";
 
 export default class Post extends RESTModel {
-  public static ModelName: string = "Post";
+	public static ModelName: string = "Post";
 
-  get userId() {
-    return this.getField("userId");
-  }
+	get userId() {
+		return this.getField("userId");
+	}
 
-  set userId(value: string) {
-    this.setField("userId", value);
-  }
+	set userId(value: string) {
+		this.setField("userId", value);
+	}
 
-  get network() {
-    return this.getField("network");
-  }
+	get network() {
+		return this.getField("network");
+	}
 
-  set network(value: string) {
-    this.setField("network", value);
-  }
+	set network(value: string) {
+		this.setField("network", value);
+	}
 
-  get accountId() {
-    return this.getField("accountId");
-  }
+	get accountId() {
+		return this.getField("accountId");
+	}
 
-  set accountId(value: string) {
-    this.setField("accountId", value);
-  }
+	set accountId(value: string) {
+		this.setField("accountId", value);
+	}
 
-  get pageId() {
-    return this.getField("pageId");
-  }
+	get pageId() {
+		return this.getField("pageId");
+	}
 
-  set pageId(value: string) {
-    this.setField("pageId", value);
-  }
+	set pageId(value: string) {
+		this.setField("pageId", value);
+	}
 
-  get postText() {
-    return this.getField("postText");
-  }
+	get postText() {
+		return this.getField("postText");
+	}
 
-  set postText(value: string) {
-    this.setField("postText", value);
-  }
+	set postText(value: string) {
+		this.setField("postText", value);
+	}
 
-  get postDate() {
-    return this.getField("postDate");
-  }
+	get postDate() {
+		return this.getField("postDate");
+	}
 
-  set postDate(value: string) {
-    this.setField("postDate", value);
-  }
+	set postDate(value: string) {
+		this.setField("postDate", value);
+	}
 
-  get coordinates() {
-    return this.getField("coordinates");
-  }
+	get coordinates() {
+		return this.getField("coordinates");
+	}
 
-  set coordinates(value: number[]) {
-    this.setField("coordinates", value);
-  }
+	set coordinates(value: number[]) {
+		this.setField("coordinates", value);
+	}
 
-  get error() {
-    return this.getField("error");
-  }
+	get error() {
+		return this.getField("error");
+	}
 
-  set error(value: string) {
-    this.setField("error", value);
-  }
+	set error(value: string) {
+		this.setField("error", value);
+	}
 
-  get done() {
-    return this.getField("done");
-  }
+	get done() {
+		return this.getField("done");
+	}
 
-  set done(value: boolean) {
-    this.setField("done", value);
-  }
+	set done(value: boolean) {
+		this.setField("done", value);
+	}
 
-  public static findById(id: string) {
-    return RESTModel.findByIdBase(Post, id);
-  }
+	public static findById(id: string) {
+		return RESTModel.findByIdBase(Post, id);
+	}
 
-  public static getAllOwned() {
-    return RESTModel.findManyBase(Post, null);
-  }
+	public static getAllOwned() {
+		return RESTModel.findManyBase(Post, null);
+	}
 
-  public static findMany(criteria: object | null) {
-    return RESTModel.findManyBase(Post, criteria);
-  }
+	public static findMany(criteria: object | null) {
+		return RESTModel.findManyBase(Post, criteria);
+	}
 
-  public isValid() {
-    if (!super.isValid()) { return false; }
-    return true;
-  }
+	public isValid() {
+		if (!super.isValid()) { return false; }
+		return true;
+	}
 
-  public canSave() {
-    if (!this.postDate) { return false; }
-    if (!this.postText || this.postText === "") { return false; }
-    if (!this.network) {
-      // TODO: Do network validation
-      return false;
-    }
-    return true;
-  }
+	public canSave() {
+		if (!this.postDate) { return false; }
+		if (!this.postText || this.postText === "") { return false; }
+		if (!this.network) {
+			// TODO: Do network validation
+			return false;
+		}
+		return true;
+	}
 
-  public userIsOwner(user: any) {
-    if (typeof user === "string") { return user === this.userId; }
-    if (typeof user === "function" && user && user.isValid()) {
-      return user._id === this.userId;
-    }
-    return false;
-  }
+	public userIsOwner(user: any) {
+		if (typeof user === "string") { return user === this.userId; }
+		if (typeof user === "function" && user && user.isValid()) {
+			return user._id === this.userId;
+		}
+		return false;
+	}
 }
