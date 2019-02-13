@@ -3,16 +3,16 @@
  */
 import RESTModel from "./RESTModel";
 export default class ErrorReport extends RESTModel {
-    static ModelName: string;
-    version: string;
-    userId: string;
-    stack: string;
-    message: string;
-    name: string;
-    fileName: string;
-    columnNumber: number;
-    lineNumber: number;
-    static findById(id: string): Promise<any>;
-    static findMany(criteria: object | null): Promise<any[]>;
-    isValid(): boolean;
+		public static ModelName: string;
+		public version: string;
+		public userId: string;
+		public stack: string;
+		public message: string;
+		public name: string;
+		public fileName: string;
+		public columnNumber: number;
+		public lineNumber: number;
+		public static findById(id: string): Promise<any>;
+		public static findMany(criteria: object | null): Promise<any[]>;
+		public isValid(): boolean;
 }

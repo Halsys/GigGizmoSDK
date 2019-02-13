@@ -15,6 +15,7 @@
 		"child_process": "^1.0.2",
 		"cookie": "^0.3.1",
 		"fs": "0.0.1-security",
+		"pjson": "^1.0.9",
 		"prop-types": "^15.7.1",
 		"socket.io-client": "^2.2.0",
 		"source-map-loader": "^0.2.4",

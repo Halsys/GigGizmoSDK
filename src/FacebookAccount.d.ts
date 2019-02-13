@@ -3,16 +3,16 @@
  */
 import RESTModel from "./RESTModel";
 export default class FacebookAccount extends RESTModel {
-    static ModelName: string;
-    userId: string;
-    accountId: string;
-    userAccessToken: string;
-    userRefreshToken: string;
-    readonly profile: any;
-    static findById(id: string): Promise<{}>;
-    static findPage(pageName: string): Promise<{}>;
-    static PostToPage(format: string, text: string, pageId: string, postDateTime: string): Promise<{}>;
-    getUser(): Promise<any[]>;
-    userIsOwner(user: any): boolean;
-    isValid(): boolean;
+		public static ModelName: string;
+		public userId: string;
+		public accountId: string;
+		public userAccessToken: string;
+		public userRefreshToken: string;
+		public readonly profile: any;
+		public static findById(id: string): Promise<{}>;
+		public static findPage(pageName: string): Promise<{}>;
+		public static PostToPage(format: string, text: string, pageId: string, postDateTime: string): Promise<{}>;
+		public getUser(): Promise<any[]>;
+		public userIsOwner(user: any): boolean;
+		public isValid(): boolean;
 }

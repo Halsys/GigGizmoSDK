@@ -3,20 +3,20 @@
  */
 import RESTModel from "./RESTModel";
 export default class Post extends RESTModel {
-    static ModelName: string;
-    userId: string;
-    network: string;
-    accountId: string;
-    pageId: string;
-    postText: string;
-    postDate: string;
-    coordinates: number[];
-    error: string;
-    done: boolean;
-    static findById(id: string): Promise<any>;
-    static getAllOwned(): Promise<any[]>;
-    static findMany(criteria: object | null): Promise<any[]>;
-    isValid(): boolean;
-    canSave(): boolean;
-    userIsOwner(user: any): boolean;
+		public static ModelName: string;
+		public userId: string;
+		public network: string;
+		public accountId: string;
+		public pageId: string;
+		public postText: string;
+		public postDate: string;
+		public coordinates: number[];
+		public error: string;
+		public done: boolean;
+		public static findById(id: string): Promise<any>;
+		public static getAllOwned(): Promise<any[]>;
+		public static findMany(criteria: object | null): Promise<any[]>;
+		public isValid(): boolean;
+		public canSave(): boolean;
+		public userIsOwner(user: any): boolean;
 }

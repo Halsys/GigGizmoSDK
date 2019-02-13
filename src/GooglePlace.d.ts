@@ -3,9 +3,9 @@
  */
 import RESTModel from "./RESTModel";
 export default class GooglePlace extends RESTModel {
-    static ModelName: string;
-    placeId: string;
-    details: string;
-    static getPlaceDetails(placeId: string): Promise<{}>;
-    static queryPlace(text: string, maybeType: string): Promise<{}>;
+		public static ModelName: string;
+		public placeId: string;
+		public details: string;
+		public static getPlaceDetails(placeId: string): Promise<{}>;
+		public static queryPlace(text: string, maybeType: string): Promise<{}>;
 }

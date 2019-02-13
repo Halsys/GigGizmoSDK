@@ -4,7 +4,6 @@
 import Axios, { AxiosRequestConfig } from "axios";
 import { parse as ParseCookie, serialize as SerializeCookie } from "cookie";
 import * as SocketIO from "socket.io-client";
-import { version } from "../package.json";
 
 export default abstract class API {
 	public static readonly WebSocket = SocketIO;

@@ -3,18 +3,18 @@
  */
 import RESTModel from "./RESTModel";
 export default class Request extends RESTModel {
-    static ModelName: string;
-    to: string;
-    from: string;
-    status: string;
-    options: string[];
-    type: string;
-    userData: any;
-    emailSent: boolean;
-    static createBandOwnershipRequest(band: string, from: string, to: string): Promise<{}>;
-    static createVenueOwnershipRequest(venue: string, from: string, to: string): Promise<{}>;
-    static createGigNegotiation(gig: string, from: string, to: string): Promise<{}>;
-    static getAllOwned(): Promise<any[]>;
-    static findById(id: string): Promise<any>;
-    execute(option: string): Promise<this>;
+		public static ModelName: string;
+		public to: string;
+		public from: string;
+		public status: string;
+		public options: string[];
+		public type: string;
+		public userData: any;
+		public emailSent: boolean;
+		public static createBandOwnershipRequest(band: string, from: string, to: string): Promise<{}>;
+		public static createVenueOwnershipRequest(venue: string, from: string, to: string): Promise<{}>;
+		public static createGigNegotiation(gig: string, from: string, to: string): Promise<{}>;
+		public static getAllOwned(): Promise<any[]>;
+		public static findById(id: string): Promise<any>;
+		public execute(option: string): Promise<this>;
 }
