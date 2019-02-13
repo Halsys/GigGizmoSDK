@@ -76,7 +76,7 @@ export default abstract class RESTModel {
 		};
 	}
 
-	public static isValidId(id: string) {
+	public static isValidId(id: any) {
 		const pattern = RegExp("^([0-9a-fA-F]{24}|[0-9a-fA-F]{12})$", "g");
 		return (
 			typeof id === "string" && pattern.test(id)
