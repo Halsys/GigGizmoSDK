@@ -324,7 +324,7 @@ export default class User extends RESTModel {
 
   public static search(
     q: string,
-    modelName: string = null,
+    modelName: string | null = null,
     skip: number = 0,
     limit: number = Number.POSITIVE_INFINITY
   ) {
@@ -333,10 +333,10 @@ export default class User extends RESTModel {
         resolve();
       } else {
         const data: {
-          limit: number;
-          model: string;
-          q: string;
-          skip: number;
+          limit: number | undefined;
+          model: string | undefined;
+          q: string | undefined;
+          skip: number | undefined;
         } = {
           limit: undefined,
           model: undefined,
@@ -398,7 +398,7 @@ export default class User extends RESTModel {
         };
         if (API.useSocketIO && API.ShouldUseSocketIO) {
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) => {
+            (socket: SocketIOClient.Socket | null) => {
               if (socket) {
                 socket.emit("/API/TextSearch", data, Return);
               }
@@ -456,7 +456,7 @@ export default class User extends RESTModel {
         return User.Current;
       } else if (API.SessionStorageSupported) {
         /* If the user is stored in session storage. */
-        data = JSON.parse(sessionStorage.getItem("user"));
+        data = JSON.parse(sessionStorage.getItem("user") || "");
         if (data) { return User.setUser(data); }
       }
     }
@@ -464,7 +464,7 @@ export default class User extends RESTModel {
     if (API.useSocketIO && API.ShouldUseSocketIO) {
       data = await new Promise((resolve, reject) => {
         API.getSocket().then(
-          (socket: SocketIOClient.Socket) => {
+          (socket: SocketIOClient.Socket | null) => {
             if (socket) {
               socket.emit("/API/User/Retreive", resolve);
             }
@@ -502,7 +502,7 @@ export default class User extends RESTModel {
       if (API.useSocketIO && API.ShouldUseSocketIO) {
         response = await new Promise((resolve, reject) => {
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) => {
+            (socket: SocketIOClient.Socket | null) => {
               if (socket) {
                 socket.emit(
                   "/API/User/SignIn", {
@@ -534,7 +534,7 @@ export default class User extends RESTModel {
     if (API.useSocketIO && API.ShouldUseSocketIO) {
       response = await new Promise((resolve, reject) => {
         API.getSocket().then(
-          (socket: SocketIOClient.Socket) => {
+          (socket: SocketIOClient.Socket | null) => {
             if (socket) {
               socket.emit("/API/User/SignOut", null, resolve);
             }
@@ -623,7 +623,7 @@ export default class User extends RESTModel {
       if (API.useSocketIO && API.ShouldUseSocketIO) {
         return new Promise((res, rej) => {
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) => {
+            (socket: SocketIOClient.Socket | null) => {
               if (socket) {
                 socket.emit("/API/User/Create", userData, res);
               }
@@ -723,10 +723,10 @@ export default class User extends RESTModel {
   }
 
   public save() {
-    return RESTModel.prototype.save.call(this, true);
+    return super.save(true);
   }
 
   public remove() {
-    return RESTModel.prototype.remove.call(this, true);
+    return super.remove(true);
   }
 }

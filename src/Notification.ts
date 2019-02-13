@@ -81,7 +81,7 @@ export default class Notification extends RESTModel {
 
   public static connectSocket() {
     API.getSocket().then(
-      (socket: SocketIOClient.Socket) => {
+      (socket: SocketIOClient.Socket | null) => {
         if (socket) {
           socket.on("notification", (data: any) =>
             Notification.onNewNotification(new Notification(data))

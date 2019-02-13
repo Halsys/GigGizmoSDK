@@ -1,25 +1,25 @@
 {
 	"name": "gig-gizmo-sdk",
 	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-	"version": "0.5.2",
+	"version": "0.5.3",
 	"private": false,
 	"main": "./index.js",
 	"typings": "./index.d.ts",
 	"dependencies": {
 		"@types/cookie": "^0.3.2",
-		"@types/node": "^10.12.12",
-		"@types/prop-types": "^15.5.6",
+		"@types/node": "^10.12.26",
+		"@types/prop-types": "^15.5.8",
 		"@types/socket.io-client": "^1.4.32",
-		"bufferutil": "^4.0.0",
+		"axios": "^0.18.0",
+		"bufferutil": "^4.0.1",
 		"child_process": "^1.0.2",
 		"cookie": "^0.3.1",
 		"fs": "0.0.1-security",
-		"prop-types": "^15.6.2",
+		"prop-types": "^15.7.1",
+		"socket.io-client": "^2.2.0",
 		"source-map-loader": "^0.2.4",
-		"source-map-support": "^0.5.9",
-		"utf-8-validate": "^5.0.1",
-		"axios": "^0.18.0",
-		"socket.io-client": "^2.2.0"
+		"source-map-support": "^0.5.10",
+		"utf-8-validate": "^5.0.2"
 	},
 	"peerDependency": {
 		"axios": "^0.18.0",
@@ -27,13 +27,14 @@
 	},
 	"devDependencies": {
 		"chai": "^3.5.0",
+		"json-loader": "^0.5.7",
 		"mocha": "^5.2.0",
 		"ts-loader": "^4.5.0",
-		"tslint": "^5.11.0",
+		"tslint": "^5.12.1",
 		"tslint-loader": "^3.6.0",
-		"typescript": "^3.2.1",
-		"webpack": "^4.27.1",
-		"webpack-cli": "^3.1.2"
+		"typescript": "^3.3.3",
+		"webpack": "^4.29.3",
+		"webpack-cli": "^3.2.3"
 	},
 	"scripts": {
 		"pretest": "webpack --debug",

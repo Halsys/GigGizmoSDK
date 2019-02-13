@@ -60,7 +60,7 @@ export default class FacebookAccount extends RESTModel {
           reject
         );
       } else {
-        resolve(null);
+        resolve();
       }
     });
   }

@@ -109,9 +109,9 @@ export default abstract class RESTModel {
       if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
         data = await new Promise((resolve, reject) =>
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) => {
+            (socket: SocketIOClient.Socket | null) => {
               if (socket) {
-                return socket.emit(`/API/${modelName}/Retreive`, id, resolve);
+                socket.emit(`/API/${modelName}/Retreive`, id, resolve);
               }
             },
             reject)
@@ -192,7 +192,7 @@ export default abstract class RESTModel {
     if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
       data = await new Promise((resolve, reject) =>
         API.getSocket().then(
-          (socket: SocketIOClient.Socket) => {
+          (socket: SocketIOClient.Socket | null) => {
             if (socket) {
               socket.emit(route, criteria, resolve);
             }
@@ -318,7 +318,7 @@ export default abstract class RESTModel {
       if (RESTModel.isValidId(id)) {
         response = await new Promise((resolve, reject) =>
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) => {
+            (socket: SocketIOClient.Socket | null) => {
               if (socket) {
                 socket.emit(`/API/${modelName}/Update`, data, resolve);
               }
@@ -328,7 +328,7 @@ export default abstract class RESTModel {
       } else {
         response = await new Promise((resolve, reject) =>
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) => {
+            (socket: SocketIOClient.Socket | null) => {
               if (socket) {
                 socket.emit(`/API/${modelName}/Create`, data, resolve);
               }
@@ -354,14 +354,14 @@ export default abstract class RESTModel {
   }
 
   public async remove(hasWebSocket: boolean = false) {
-    const id = this._id || null;
+    const id = this._id || "";
     if (RESTModel.isValidId(id)) {
       let response: any = null;
       const modelName = (this.constructor as any).ModelName;
       if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
         response = await new Promise((resolve, reject) =>
           API.getSocket().then(
-            (socket: SocketIOClient.Socket) => {
+            (socket: SocketIOClient.Socket | null) => {
               if (socket) {
                 socket.emit(`/API/${modelName}/Delete`, id, (res: any) =>
                   resolve(res));

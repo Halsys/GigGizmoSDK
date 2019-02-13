@@ -156,11 +156,11 @@ export default class Band extends RESTModel {
   }
 
   public save() {
-    return RESTModel.prototype.save.call(this, true);
+    return super.save(true);
   }
 
   public remove() {
-    return RESTModel.prototype.remove.call(this, true);
+    return super.remove(true);
   }
 
   public getIcon() {

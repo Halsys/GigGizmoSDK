@@ -22,10 +22,12 @@ export default abstract class API {
   private static _token: string | null = null;
   private static _expires: Date | null = null;
   public static useSocketIO = false;
-  private static webSocket: SocketIOClient.Socket = null;
+  private static webSocket: SocketIOClient.Socket | null = null;
   public static get expires() {
     if (!API._expires && API.LocalStorageSupported) {
-      API._expires = new Date(localStorage.getItem("expires") || null);
+      const expires: any =
+        localStorage.getItem("expires") || null;
+      API._expires = new Date(expires);
     }
     return API._expires;
   }
@@ -57,7 +59,7 @@ export default abstract class API {
     }
     if (!API._token && API.LocalStorageSupported) {
       // We store it in local storage.
-      API._token = JSON.parse(localStorage.getItem("token")) || null;
+      API._token = JSON.parse(localStorage.getItem("token") || "");
     }
     if (!API._token && typeof document !== "undefined" && document.cookie) {
       // We store it in the cookie.
@@ -85,7 +87,7 @@ export default abstract class API {
         API._token = null;
       }
       if (typeof document !== "undefined") {
-        document.cookie = SerializeCookie("gig-gizmo-token", API._token, {
+        document.cookie = SerializeCookie("gig-gizmo-token", API._token || "", {
           path: "/",
           sameSite: "strict"
         });
@@ -153,48 +155,45 @@ export default abstract class API {
       return null;
     }
   }
-  public static getSocket() {
-    return new Promise((resolve, reject) => {
-      try {
-        const killSocket =  (error: any) => {
-          if (error) {
-            console.error(error);
-          }
-          API.webSocket.open();
-        };
-        const onReady = () => {
-          if (!API.webSocket) {
-            API.webSocket = API.WebSocket();
-            API.webSocket.on("connect_timeout", killSocket);
-            API.webSocket.on("connect_error", killSocket);
-            API.webSocket.on("disconnect", killSocket);
-            API.webSocket.on("error", killSocket);
-            API.webSocket.open();
-          }
-          return resolve(API.webSocket);
-        };
-        if (API.WebSocket) {
-          if (typeof document !== "undefined") {
-            switch (document.readyState) {
-              case "loading":
-                document.addEventListener("DOMContentLoaded", onReady);
-                break;
-              case "interactive":
-              case "complete":
-                onReady();
-                break;
-              default:
-                throw new Error(`Unexpected readyState: ${document.readyState}`);
-            }
-          } else {
-            onReady();
-          }
-        }
-        return resolve(null);
-      } catch (e) {
-        reject(e);
+  public static async getSocket(): Promise<SocketIOClient.Socket | null> {
+    const killSocket = (error: any) => {
+      if (error) {
+        console.error(error);
       }
-    });
+      if (API.webSocket) {
+        API.webSocket.open();
+      }
+    };
+    const onReady = () => {
+      if (!API.webSocket) {
+        API.webSocket = API.WebSocket.default();
+        API.webSocket.on("connect_timeout", killSocket);
+        API.webSocket.on("connect_error", killSocket);
+        API.webSocket.on("disconnect", killSocket);
+        API.webSocket.on("error", killSocket);
+        API.webSocket.open();
+      }
+      return API.webSocket;
+    };
+    if (API.WebSocket) {
+      if (typeof document !== "undefined") {
+        switch (document.readyState) {
+          case "loading":
+            await new Promise((resolve) => {
+              document.addEventListener("DOMContentLoaded", resolve);
+            });
+            return onReady();
+          case "interactive":
+          case "complete":
+            return onReady();
+          default:
+            throw new Error(`Unexpected readyState: ${document.readyState}`);
+        }
+      } else {
+        return onReady();
+      }
+    }
+    return null;
   }
   private constructor() {
     throw new Error("Cannot instantiate.");

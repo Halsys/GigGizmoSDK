@@ -32,7 +32,7 @@ export default class Conversation extends RESTModel {
 
   public static connectSocket() {
     API.getSocket().then(
-      (socket: SocketIOClient.Socket) => {
+      (socket: SocketIOClient.Socket | null) => {
         if (socket) {
           socket.on("/API/Conversation/Update", (data: any) => {
             if (data) {
