@@ -905,7 +905,8 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       }
 
       var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-        if (getPropType(value) === 'symbol') {
+        var type = getPreciseType(value);
+        if (type === 'symbol') {
           return String(value);
         }
         return value;
@@ -1083,6 +1084,11 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
       return true;
     }
 
+    // falsy value can't be a Symbol
+    if (!propValue) {
+      return false;
+    }
+
     // 19.4.3.5 Symbol.prototype[@@toStringTag] === 'Symbol'
     if (propValue['@@toStringTag'] === 'Symbol') {
       return true;
@@ -1224,7 +1230,7 @@ module.exports = ReactPropTypesSecret;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/** @license React v16.8.1
+/** @license React v16.8.2
  * react-is.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
