@@ -25,5 +25,11 @@
 		"suppressImplicitAnyIndexErrors": true,
 		"target": "es5"
 	},
+	"exclude": [
+		"node_modules",
+		"dist",
+		"webpack",
+		"*.json"
+	],
 	"include": ["./src/**/*"]
 }
