@@ -1,7 +1,6 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 #
-build
 
 # Dependencies
 node_modules/
@@ -26,5 +25,5 @@ yarn-error.log*
 # Misc
 .DS_Store
 
-dist/src
-dist/src/*
+dist/src/
+dist/(?!index.js|index.js.map).*
