@@ -2468,8 +2468,8 @@ class Gig extends _RESTModel__WEBPACK_IMPORTED_MODULE_3__["default"] {
                 data.times = filtered;
                 const request = _API__WEBPACK_IMPORTED_MODULE_0__["default"].call("POST", "/API/Gig", data);
                 return request.then(((response) => {
-                    let gigs = Array.from(response || []);
-                    gigs = gigs.map((itemData) => {
+                    let gigs = [];
+                    gigs = Array.from(response || []).map((itemData) => {
                         const gig = new Gig(itemData);
                         return gig;
                     });
@@ -2971,7 +2971,7 @@ class Page extends _RESTModel__WEBPACK_IMPORTED_MODULE_1__["default"] {
     set admin(value) {
         this.setField("admin", value);
     }
-    static findMany(criteria) {
+    static findMany(criteria, skip, limit) {
         return _RESTModel__WEBPACK_IMPORTED_MODULE_1__["default"].findManyBase(Page, criteria);
     }
     static findOne(criteria) {

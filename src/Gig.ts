@@ -11,7 +11,7 @@ import Venue from "./Venue";
 export default class Gig extends RESTModel {
 	public static ModelName: string = "Gig";
 
-	get startTime() {
+	get startTime(): string {
 		const startTime = this.getField("startTime");
 		return startTime ? new Date(startTime) : startTime;
 	}
@@ -20,7 +20,7 @@ export default class Gig extends RESTModel {
 		this.setField("startTime", value);
 	}
 
-	get stopTime() {
+	get stopTime(): Date {
 		const stopTime = this.getField("stopTime");
 		return stopTime ? new Date(stopTime) : stopTime;
 	}
@@ -29,7 +29,7 @@ export default class Gig extends RESTModel {
 		this.setField("stopTime", value.toJSON());
 	}
 
-	get location() {
+	get location(): string {
 		return this.getField("location");
 	}
 
@@ -37,7 +37,7 @@ export default class Gig extends RESTModel {
 		this.setField("location", value);
 	}
 
-	get venue() {
+	get venue(): string {
 		return this.getField("venue");
 	}
 
@@ -45,7 +45,7 @@ export default class Gig extends RESTModel {
 		this.setField("venue", value);
 	}
 
-	get bands() {
+	get bands(): string[] {
 		return this.getField("bands");
 	}
 
@@ -53,11 +53,11 @@ export default class Gig extends RESTModel {
 		this.setField("bands", value);
 	}
 
-	get active() {
+	get active(): boolean {
 		return this.getField("active");
 	}
 
-	get toBeAnnounced() {
+	get toBeAnnounced(): boolean {
 		return this.getField("toBeAnnounced");
 	}
 
@@ -65,7 +65,7 @@ export default class Gig extends RESTModel {
 		this.setField("toBeAnnounced", value);
 	}
 
-	get bandOwnersAccepted() {
+	get bandOwnersAccepted(): string[] {
 		return this.getField("bandOwnersAccepted");
 	}
 
@@ -73,7 +73,7 @@ export default class Gig extends RESTModel {
 		this.setField("bandOwnersAccepted", value);
 	}
 
-	get venueOwnerAccepted() {
+	get venueOwnerAccepted(): string {
 		return this.getField("venueOwnerAccepted");
 	}
 
@@ -81,7 +81,7 @@ export default class Gig extends RESTModel {
 		this.setField("venueOwnerAccepted", value);
 	}
 
-	get owners() {
+	get owners(): string[] {
 		return this.getField("owners");
 	}
 
@@ -89,11 +89,11 @@ export default class Gig extends RESTModel {
 		this.setField("owners", value);
 	}
 
-	public static findById(id: string) {
+	public static findById(id: string): Promise<Gig> {
 		return RESTModel.findByIdBase(Gig, id, true);
 	}
 
-	public static async findByBand(bandId: string) {
+	public static async findByBand(bandId: string): Promise<Gig[]> {
 		const data = await API.call("GET", `/API/Band/${bandId}/Gigs`, null);
 		if (data && Array.isArray(data)) {
 			return data.map((itemData: any) => {
@@ -105,7 +105,7 @@ export default class Gig extends RESTModel {
 		throw new Error(`Expected Array, got ${data}`);
 	}
 
-	public static async findByVenue(venueId: string) {
+	public static async findByVenue(venueId: string): Promise<Gig[]> {
 		const data = await API.call("GET", `/API/Venue/${venueId}/Gigs`, null);
 		if (data && Array.isArray(data)) {
 			return data.map((itemData: any) => {
@@ -117,15 +117,15 @@ export default class Gig extends RESTModel {
 		throw new Error(`Expected Array, got ${data}`);
 	}
 
-	public static getAllOwned() {
+	public static getAllOwned(): Promise<Gig[]> {
 		return RESTModel.findManyBase(Gig, null, true);
 	}
 
-	public static findMany(criteria: object | null) {
+	public static findMany(criteria: object | null): Promise<Gig[]> {
 		return RESTModel.findManyBase(Gig, criteria, true);
 	}
 
-	public static createGigs(gigData: object) {
+	public static createGigs(gigData: object): Promise<Gig[]> {
 		return new Promise((resolve, reject) => {
 			const data: any = gigData || {};
 			if (data && typeof data === "object") {
@@ -177,8 +177,8 @@ export default class Gig extends RESTModel {
 				const request = API.call("POST", "/API/Gig", data);
 				return request.then(
 					((response: any) => {
-						let gigs = Array.from(response || []);
-						gigs = gigs.map((itemData: any) => {
+						let gigs: Gig[] = [];
+						gigs = Array.from(response || []).map((itemData: any) => {
 							const gig = new Gig(itemData);
 							return gig;
 						});
@@ -193,7 +193,7 @@ export default class Gig extends RESTModel {
 	public static getAllInDistance(
 		location: { lat: number; lng: number },
 		distance: number
-	) {
+	): Promise<Gig[]> {
 		return new Promise((resolve, reject) => {
 			if (typeof location !== "object") {
 				return reject(new Error("location is not a object!"));
@@ -223,26 +223,26 @@ export default class Gig extends RESTModel {
 		});
 	}
 
-	public getBands() {
+	public getBands(): Promise<Band[]> {
 		return RESTModel.findManyBase(Band, { _id: this.bands }, true);
 	}
 
-	public getVenue() {
+	public getVenue(): Promise<Venue> {
 		return RESTModel.findByIdBase(Venue, this.venue, true);
 	}
 
-	public getLocation() {
+	public getLocation(): Promise<Location> {
 		return RESTModel.findByIdBase(Location, this.location, true);
 	}
 
-	public isValid() {
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		if (!Array.isArray(this.owners)) { return false; }
 		if (this.owners.length === 0) { return false; }
 		return true;
 	}
 
-	public userIsOwner(user: any) {
+	public userIsOwner(user: any): boolean {
 		if (Array.isArray(this.owners)) {
 			let userId: string;
 			if (typeof user === "string") {

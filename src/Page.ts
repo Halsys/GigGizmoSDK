@@ -91,7 +91,7 @@ export default class Page extends RESTModel {
 		this.setField("admin", value);
 	}
 
-	public static findMany(criteria: any) {
+	public static findMany(criteria: any, skip: number, limit: number) {
 		return RESTModel.findManyBase(Page, criteria);
 	}
 
