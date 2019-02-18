@@ -49,7 +49,7 @@ export default class Location extends RESTModel {
 		this.setField("utcOffset", value);
 	}
 
-	public static getLocationByPlaceId(placeId: string) {
+	public static getLocationByPlaceId(placeId: string): Promise<Location> {
 		return new Promise((resolve, reject) => {
 			if (!placeId) {
 				reject(new Error(`Invaild placeId: ${placeId}`));
@@ -67,7 +67,7 @@ export default class Location extends RESTModel {
 		});
 	}
 
-	public static findById(id: string) {
+	public static findById(id: string): Promise<Location> {
 		return RESTModel.findByIdBase(Location, id);
 	}
 
@@ -80,7 +80,7 @@ export default class Location extends RESTModel {
 		return true;
 	}
 
-	public getPlaceDetails() {
+	public getPlaceDetails(): Promise<any> {
 		return GooglePlace.getPlaceDetails(this.placeId);
 	}
 }

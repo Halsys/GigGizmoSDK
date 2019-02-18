@@ -8,15 +8,15 @@ import RESTModel from "./RESTModel";
 export default class GooglePlace extends RESTModel {
 	public static ModelName: string = "GooglePlace";
 
-	get placeId() {
-		return this.getField("placeId");
+	get placeId(): string {
+		return this.getField("placeId") || this.getField("place_id");
 	}
 
 	set placeId(value: string) {
 		this.setField("placeId", value);
 	}
 
-	get details() {
+	get details(): string {
 		return this.getField("details");
 	}
 
@@ -24,7 +24,15 @@ export default class GooglePlace extends RESTModel {
 		this.setField("details", value);
 	}
 
-	public static getPlaceDetails(placeId: string) {
+	get description(): string {
+		return this.getField("description");
+	}
+
+	set description(value: string) {
+		this.setField("description", value);
+	}
+
+	public static getPlaceDetails(placeId: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			if (typeof placeId !== "string") {
 				return reject(new Error("placeId is not a string!"));
@@ -36,7 +44,8 @@ export default class GooglePlace extends RESTModel {
 		});
 	}
 
-	public static queryPlace(text: string, maybeType: string) {
+	public static queryPlace(text: string, maybeType: string):
+		Promise<GooglePlace[]> {
 		return new Promise((resolve, reject) => {
 			const type = maybeType || "locality";
 			if (typeof text !== "string") {

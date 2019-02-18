@@ -13,55 +13,55 @@ import User from "./User";
 export default class Venue extends RESTModel {
 	public static ModelName: string = "Venue";
 
-	get name() {
+	get name(): string | null {
 		return this.getField("name");
 	}
 
-	set name(value: string) {
+	set name(value: string | null) {
 		this.setField("name", value);
 	}
 
-	get description() {
+	get description(): string | null {
 		return this.getField("description");
 	}
 
-	set description(value: string) {
+	set description(value: string | null) {
 		this.setField("description", value);
 	}
 
-	get email() {
+	get email(): string | null {
 		return this.getField("email");
 	}
 
-	set email(value: string) {
+	set email(value: string | null) {
 		this.setField("email", value);
 	}
 
-	get website() {
+	get website(): string | null {
 		return this.getField("website");
 	}
 
-	set website(value: string) {
+	set website(value: string | null) {
 		this.setField("website", value);
 	}
 
-	get phone() {
+	get phone(): string | null {
 		return this.getField("phone");
 	}
 
-	set phone(value: string) {
+	set phone(value: string | null) {
 		this.setField("phone", value);
 	}
 
-	get location() {
+	get location(): string | null {
 		return this.getField("location");
 	}
 
-	set location(value: string) {
+	set location(value: string | null) {
 		this.setField("location", value);
 	}
 
-	get openCloseTimes() {
+	get openCloseTimes(): string {
 		return this.getField("openCloseTimes");
 	}
 
@@ -69,15 +69,15 @@ export default class Venue extends RESTModel {
 		this.setField("openCloseTimes", value);
 	}
 
-	get icon() {
+	get icon(): string | null {
 		return this.getField("icon");
 	}
 
-	set icon(value: string) {
+	set icon(value: string | null) {
 		this.setField("icon", value);
 	}
 
-	get photos() {
+	get photos(): string[] {
 		return this.getField("photos");
 	}
 
@@ -85,7 +85,7 @@ export default class Venue extends RESTModel {
 		this.setField("photos", value);
 	}
 
-	get owners() {
+	get owners(): string[] {
 		return this.getField("owners");
 	}
 
@@ -93,83 +93,83 @@ export default class Venue extends RESTModel {
 		this.setField("owners", value);
 	}
 
-	get facebook() {
+	get facebook(): string | null {
 		return this.getField("facebook");
 	}
 
-	set facebook(value: string) {
+	set facebook(value: string | null) {
 		this.setField("facebook", value);
 	}
 
-	get facebookPageId() {
+	get facebookPageId(): string | null {
 		return this.getField("facebookPageId");
 	}
 
-	set facebookPageId(value: string) {
+	set facebookPageId(value: string | null) {
 		this.setField("facebookPageId", value);
 	}
 
-	get facebookPageName() {
+	get facebookPageName(): string | null {
 		return this.getField("facebookPageName");
 	}
 
-	set facebookPageName(value: string) {
+	set facebookPageName(value: string | null) {
 		this.setField("facebookPageName", value);
 	}
 
-	get facebookPageToken() {
+	get facebookPageToken(): string | null {
 		return this.getField("facebookPageToken");
 	}
 
-	set facebookPageToken(value: string) {
+	set facebookPageToken(value: string | null) {
 		this.setField("facebookPageToken", value);
 	}
 
-	get twitter() {
+	get twitter(): string | null {
 		return this.getField("twitter");
 	}
 
-	set twitter(value: string) {
+	set twitter(value: string | null) {
 		this.setField("twitter", value);
 	}
 
-	get google() {
+	get google(): string | null {
 		return this.getField("google");
 	}
 
-	set google(value: string) {
+	set google(value: string | null) {
 		this.setField("google", value);
 	}
 
-	public static findOne(criteria: object | null) {
+	public static findOne(criteria: object | null): Promise<Venue> {
 		return RESTModel.findOneBase(Venue, criteria, true);
 	}
 
-	public static findMany(criteria: object | null) {
+	public static findMany(criteria: object | null): Promise<Venue[]> {
 		return RESTModel.findManyBase(Venue, criteria, true);
 	}
 
-	public static findById(id: string) {
+	public static findById(id: string): Promise<Venue> {
 		return RESTModel.findByIdBase(Venue, id, true);
 	}
 
-	public static getAllOwned() {
+	public static getAllOwned(): Promise<Venue[]> {
 		return RESTModel.findManyBase(Venue, null, true);
 	}
 
-	public save() {
+	public save(): Promise<this> {
 		return super.save(true);
 	}
 
-	public remove() {
+	public remove(): Promise<this> {
 		return super.remove(true);
 	}
 
-	public getIcon() {
-		return RESTModel.findByIdBase(Upload, this.icon, true);
+	public getIcon(): Promise<Upload> {
+		return RESTModel.findByIdBase(Upload, this.icon || "", true);
 	}
 
-	public getPhotos() {
+	public getPhotos(): Promise<Upload[]> {
 		const photos = Array.from(this.photos);
 		if (photos.length !== 0) {
 			return RESTModel.findManyBase(
@@ -183,7 +183,7 @@ export default class Venue extends RESTModel {
 		return Promise.resolve([]);
 	}
 
-	public getOwners() {
+	public getOwners(): Promise<User[]> {
 		const owners = Array.from(this.owners);
 		if (owners.length !== 0) {
 			return RESTModel.findManyBase(
@@ -197,23 +197,23 @@ export default class Venue extends RESTModel {
 		return Promise.resolve([]);
 	}
 
-	public getGigs() {
+	public getGigs(): Promise<Gig[]> {
 		return Gig.findByVenue(this._id);
 	}
 
-	public getTwitterAccount() {
-		return RESTModel.findByIdBase(TwitterAccount, this.twitter, true);
+	public getTwitterAccount(): Promise<TwitterAccount> {
+		return RESTModel.findByIdBase(TwitterAccount, this.twitter || "", true);
 	}
 
-	public getFacebookAccount() {
-		return RESTModel.findByIdBase(FacebookAccount, this.facebook, true);
+	public getFacebookAccount(): Promise<FacebookAccount> {
+		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "", true);
 	}
 
-	public getLocation() {
-		return RESTModel.findByIdBase(Location, this.location, true);
+	public getLocation(): Promise<Location> {
+		return RESTModel.findByIdBase(Location, this.location || "", true);
 	}
 
-	public isValid() {
+	public isValid(): boolean {
 		const self = this;
 		if (!super.isValid()) { return false; }
 
@@ -236,7 +236,7 @@ export default class Venue extends RESTModel {
 
 	// TODO: Create isOpen method
 
-	public userIsOwner(user: any) {
+	public userIsOwner(user: any): boolean {
 		if (Array.isArray(this.owners)) {
 			let userId: string;
 			if (typeof user === "string") {

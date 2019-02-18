@@ -27,27 +27,27 @@ export default class User extends RESTModel {
 			`[^<>()[\].,;:\s@"]{2,})$`].join(""),
 		"i");
 
-	get password(): string {
+	get password(): string | null {
 		return this.getField("password");
 	}
 
-	set password(value: string) {
+	set password(value: string | null) {
 		this.setField("password", value);
 	}
 
-	get confirmPassword(): string {
+	get confirmPassword(): string | null {
 		return this.getField("confirmPassword");
 	}
 
-	set confirmPassword(value: string) {
+	set confirmPassword(value: string | null) {
 		this.setField("confirmPassword", value);
 	}
 
-	get icon(): string {
+	get icon(): string | null {
 		return this.getField("icon");
 	}
 
-	set icon(value: string) {
+	set icon(value: string | null) {
 		this.setField("icon", value);
 	}
 
@@ -67,44 +67,44 @@ export default class User extends RESTModel {
 		return this.getField("admin") === true;
 	}
 
-	get firstName(): string {
+	get firstName(): string | null {
 		return this.getField("firstName");
 	}
 
-	set firstName(value: string) {
+	set firstName(value: string | null) {
 		this.setField("firstName", value);
 	}
 
-	get middleName(): string {
+	get middleName(): string | null {
 		return this.getField("middleName");
 	}
 
-	set middleName(value: string) {
+	set middleName(value: string | null) {
 		this.setField("middleName", value);
 	}
 
-	get lastName(): string {
+	get lastName(): string | null {
 		return this.getField("lastName");
 	}
 
-	set lastName(value: string) {
+	set lastName(value: string | null) {
 		this.setField("lastName", value);
 	}
 
-	get birthday(): Date {
+	get birthday(): Date | null {
 		const birthday = this.getField("birthday") || null;
 		return birthday ? new Date(birthday) : birthday;
 	}
 
-	set birthday(value: Date) {
-		this.setField("birthday", value.toJSON());
+	set birthday(value: Date | null) {
+		this.setField("birthday", (value || new Date()).toJSON());
 	}
 
-	get country(): string {
+	get country(): string | null {
 		return this.getField("country");
 	}
 
-	set country(value: string) {
+	set country(value: string | null) {
 		this.setField("country", value);
 	}
 
@@ -177,43 +177,43 @@ export default class User extends RESTModel {
 			""}`;
 	}
 
-	get email(): string {
+	get email(): string | null {
 		return this.getField("email");
 	}
 
-	set email(value: string) {
+	set email(value: string | null) {
 		this.setField("email", value);
 	}
 
-	get salt(): string {
+	get salt(): string | null {
 		return this.getField("salt");
 	}
 
-	get hash(): string {
+	get hash(): string | null {
 		return this.getField("hash");
 	}
 
-	get facebook(): string {
+	get facebook(): string | null {
 		return this.getField("facebook");
 	}
 
-	set facebook(value: string) {
+	set facebook(value: string | null) {
 		this.setField("facebook", value);
 	}
 
-	get twitter(): string {
+	get twitter(): string | null {
 		return this.getField("twitter");
 	}
 
-	set twitter(value: string) {
+	set twitter(value: string | null) {
 		this.setField("twitter", value);
 	}
 
-	get description(): string {
+	get description(): string | null {
 		return this.getField("description");
 	}
 
-	set description(value: string) {
+	set description(value: string | null) {
 		this.setField("description", value);
 	}
 
@@ -229,21 +229,21 @@ export default class User extends RESTModel {
 		return this.getField("attempts");
 	}
 
-	get lastLoginIP(): string {
+	get lastLoginIP(): string | null {
 		return this.getField("lastLoginIP");
 	}
 
-	set lastLoginIP(value: string) {
+	set lastLoginIP(value: string | null) {
 		this.setField("lastLoginIP", value);
 	}
 
-	get lastLogin(): Date {
+	get lastLogin(): Date | null {
 		const lastLogin = this.getField("lastLogin") || null;
 		return lastLogin ? new Date(lastLogin) : lastLogin;
 	}
 
-	set lastLogin(value: Date) {
-		this.setField("lastLogin", value.toJSON());
+	set lastLogin(value: Date | null) {
+		this.setField("lastLogin", (value || new Date()).toJSON());
 	}
 
 	get canContact(): boolean {
@@ -270,46 +270,46 @@ export default class User extends RESTModel {
 		this.setField("options", value);
 	}
 
-	public static verifyEmail(id: string, secret: string) {
+	public static verifyEmail(id: string, secret: string): Promise<any> {
 		return API.call("GET", "/API/User/Verify", {
 			id,
 			secret
 		});
 	}
 
-	public static sendEmailVerification() {
+	public static sendEmailVerification(): Promise<any> {
 		return API.call("POST", "/API/User/Verify", null);
 	}
 
-	public static getAllConversations() {
+	public static getAllConversations(): Promise<Conversation[]> {
 		return RESTModel.findManyBase(Conversation, null, true);
 	}
 
-	public static getAllNotifications() {
-		return RESTModel.findManyBase("Notification", null, true);
+	public static getAllNotifications(): Promise<Notification[]> {
+		return RESTModel.findManyBase(Notification, null, true);
 	}
 
-	public static getAllPosts() {
+	public static getAllPosts(): Promise<Post[]> {
 		return RESTModel.findManyBase(Post, null, true);
 	}
 
-	public static getAllBands() {
+	public static getAllBands(): Promise<Band[]> {
 		return RESTModel.findManyBase(Band, null, true);
 	}
 
-	public static getAllVenues() {
+	public static getAllVenues(): Promise<Venue[]> {
 		return RESTModel.findManyBase(Venue, null, true);
 	}
 
-	public static getAllGigs() {
+	public static getAllGigs(): Promise<Gig[]> {
 		return RESTModel.findManyBase(Gig, null, true);
 	}
 
-	public static getAllUploads() {
+	public static getAllUploads(): Promise<Upload[]> {
 		return RESTModel.findManyBase(Upload, null, true);
 	}
 
-	public static findFacebookPages(term: string) {
+	public static findFacebookPages(term: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			if (term === "") {
 				resolve();
@@ -327,7 +327,15 @@ export default class User extends RESTModel {
 		modelName: string | null = null,
 		skip: number = 0,
 		limit: number = Number.POSITIVE_INFINITY
-	) {
+	): Promise<{
+		bands: Band[];
+		locations: Location[]
+		pages: Page[]
+		totalFound: number;
+		uploads: Upload[];
+		users: User[];
+		venues: Venue[];
+	}> {
 		return new Promise((resolve, reject) => {
 			if (q === "" || q === undefined) {
 				resolve();
@@ -411,15 +419,15 @@ export default class User extends RESTModel {
 		});
 	}
 
-	public static findMany(criteria: object | null) {
+	public static findMany(criteria: object | null): Promise<User[]> {
 		return RESTModel.findManyBase(User, criteria, true);
 	}
 
-	public static findOne(criteria: object | null) {
+	public static findOne(criteria: object | null): Promise<User> {
 		return RESTModel.findOneBase(User, criteria, true);
 	}
 
-	public static onChange(callback: any) {
+	public static onChange(callback: (user: User) => void) {
 		const id = Date.now();
 		User.Callbacks.set(id, callback);
 		return () => {
@@ -427,7 +435,7 @@ export default class User extends RESTModel {
 		};
 	}
 
-	public static async setUser(data: object | null) {
+	public static async setUser(data: object | null): Promise<User> {
 		try {
 			if (typeof data === "object" && data) {
 				User.Current = new User(data);
@@ -447,7 +455,7 @@ export default class User extends RESTModel {
 		return User.Current;
 	}
 
-	public static async getUser(force: boolean) {
+	public static async getUser(force: boolean): Promise<User> {
 		let data = null;
 		const dateNow = new Date();
 		if (!force && API.expires && dateNow < API.expires) {
@@ -476,7 +484,7 @@ export default class User extends RESTModel {
 		return User.setUser(null);
 	}
 
-	public static findById(id: string) {
+	public static findById(id: string): Promise<User> {
 		return RESTModel.findByIdBase(User, id, true);
 	}
 
@@ -492,7 +500,7 @@ export default class User extends RESTModel {
 		window.location.href = `${API.rootURL}/API/Auth/PayPal`;
 	}
 
-	public static async userLogIn(email: string, password: string) {
+	public static async userLogIn(email: string, password: string): Promise<User> {
 		if (!email) {
 			throw new Error("No email");
 		} else if (!password) {
@@ -529,7 +537,7 @@ export default class User extends RESTModel {
 		}
 	}
 
-	public static async userLogOut() {
+	public static async userLogOut(): Promise<User> {
 		let response = null;
 		if (API.useSocketIO && API.ShouldUseSocketIO) {
 			response = await new Promise((resolve, reject) => {
@@ -550,11 +558,11 @@ export default class User extends RESTModel {
 		} else { return user; }
 	}
 
-	public static sendPasswordResetEmail(email: string) {
+	public static sendPasswordResetEmail(email: string): Promise<any> {
 		return API.call("POST", "/User/Reset", { email });
 	}
 
-	public static registerUser(userData: any) {
+	public static registerUser(userData: any): Promise<User> {
 		return new Promise((resolve, reject) => {
 			if (userData && typeof userData === "object") {
 				if (userData.email) {
@@ -651,25 +659,27 @@ export default class User extends RESTModel {
 		console.error("Not implemented yet.");
 	}
 
-	public getIcon() {
-		return RESTModel.findByIdBase(Upload, this.icon, true);
+	public getIcon(): Promise<Upload> {
+		return RESTModel.findByIdBase(Upload, this.icon || "", true);
 	}
 
-	public getTwitterAccount() {
-		return RESTModel.findByIdBase(TwitterAccount, this.twitter);
+	public getTwitterAccount(): Promise<TwitterAccount> {
+		return RESTModel.findByIdBase(TwitterAccount, this.twitter || "");
 	}
 
-	public getFacebookAccount() {
-		return RESTModel.findByIdBase(FacebookAccount, this.facebook);
+	public getFacebookAccount(): Promise<FacebookAccount> {
+		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "");
 	}
 
-	public validatePassword(maybePassword: string) {
+	public validatePassword(maybePassword: string): Error | null {
 		const password = maybePassword || "";
 		const decimalTest = /\d/;
 		const symbolTest = /\W/;
 		const lowercasePassword = password.toLowerCase();
-		const lowercaseFirstName = this.firstName.toLowerCase();
-		const lowercaseLastName = this.lastName.toLowerCase();
+		const lowercaseFirstName =
+			this.firstName ? this.firstName.toLowerCase() : "";
+		const lowercaseLastName =
+			this.lastName ? this.lastName.toLowerCase() : "";
 		if (password === "") {
 			return new Error("Password missing");
 		} else if (password.length < 8) {
@@ -688,7 +698,7 @@ export default class User extends RESTModel {
 		return null;
 	}
 
-	public isValid() {
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		// Type checks
 		if (typeof this.firstName !== "string") { return false; }
@@ -702,7 +712,7 @@ export default class User extends RESTModel {
 		return true;
 	}
 
-	public valid() {
+	public valid(): boolean {
 		super.valid();
 		// Type checks
 		if (typeof this.firstName !== "string") {
@@ -722,11 +732,11 @@ export default class User extends RESTModel {
 		return true;
 	}
 
-	public save() {
+	public save(): Promise<this> {
 		return super.save(true);
 	}
 
-	public remove() {
+	public remove(): Promise<this> {
 		return super.remove(true);
 	}
 }

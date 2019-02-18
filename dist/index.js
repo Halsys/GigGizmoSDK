@@ -2876,7 +2876,7 @@ var GooglePlace = /** @class */ (function (_super) {
     }
     Object.defineProperty(GooglePlace.prototype, "placeId", {
         get: function () {
-            return this.getField("placeId");
+            return this.getField("placeId") || this.getField("place_id");
         },
         set: function (value) {
             this.setField("placeId", value);
@@ -2890,6 +2890,16 @@ var GooglePlace = /** @class */ (function (_super) {
         },
         set: function (value) {
             this.setField("details", value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(GooglePlace.prototype, "description", {
+        get: function () {
+            return this.getField("description");
+        },
+        set: function (value) {
+            this.setField("description", value);
         },
         enumerable: true,
         configurable: true
@@ -5614,7 +5624,7 @@ var User = /** @class */ (function (_super) {
             return birthday ? new Date(birthday) : birthday;
         },
         set: function (value) {
-            this.setField("birthday", value.toJSON());
+            this.setField("birthday", (value || new Date()).toJSON());
         },
         enumerable: true,
         configurable: true
@@ -5804,7 +5814,7 @@ var User = /** @class */ (function (_super) {
             return lastLogin ? new Date(lastLogin) : lastLogin;
         },
         set: function (value) {
-            this.setField("lastLogin", value.toJSON());
+            this.setField("lastLogin", (value || new Date()).toJSON());
         },
         enumerable: true,
         configurable: true
@@ -5852,7 +5862,7 @@ var User = /** @class */ (function (_super) {
         return RESTModel_1.default.findManyBase(Conversation_1.default, null, true);
     };
     User.getAllNotifications = function () {
-        return RESTModel_1.default.findManyBase("Notification", null, true);
+        return RESTModel_1.default.findManyBase(Notification, null, true);
     };
     User.getAllPosts = function () {
         return RESTModel_1.default.findManyBase(Post_1.default, null, true);
@@ -6257,21 +6267,21 @@ var User = /** @class */ (function (_super) {
         console.error("Not implemented yet.");
     };
     User.prototype.getIcon = function () {
-        return RESTModel_1.default.findByIdBase(Upload_1.default, this.icon, true);
+        return RESTModel_1.default.findByIdBase(Upload_1.default, this.icon || "", true);
     };
     User.prototype.getTwitterAccount = function () {
-        return RESTModel_1.default.findByIdBase(TwitterAccount_1.default, this.twitter);
+        return RESTModel_1.default.findByIdBase(TwitterAccount_1.default, this.twitter || "");
     };
     User.prototype.getFacebookAccount = function () {
-        return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook);
+        return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook || "");
     };
     User.prototype.validatePassword = function (maybePassword) {
         var password = maybePassword || "";
         var decimalTest = /\d/;
         var symbolTest = /\W/;
         var lowercasePassword = password.toLowerCase();
-        var lowercaseFirstName = this.firstName.toLowerCase();
-        var lowercaseLastName = this.lastName.toLowerCase();
+        var lowercaseFirstName = this.firstName ? this.firstName.toLowerCase() : "";
+        var lowercaseLastName = this.lastName ? this.lastName.toLowerCase() : "";
         if (password === "") {
             return new Error("Password missing");
         }
@@ -6582,7 +6592,7 @@ var Venue = /** @class */ (function (_super) {
         return _super.prototype.remove.call(this, true);
     };
     Venue.prototype.getIcon = function () {
-        return RESTModel_1.default.findByIdBase(Upload_1.default, this.icon, true);
+        return RESTModel_1.default.findByIdBase(Upload_1.default, this.icon || "", true);
     };
     Venue.prototype.getPhotos = function () {
         var photos = Array.from(this.photos);
@@ -6606,13 +6616,13 @@ var Venue = /** @class */ (function (_super) {
         return Gig_1.default.findByVenue(this._id);
     };
     Venue.prototype.getTwitterAccount = function () {
-        return RESTModel_1.default.findByIdBase(TwitterAccount_1.default, this.twitter, true);
+        return RESTModel_1.default.findByIdBase(TwitterAccount_1.default, this.twitter || "", true);
     };
     Venue.prototype.getFacebookAccount = function () {
-        return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook, true);
+        return RESTModel_1.default.findByIdBase(FacebookAccount_1.default, this.facebook || "", true);
     };
     Venue.prototype.getLocation = function () {
-        return RESTModel_1.default.findByIdBase(Location_1.default, this.location, true);
+        return RESTModel_1.default.findByIdBase(Location_1.default, this.location || "", true);
     };
     Venue.prototype.isValid = function () {
         var self = this;
