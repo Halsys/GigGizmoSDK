@@ -31,6 +31,6 @@ module.exports = {
   output: {
     libraryTarget: "this",
     filename: "index.js",
-    path: __dirname + "/"
+    path: __dirname + "/dist/"
   }
 };

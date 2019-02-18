@@ -1,9 +1,9 @@
 {
 	"name": "gig-gizmo-sdk",
 	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-	"version": "0.5.7",
+	"version": "0.6.0",
 	"private": false,
-	"main": "./index.js",
+	"main": "./dist/index.js",
 	"typings": "./index.d.ts",
 	"dependencies": {
 		"@types/cookie": "^0.3.2",
