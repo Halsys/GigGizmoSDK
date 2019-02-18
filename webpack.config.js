@@ -27,7 +27,7 @@ module.exports = {
     ],
   },
 
-  entry: "./index.ts",
+  entry: "./src/index.ts",
   output: {
     libraryTarget: "this",
     filename: "index.js",

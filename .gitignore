@@ -26,4 +26,5 @@ yarn-error.log*
 # Misc
 .DS_Store
 
-./dist/src
+dist/src
+dist/src/*
