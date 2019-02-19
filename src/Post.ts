@@ -7,7 +7,7 @@ import RESTModel from "./RESTModel";
 export default class Post extends RESTModel {
 	public static ModelName: string = "Post";
 
-	get userId() {
+	get userId(): string {
 		return this.getField("userId");
 	}
 
@@ -15,7 +15,7 @@ export default class Post extends RESTModel {
 		this.setField("userId", value);
 	}
 
-	get network() {
+	get network(): string {
 		return this.getField("network");
 	}
 
@@ -23,7 +23,7 @@ export default class Post extends RESTModel {
 		this.setField("network", value);
 	}
 
-	get accountId() {
+	get accountId(): string {
 		return this.getField("accountId");
 	}
 
@@ -31,7 +31,7 @@ export default class Post extends RESTModel {
 		this.setField("accountId", value);
 	}
 
-	get pageId() {
+	get pageId(): string {
 		return this.getField("pageId");
 	}
 
@@ -39,7 +39,7 @@ export default class Post extends RESTModel {
 		this.setField("pageId", value);
 	}
 
-	get postText() {
+	get postText(): string {
 		return this.getField("postText");
 	}
 
@@ -47,7 +47,7 @@ export default class Post extends RESTModel {
 		this.setField("postText", value);
 	}
 
-	get postDate() {
+	get postDate(): string {
 		return this.getField("postDate");
 	}
 
@@ -55,7 +55,7 @@ export default class Post extends RESTModel {
 		this.setField("postDate", value);
 	}
 
-	get coordinates() {
+	get coordinates(): number[] {
 		return this.getField("coordinates");
 	}
 
@@ -63,7 +63,7 @@ export default class Post extends RESTModel {
 		this.setField("coordinates", value);
 	}
 
-	get error() {
+	get error(): string {
 		return this.getField("error");
 	}
 
@@ -71,7 +71,7 @@ export default class Post extends RESTModel {
 		this.setField("error", value);
 	}
 
-	get done() {
+	get done(): boolean {
 		return this.getField("done");
 	}
 
@@ -79,24 +79,28 @@ export default class Post extends RESTModel {
 		this.setField("done", value);
 	}
 
-	public static findById(id: string) {
-		return RESTModel.findByIdBase(Post, id);
+	public static findById(id: string): Promise<Post | null> {
+		return RESTModel.findByIdBase(Post, id) as Promise<Post | null>;
 	}
 
-	public static getAllOwned() {
-		return RESTModel.findManyBase(Post, null);
+	public static findOne(criteria: any): Promise<Post | null> {
+		return RESTModel.findOneBase(Post, criteria) as Promise<Post | null>;
 	}
 
-	public static findMany(criteria: object | null) {
-		return RESTModel.findManyBase(Post, criteria);
+	public static getAllOwned(): Promise<Post[]> {
+		return RESTModel.findManyBase(Post, null) as Promise<Post[]>;
 	}
 
-	public isValid() {
+	public static findMany(criteria: object | null): Promise<Post[]> {
+		return RESTModel.findManyBase(Post, criteria) as Promise<Post[]>;
+	}
+
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		return true;
 	}
 
-	public canSave() {
+	public canSave(): boolean {
 		if (!this.postDate) { return false; }
 		if (!this.postText || this.postText === "") { return false; }
 		if (!this.network) {
@@ -106,7 +110,7 @@ export default class Post extends RESTModel {
 		return true;
 	}
 
-	public userIsOwner(user: any) {
+	public userIsOwner(user: any): boolean {
 		if (typeof user === "string") { return user === this.userId; }
 		if (typeof user === "function" && user && user.isValid()) {
 			return user._id === this.userId;

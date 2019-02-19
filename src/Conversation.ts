@@ -5,18 +5,27 @@
 import API from "./API";
 import RESTModel from "./RESTModel";
 
+export interface ConversationEvent {
+	dateTimePosted: Date;
+	message: string;
+	user: string;
+}
+
+export type ConversationCallback = (c: Conversation) => void;
+export type ConversationCallbackDestroyer = () => void;
+
 export default class Conversation extends RESTModel {
 	public static ModelName: string = "Conversation";
 	public static Callbacks = new Map();
-	get events() {
+	get events(): ConversationEvent[] {
 		return this.getField("events") || [];
 	}
 
-	set events(value: any[]) {
+	set events(value: ConversationEvent[]) {
 		this.setField("events", value);
 	}
 
-	get users() {
+	get users(): string[] {
 		return this.getField("users") || [];
 	}
 
@@ -24,13 +33,14 @@ export default class Conversation extends RESTModel {
 		this.setField("users", value);
 	}
 
-	public static newCallback(callback: any) {
+	public static newCallback(callback: ConversationCallback):
+		ConversationCallbackDestroyer {
 		const callbackId = Date.now();
 		Conversation.Callbacks.set(callbackId, callback);
 		return () => Conversation.Callbacks.delete(callbackId);
 	}
 
-	public static connectSocket() {
+	public static connectSocket(): void {
 		API.getSocket().then(
 			(socket: SocketIOClient.Socket | null) => {
 				if (socket) {
@@ -51,12 +61,24 @@ export default class Conversation extends RESTModel {
 			console.error);
 	}
 
-	public static findById(id: string) {
-		return RESTModel.findByIdBase(Conversation, id, true);
+	public static findById(id: string): Promise<Conversation | null> {
+		return RESTModel.findByIdBase(Conversation, id, true) as
+			Promise<Conversation | null>;
 	}
 
-	public static getAllOwned() {
-		return RESTModel.findManyBase(Conversation, null, true);
+	public static findOne(criteria: any): Promise<Conversation | null> {
+		return RESTModel.findOneBase(Conversation, criteria) as
+			Promise<Conversation | null>;
+	}
+
+	public static findMany(criteria: any): Promise<Conversation[]> {
+		return RESTModel.findManyBase(Conversation, criteria, false) as
+			Promise<Conversation[]>;
+	}
+
+	public static getAllOwned(): Promise<Conversation[]> {
+		return RESTModel.findManyBase(Conversation, null, true) as
+			Promise<Conversation[]>;
 	}
 
 	public isValid() {

@@ -9,7 +9,7 @@ import RESTModel from "./RESTModel";
 export default class Location extends RESTModel {
 	public static ModelName: string = "Location";
 
-	get type() {
+	get type(): string {
 		return this.getField("type") || "Point";
 	}
 
@@ -17,7 +17,7 @@ export default class Location extends RESTModel {
 		this.setField("type", value);
 	}
 
-	get placeId() {
+	get placeId(): string {
 		return this.getField("placeId");
 	}
 
@@ -25,7 +25,7 @@ export default class Location extends RESTModel {
 		this.setField("placeId", value);
 	}
 
-	get address() {
+	get address(): string {
 		return this.getField("address");
 	}
 
@@ -33,7 +33,7 @@ export default class Location extends RESTModel {
 		this.setField("address", value);
 	}
 
-	get point() {
+	get point(): number[] {
 		return this.getField("point");
 	}
 
@@ -41,7 +41,7 @@ export default class Location extends RESTModel {
 		this.setField("point", value);
 	}
 
-	get utcOffset() {
+	get utcOffset(): number {
 		return this.getField("utcOffset");
 	}
 
@@ -67,11 +67,22 @@ export default class Location extends RESTModel {
 		});
 	}
 
-	public static findById(id: string): Promise<Location> {
-		return RESTModel.findByIdBase(Location, id);
+	public static findById(id: string): Promise<Location | null> {
+		return RESTModel.findByIdBase(Location, id) as
+			Promise<Location | null>;
 	}
 
-	public isValid() {
+	public static findOne(criteria: any): Promise<Location | null> {
+		return RESTModel.findOneBase(Location, criteria) as
+			Promise<Location | null>;
+	}
+
+	public static findMany(criteria: any): Promise<Location[]> {
+		return RESTModel.findManyBase(Location, criteria, false) as
+			Promise<Location[]>;
+	}
+
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		if (!this.placeId) { return false; }
 		if (!this.address) { return false; }

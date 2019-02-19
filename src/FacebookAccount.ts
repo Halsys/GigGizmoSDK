@@ -9,7 +9,7 @@ import User from "./User";
 export default class FacebookAccount extends RESTModel {
 	public static ModelName: string = "FacebookAccount";
 
-	get userId() {
+	get userId(): string {
 		return this.getField("userId");
 	}
 
@@ -17,7 +17,7 @@ export default class FacebookAccount extends RESTModel {
 		this.setField("userId", value);
 	}
 
-	get accountId() {
+	get accountId(): string {
 		return this.getField("accountId");
 	}
 
@@ -25,7 +25,7 @@ export default class FacebookAccount extends RESTModel {
 		this.setField("accountId", value);
 	}
 
-	get userAccessToken() {
+	get userAccessToken(): string {
 		return this.getField("userAccessToken");
 	}
 
@@ -33,7 +33,7 @@ export default class FacebookAccount extends RESTModel {
 		this.setField("userAccessToken", value);
 	}
 
-	get userRefreshToken() {
+	get userRefreshToken(): string {
 		return this.getField("userRefreshToken");
 	}
 
@@ -41,11 +41,12 @@ export default class FacebookAccount extends RESTModel {
 		this.setField("userRefreshToken", value);
 	}
 
-	get profile() {
+	get profile(): any {
 		return this.getField("profile");
 	}
 
-	public static findById(id: string) {
+	public static findById(id: string):
+	 	Promise<FacebookAccount | null> {
 		return new Promise((resolve, reject) => {
 			if (typeof id === "string" && id !== "") {
 				API.call("GET", `/API/FacebookAccount/${id}`, null).then(
@@ -65,7 +66,7 @@ export default class FacebookAccount extends RESTModel {
 		});
 	}
 
-	public static findPage(pageName: string) {
+	public static findPage(pageName: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			if (typeof pageName !== "string") {
 				reject(new Error("pageName is not a string!"));
@@ -82,7 +83,7 @@ export default class FacebookAccount extends RESTModel {
 		text: string,
 		pageId: string,
 		postDateTime: string
-	) {
+	): Promise<any> {
 		return new Promise((resolve, reject) => {
 			API.call("POST", "/API/Facebook/Page/Post", {
 				fb_page_id: pageId,
@@ -93,11 +94,12 @@ export default class FacebookAccount extends RESTModel {
 		});
 	}
 
-	public getUser() {
-		return RESTModel.findManyBase(User, this.userId, true);
+	public getUser(): Promise<User | null> {
+		return RESTModel.findByIdBase(User, this.userId, true) as
+			Promise<User | null>;
 	}
 
-	public userIsOwner(user: any) {
+	public userIsOwner(user: any): boolean {
 		if (typeof user === "string") {
 			return user === this.userId;
 		} else if (typeof user === "object" && user) {
@@ -106,7 +108,7 @@ export default class FacebookAccount extends RESTModel {
 		return false;
 	}
 
-	public isValid() {
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		if (!this.userId || typeof this.userId !== "string") { return false; }
 		if (!this.profile || typeof this.profile !== "object") { return false; }

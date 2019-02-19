@@ -7,7 +7,7 @@ import RESTModel from "./RESTModel";
 export default class ErrorReport extends RESTModel {
 	public static ModelName: string = "ErrorReport";
 
-	get version() {
+	get version(): string {
 		return this.getField("version");
 	}
 
@@ -15,7 +15,7 @@ export default class ErrorReport extends RESTModel {
 		this.setField("version", value);
 	}
 
-	get userId() {
+	get userId(): string {
 		return this.getField("userId");
 	}
 
@@ -23,7 +23,7 @@ export default class ErrorReport extends RESTModel {
 		this.setField("userId", value);
 	}
 
-	get stack() {
+	get stack(): string {
 		return this.getField("stack");
 	}
 
@@ -31,7 +31,7 @@ export default class ErrorReport extends RESTModel {
 		this.setField("stack", value);
 	}
 
-	get message() {
+	get message(): string {
 		return this.getField("message");
 	}
 
@@ -39,7 +39,7 @@ export default class ErrorReport extends RESTModel {
 		this.setField("message", value);
 	}
 
-	get name() {
+	get name(): string {
 		return this.getField("name");
 	}
 
@@ -47,7 +47,7 @@ export default class ErrorReport extends RESTModel {
 		this.setField("name", value);
 	}
 
-	get fileName() {
+	get fileName(): string {
 		return this.getField("fileName");
 	}
 
@@ -55,7 +55,7 @@ export default class ErrorReport extends RESTModel {
 		this.setField("fileName", value);
 	}
 
-	get columnNumber() {
+	get columnNumber(): number {
 		return this.getField("columnNumber");
 	}
 
@@ -63,7 +63,7 @@ export default class ErrorReport extends RESTModel {
 		this.setField("columnNumber", value);
 	}
 
-	get lineNumber() {
+	get lineNumber(): number {
 		return this.getField("lineNumber");
 	}
 
@@ -71,15 +71,17 @@ export default class ErrorReport extends RESTModel {
 		this.setField("lineNumber", value);
 	}
 
-	public static findById(id: string) {
-		return RESTModel.findByIdBase(ErrorReport, id);
+	public static findById(id: string): Promise<ErrorReport | null> {
+		return RESTModel.findByIdBase(ErrorReport, id) as
+			Promise<ErrorReport | null>;
 	}
 
 	public static findMany(criteria: object | null) {
-		return RESTModel.findManyBase(ErrorReport, criteria);
+		return RESTModel.findManyBase(ErrorReport, criteria) as
+			Promise<ErrorReport[]>;
 	}
 
-	public isValid() {
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		// TODO: do more tests...
 		return true;

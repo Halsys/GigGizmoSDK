@@ -8,6 +8,7 @@ import Conversation from "./Conversation";
 import FacebookAccount from "./FacebookAccount";
 import Gig from "./Gig";
 import Location from "./Location";
+import Notification from "./Notification";
 import Page from "./Page";
 import Post from "./Post";
 import RESTModel from "./RESTModel";
@@ -18,7 +19,7 @@ import Venue from "./Venue";
 export default class User extends RESTModel {
 	public static ModelName: string = "User";
 	public static Current: any = null;
-	public static Callbacks: Map<number, (user: User) => any> = new Map();
+	public static Callbacks: Map<number, (user: User | null) => any> = new Map();
 	public static agreement: any = null;
 	public static EmailRegex: RegExp = new RegExp(
 		[`^(([^<>()[\].,;:\s@"]+`,
@@ -282,31 +283,38 @@ export default class User extends RESTModel {
 	}
 
 	public static getAllConversations(): Promise<Conversation[]> {
-		return RESTModel.findManyBase(Conversation, null, true);
+		return RESTModel.findManyBase(Conversation, null, true) as
+			Promise<Conversation[]>;
 	}
 
 	public static getAllNotifications(): Promise<Notification[]> {
-		return RESTModel.findManyBase(Notification, null, true);
+		return RESTModel.findManyBase(Notification, null, true) as
+			Promise<Notification[]>;
 	}
 
 	public static getAllPosts(): Promise<Post[]> {
-		return RESTModel.findManyBase(Post, null, true);
+		return RESTModel.findManyBase(Post, null, true) as
+			Promise<Post[]>;
 	}
 
 	public static getAllBands(): Promise<Band[]> {
-		return RESTModel.findManyBase(Band, null, true);
+		return RESTModel.findManyBase(Band, null, true) as
+			Promise<Band[]>;
 	}
 
 	public static getAllVenues(): Promise<Venue[]> {
-		return RESTModel.findManyBase(Venue, null, true);
+		return RESTModel.findManyBase(Venue, null, true) as
+			Promise<Venue[]>;
 	}
 
 	public static getAllGigs(): Promise<Gig[]> {
-		return RESTModel.findManyBase(Gig, null, true);
+		return RESTModel.findManyBase(Gig, null, true) as
+			Promise<Gig[]>;
 	}
 
 	public static getAllUploads(): Promise<Upload[]> {
-		return RESTModel.findManyBase(Upload, null, true);
+		return RESTModel.findManyBase(Upload, null, true) as
+			Promise<Upload[]>;
 	}
 
 	public static findFacebookPages(term: string): Promise<any> {
@@ -420,14 +428,14 @@ export default class User extends RESTModel {
 	}
 
 	public static findMany(criteria: object | null): Promise<User[]> {
-		return RESTModel.findManyBase(User, criteria, true);
+		return RESTModel.findManyBase(User, criteria, true) as Promise<User[]>;
 	}
 
-	public static findOne(criteria: object | null): Promise<User> {
-		return RESTModel.findOneBase(User, criteria, true);
+	public static findOne(criteria: object | null): Promise<User | null> {
+		return RESTModel.findOneBase(User, criteria, true) as Promise<User>;
 	}
 
-	public static onChange(callback: (user: User) => void) {
+	public static onChange(callback: (user: User | null) => void) {
 		const id = Date.now();
 		User.Callbacks.set(id, callback);
 		return () => {
@@ -484,8 +492,8 @@ export default class User extends RESTModel {
 		return User.setUser(null);
 	}
 
-	public static findById(id: string): Promise<User> {
-		return RESTModel.findByIdBase(User, id, true);
+	public static findById(id: string): Promise<User | null> {
+		return RESTModel.findByIdBase(User, id, true) as Promise<User | null>;
 	}
 
 	public static connectFacebook() {
@@ -659,16 +667,19 @@ export default class User extends RESTModel {
 		console.error("Not implemented yet.");
 	}
 
-	public getIcon(): Promise<Upload> {
-		return RESTModel.findByIdBase(Upload, this.icon || "", true);
+	public getIcon(): Promise<Upload | null> {
+		return RESTModel.findByIdBase(Upload, this.icon || "", true) as
+			Promise<Upload | null>;
 	}
 
-	public getTwitterAccount(): Promise<TwitterAccount> {
-		return RESTModel.findByIdBase(TwitterAccount, this.twitter || "");
+	public getTwitterAccount(): Promise<TwitterAccount | null> {
+		return RESTModel.findByIdBase(TwitterAccount, this.twitter || "") as
+			Promise<TwitterAccount | null>;
 	}
 
-	public getFacebookAccount(): Promise<FacebookAccount> {
-		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "");
+	public getFacebookAccount(): Promise<FacebookAccount | null> {
+		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "") as
+			Promise<FacebookAccount | null>;
 	}
 
 	public validatePassword(maybePassword: string): Error | null {

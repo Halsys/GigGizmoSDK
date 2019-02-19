@@ -32,6 +32,21 @@ export default class GooglePlace extends RESTModel {
 		this.setField("description", value);
 	}
 
+	public static findById(id: string): Promise<GooglePlace | null> {
+		return RESTModel.findByIdBase(GooglePlace, id) as
+			Promise<GooglePlace | null>;
+	}
+
+	public static findOne(criteria: any): Promise<GooglePlace | null> {
+		return RESTModel.findOneBase(GooglePlace, criteria) as
+			Promise<GooglePlace | null>;
+	}
+
+	public static findMany(criteria: any): Promise<GooglePlace[]> {
+		return RESTModel.findManyBase(GooglePlace, criteria, false) as
+			Promise<GooglePlace[]>;
+	}
+
 	public static getPlaceDetails(placeId: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			if (typeof placeId !== "string") {

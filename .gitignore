@@ -26,4 +26,3 @@ yarn-error.log*
 .DS_Store
 
 dist/src/
-dist/(?!index.js|index.js.map).*

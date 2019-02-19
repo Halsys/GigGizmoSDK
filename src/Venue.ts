@@ -141,20 +141,24 @@ export default class Venue extends RESTModel {
 		this.setField("google", value);
 	}
 
-	public static findOne(criteria: object | null): Promise<Venue> {
-		return RESTModel.findOneBase(Venue, criteria, true);
+	public static findOne(criteria: object | null): Promise<Venue | null> {
+		return RESTModel.findOneBase(Venue, criteria, true) as
+			Promise<Venue | null>;
 	}
 
 	public static findMany(criteria: object | null): Promise<Venue[]> {
-		return RESTModel.findManyBase(Venue, criteria, true);
+		return RESTModel.findManyBase(Venue, criteria, true) as
+			Promise<Venue[]>;
 	}
 
 	public static findById(id: string): Promise<Venue> {
-		return RESTModel.findByIdBase(Venue, id, true);
+		return RESTModel.findByIdBase(Venue, id, true) as
+			Promise<Venue>;
 	}
 
 	public static getAllOwned(): Promise<Venue[]> {
-		return RESTModel.findManyBase(Venue, null, true);
+		return RESTModel.findManyBase(Venue, null, true) as
+			Promise<Venue[]>;
 	}
 
 	public save(): Promise<this> {
@@ -165,8 +169,9 @@ export default class Venue extends RESTModel {
 		return super.remove(true);
 	}
 
-	public getIcon(): Promise<Upload> {
-		return RESTModel.findByIdBase(Upload, this.icon || "", true);
+	public getIcon(): Promise<Upload | null> {
+		return RESTModel.findByIdBase(Upload, this.icon || "", true) as
+			Promise<Upload | null>;
 	}
 
 	public getPhotos(): Promise<Upload[]> {
@@ -178,7 +183,7 @@ export default class Venue extends RESTModel {
 					_id: photos
 				},
 				true
-			);
+			) as Promise<Upload[]>;
 		}
 		return Promise.resolve([]);
 	}
@@ -192,25 +197,28 @@ export default class Venue extends RESTModel {
 					_id: owners
 				},
 				true
-			);
+			) as Promise<User[]>;
 		}
 		return Promise.resolve([]);
 	}
 
 	public getGigs(): Promise<Gig[]> {
-		return Gig.findByVenue(this._id);
+		return Gig.findByVenue(this._id || "") as Promise<Gig[]>;
 	}
 
-	public getTwitterAccount(): Promise<TwitterAccount> {
-		return RESTModel.findByIdBase(TwitterAccount, this.twitter || "", true);
+	public getTwitterAccount(): Promise<TwitterAccount | null> {
+		return RESTModel.findByIdBase(TwitterAccount, this.twitter || "", true) as
+			Promise<TwitterAccount | null>;
 	}
 
-	public getFacebookAccount(): Promise<FacebookAccount> {
-		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "", true);
+	public getFacebookAccount(): Promise<FacebookAccount | null> {
+		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "", true) as
+			Promise<FacebookAccount | null>;
 	}
 
-	public getLocation(): Promise<Location> {
-		return RESTModel.findByIdBase(Location, this.location || "", true);
+	public getLocation(): Promise<Location | null> {
+		return RESTModel.findByIdBase(Location, this.location || "", true) as
+			Promise<Location | null>;
 	}
 
 	public isValid(): boolean {

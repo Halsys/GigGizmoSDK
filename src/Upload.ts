@@ -8,7 +8,7 @@ import User from "./User";
 export default class Upload extends RESTModel {
 	public static ModelName: string = "Upload";
 
-	get fileName() {
+	get fileName(): string {
 		return this.getField("fileName");
 	}
 
@@ -16,7 +16,7 @@ export default class Upload extends RESTModel {
 		this.setField("fileName", value);
 	}
 
-	get fileData() {
+	get fileData(): string {
 		return this.getField("fileData");
 	}
 
@@ -24,7 +24,7 @@ export default class Upload extends RESTModel {
 		this.setField("fileData", value);
 	}
 
-	get title() {
+	get title(): string {
 		return this.getField("title");
 	}
 
@@ -32,7 +32,7 @@ export default class Upload extends RESTModel {
 		this.setField("title", value);
 	}
 
-	get description() {
+	get description(): string {
 		return this.getField("description");
 	}
 
@@ -40,7 +40,7 @@ export default class Upload extends RESTModel {
 		this.setField("description", value);
 	}
 
-	get owners() {
+	get owners(): string[] {
 		return this.getField("owners");
 	}
 
@@ -54,16 +54,20 @@ export default class Upload extends RESTModel {
 		return upload;
 	}
 
-	public static findById(id: string): Promise<Upload> {
-		return RESTModel.findByIdBase(Upload, id);
+	public static findById(id: string): Promise<Upload | null> {
+		return RESTModel.findByIdBase(Upload, id) as Promise<Upload | null>;
 	}
 
-	public static findMany(criteria: object | null): Promise<Upload[]> {
-		return RESTModel.findManyBase(Upload, criteria, true);
+	public static findMany(criteria: any): Promise<Upload[]> {
+		return RESTModel.findManyBase(Upload, criteria, true) as Promise<Upload[]>;
+	}
+
+	public static findOne(criteria: any): Promise<Upload | null> {
+		return RESTModel.findOneBase(Upload, criteria) as Promise<Upload | null>;
 	}
 
 	public static getAllOwned(): Promise<Upload[]> {
-		return RESTModel.findManyBase(Upload, null, true);
+		return RESTModel.findManyBase(Upload, null, true) as Promise<Upload[]>;
 	}
 
 	public getOwners(): Promise<User[]> {
@@ -75,7 +79,7 @@ export default class Upload extends RESTModel {
 					_id: owners
 				},
 				true
-			);
+			) as Promise<User[]>;
 		}
 		return Promise.resolve([]);
 	}

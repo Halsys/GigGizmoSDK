@@ -9,7 +9,7 @@ import User from "./User";
 export default class TwitterAccount extends RESTModel {
 	public static ModelName: string = "TwitterAccount";
 
-	get userId() {
+	get userId(): string {
 		return this.getField("userId");
 	}
 
@@ -17,7 +17,7 @@ export default class TwitterAccount extends RESTModel {
 		this.setField("userId", value);
 	}
 
-	get accessToken() {
+	get accessToken(): string {
 		return this.getField("accessToken");
 	}
 
@@ -25,7 +25,7 @@ export default class TwitterAccount extends RESTModel {
 		this.setField("accessToken", value);
 	}
 
-	get tokenSecret() {
+	get tokenSecret(): string {
 		return this.getField("tokenSecret");
 	}
 
@@ -33,15 +33,15 @@ export default class TwitterAccount extends RESTModel {
 		this.setField("tokenSecret", value);
 	}
 
-	get profile() {
+	get profile(): any {
 		return this.getField("profile");
 	}
 
-	set profile(value: string) {
+	set profile(value: any) {
 		this.setField("profile", value);
 	}
 
-	get accountId() {
+	get accountId(): string {
 		return this.getField("accountId");
 	}
 
@@ -49,7 +49,7 @@ export default class TwitterAccount extends RESTModel {
 		this.setField("accountId", value);
 	}
 
-	public static findById(id: string) {
+	public static findById(id: string): Promise<TwitterAccount | null> {
 		return new Promise((resolve, reject) => {
 			if (typeof id === "string" && id !== "") {
 				API.call("GET", `/API/TwitterAccount/${id}`, null).then(
@@ -69,24 +69,25 @@ export default class TwitterAccount extends RESTModel {
 		});
 	}
 
-	public getUser() {
-		return RESTModel.findByIdBase(User, this.userId, true);
+	public getUser(): Promise<User | null> {
+		return RESTModel.findByIdBase(User, this.userId, true) as
+			Promise<User | null>;
 	}
 
-	public userIsOwner(user: any) {
+	public userIsOwner(user: any): boolean {
 		if (typeof user === "string") { return user === this.userId; }
 		if (typeof user === "function") { return user._id === this.userId; }
 		return false;
 	}
 
-	public goToTwitterAccount() {
+	public goToTwitterAccount(): void {
 		if (typeof window !== "undefined") {
 			// We are on a browser
 			window.location.href = `https://twitter.com?profile_id=${this.accountId}`;
 		}
 	}
 
-	public isValid() {
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		if (!this.userId || typeof this.userId !== "string") { return false; }
 		if (!this.profile || typeof this.profile !== "object") { return false; }

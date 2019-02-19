@@ -89,8 +89,8 @@ export default class Gig extends RESTModel {
 		this.setField("owners", value);
 	}
 
-	public static findById(id: string): Promise<Gig> {
-		return RESTModel.findByIdBase(Gig, id, true);
+	public static findById(id: string): Promise<Gig | null> {
+		return RESTModel.findByIdBase(Gig, id, true) as Promise<Gig | null>;
 	}
 
 	public static async findByBand(bandId: string): Promise<Gig[]> {
@@ -118,11 +118,11 @@ export default class Gig extends RESTModel {
 	}
 
 	public static getAllOwned(): Promise<Gig[]> {
-		return RESTModel.findManyBase(Gig, null, true);
+		return RESTModel.findManyBase(Gig, null, true) as Promise<Gig[]>;
 	}
 
 	public static findMany(criteria: object | null): Promise<Gig[]> {
-		return RESTModel.findManyBase(Gig, criteria, true);
+		return RESTModel.findManyBase(Gig, criteria, true) as Promise<Gig[]>;
 	}
 
 	public static createGigs(gigData: object): Promise<Gig[]> {
@@ -224,15 +224,18 @@ export default class Gig extends RESTModel {
 	}
 
 	public getBands(): Promise<Band[]> {
-		return RESTModel.findManyBase(Band, { _id: this.bands }, true);
+		return RESTModel.findManyBase(Band, { _id: this.bands }, true) as
+			Promise<Band[]>;
 	}
 
 	public getVenue(): Promise<Venue> {
-		return RESTModel.findByIdBase(Venue, this.venue, true);
+		return RESTModel.findByIdBase(Venue, this.venue, true) as
+			Promise<Venue>;
 	}
 
 	public getLocation(): Promise<Location> {
-		return RESTModel.findByIdBase(Location, this.location, true);
+		return RESTModel.findByIdBase(Location, this.location, true) as
+			Promise<Location>;
 	}
 
 	public isValid(): boolean {

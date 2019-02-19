@@ -8,7 +8,7 @@ import RESTModel from "./RESTModel";
 export default class Request extends RESTModel {
 	public static ModelName: string = "Request";
 
-	get to() {
+	get to(): string {
 		return this.getField("to");
 	}
 
@@ -16,7 +16,7 @@ export default class Request extends RESTModel {
 		this.setField("to", value);
 	}
 
-	get from() {
+	get from(): string {
 		return this.getField("from");
 	}
 
@@ -24,7 +24,7 @@ export default class Request extends RESTModel {
 		this.setField("from", value);
 	}
 
-	get status() {
+	get status(): string {
 		return this.getField("status");
 	}
 
@@ -32,7 +32,7 @@ export default class Request extends RESTModel {
 		this.setField("status", value);
 	}
 
-	get options() {
+	get options(): string[] {
 		return this.getField("options");
 	}
 
@@ -40,7 +40,7 @@ export default class Request extends RESTModel {
 		this.setField("options", value);
 	}
 
-	get type() {
+	get type(): string {
 		return this.getField("type");
 	}
 
@@ -48,7 +48,7 @@ export default class Request extends RESTModel {
 		this.setField("type", value);
 	}
 
-	get userData() {
+	get userData(): any {
 		return this.getField("userData");
 	}
 
@@ -56,7 +56,7 @@ export default class Request extends RESTModel {
 		this.setField("userData", value);
 	}
 
-	get emailSent() {
+	get emailSent(): boolean {
 		return this.getField("emailSent");
 	}
 
