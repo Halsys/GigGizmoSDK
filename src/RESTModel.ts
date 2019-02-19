@@ -33,19 +33,19 @@ export default abstract class RESTModel {
 		this.changes.dateModified = (value) ? value.toJSON() : null;
 	}
 
-	get id(): string | null {
+	get id(): string {
 		return this.getField("_id");
 	}
 
-	set id(value: string | null) {
+	set id(value: string) {
 		this.setField("_id", value);
 	}
 
-	get _id(): string | null {
+	get _id(): string {
 		return this.getField("_id");
 	}
 
-	set _id(value: string | null) {
+	set _id(value: string) {
 		this.setField("_id", value);
 	}
 
