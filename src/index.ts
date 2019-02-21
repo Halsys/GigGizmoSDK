@@ -8,13 +8,19 @@ export { default as API } from "./API";
 
 // Models
 export { default as Band } from "./Band";
-export { default as Conversation, ConversationEvent } from "./Conversation";
+export {
+	default as Conversation,
+	ConversationEvent
+} from "./Conversation";
 export { default as ErrorReport } from "./ErrorReport";
 export { default as FacebookAccount } from "./FacebookAccount";
 export { default as Gig } from "./Gig";
 export { default as GooglePlace } from "./GooglePlace";
 export { default as Location } from "./Location";
-export { default as Notification, NotificationAction } from "./Notification";
+export {
+	default as Notification,
+	NotificationAction
+} from "./Notification";
 export { default as Page } from "./Page";
 export { default as Post } from "./Post";
 export { default as Request } from "./Request";
