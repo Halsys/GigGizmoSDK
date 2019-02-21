@@ -1,4 +1,5 @@
-export default async function ModelNameToModel(name: string) {
+export default async function ModelNameToModel(name: string):
+	Promise<any> {
 	switch (name) {
 		case "Band":
 			return (await import("./Band")).default;

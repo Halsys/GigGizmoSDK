@@ -16,10 +16,13 @@ import TwitterAccount from "./TwitterAccount";
 import Upload from "./Upload";
 import Venue from "./Venue";
 
+export type UserCallback = (user: User | null) => void;
+export type UserCallbackDestroyer = () => void;
+
 export default class User extends RESTModel {
 	public static ModelName: string = "User";
-	public static Current: any = null;
-	public static Callbacks: Map<number, (user: User | null) => any> = new Map();
+	public static Current: User | null = null;
+	public static Callbacks: Map<number, UserCallback> = new Map();
 	public static agreement: any = null;
 	public static EmailRegex: RegExp = new RegExp(
 		[`^(([^<>()[\].,;:\s@"]+`,
@@ -68,44 +71,44 @@ export default class User extends RESTModel {
 		return this.getField("admin") === true;
 	}
 
-	get firstName(): string | null {
+	get firstName(): string {
 		return this.getField("firstName");
 	}
 
-	set firstName(value: string | null) {
+	set firstName(value: string) {
 		this.setField("firstName", value);
 	}
 
-	get middleName(): string | null {
+	get middleName(): string {
 		return this.getField("middleName");
 	}
 
-	set middleName(value: string | null) {
+	set middleName(value: string) {
 		this.setField("middleName", value);
 	}
 
-	get lastName(): string | null {
+	get lastName(): string {
 		return this.getField("lastName");
 	}
 
-	set lastName(value: string | null) {
+	set lastName(value: string) {
 		this.setField("lastName", value);
 	}
 
-	get birthday(): Date | null {
+	get birthday(): Date {
 		const birthday = this.getField("birthday") || null;
 		return birthday ? new Date(birthday) : birthday;
 	}
 
-	set birthday(value: Date | null) {
+	set birthday(value: Date) {
 		this.setField("birthday", (value || new Date()).toJSON());
 	}
 
-	get country(): string | null {
+	get country(): string {
 		return this.getField("country");
 	}
 
-	set country(value: string | null) {
+	set country(value: string) {
 		this.setField("country", value);
 	}
 
@@ -178,19 +181,19 @@ export default class User extends RESTModel {
 			""}`;
 	}
 
-	get email(): string | null {
+	get email(): string {
 		return this.getField("email");
 	}
 
-	set email(value: string | null) {
+	set email(value: string) {
 		this.setField("email", value);
 	}
 
-	get salt(): string | null {
+	get salt(): string {
 		return this.getField("salt");
 	}
 
-	get hash(): string | null {
+	get hash(): string {
 		return this.getField("hash");
 	}
 
@@ -210,11 +213,11 @@ export default class User extends RESTModel {
 		this.setField("twitter", value);
 	}
 
-	get description(): string | null {
+	get description(): string {
 		return this.getField("description");
 	}
 
-	set description(value: string | null) {
+	set description(value: string) {
 		this.setField("description", value);
 	}
 
@@ -230,20 +233,20 @@ export default class User extends RESTModel {
 		return this.getField("attempts");
 	}
 
-	get lastLoginIP(): string | null {
+	get lastLoginIP(): string {
 		return this.getField("lastLoginIP");
 	}
 
-	set lastLoginIP(value: string | null) {
+	set lastLoginIP(value: string) {
 		this.setField("lastLoginIP", value);
 	}
 
-	get lastLogin(): Date | null {
+	get lastLogin(): Date {
 		const lastLogin = this.getField("lastLogin") || null;
 		return lastLogin ? new Date(lastLogin) : lastLogin;
 	}
 
-	set lastLogin(value: Date | null) {
+	set lastLogin(value: Date) {
 		this.setField("lastLogin", (value || new Date()).toJSON());
 	}
 
@@ -435,7 +438,8 @@ export default class User extends RESTModel {
 		return RESTModel.findOneBase(User, criteria, true) as Promise<User>;
 	}
 
-	public static onChange(callback: (user: User | null) => void) {
+	public static onChange(callback: (user: User | null) => void):
+		UserCallbackDestroyer {
 		const id = Date.now();
 		User.Callbacks.set(id, callback);
 		return () => {
@@ -443,7 +447,7 @@ export default class User extends RESTModel {
 		};
 	}
 
-	public static async setUser(data: object | null): Promise<User> {
+	public static async setUser(data: object | null): Promise<User | null> {
 		try {
 			if (typeof data === "object" && data) {
 				User.Current = new User(data);
@@ -463,7 +467,7 @@ export default class User extends RESTModel {
 		return User.Current;
 	}
 
-	public static async getUser(force: boolean): Promise<User> {
+	public static async getUser(force: boolean): Promise<User | null> {
 		let data = null;
 		const dateNow = new Date();
 		if (!force && API.expires && dateNow < API.expires) {
@@ -508,7 +512,7 @@ export default class User extends RESTModel {
 		window.location.href = `${API.rootURL}/API/Auth/PayPal`;
 	}
 
-	public static async userLogIn(email: string, password: string): Promise<User> {
+	public static async userLogIn(email: string, password: string): Promise<User | null> {
 		if (!email) {
 			throw new Error("No email");
 		} else if (!password) {
@@ -545,7 +549,7 @@ export default class User extends RESTModel {
 		}
 	}
 
-	public static async userLogOut(): Promise<User> {
+	public static async userLogOut(): Promise<User | null> {
 		let response = null;
 		if (API.useSocketIO && API.ShouldUseSocketIO) {
 			response = await new Promise((resolve, reject) => {

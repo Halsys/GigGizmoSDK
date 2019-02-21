@@ -11,10 +11,13 @@ export interface NotificationAction {
 	request: string;
 }
 
+export type NotificationCallback = (note: Notification) => void;
+export type NotificationCallbackDestroyer = () => void;
+
 export default class Notification extends RESTModel {
 	public static ModelName: string = "Notification";
-	public static Callbacks = new Map();
-	private changeCallbacks = new Map();
+	public static Callbacks: Map<number, NotificationCallback> = new Map();
+	private changeCallbacks: Map<number, NotificationCallback> = new Map();
 
 	get userId(): string {
 		return this.getField("userId");
@@ -60,7 +63,7 @@ export default class Notification extends RESTModel {
 		Notification.Callbacks.forEach((callback: any) => callback(note));
 	}
 
-	public static newCallback(callback: any): () => void {
+	public static newCallback(callback: any): NotificationCallbackDestroyer {
 		const callbackId = Date.now();
 		Notification.Callbacks.set(callbackId, callback);
 		return () => Notification.Callbacks.delete(callbackId);
@@ -123,9 +126,9 @@ export default class Notification extends RESTModel {
 		}
 	}
 
-	public newChangeCallback(callback: any) {
+	public newChangeCallback(callback: any): NotificationCallbackDestroyer {
 		const i = Date.now();
 		this.changeCallbacks.set(i, callback);
-		return () => this.changeCallbacks.delete(i);
+		return () => { this.changeCallbacks.delete(i); };
 	}
 }

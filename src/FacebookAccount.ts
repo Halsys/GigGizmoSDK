@@ -45,6 +45,16 @@ export default class FacebookAccount extends RESTModel {
 		return this.getField("profile");
 	}
 
+	public static findOne(criteria: object | null): Promise<FacebookAccount | null> {
+		return RESTModel.findOneBase(FacebookAccount, criteria, true) as
+			Promise<FacebookAccount | null>;
+	}
+
+	public static findMany(criteria: object | null): Promise<FacebookAccount[]> {
+		return RESTModel.findManyBase(FacebookAccount, criteria, true) as
+			Promise<FacebookAccount[]>;
+	}
+
 	public static findById(id: string):
 	 	Promise<FacebookAccount | null> {
 		return new Promise((resolve, reject) => {

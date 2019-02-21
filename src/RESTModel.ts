@@ -3,7 +3,7 @@ import ModelNameToModel from "./ModelNameToModel";
 
 export default abstract class RESTModel {
 	public static ModelName: string = "RESTModel";
-	public static Cache = new Map();
+	public static Cache: Map<string, RESTModel> = new Map();
 	public static findMany: ((criteria: any) => Promise<RESTModel[]>);
 	public static findOne: ((criteria: any) => Promise<RESTModel | null>);
 	public static findById: ((id: string) => Promise<RESTModel | null>);
@@ -51,7 +51,7 @@ export default abstract class RESTModel {
 
 	public static CacheGet(id: string): RESTModel | null {
 		if (typeof id === "string" && RESTModel.Cache.has(id)) {
-			const cache: RESTModel = RESTModel.Cache.get(id);
+			const cache: RESTModel | undefined = RESTModel.Cache.get(id);
 			if (cache && new Date(cache.expiration) < new Date()) {
 				return cache;
 			}
@@ -71,7 +71,10 @@ export default abstract class RESTModel {
 		RESTModel.Cache.delete(id);
 	}
 
-	public static async deduceModelAndName(ModelMaybe: any) {
+	public static async deduceModelAndName(ModelMaybe: any): Promise<{
+			Model: any;
+			modelName: string;
+		}> {
 		if (ModelMaybe === null) {
 			throw new Error("Model Name or Model Missing");
 		}
@@ -102,25 +105,25 @@ export default abstract class RESTModel {
 		};
 	}
 
-	public static isValidId(id: any) {
+	public static isValidId(id: any): boolean {
 		const pattern = RegExp("^([0-9a-fA-F]{24}|[0-9a-fA-F]{12})$", "g");
 		return (
 			typeof id === "string" && pattern.test(id)
 		);
 	}
 
-	public static getModelName(Model: object) {
-		if (Model == null) { return null; }
-		if ((Model as any).ModelName) { return (Model as any).ModelName; }
+	public static getModelName(Model: any): string {
+		if (Model && Model.ModelName) { return Model.ModelName; }
 		if (Model.constructor && ((Model.constructor as any).ModelName)) {
 			return (Model.constructor as any).ModelName;
 		}
+		return "";
 	}
 
 	public static async findByIdBase(
 		ModelMaybe: any,
 		id: string,
-		hasWebSocket: boolean = false
+		hasWebSocket?: boolean
 	): Promise<RESTModel|null> {
 		if (RESTModel.isValidId(id)) {
 			const cache = RESTModel.CacheGet(id);
@@ -157,7 +160,7 @@ export default abstract class RESTModel {
 	public static async findOneBase(
 		ModelMaybe: any,
 		criteria: any = {},
-		hasWebSocket: boolean = false
+		hasWebSocket?: boolean
 	): Promise<RESTModel|null> {
 		if (criteria === null) { criteria = {}; }
 		if (Array.from(Object.keys(criteria)).length === 1 && typeof criteria._id === "string") {
@@ -194,7 +197,7 @@ export default abstract class RESTModel {
 	public static async findManyBase(
 		ModelMaybe: any,
 		criteria: any = {},
-		hasWebSocket: boolean = false
+		hasWebSocket?: boolean
 	): Promise<RESTModel[]> {
 		if (criteria === null) { criteria = {}; }
 		if (Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
@@ -279,7 +282,7 @@ export default abstract class RESTModel {
 		return null;
 	}
 
-	public toObject(): {} {
+	public toObject(): any {
 		const object = this.valid() ? { ...this.changes, ...this.document } : null;
 		if (typeof object === "object" && object) {
 			if (typeof object.id !== "undefined") { delete object.id; }
@@ -326,7 +329,7 @@ export default abstract class RESTModel {
 		return this;
 	}
 
-	public async save(hasWebSocket: boolean = false) {
+	public async save(hasWebSocket?: boolean): Promise<this> {
 		const modelName = (this.constructor as any).ModelName;
 		let response: any = null;
 		const id = this.document._id || null;
@@ -373,7 +376,7 @@ export default abstract class RESTModel {
 		throw new Error(`returned ${response}`);
 	}
 
-	public async remove(hasWebSocket: boolean = false) {
+	public async remove(hasWebSocket?: boolean): Promise<this> {
 		const id = this._id || "";
 		if (RESTModel.isValidId(id)) {
 			let response: any = null;
@@ -394,7 +397,7 @@ export default abstract class RESTModel {
 			}
 
 			RESTModel.CacheRemove(id);
-			return response;
+			return this;
 		}
 		throw new Error(`Invalid id: ${id}`);
 	}

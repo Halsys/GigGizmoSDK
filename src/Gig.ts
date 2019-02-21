@@ -11,12 +11,12 @@ import Venue from "./Venue";
 export default class Gig extends RESTModel {
 	public static ModelName: string = "Gig";
 
-	get startTime(): string {
+	get startTime(): Date {
 		const startTime = this.getField("startTime");
 		return startTime ? new Date(startTime) : startTime;
 	}
 
-	set startTime(value: string) {
+	set startTime(value: Date) {
 		this.setField("startTime", value);
 	}
 

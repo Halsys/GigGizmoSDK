@@ -76,7 +76,13 @@ export default class ErrorReport extends RESTModel {
 			Promise<ErrorReport | null>;
 	}
 
-	public static findMany(criteria: object | null) {
+	public static findOne(criteria: any): Promise<ErrorReport | null> {
+		return RESTModel.findOneBase(ErrorReport, criteria) as
+			Promise<ErrorReport | null>;
+	}
+
+	public static findMany(criteria: object | null):
+		Promise<ErrorReport[]> {
 		return RESTModel.findManyBase(ErrorReport, criteria) as
 			Promise<ErrorReport[]>;
 	}

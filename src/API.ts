@@ -22,7 +22,7 @@ export default abstract class API {
 	private static _expires: Date | null = null;
 	public static useSocketIO = false;
 	private static webSocket: SocketIOClient.Socket | null = null;
-	public static get expires() {
+	public static get expires(): Date | null {
 		if (!API._expires && API.LocalStorageSupported) {
 			const expires: any =
 				localStorage.getItem("expires") || null;
@@ -30,7 +30,7 @@ export default abstract class API {
 		}
 		return API._expires;
 	}
-	public static set expires(value: any) {
+	public static set expires(value: Date | null) {
 		let dateExpires: Date | null = null;
 		if (typeof value === "string" || typeof value === "number") {
 
@@ -47,7 +47,7 @@ export default abstract class API {
 			}
 		}
 	}
-	public static get token() {
+	public static get token(): string | null {
 		const dateNow = new Date();
 		if (API.expires && dateNow > API.expires) {
 			API._token = null;
@@ -70,7 +70,7 @@ export default abstract class API {
 		}
 		return API._token;
 	}
-	public static set token(value: any) {
+	public static set token(value: string | null) {
 		if (typeof value === "string" && value.length !== 124 && value !== null) {
 			throw new Error(`Token is not valid: ${value}`);
 		} else {
@@ -93,6 +93,7 @@ export default abstract class API {
 			}
 		}
 	}
+
 	public static get rootURL(): string {
 		let url = "";
 		if (API.secure) {
@@ -108,6 +109,7 @@ export default abstract class API {
 		}
 		return url;
 	}
+
 	public static get webSocketRootURL(): string {
 		let url = "";
 		if (API.secure) {
@@ -123,6 +125,7 @@ export default abstract class API {
 		}
 		return url;
 	}
+
 	public static async call(method: string, route: string, data: any) {
 		const headers = {
 			"x-gig-gizmo-token": API.token ? API._token : null
@@ -154,6 +157,7 @@ export default abstract class API {
 			return null;
 		}
 	}
+
 	public static async getSocket(): Promise<SocketIOClient.Socket | null> {
 		const killSocket = (error: any) => {
 			if (error) {

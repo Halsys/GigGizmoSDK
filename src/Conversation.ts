@@ -11,12 +11,14 @@ export interface ConversationEvent {
 	user: string;
 }
 
-export type ConversationCallback = (c: Conversation) => void;
+export type ConversationCallback = (c: Conversation | null) => void;
 export type ConversationCallbackDestroyer = () => void;
 
 export default class Conversation extends RESTModel {
 	public static ModelName: string = "Conversation";
-	public static Callbacks = new Map();
+	public static Callbacks:
+		Map<number, ConversationCallback> = new Map();
+
 	get events(): ConversationEvent[] {
 		return this.getField("events") || [];
 	}
@@ -46,7 +48,8 @@ export default class Conversation extends RESTModel {
 				if (socket) {
 					socket.on("/API/Conversation/Update", (data: any) => {
 						if (data) {
-							let conv = RESTModel.Cache.get(data._id) || null;
+							let conv: Conversation | null =
+								RESTModel.CacheGet(data._id) as Conversation | null;
 							if (conv) {
 								Object.assign(conv, data);
 							} else {
@@ -81,13 +84,14 @@ export default class Conversation extends RESTModel {
 			Promise<Conversation[]>;
 	}
 
-	public isValid() {
+	public isValid(): boolean {
 		if (!super.isValid()) { return false; }
 		// TODO: do more tests...
 		return true;
 	}
 
-	public pushMessage(user: string, message: string) {
+	public pushMessage(user: string, message: string):
+		Promise<this> {
 		this.events.push({
 			dateTimePosted: new Date(),
 			message,

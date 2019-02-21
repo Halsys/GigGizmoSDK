@@ -13,43 +13,43 @@ import User from "./User";
 export default class Venue extends RESTModel {
 	public static ModelName: string = "Venue";
 
-	get name(): string | null {
+	get name(): string {
 		return this.getField("name");
 	}
 
-	set name(value: string | null) {
+	set name(value: string) {
 		this.setField("name", value);
 	}
 
-	get description(): string | null {
+	get description(): string {
 		return this.getField("description");
 	}
 
-	set description(value: string | null) {
+	set description(value: string) {
 		this.setField("description", value);
 	}
 
-	get email(): string | null {
+	get email(): string  {
 		return this.getField("email");
 	}
 
-	set email(value: string | null) {
+	set email(value: string) {
 		this.setField("email", value);
 	}
 
-	get website(): string | null {
+	get website(): string {
 		return this.getField("website");
 	}
 
-	set website(value: string | null) {
+	set website(value: string) {
 		this.setField("website", value);
 	}
 
-	get phone(): string | null {
+	get phone(): string {
 		return this.getField("phone");
 	}
 
-	set phone(value: string | null) {
+	set phone(value: string) {
 		this.setField("phone", value);
 	}
 

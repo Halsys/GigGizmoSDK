@@ -49,6 +49,16 @@ export default class TwitterAccount extends RESTModel {
 		this.setField("accountId", value);
 	}
 
+	public static findOne(criteria: object | null): Promise<TwitterAccount | null> {
+		return RESTModel.findOneBase(TwitterAccount, criteria, true) as
+			Promise<TwitterAccount | null>;
+	}
+
+	public static findMany(criteria: object | null): Promise<TwitterAccount[]> {
+		return RESTModel.findManyBase(TwitterAccount, criteria, true) as
+			Promise<TwitterAccount[]>;
+	}
+
 	public static findById(id: string): Promise<TwitterAccount | null> {
 		return new Promise((resolve, reject) => {
 			if (typeof id === "string" && id !== "") {
