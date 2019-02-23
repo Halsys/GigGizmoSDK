@@ -1,13 +1,13 @@
 /**
  * Created by corynull on 6/19/17.
  */
-import Axios, { AxiosRequestConfig } from "axios";
+import Axios, { AxiosRequestConfig, AxiosStatic } from "axios";
 import { parse as ParseCookie, serialize as SerializeCookie } from "cookie";
-import * as SocketIO from "socket.io-client";
+import SocketIO from "socket.io-client";
 
 export default abstract class API {
-	public static SocketIO = SocketIO;
-	public static Axios = Axios;
+	public static SocketIO: SocketIOClientStatic | null = SocketIO;
+	public static Axios: AxiosStatic | null = Axios;
 	public static readonly SessionStorageSupported =
 		typeof Storage !== "undefined";
 	public static readonly LocalStorageSupported =
@@ -148,13 +148,17 @@ export default abstract class API {
 			}
 		}
 
-		const response = await API.Axios(fetchRequest);
-		if (response.data) {
-			return response.data;
-		} else if (response.statusText) {
-			return response.statusText;
-		} else if (response.status) {
-			return null;
+		if (API.Axios) {
+			const response = await API.Axios(fetchRequest);
+			if (response.data) {
+				return response.data;
+			} else if (response.statusText) {
+				return response.statusText;
+			} else if (response.status) {
+				return null;
+			}
+		} else {
+			throw new Error("Set Axios in GigGizmo API.");
 		}
 	}
 
@@ -168,8 +172,8 @@ export default abstract class API {
 			}
 		};
 		const onReady = () => {
-			if (!API.webSocket) {
-				API.webSocket = API.SocketIO.default();
+			if (!API.webSocket && API.SocketIO) {
+				API.webSocket = API.SocketIO();
 				API.webSocket.on("connect_timeout", killSocket);
 				API.webSocket.on("connect_error", killSocket);
 				API.webSocket.on("disconnect", killSocket);
@@ -203,6 +207,6 @@ export default abstract class API {
 	}
 }
 
-if (typeof API.Axios !== "undefined") {
+if (typeof API.Axios !== "undefined" && API.Axios) {
 	API.Axios.defaults.withCredentials = true;
 }
