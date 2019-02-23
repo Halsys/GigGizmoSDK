@@ -1,8 +1,8 @@
 import * as SocketIOClient from "socket.io-client";
 
 export default abstract class API {
-	public static readonly WebSocket: SocketIOClientStatic;
-	public static readonly axios:
+	public static SocketIO: SocketIOClientStatic;
+	public static Axios:
 		import ("axios").AxiosStatic;
 	public static readonly SessionStorageSupported:
 		boolean;

@@ -6,8 +6,8 @@ import { parse as ParseCookie, serialize as SerializeCookie } from "cookie";
 import * as SocketIO from "socket.io-client";
 
 export default abstract class API {
-	public static readonly WebSocket = SocketIO;
-	public static readonly axios = Axios;
+	public static SocketIO = SocketIO;
+	public static Axios = Axios;
 	public static readonly SessionStorageSupported =
 		typeof Storage !== "undefined";
 	public static readonly LocalStorageSupported =
@@ -148,7 +148,7 @@ export default abstract class API {
 			}
 		}
 
-		const response = await API.axios(fetchRequest);
+		const response = await API.Axios(fetchRequest);
 		if (response.data) {
 			return response.data;
 		} else if (response.statusText) {
@@ -169,7 +169,7 @@ export default abstract class API {
 		};
 		const onReady = () => {
 			if (!API.webSocket) {
-				API.webSocket = API.WebSocket.default();
+				API.webSocket = API.SocketIO.default();
 				API.webSocket.on("connect_timeout", killSocket);
 				API.webSocket.on("connect_error", killSocket);
 				API.webSocket.on("disconnect", killSocket);
@@ -178,7 +178,7 @@ export default abstract class API {
 			}
 			return API.webSocket;
 		};
-		if (API.WebSocket) {
+		if (API.SocketIO) {
 			if (typeof document !== "undefined") {
 				switch (document.readyState) {
 					case "loading":
@@ -203,6 +203,6 @@ export default abstract class API {
 	}
 }
 
-if (typeof API.axios !== "undefined") {
-	API.axios.defaults.withCredentials = true;
+if (typeof API.Axios !== "undefined") {
+	API.Axios.defaults.withCredentials = true;
 }
