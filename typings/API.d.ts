@@ -1,11 +1,10 @@
+import * as Axios from "axios";
 import * as SocketIOClient from "socket.io-client";
 
 export default abstract class API {
 	public static SocketIO: SocketIOClientStatic;
-	public static Axios:
-		import ("axios").AxiosStatic;
-	public static readonly SessionStorageSupported:
-		boolean;
+	public static Axios: Axios.AxiosStatic;
+	public static readonly SessionStorageSupported: boolean;
 	public static readonly LocalStorageSupported: boolean;
 	public static readonly ShouldUseSocketIO: boolean;
 	public static dev: boolean;
