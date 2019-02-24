@@ -31,13 +31,7 @@ export default abstract class API {
 		return API._expires;
 	}
 	public static set expires(value: Date | null) {
-		let dateExpires: Date | null = null;
-		if (typeof value === "string" || typeof value === "number") {
-
-				dateExpires = new Date(value);
-		} else if (value instanceof Date) {
-			dateExpires = value;
-		}
+		const dateExpires: Date | null = value;
 		if (dateExpires === null) {
 			throw new Error(`value for date expires is invalid, expected string, number, or date. Got: ${value}`);
 		} else {

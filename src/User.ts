@@ -473,7 +473,11 @@ export default class User extends RESTModel {
 				return User.Current;
 			} else if (API.SessionStorageSupported) {
 				/* If the user is stored in session storage. */
-				data = JSON.parse(sessionStorage.getItem("user") || "");
+				try {
+					data = JSON.parse(sessionStorage.getItem("user") || "");
+				} catch (e) {
+					data = "";
+				}
 				if (data) { return User.setUser(data); }
 			}
 		}
