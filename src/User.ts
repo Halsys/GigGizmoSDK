@@ -550,9 +550,8 @@ export default class User extends RESTModel {
 	}
 
 	public static async userLogOut(): Promise<User | null> {
-		let response = null;
 		if (API.useSocketIO && API.ShouldUseSocketIO) {
-			response = await new Promise((resolve, reject) => {
+			await new Promise((resolve, reject) => {
 				API.getSocket().then(
 					(socket: SocketIOClient.Socket | null) => {
 						if (socket) {
@@ -562,7 +561,7 @@ export default class User extends RESTModel {
 					reject);
 			});
 		} else {
-			response = await API.call("POST", "/API/User/SignOut", null);
+			await API.call("POST", "/API/User/SignOut", null);
 		}
 		const user = await User.setUser(null);
 		if (user && user.valid()) {

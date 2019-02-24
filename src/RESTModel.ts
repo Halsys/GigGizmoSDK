@@ -19,17 +19,17 @@ export default abstract class RESTModel {
 	private changes: any = new Object();
 	private document: any = new Object();
 
-	get dateCreated(): Date | null {
+	get dateCreated(): Date {
 		const dateCreated = this.document.dateCreated || null;
 		return dateCreated ? new Date(dateCreated) : dateCreated;
 	}
 
-	get dateModified(): Date | null {
+	get dateModified(): Date {
 		const dateModified = this.getField("dateModified") || null;
 		return dateModified ? new Date(dateModified) : dateModified;
 	}
 
-	set dateModified(value: Date | null) {
+	set dateModified(value: Date) {
 		this.changes.dateModified = (value) ? value.toJSON() : null;
 	}
 
@@ -379,10 +379,9 @@ export default abstract class RESTModel {
 	public async remove(hasWebSocket?: boolean): Promise<this> {
 		const id = this._id || "";
 		if (RESTModel.isValidId(id)) {
-			let response: any = null;
 			const modelName = (this.constructor as any).ModelName;
 			if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-				response = await new Promise((resolve, reject) =>
+				await new Promise((resolve, reject) =>
 					API.getSocket().then(
 						(socket: SocketIOClient.Socket | null) => {
 							if (socket) {
@@ -393,7 +392,7 @@ export default abstract class RESTModel {
 						reject)
 				);
 			} else {
-				response = await API.call("DELETE", `/API/${modelName}/${id}`, null);
+				await API.call("DELETE", `/API/${modelName}/${id}`, null);
 			}
 
 			RESTModel.CacheRemove(id);

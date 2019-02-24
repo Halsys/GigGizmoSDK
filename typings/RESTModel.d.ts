@@ -7,8 +7,8 @@ export default abstract class RESTModel {
 		private expiration: number;
 		private changes: any;
 		private document: any;
-		public readonly dateCreated: Date | null;
-		public dateModified: Date | null;
+		public readonly dateCreated: Date;
+		public dateModified: Date;
 		public id: string;
 		public _id: string;
 		public static CacheGet(id: string): RESTModel | null;
