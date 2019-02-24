@@ -36,7 +36,7 @@ export default abstract class API {
 			throw new Error(`value for date expires is invalid, expected string, number, or date. Got: ${value}`);
 		} else {
 			API._expires = dateExpires;
-			if (API.LocalStorageSupported) {
+			if (API.LocalStorageSupported && API._expires) {
 				localStorage.setItem("expires", API._expires.toISOString());
 			}
 		}
