@@ -543,7 +543,7 @@ export default class User extends RESTModel {
 			}
 			// TODO: Create error for unauthorized access vs general error
 			if (response && response.user && response.token) {
-				API.expires = response.expires;
+				API.expires = new Date(response.expires);
 				API.token = response.token.toString();
 				return User.setUser(response.user);
 			} else { throw new Error(`Unauthorized`); }
