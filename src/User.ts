@@ -24,12 +24,15 @@ export default class User extends RESTModel {
 	public static Current: User | null = null;
 	public static Callbacks: Map<number, UserCallback> = new Map();
 	public static agreement: any = null;
-	public static EmailRegex: RegExp = new RegExp(
-		[`^(([^<>()[\].,;:\s@"]+`,
-			`(\.[^<>()[\].,;:\s@"]+)*)|(".+"))`,
-			`@(([^<>()[\].,;:\s@"]+\.)+`,
-			`[^<>()[\].,;:\s@"]{2,})$`].join(""),
-		"i");
+	public static EmailRegex: RegExp =
+		new RegExp(
+			([
+				"^(([^<>()[\].,;:\s@\"]+",
+				"(\.[^<>()[\].,;:\s@\"]+)*)|(\".+\"))",
+				"@(([^<>()[\].,;:\s@\"]+\.)+",
+				"[^<>()[\].,;:\s@\"]{2,})$"
+			].join("")),
+			"i");
 
 	get password(): string | null {
 		return this.getField("password");
