@@ -23,19 +23,20 @@ export default abstract class API {
 	public static useSocketIO = false;
 	private static webSocket: SocketIOClient.Socket | null = null;
 	public static get expires(): Date | null {
-		if (!API._expires && API.LocalStorageSupported) {
-			const expires: any =
-				localStorage.getItem("expires") || null;
-			API._expires = new Date(expires);
+		if (!API._expires) {
+			let value: string | null = null;
+			if (API.LocalStorageSupported) {
+				value = localStorage.getItem("expires");
+			}
+			API._expires = (value) ? new Date(value) : new Date();
 		}
 		return API._expires;
 	}
 	public static set expires(value: Date | null) {
-		const dateExpires: Date | null = value;
-		if (dateExpires === null) {
+		if (value === null) {
 			throw new Error(`value for date expires is invalid, expected string, number, or date. Got: ${value}`);
 		} else {
-			API._expires = dateExpires;
+			API._expires = value;
 			if (API.LocalStorageSupported && API._expires) {
 				localStorage.setItem("expires", API._expires.toISOString());
 			}
