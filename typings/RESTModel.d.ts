@@ -1,4 +1,4 @@
-export default abstract class RESTModel {
+export abstract class RESTModel {
 		public static ModelName: string;
 		public static Cache: Map<string, RESTModel>;
 		public static findMany: ((criteria: any) => Promise<RESTModel[]>);

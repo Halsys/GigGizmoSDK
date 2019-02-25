@@ -1,14 +1,14 @@
 /**
  * Created by corynull on 4/3/17.
  */
-import FacebookAccount from "./FacebookAccount";
-import Gig from "./Gig";
-import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import Upload from "./Upload";
-import User from "./User";
+import { FacebookAccount } from "./FacebookAccount";
+import { Gig } from "./Gig";
+import { RESTModel } from "./RESTModel";
+import { TwitterAccount } from "./TwitterAccount";
+import { Upload } from "./Upload";
+import { User } from "./User";
 
-export default class Band extends RESTModel {
+export class Band extends RESTModel {
 		public static ModelName: string;
 		public name: string;
 		public website: string;

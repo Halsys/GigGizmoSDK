@@ -1,7 +1,7 @@
 import * as Axios from "axios";
 import * as SocketIOClient from "socket.io-client";
 
-export default abstract class API {
+export abstract class API {
 	public static SocketIO: SocketIOClientStatic;
 	public static Axios: Axios.AxiosStatic;
 	public static readonly SessionStorageSupported: boolean;

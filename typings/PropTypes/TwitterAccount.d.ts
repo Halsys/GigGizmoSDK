@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+export const TwitterAccount: PropTypes.Requireable<PropTypes.InferProps<{
 		_id: PropTypes.Validator<string>;
 		accessToken: PropTypes.Requireable<string>;
 		accountId: PropTypes.Validator<string>;
@@ -9,4 +9,3 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
 		tokenSecret: PropTypes.Requireable<string>;
 		userId: PropTypes.Validator<string>;
 }>>;
-export default _default;

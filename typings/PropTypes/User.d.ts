@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+export const User: PropTypes.Requireable<PropTypes.InferProps<{
 		_id: PropTypes.Validator<string>;
 		active: PropTypes.Requireable<boolean>;
 		admin: PropTypes.Requireable<boolean>;
@@ -30,4 +30,3 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
 		useCookies: PropTypes.Requireable<boolean>;
 		venueManager: PropTypes.Requireable<boolean>;
 }>>;
-export default _default;

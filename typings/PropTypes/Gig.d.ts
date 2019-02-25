@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+export const Gig: PropTypes.Requireable<PropTypes.InferProps<{
 		_id: PropTypes.Validator<string>;
 		bandOwnerAccepted: PropTypes.Requireable<string>;
 		bands: PropTypes.Validator<string[]>;
@@ -13,4 +13,3 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
 		venue: PropTypes.Validator<string>;
 		venueOwnerAccepted: PropTypes.Requireable<string>;
 }>>;
-export default _default;

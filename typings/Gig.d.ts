@@ -1,17 +1,17 @@
 /**
  * Created by corynull on 4/5/17.
  */
-import Band from "./Band";
-import Location from "./Location";
-import RESTModel from "./RESTModel";
-import Venue from "./Venue";
+import { Band } from "./Band";
+import { Location } from "./Location";
+import { RESTModel } from "./RESTModel";
+import { Venue } from "./Venue";
 
 interface Coord {
 		lat: number;
 		lng: number;
 }
 
-export default class Gig extends RESTModel {
+export class Gig extends RESTModel {
 		public static ModelName: string;
 		public startTime: Date;
 		public stopTime: Date;

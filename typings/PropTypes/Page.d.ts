@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+export const Page: PropTypes.Requireable<PropTypes.InferProps<{
 		_id: PropTypes.Validator<string>;
 		blog: PropTypes.Requireable<boolean>;
 		data: PropTypes.Requireable<string>;
@@ -13,4 +13,3 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
 		title: PropTypes.Requireable<string>;
 		visits: PropTypes.Requireable<number>;
 }>>;
-export default _default;

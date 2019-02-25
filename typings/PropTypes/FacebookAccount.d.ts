@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+export const FacebookAccount: PropTypes.Requireable<PropTypes.InferProps<{
 		_id: PropTypes.Validator<string>;
 		accountId: PropTypes.Validator<string>;
 		dateCreated: PropTypes.Validator<string | Date>;
@@ -9,4 +9,3 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
 		userId: PropTypes.Validator<string>;
 		userRefreshToken: PropTypes.Requireable<string>;
 }>>;
-export default _default;

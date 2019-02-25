@@ -1,8 +1,8 @@
 /**
  * Created by corynull on 4/7/17.
  */
-import RESTModel from "./RESTModel";
-export default class GooglePlace extends RESTModel {
+import { RESTModel } from "./RESTModel";
+export class GooglePlace extends RESTModel {
 		public static ModelName: string;
 		public placeId: string;
 		public details: string;

@@ -1,10 +1,10 @@
 /**
  * Created by corynull on 4/10/17.
  */
-import RESTModel from "./RESTModel";
-import User from "./User";
+import { RESTModel } from "./RESTModel";
+import { User } from "./User";
 
-export default class Upload extends RESTModel {
+export class Upload extends RESTModel {
 		public static ModelName: string;
 		public fileName: string;
 		public fileData: string;

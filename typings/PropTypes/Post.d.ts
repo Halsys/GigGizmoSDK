@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+export const Post: PropTypes.Requireable<PropTypes.InferProps<{
 		_id: PropTypes.Validator<string>;
 		accountId: PropTypes.Validator<string>;
 		coordinates: PropTypes.Requireable<number[]>;
@@ -13,4 +13,3 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
 		postText: PropTypes.Validator<string>;
 		userId: PropTypes.Validator<string>;
 }>>;
-export default _default;

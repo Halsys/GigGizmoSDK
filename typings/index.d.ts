@@ -1,36 +1,36 @@
-export { default as GigGizmoPropTypes } from "./PropTypes";
-export { default as API } from "./API";
-export { default as Band } from "./Band";
+export { GigGizmoPropTypes } from "./PropTypes";
+export { API } from "./API";
+export { Band } from "./Band";
 export {
-	default as Conversation,
+	Conversation,
 	ConversationEvent,
 	ConversationCallback,
 	ConversationCallbackDestroyer
 } from "./Conversation";
-export { default as ErrorReport } from "./ErrorReport";
-export { default as FacebookAccount } from "./FacebookAccount";
+export { ErrorReport } from "./ErrorReport";
+export { FacebookAccount } from "./FacebookAccount";
 export {
-	default as Gig,
+	Gig,
 	Coord
 } from "./Gig";
-export { default as GooglePlace } from "./GooglePlace";
-export { default as Location } from "./Location";
+export { GooglePlace } from "./GooglePlace";
+export { Location } from "./Location";
 export {
-	default as Notification,
+	Notification,
 	NotificationAction,
 	NotificationCallback,
 	NotificationCallbackDestroyer
 } from "./Notification";
-export { default as Page } from "./Page";
-export { default as Post } from "./Post";
-export { default as Request } from "./Request";
-export { default as RESTModel } from "./RESTModel";
-export { default as TwitterAccount } from "./TwitterAccount";
-export { default as Upload } from "./Upload";
+export { Page } from "./Page";
+export { Post } from "./Post";
+export { Request } from "./Request";
+export { RESTModel } from "./RESTModel";
+export { TwitterAccount } from "./TwitterAccount";
+export { Upload } from "./Upload";
 export {
-	default as User,
+	User,
 	UserCallback,
 	UserCallbackDestroyer
 } from "./User";
-export { default as Venue } from "./Venue";
-export { default as ModelNameToModel } from "./ModelNameToModel";
+export { Venue } from "./Venue";
+export { ModelNameToModel } from "./ModelNameToModel";

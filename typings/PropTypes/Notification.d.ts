@@ -1,5 +1,5 @@
 import * as PropTypes from "prop-types";
-declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
+export const Notification: PropTypes.Requireable<PropTypes.InferProps<{
 		_id: PropTypes.Validator<string>;
 		actions: PropTypes.Requireable<Array<PropTypes.InferProps<{
 				label: PropTypes.Validator<string>;
@@ -13,4 +13,3 @@ declare const _default: PropTypes.Requireable<PropTypes.InferProps<{
 		seenByUser: PropTypes.Requireable<boolean>;
 		userId: PropTypes.Validator<string>;
 }>>;
-export default _default;
