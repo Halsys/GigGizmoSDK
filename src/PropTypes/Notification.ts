@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const Notification = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	actions: PropTypes.arrayOf(
 		PropTypes.shape({

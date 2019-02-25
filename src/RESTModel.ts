@@ -1,7 +1,7 @@
-import API from "./API";
-import ModelNameToModel from "./ModelNameToModel";
+import { API } from "./API";
+import { ModelNameToModel } from "./ModelNameToModel";
 
-export default abstract class RESTModel {
+export abstract class RESTModel {
 	public static ModelName: string = "RESTModel";
 	public static Cache: Map<string, RESTModel> = new Map();
 	public static findMany: ((criteria: any) => Promise<RESTModel[]>);

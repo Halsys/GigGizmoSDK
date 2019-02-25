@@ -2,11 +2,11 @@
  * Created by corynull on 5/17/17.
  */
 
-import API from "./API";
-import RESTModel from "./RESTModel";
-import User from "./User";
+import { API } from "./API";
+import { RESTModel } from "./RESTModel";
+import { User } from "./User";
 
-export default class TwitterAccount extends RESTModel {
+export class TwitterAccount extends RESTModel {
 	public static ModelName: string = "TwitterAccount";
 
 	get userId(): string {

@@ -1,36 +1,36 @@
-export default async function ModelNameToModel(name: string):
+export async function ModelNameToModel(name: string):
 	Promise<any> {
 	switch (name) {
 		case "Band":
-			return (await import("./Band")).default;
+			return (await import("./Band")).Band;
 		case "Conversation":
-			return (await import("./Conversation")).default;
+			return (await import("./Conversation")).Conversation;
 		case "ErrorReport":
-			return (await import("./ErrorReport")).default;
+			return (await import("./ErrorReport")).ErrorReport;
 		case "FacebookAccount":
-			return (await import("./FacebookAccount")).default;
+			return (await import("./FacebookAccount")).FacebookAccount;
 		case "Gig":
-			return (await import("./Gig")).default;
+			return (await import("./Gig")).Gig;
 		case "GooglePlace":
-			return (await import("./GooglePlace")).default;
+			return (await import("./GooglePlace")).GooglePlace;
 		case "Location":
-			return (await import("./Location")).default;
+			return (await import("./Location")).Location;
 		case "Notification":
-			return (await import("./Notification")).default;
+			return (await import("./Notification")).Notification;
 		case "Page":
-			return (await import("./Page")).default;
+			return (await import("./Page")).Page;
 		case "Post":
-			return (await import("./Post")).default;
+			return (await import("./Post")).Post;
 		case "Request":
-			return (await import("./Request")).default;
+			return (await import("./Request")).Request;
 		case "TwitterAccount":
-			return (await import("./TwitterAccount")).default;
+			return (await import("./TwitterAccount")).TwitterAccount;
 		case "Upload":
-			return (await import("./Upload")).default;
+			return (await import("./Upload")).Upload;
 		case "User":
-			return (await import("./User")).default;
+			return (await import("./User")).User;
 		case "Venue":
-			return (await import("./Venue")).default;
+			return (await import("./Venue")).Venue;
 		default:
 			return Promise.resolve(null);
 	}

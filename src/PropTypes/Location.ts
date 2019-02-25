@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const Location = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	address: PropTypes.string.isRequired,
 	dateCreated: PropTypes.oneOfType([

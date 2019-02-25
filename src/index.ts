@@ -3,33 +3,33 @@
  */
 
 // Extras
-export { default as GigGizmoPropTypes } from "./PropTypes";
-export { default as API } from "./API";
+export { GigGizmoPropTypes } from "./PropTypes";
+export { API } from "./API";
 
 // Models
-export { default as Band } from "./Band";
+export { Band } from "./Band";
 export {
-	default as Conversation,
+	Conversation,
 	ConversationEvent
 } from "./Conversation";
-export { default as ErrorReport } from "./ErrorReport";
-export { default as FacebookAccount } from "./FacebookAccount";
-export { default as Gig } from "./Gig";
-export { default as GooglePlace } from "./GooglePlace";
-export { default as Location } from "./Location";
+export { ErrorReport } from "./ErrorReport";
+export { FacebookAccount } from "./FacebookAccount";
+export { Gig } from "./Gig";
+export { GooglePlace } from "./GooglePlace";
+export { Location } from "./Location";
 export {
-	default as Notification,
+	Notification,
 	NotificationAction
 } from "./Notification";
-export { default as Page } from "./Page";
-export { default as Post } from "./Post";
-export { default as Request } from "./Request";
-export { default as RESTModel } from "./RESTModel";
-export { default as TwitterAccount } from "./TwitterAccount";
-export { default as Upload } from "./Upload";
-export { default as User } from "./User";
-export { default as Venue } from "./Venue";
-export { default as ModelNameToModel } from "./ModelNameToModel";
+export { Page } from "./Page";
+export { Post } from "./Post";
+export { Request } from "./Request";
+export { RESTModel } from "./RESTModel";
+export { TwitterAccount } from "./TwitterAccount";
+export { Upload } from "./Upload";
+export { User } from "./User";
+export { Venue } from "./Venue";
+export { ModelNameToModel } from "./ModelNameToModel";
 
 if (typeof window !== "undefined") {
 	(window as any).GigGizmoAPI = module.exports;

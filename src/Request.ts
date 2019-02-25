@@ -2,10 +2,10 @@
  * Created by corynull on Nov 30 2017 5:27 AM.
  */
 
-import API from "./API";
-import RESTModel from "./RESTModel";
+import { API } from "./API";
+import { RESTModel } from "./RESTModel";
 
-export default class Request extends RESTModel {
+export class Request extends RESTModel {
 	public static ModelName: string = "Request";
 
 	get to(): string {

@@ -2,10 +2,10 @@
  * Created by corynull on 4/7/17.
  */
 
-import API from "./API";
-import RESTModel from "./RESTModel";
+import { API } from "./API";
+import { RESTModel } from "./RESTModel";
 
-export default class GooglePlace extends RESTModel {
+export class GooglePlace extends RESTModel {
 	public static ModelName: string = "GooglePlace";
 
 	get placeId(): string {

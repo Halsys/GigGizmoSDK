@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const User = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	active: PropTypes.bool,
 	admin: PropTypes.bool,

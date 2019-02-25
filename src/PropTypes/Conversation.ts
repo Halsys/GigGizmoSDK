@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const Conversation = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	dateCreated: PropTypes.oneOfType([
 		PropTypes.string,

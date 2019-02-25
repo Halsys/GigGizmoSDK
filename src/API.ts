@@ -5,7 +5,7 @@ import Axios, { AxiosRequestConfig, AxiosStatic } from "axios";
 import { parse as ParseCookie, serialize as SerializeCookie } from "cookie";
 import SocketIO from "socket.io-client";
 
-export default abstract class API {
+export abstract class API {
 	public static SocketIO: SocketIOClientStatic | null = SocketIO;
 	public static Axios: AxiosStatic | null = Axios;
 	public static readonly SessionStorageSupported =

@@ -2,9 +2,9 @@
  * Created by corynull on 5/23/17.
  */
 
-import RESTModel from "./RESTModel";
+import { RESTModel } from "./RESTModel";
 
-export default class Post extends RESTModel {
+export class Post extends RESTModel {
 	public static ModelName: string = "Post";
 
 	get userId(): string {

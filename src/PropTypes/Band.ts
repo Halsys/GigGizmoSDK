@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const Band = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	cityName: PropTypes.string,
 	cityPlaceID: PropTypes.string,

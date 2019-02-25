@@ -2,8 +2,8 @@
  * Created by corynull on Dec 30 2017 11:14:11 AM.
  */
 
-import API from "./API";
-import RESTModel from "./RESTModel";
+import { API } from "./API";
+import { RESTModel } from "./RESTModel";
 
 export interface ConversationEvent {
 	dateTimePosted: Date;
@@ -14,7 +14,7 @@ export interface ConversationEvent {
 export type ConversationCallback = (c: Conversation | null) => void;
 export type ConversationCallbackDestroyer = () => void;
 
-export default class Conversation extends RESTModel {
+export class Conversation extends RESTModel {
 	public static ModelName: string = "Conversation";
 	public static Callbacks:
 		Map<number, ConversationCallback> = new Map();

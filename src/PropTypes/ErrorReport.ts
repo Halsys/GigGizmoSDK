@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const ErrorReport = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	columnNumber: PropTypes.number,
 	dateCreated: PropTypes.oneOfType([

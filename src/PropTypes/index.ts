@@ -1,29 +1,15 @@
-import Band from "./Band";
-import Conversation from "./Conversation";
-import ErrorReport from "./ErrorReport";
-import FacebookAccount from "./FacebookAccount";
-import Gig from "./Gig";
-import Location from "./Location";
-import Notification from "./Notification";
-import Page from "./Page";
-import Post from "./Post";
-import TwitterAccount from "./TwitterAccount";
-import Upload from "./Upload";
-import User from "./User";
-import Venue from "./Venue";
+export { Band } from "./Band";
+export { Conversation } from "./Conversation";
+export { ErrorReport } from "./ErrorReport";
+export { FacebookAccount } from "./FacebookAccount";
+export { Gig } from "./Gig";
+export { Location } from "./Location";
+export { Notification } from "./Notification";
+export { Page } from "./Page";
+export { Post } from "./Post";
+export { TwitterAccount } from "./TwitterAccount";
+export { Upload } from "./Upload";
+export { User } from "./User";
+export { Venue } from "./Venue";
 
-export default {
-	Band,
-	Conversation,
-	ErrorReport,
-	FacebookAccount,
-	Gig,
-	Location,
-	Notification,
-	Page,
-	Post,
-	TwitterAccount,
-	Upload,
-	User,
-	Venue
-};
+export const GigGizmoPropTypes = module.exports;

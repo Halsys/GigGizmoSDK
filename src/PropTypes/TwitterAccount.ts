@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const TwitterAccount = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	accessToken: PropTypes.string,
 	accountId: PropTypes.string.isRequired,

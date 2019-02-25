@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const Page = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	blog: PropTypes.bool,
 	data: PropTypes.string,

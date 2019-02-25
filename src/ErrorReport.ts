@@ -2,9 +2,9 @@
  * Created by corynull on Jan 8 2018 8:58:54 PM.
  */
 
-import RESTModel from "./RESTModel";
+import { RESTModel } from "./RESTModel";
 
-export default class ErrorReport extends RESTModel {
+export class ErrorReport extends RESTModel {
 	public static ModelName: string = "ErrorReport";
 
 	get version(): string {

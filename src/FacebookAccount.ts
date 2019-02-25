@@ -2,11 +2,11 @@
  * Created by corynull on Nov 30 2017 9:08 AM.
  */
 
-import API from "./API";
-import RESTModel from "./RESTModel";
-import User from "./User";
+import { API } from "./API";
+import { RESTModel } from "./RESTModel";
+import { User } from "./User";
 
-export default class FacebookAccount extends RESTModel {
+export class FacebookAccount extends RESTModel {
 	public static ModelName: string = "FacebookAccount";
 
 	get userId(): string {

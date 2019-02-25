@@ -2,24 +2,24 @@
  * Created by corynull on 4/1/17.
  */
 
-import API from "./API";
-import Band from "./Band";
-import Conversation from "./Conversation";
-import FacebookAccount from "./FacebookAccount";
-import Gig from "./Gig";
-import Location from "./Location";
-import Notification from "./Notification";
-import Page from "./Page";
-import Post from "./Post";
-import RESTModel from "./RESTModel";
-import TwitterAccount from "./TwitterAccount";
-import Upload from "./Upload";
-import Venue from "./Venue";
+import { API } from "./API";
+import { Band } from "./Band";
+import { Conversation } from "./Conversation";
+import { FacebookAccount } from "./FacebookAccount";
+import { Gig } from "./Gig";
+import { Location } from "./Location";
+import { Notification } from "./Notification";
+import { Page } from "./Page";
+import { Post } from "./Post";
+import { RESTModel } from "./RESTModel";
+import { TwitterAccount } from "./TwitterAccount";
+import { Upload } from "./Upload";
+import { Venue } from "./Venue";
 
 export type UserCallback = (user: User | null) => void;
 export type UserCallbackDestroyer = () => void;
 
-export default class User extends RESTModel {
+export class User extends RESTModel {
 	public static ModelName: string = "User";
 	public static Current: User | null = null;
 	public static Callbacks: Map<number, UserCallback> = new Map();

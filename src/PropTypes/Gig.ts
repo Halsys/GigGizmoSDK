@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const Gig = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	bandOwnerAccepted: PropTypes.string,
 	bands: PropTypes.arrayOf(PropTypes.string).isRequired,

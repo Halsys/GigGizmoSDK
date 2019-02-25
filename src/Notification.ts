@@ -2,8 +2,8 @@
  * Created by corynull on 8/15/17.
  */
 
-import API from "./API";
-import RESTModel from "./RESTModel";
+import { API } from "./API";
+import { RESTModel } from "./RESTModel";
 
 export interface NotificationAction {
 	label: string;
@@ -14,7 +14,7 @@ export interface NotificationAction {
 export type NotificationCallback = (note: Notification) => void;
 export type NotificationCallbackDestroyer = () => void;
 
-export default class Notification extends RESTModel {
+export class Notification extends RESTModel {
 	public static ModelName: string = "Notification";
 	public static Callbacks: Map<number, NotificationCallback> = new Map();
 	private changeCallbacks: Map<number, NotificationCallback> = new Map();

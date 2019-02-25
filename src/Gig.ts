@@ -2,13 +2,13 @@
  * Created by corynull on 4/5/17.
  */
 
-import API from "./API";
-import Band from "./Band";
-import Location from "./Location";
-import RESTModel from "./RESTModel";
-import Venue from "./Venue";
+import { API } from "./API";
+import { Band } from "./Band";
+import { Location } from "./Location";
+import { RESTModel } from "./RESTModel";
+import { Venue } from "./Venue";
 
-export default class Gig extends RESTModel {
+export class Gig extends RESTModel {
 	public static ModelName: string = "Gig";
 
 	get startTime(): Date {

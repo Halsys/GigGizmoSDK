@@ -1,6 +1,6 @@
 import * as PropTypes from "prop-types";
 
-export default PropTypes.shape({
+export const Post = PropTypes.shape({
 	_id: PropTypes.string.isRequired,
 	accountId: PropTypes.string.isRequired,
 	coordinates: PropTypes.arrayOf(PropTypes.number), // coord = [longitude, latitude]
