@@ -51,7 +51,10 @@ export default abstract class API {
 		}
 		if (!API._token && API.LocalStorageSupported) {
 			// We store it in local storage.
-			API._token = JSON.parse(localStorage.getItem("token") || "");
+			const value = localStorage.getItem("token");
+			if (value && value !== "") {
+				API._token = JSON.parse(value);
+			}
 		}
 		if (!API._token && typeof document !== "undefined" && document.cookie) {
 			// We store it in the cookie.
