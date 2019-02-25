@@ -455,6 +455,7 @@ export default class User extends RESTModel {
 			} else {
 				User.Current = null;
 				API.token = null;
+				API.expires = null;
 				if (API.SessionStorageSupported) { sessionStorage.removeItem("user"); }
 				User.Callbacks.forEach((callback: any) => callback(null));
 			}
@@ -474,7 +475,8 @@ export default class User extends RESTModel {
 			} else if (API.SessionStorageSupported) {
 				/* If the user is stored in session storage. */
 				try {
-					data = JSON.parse(sessionStorage.getItem("user") || "");
+					const saved = sessionStorage.getItem("user") || "";
+					data = JSON.parse(saved);
 				} catch (e) {
 					data = "";
 				}
@@ -514,9 +516,9 @@ export default class User extends RESTModel {
 	}
 
 	public static async userLogIn(email: string, password: string): Promise<User | null> {
-		if (!email) {
+		if (!email || email === "") {
 			throw new Error("No email");
-		} else if (!password) {
+		} else if (!password || password === "") {
 			throw new Error("No password");
 		} else {
 			let response = null;
@@ -542,9 +544,9 @@ export default class User extends RESTModel {
 				});
 			}
 			// TODO: Create error for unauthorized access vs general error
-			if (response && response.user && response.token) {
+			if (response && response.user && response.token && response.expires) {
 				API.expires = new Date(response.expires);
-				API.token = response.token.toString();
+				API.token = response.token;
 				return User.setUser(response.user);
 			} else { throw new Error(`Unauthorized`); }
 		}
