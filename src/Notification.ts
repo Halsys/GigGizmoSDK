@@ -74,10 +74,11 @@ export class Notification extends RESTModel {
 			const notes = await API.call("GET", "/API/Notification", {
 				returnNew: true
 			});
-			return Array.from(notes).map((item: any) => new Notification(item));
-		} else {
-			return [];
+			if (Array.isArray(notes)) {
+				return notes.map((item: any) => new Notification(item));
+			}
 		}
+		return [];
 	}
 
 	public static getAllOwned(): Promise<Notification[]> {
