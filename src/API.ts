@@ -145,12 +145,17 @@ export abstract class API {
 		}
 
 		if (API.Axios) {
-			const response = await API.Axios(fetchRequest);
-			if (response.data) {
-				return response.data;
-			} else if (response.statusText) {
-				return response.statusText;
-			} else if (response.status) {
+			try {
+				const response = await API.Axios(fetchRequest);
+				if (response.data) {
+					return response.data;
+				} else if (response.statusText) {
+					return response.statusText;
+				} else if (response.status) {
+					return null;
+				}
+			} catch (e) {
+				console.error(e);
 				return null;
 			}
 		} else {
