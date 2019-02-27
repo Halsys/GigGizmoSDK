@@ -125,74 +125,85 @@ export abstract class API {
 	}
 
 	public static async deserializeData(data: any): Promise<any> {
-		if (// RESTModel
-			typeof data === "object" &&
-			data &&
-			RESTModel.isValidId(data._id) &&
-			typeof data.ModelName === "string"
-		) {
-			const Model: any = await ModelNameToModel(data.ModelName);
-			return new Model(data);
-		} // END of RESTModel
+		try {
+			if (// RESTModel
+				typeof data === "object" &&
+				data &&
+				RESTModel.isValidId(data._id) &&
+				typeof data.ModelName === "string"
+			) {
+				return new (await ModelNameToModel(data.ModelName))(data);
+			} // END of RESTModel
+		} catch (e) {
+			console.error(e);
+		}
 
-		if (// Map
-			Array.isArray(data) &&
-			data.length > 0 &&
-			Array.isArray(data[0]) &&
-			data.every((valueArray) => {
-				if (valueArray.length === 2) {
-					const [key, value] = valueArray;
+		try {
+			if (// Map
+				Array.isArray(data) &&
+				data.length > 0 &&
+				Array.isArray(data[0]) &&
+				data.every((valueArray) => {
+					if (valueArray.length === 2) {
+						const [key, value] = valueArray;
+						return (
+							typeof key === "string" &&
+								typeof value === "object" &&
+								value &&
+								value._id === key &&
+								typeof value.ModelName === "string"
+						);
+					}
+					return false;
+				})) {
+				const mapData: Map<string, any> = new Map();
+				const promises: Array<Promise<void>> = [];
+				data.forEach(
+					(pair: [string, ({ ModelName: string, _id: string } | any)]) => {
+						const [ key, value ] = pair;
+						promises.push(
+							API.deserializeData(value).then((item: any) => {
+								if (item) {
+									mapData.set(key, item);
+								}
+							})
+						);
+					});
+				await Promise.all(promises);
+				return mapData;
+			} // End of Map
+		} catch (e) {
+			console.error(e);
+		}
+
+		try {
+			if (// Array
+				Array.isArray(data) &&
+				data.every((item: any) => {
 					return (
-						typeof key === "string" &&
-							typeof value === "object" &&
-							value &&
-							value._id === key &&
-							typeof value.ModelName === "string"
+						typeof item._id === "string" &&
+						RESTModel.isValidId(item._id) &&
+						typeof item.ModelName === "string"
 					);
-				}
-				return false;
-			})) {
-			const mapData: Map<string, any> = new Map();
-			const promises: Array<Promise<void>> = [];
-			data.forEach(
-				(pair: [string, ({ ModelName: string, _id: string } | any)]) => {
-					const [ key, value ] = pair;
-					promises.push(
-						API.deserializeData(value).then((item: any) => {
-							if (item) {
-								mapData.set(key, item);
-							}
-						})
-					);
-				});
-			await Promise.all(promises);
-			return mapData;
-		} // End of Map
-
-		if (// Array
-			Array.isArray(data) &&
-			data.every((item: any) => {
-				return (
-					typeof item._id === "string" &&
-					RESTModel.isValidId(item._id) &&
-					typeof item.ModelName === "string"
+				})
+			) {
+				return Promise.all(
+					data.map(
+						(item: any) => API.deserializeData(item.ModelName)
+					)
 				);
-			})
-		) {
-			return Promise.all(
-				data.map(
-					(item: any) => API.deserializeData(item.ModelName)
-				)
-			);
-		} else if (
-			Array.isArray(data)
-		) {
-			return Promise.all(
-				data.map((item: any) =>
-					API.deserializeData(item)
-				)
-			);
-		}// End of Array
+			} else if (
+				Array.isArray(data)
+			) {
+				return Promise.all(
+					data.map((item: any) =>
+						API.deserializeData(item)
+					)
+				);
+			}// End of Array
+		} catch (e) {
+			console.error(e);
+		}
 
 		return data;
 	}
