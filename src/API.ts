@@ -188,7 +188,7 @@ export abstract class API {
 			) {
 				return Promise.all(
 					data.map(
-						(item: any) => API.deserializeData(item.ModelName)
+						(item: any) => API.deserializeData(item)
 					)
 				);
 			} else if (
