@@ -138,43 +138,6 @@ export abstract class API {
 		}
 
 		try {
-			if (// Map
-				Array.isArray(data) &&
-				data.every((arr) => Array.isArray(arr)) &&
-				data.every((valueArray) => {
-					if (valueArray.length === 2) {
-						const [key, value] = valueArray;
-						return (
-							typeof key === "string" &&
-								typeof value === "object" &&
-								value &&
-								value._id === key &&
-								typeof value.ModelName === "string"
-						);
-					}
-					return false;
-				})) {
-				const mapData: Map<string, any> = new Map();
-				const promises: Array<Promise<void>> = [];
-				data.forEach(
-					(pair: [string, ({ ModelName: string, _id: string } | any)]) => {
-						const [ key, value ] = pair;
-						promises.push(
-							API.deserializeData(value).then((item: any) => {
-								if (item) {
-									mapData.set(key, item);
-								}
-							})
-						);
-					});
-				await Promise.all(promises);
-				return mapData;
-			} // End of Map
-		} catch (e) {
-			console.error(e);
-		}
-
-		try {
 			if (// Array
 				Array.isArray(data) &&
 				data.every((item: any) => {
@@ -200,6 +163,40 @@ export abstract class API {
 					)
 				);
 			}// End of Array
+		} catch (e) {
+			console.error(e);
+		}
+
+		try {
+			if (// Map
+				Array.isArray(data) &&
+				data.every((arr) => Array.isArray(arr) && arr.length === 2) &&
+				data.every((valueArray) => {
+					const [key, value] = valueArray;
+					return (
+						typeof key === "string" &&
+						typeof value === "object" &&
+						value &&
+						value._id === key &&
+						typeof value.ModelName === "string"
+					);
+				})) {
+				const mapData: Map<string, any> = new Map();
+				const promises: Array<Promise<void>> = [];
+				data.forEach(
+					(pair: [string, ({ ModelName: string, _id: string } | any)]) => {
+						const [ key, value ] = pair;
+						promises.push(
+							API.deserializeData(value).then((item: any) => {
+								if (item) {
+									mapData.set(key, item);
+								}
+							})
+						);
+					});
+				await Promise.all(promises);
+				return mapData;
+			} // End of Map
 		} catch (e) {
 			console.error(e);
 		}
