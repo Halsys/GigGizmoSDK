@@ -5,7 +5,6 @@ import Axios, { AxiosRequestConfig, AxiosStatic } from "axios";
 import { parse as ParseCookie, serialize as SerializeCookie } from "cookie";
 import SocketIO from "socket.io-client";
 import { ModelNameToModel } from "./ModelNameToModel";
-import { RESTModel } from "./RESTModel";
 
 export abstract class API {
 	public static SocketIO: SocketIOClientStatic | null = SocketIO;
@@ -129,7 +128,7 @@ export abstract class API {
 			if (// RESTModel
 				typeof data === "object" &&
 				data &&
-				RESTModel.isValidId(data._id) &&
+				typeof data._id === "string" &&
 				typeof data.ModelName === "string"
 			) {
 				return new (await ModelNameToModel(data.ModelName))(data);
@@ -159,8 +158,7 @@ export abstract class API {
 		try {
 			if (// Map
 				Array.isArray(data) &&
-				data.length > 0 &&
-				Array.isArray(data[0]) &&
+				data.every((arr) => Array.isArray(arr)) &&
 				data.every((valueArray) => {
 					if (valueArray.length === 2) {
 						const [key, value] = valueArray;
@@ -199,8 +197,9 @@ export abstract class API {
 				Array.isArray(data) &&
 				data.every((item: any) => {
 					return (
+						typeof item === "object" &&
+						item &&
 						typeof item._id === "string" &&
-						RESTModel.isValidId(item._id) &&
 						typeof item.ModelName === "string"
 					);
 				})
