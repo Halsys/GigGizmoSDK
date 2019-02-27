@@ -169,14 +169,16 @@ export abstract class API {
 
 		try {
 			if (// Array
-				Array.isArray(data)
+				Array.isArray(data) &&
+				data.length > 0 &&
+				data.every((item) =>
+					typeof item === "object" && item &&
+					typeof item._id === "string" &&
+					typeof item.ModelName === "string")
 			) {
 				return Promise.all(
 					data.map((item: any) => {
-						if (typeof item === "object" && item) {
-							return API.deserializeData(item);
-						}
-						return item;
+						return API.deserializeData(item);
 					})
 				);
 			}// End of Array
