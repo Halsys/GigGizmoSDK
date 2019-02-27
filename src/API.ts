@@ -172,9 +172,12 @@ export abstract class API {
 				Array.isArray(data)
 			) {
 				return Promise.all(
-					data.map((item: any) =>
-						API.deserializeData(item)
-					)
+					data.map((item: any) => {
+						if (typeof item === "object" && item) {
+							return API.deserializeData(item);
+						}
+						return item;
+					})
 				);
 			}// End of Array
 		} catch (e) {
