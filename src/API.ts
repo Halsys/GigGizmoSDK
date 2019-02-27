@@ -126,8 +126,7 @@ export abstract class API {
 	public static async deserializeData(data: any): Promise<any> {
 		try {
 			if (// RESTModel
-				typeof data === "object" &&
-				data &&
+				typeof data === "object" && data &&
 				typeof data._id === "string" &&
 				typeof data.ModelName === "string"
 			) {
@@ -152,13 +151,12 @@ export abstract class API {
 				const mapData: Map<string, any> = new Map();
 				const promises: Array<Promise<void>> =
 					data.map(async (arr) => {
-						arr.forEach(
-							async ([ key, value ]:
-									[string, ({ ModelName: string, _id: string })]) => {
-								const item = await API.deserializeData(value);
-								mapData.set(key, item);
-							}
-						);
+						const [key, value] = arr;
+						let item: any = null;
+						if (typeof value === "object" && value) {
+							item = await API.deserializeData(value);
+						}
+						mapData.set(key, item);
 					});
 				await Promise.all(promises);
 				return mapData;
@@ -193,9 +191,13 @@ export abstract class API {
 				const object = {};
 				const promises: Array<Promise<void>> = [];
 				Object.entries(data).forEach(([key, value]: [string, any]) => {
-					API.deserializeData(value).then((objectValue: any) => {
-						object[key] = objectValue;
-					});
+					if (typeof value === "object") {
+						API.deserializeData(value).then((objectValue: any) => {
+							object[key] = objectValue;
+						});
+					} else {
+						object[key] = value;
+					}
 				});
 				await Promise.all(promises);
 				return object;
