@@ -374,43 +374,8 @@ export class User extends RESTModel {
 
 				const Return = (results: any) => {
 					const query = results.query;
-					const totalFound = results.totalFound;
-
 					if (!query) { reject(query); }
-					const bands: Band[] = [];
-					const venues: Venue[] = [];
-					const users: User[] = [];
-					const pages: Page[] = [];
-					const locations: Location[] = [];
-					const uploads: Upload[] = [];
-					query.forEach(async (item: any) => {
-						if (item && item.ModelName) {
-							const mName = item.ModelName;
-							if (mName === "Band") {
-								bands.push(new Band(item));
-							} else if (mName === "Venue") {
-								venues.push(new Venue(item));
-							} else if (mName === "User") {
-								users.push(new User(item));
-							} else if (mName === "Page") {
-								pages.push(new Page(item));
-							} else if (mName === "Location") {
-								locations.push(new Location(item));
-							} else if (mName === "Upload") {
-								uploads.push(new Upload(item));
-							}
-						}
-					});
-					const sorted = {
-						bands,
-						locations,
-						pages,
-						totalFound,
-						uploads,
-						users,
-						venues
-					};
-					resolve(sorted);
+					resolve(API.deserializeData(query));
 				};
 				if (API.useSocketIO && API.ShouldUseSocketIO) {
 					API.getSocket().then(

@@ -234,7 +234,7 @@ export abstract class API {
 			try {
 				const response = await API.Axios(fetchRequest);
 				if (response.data) {
-					return await API.deserializeData(response.data);
+					return response.data;
 				} else if (response.statusText) {
 					return response.statusText;
 				} else if (response.status) {
