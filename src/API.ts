@@ -139,6 +139,24 @@ export abstract class API {
 		}
 
 		try {
+			if (// Object
+				typeof data === "object" && data
+			) {
+				const object = {};
+				const promises: Array<Promise<void>> = [];
+				Object.entries(data).forEach(([key, value]: [string, any]) => {
+					API.deserializeData(value).then((objectValue: any) => {
+						object[key] = objectValue;
+					});
+				});
+				await Promise.all(promises);
+				return object;
+			} // End of Object
+		} catch (e) {
+			console.error(e);
+		}
+
+		try {
 			if (// Map
 				Array.isArray(data) &&
 				data.length > 0 &&
