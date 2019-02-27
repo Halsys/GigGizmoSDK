@@ -186,12 +186,12 @@ export abstract class API {
 
 		try {
 			if (// Object
-				typeof data === "object" && data
+				typeof data === "object" && data && !Array.isArray(data)
 			) {
 				const object = {};
 				const promises: Array<Promise<void>> = [];
 				Object.entries(data).forEach(([key, value]: [string, any]) => {
-					if (typeof value === "object") {
+					if (typeof value === "object" && value) {
 						API.deserializeData(value).then((objectValue: any) => {
 							object[key] = objectValue;
 						});
