@@ -144,8 +144,7 @@ export abstract class API {
 				const mapData: Map<string, any> = new Map();
 				const promises: Array<Promise<void>> = [];
 				data.forEach(
-					(pair: [string, ({ ModelName: string, _id: string } | any)]) => {
-						const [ key, value ] = pair;
+					([ key, value ]: [string, ({ ModelName: string, _id: string } | any)]) => {
 						promises.push(
 							API.deserializeData(value).then((item: any) => {
 								mapData.set(key, item);
