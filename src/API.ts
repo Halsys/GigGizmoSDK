@@ -140,15 +140,24 @@ export abstract class API {
 		try {
 			if (// Map
 				Array.isArray(data) &&
-				data.every((arr) => Array.isArray(arr) && arr.length === 2)) {
+				data.length > 0 &&
+				data.every((arr) =>
+					Array.isArray(arr) &&
+					arr.length === 2 &&
+					typeof arr[0] === "string" &&
+					typeof arr[1] === "object" && arr[1] &&
+					typeof arr[1]._id === "string" &&
+					typeof arr[1].ModelName === "string"
+					)) {
 				const mapData: Map<string, any> = new Map();
-				const promises: Array<Promise<void>> = [];
-				data.forEach(
-					([ key, value ]: [string, ({ ModelName: string, _id: string } | any)]) => {
-						promises.push(
-							API.deserializeData(value).then((item: any) => {
+				const promises: Array<Promise<void>> =
+					data.map(async (arr) => {
+						arr.forEach(
+							async ([ key, value ]:
+									[string, ({ ModelName: string, _id: string })]) => {
+								const item = await API.deserializeData(value);
 								mapData.set(key, item);
-							})
+							}
 						);
 					});
 				await Promise.all(promises);
@@ -160,22 +169,6 @@ export abstract class API {
 
 		try {
 			if (// Array
-				Array.isArray(data) &&
-				data.every((item: any) => {
-					return (
-						typeof item === "object" &&
-						item &&
-						typeof item._id === "string" &&
-						typeof item.ModelName === "string"
-					);
-				})
-			) {
-				return Promise.all(
-					data.map(
-						(item: any) => API.deserializeData(item)
-					)
-				);
-			} else if (
 				Array.isArray(data)
 			) {
 				return Promise.all(
