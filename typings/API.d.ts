@@ -20,6 +20,7 @@ export abstract class API {
 	public static token: string | null;
 	public static readonly rootURL: string;
 	public static readonly webSocketRootURL: string;
+	public static deserializeData(data: any): Promise<any>;
 	public static call(
 			method: string,
 			route: string,

@@ -4,6 +4,8 @@
 import Axios, { AxiosRequestConfig, AxiosStatic } from "axios";
 import { parse as ParseCookie, serialize as SerializeCookie } from "cookie";
 import SocketIO from "socket.io-client";
+import { ModelNameToModel } from "./ModelNameToModel";
+import { RESTModel } from "./RESTModel";
 
 export abstract class API {
 	public static SocketIO: SocketIOClientStatic | null = SocketIO;
@@ -122,6 +124,79 @@ export abstract class API {
 		return url;
 	}
 
+	public static async deserializeData(data: any): Promise<any> {
+		if (// RESTModel
+			typeof data === "object" &&
+			data &&
+			RESTModel.isValidId(data._id) &&
+			typeof data.ModelName === "string"
+		) {
+			const Model: any = await ModelNameToModel(data.ModelName);
+			return new Model(data);
+		} // END of RESTModel
+
+		if (// Map
+			Array.isArray(data) &&
+			data.length > 0 &&
+			Array.isArray(data[0]) &&
+			data.every((valueArray) => {
+				if (valueArray.length === 2) {
+					const [key, value] = valueArray;
+					return (
+						typeof key === "string" &&
+							typeof value === "object" &&
+							value &&
+							value._id === key &&
+							typeof value.ModelName === "string"
+					);
+				}
+				return false;
+			})) {
+			const mapData: Map<string, any> = new Map();
+			const promises: Array<Promise<void>> = [];
+			data.forEach(
+				(pair: [string, ({ ModelName: string, _id: string } | any)]) => {
+					const [ key, value ] = pair;
+					promises.push(
+						API.deserializeData(value).then((item: any) => {
+							if (item) {
+								mapData.set(key, item);
+							}
+						})
+					);
+				});
+			await Promise.all(promises);
+			return mapData;
+		} // End of Map
+
+		if (// Array
+			Array.isArray(data) &&
+			data.every((item: any) => {
+				return (
+					typeof item._id === "string" &&
+					RESTModel.isValidId(item._id) &&
+					typeof item.ModelName === "string"
+				);
+			})
+		) {
+			return Promise.all(
+				data.map(
+					(item: any) => API.deserializeData(item.ModelName)
+				)
+			);
+		} else if (
+			Array.isArray(data)
+		) {
+			return Promise.all(
+				data.map((item: any) =>
+					API.deserializeData(item)
+				)
+			);
+		}// End of Array
+
+		return data;
+	}
+
 	public static async call(method: string, route: string, data: any) {
 		const headers = {
 			"x-gig-gizmo-token": API.token ? API._token : null
@@ -148,7 +223,7 @@ export abstract class API {
 			try {
 				const response = await API.Axios(fetchRequest);
 				if (response.data) {
-					return response.data;
+					return await API.deserializeData(response.data);
 				} else if (response.statusText) {
 					return response.statusText;
 				} else if (response.status) {
