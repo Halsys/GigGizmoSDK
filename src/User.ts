@@ -344,9 +344,27 @@ export class User extends RESTModel {
 		users: User[];
 		venues: Venue[];
 	}> {
-		return new Promise((resolve, reject) => {
+		return new Promise(
+			(resolve: ((query: {
+				bands: Band[];
+				locations: Location[]
+				pages: Page[]
+				totalFound: number;
+				uploads: Upload[];
+				users: User[];
+				venues: Venue[];
+			}) => void),
+			 reject: ((error: any) => void)) => {
 			if (q === "" || q === undefined) {
-				resolve();
+				resolve({
+					bands: [],
+					locations: [],
+					pages: [],
+					totalFound: 0,
+					uploads: [],
+					users: [],
+					venues: []
+				});
 			} else {
 				const data: {
 					limit: number | undefined;
@@ -375,7 +393,7 @@ export class User extends RESTModel {
 				const Return = (results: any) => {
 					const query = results.query;
 					if (!query) { reject(query); }
-					resolve(API.deserializeData(query));
+					API.deserializeData(query).then(resolve, reject);
 				};
 				if (API.useSocketIO && API.ShouldUseSocketIO) {
 					API.getSocket().then(
