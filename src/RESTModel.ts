@@ -19,6 +19,10 @@ export abstract class RESTModel {
 	private changes: any = new Object();
 	private document: any = new Object();
 
+	get ModelName(): string {
+		return this.document.ModelName || this.ModelName;
+	}
+
 	get dateCreated(): Date {
 		const dateCreated = this.document.dateCreated || null;
 		return dateCreated ? new Date(dateCreated) : dateCreated;
