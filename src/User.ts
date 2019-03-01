@@ -335,36 +335,12 @@ export class User extends RESTModel {
 		modelName: string | null = null,
 		skip: number = 0,
 		limit: number = Number.POSITIVE_INFINITY
-	): Promise<{
-		bands: Band[];
-		locations: Location[]
-		pages: Page[]
-		totalFound: number;
-		uploads: Upload[];
-		users: User[];
-		venues: Venue[];
-	}> {
+	): Promise<Array<Band | Location | Page | Upload | User | Venue>> {
 		return new Promise(
-			(resolve: ((query: {
-				bands: Band[];
-				locations: Location[]
-				pages: Page[]
-				totalFound: number;
-				uploads: Upload[];
-				users: User[];
-				venues: Venue[];
-			}) => void),
+			(resolve: ((query: Array<Band | Location | Page | Upload | User | Venue>) => void),
 			 reject: ((error: any) => void)) => {
 			if (q === "" || q === undefined) {
-				resolve({
-					bands: [],
-					locations: [],
-					pages: [],
-					totalFound: 0,
-					uploads: [],
-					users: [],
-					venues: []
-				});
+				resolve([]);
 			} else {
 				const data: {
 					limit: number | undefined;

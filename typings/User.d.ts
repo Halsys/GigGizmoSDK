@@ -69,15 +69,7 @@ export class User extends RESTModel {
 			q: string,
 			modelName: string | null,
 			skip?: number,
-			limit?: number): Promise<{
-				bands: Band[];
-				locations: Location[]
-				pages: Page[]
-				totalFound: number;
-				uploads: Upload[];
-				users: User[];
-				venues: Venue[];
-			}>;
+			limit?: number): Promise<Array<Band | Location | Page | Upload | User | Venue>>;
 		public static findMany(criteria: object | null): Promise<User[]>;
 		public static findOne(criteria: object | null): Promise<User | null>;
 		public static onChange(callback: UserCallback): UserCallbackDestroyer;
