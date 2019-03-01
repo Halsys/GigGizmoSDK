@@ -354,11 +354,11 @@ export class User extends RESTModel {
 					skip: undefined
 				};
 				data.q = q;
-				if (modelName !== null && modelName !== "Any") {
+				if (modelName !== null && modelName !== "null") {
 					data.model = modelName;
 				}
 
-				if (Number.isFinite(Number(skip))) {
+				if (skip !== 0 && Number.isFinite(Number(skip))) {
 					data.skip = Number(skip);
 				}
 
