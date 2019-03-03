@@ -524,7 +524,7 @@ export class User extends RESTModel {
 			await API.call("POST", "/API/User/SignOut", null);
 		}
 		const user = await User.setUser(null);
-		if (user && user.valid()) {
+		if (user && user.isValid()) {
 			throw new Error(`${JSON.stringify(user)} returned, failed to log out?`);
 		} else { return user; }
 	}
@@ -686,24 +686,73 @@ export class User extends RESTModel {
 		return true;
 	}
 
-	public valid(): boolean {
-		super.valid();
-		// Type checks
-		if (typeof this.firstName !== "string") {
-			throw new Error(`Invalid firstName: ${this.firstName}`);
+	public anyErrors(): Error | null {
+		const superError = super.anyErrors();
+		if (superError) { return superError; }
+
+		if (this.id) {
+			// Type checks
+			if (!["string", "undefined"].includes(typeof this.changes.firstName)) {
+				return new Error(`Invalid firstName: ${this.changes.firstName}`);
+			}
+			if (!["string", "undefined"].includes(typeof this.changes.lastName)) {
+				return new Error(`Invalid lastName: ${this.changes.lastName}`);
+			}
+			if (!["string", "undefined"].includes(typeof this.changes.password)) {
+				return new Error(`Invalid password: ${this.changes.password}`);
+			}
+			if (!["string", "undefined"].includes(typeof this.changes.confirmPassword)) {
+				return new Error(`Invalid confirmPassword: ${this.changes.confirmPassword}`);
+			}
+			if (!["string", "undefined"].includes(typeof this.changes.email)) {
+				return new Error(`Invalid email: ${this.changes.email}`);
+			}
+			// Value checks
+			if (this.changes.firstName === "") {
+				return new Error("Blank firstName");
+			}
+			if (this.changes.lastName === "") {
+				return new Error("Blank lastName");
+			}
+			if (this.changes.password) {
+				const error = this.validatePassword(this.changes.password);
+				if (error) { return error; }
+			}
+			if (this.changes.password !== this.changes.confirmPassword) {
+				return new Error("Passwords do not match");
+			}
+		} else {
+			// Type checks
+			if (typeof this.changes.firstName !== "string") {
+				return new Error(`Invalid firstName: ${this.changes.firstName}`);
+			}
+			if (typeof this.changes.lastName !== "string") {
+				return new Error(`Invalid lastName: ${this.changes.lastName}`);
+			}
+			if (typeof this.changes.password !== "string") {
+				return new Error(`Invalid password: ${this.changes.password}`);
+			}
+			if (typeof this.changes.confirmPassword !== "string") {
+				return new Error(`Invalid confirmPassword: ${this.changes.confirmPassword}`);
+			}
+			// Value checks
+			if (this.changes.firstName === "") {
+				return new Error("Blank firstName");
+			}
+			if (this.changes.lastName === "") {
+				return new Error("Blank lastName");
+			}
+			if (this.changes.password) {
+				const error = this.validatePassword(this.changes.password);
+				if (error) { return error; }
+			}
+			if (this.changes.password !== this.changes.confirmPassword) {
+				return new Error("Passwords do not match");
+			}
 		}
-		if (typeof this.lastName !== "string") {
-			throw new Error(`Invalid lastName: ${this.lastName}`);
-		}
-		// Value checks
-		if (this.firstName === "") {
-			throw new Error("Blank firstName");
-		}
-		if (this.lastName === "") {
-			throw new Error("Blank lastName");
-		}
+
 		// TODO: More validation checks?
-		return true;
+		return null;
 	}
 
 	public save(): Promise<this> {

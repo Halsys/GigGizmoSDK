@@ -145,18 +145,26 @@ export class Upload extends RESTModel {
 		return false;
 	}
 
-	public isValid(): boolean {
-		if (!super.isValid()) { return false; }
-		if (!this.description) { return false; }
-		if (!this.fileData) { return false; }
-		if (!this.width) { return false; }
-		if (!this.height) { return false; }
-		if (!this.offsetWidth) { return false; }
-		if (!this.offsetHeight) { return false; }
-		if (!this.offsetLeft) { return false; }
-		if (!this.offsetTop) { return false; }
-		if (!Array.isArray(this.owners)) { return false; }
-		if (this.owners.length === 0) { return false; }
-		return true;
+	public anyErrors(): Error | null {
+		const superError = super.anyErrors();
+		if (superError) { return superError; }
+
+		if (!this.description) { return new Error(`Invalid description: ${this.description}`); }
+		if (!this.fileData) { return new Error(`Invalid fileData: ${this.fileData}`); }
+		if (!this.width) { return new Error(`Invalid width: ${this.width}`); }
+		if (!this.height) { return new Error(`Invalid height: ${this.height}`); }
+		if (!this.offsetWidth) { return new Error(`Invalid offsetWidth: ${this.offsetWidth}`); }
+		if (!this.offsetHeight) { return new Error(`Invalid offsetHeight: ${this.offsetHeight}`); }
+		if (!this.offsetLeft) { return new Error(`Invalid offsetLeft: ${this.offsetLeft}`); }
+		if (!this.offsetTop) { return new Error(`Invalid offsetTop: ${this.offsetTop}`); }
+
+		if (!this.document.hash) { return new Error(`Invalid hash: ${this.document.hash}`); }
+		if (!this.document.bytes) { return new Error(`Invalid bytes: ${this.document.bytes}`); }
+		if (!Array.isArray(this.document.owners) ||
+			this.document.owners.length === 0) {
+			return new Error(`Invalid owners: ${this.document.owners}`);
+		}
+
+		return null;
 	}
 }

@@ -16,8 +16,8 @@ export abstract class RESTModel {
 		60 * // Seconds
 		1000 // Milliseconds
 	);
-	private changes: any = new Object();
-	private document: any = new Object();
+	protected changes: any = new Object();
+	protected document: any = new Object();
 
 	get ModelName(): string {
 		return this.document.ModelName || this.ModelName;
@@ -284,7 +284,7 @@ export abstract class RESTModel {
 	}
 
 	public toObject(): any {
-		const object = this.valid() ? { ...this.changes, ...this.document } : null;
+		const object = this.isValid() ? { ...this.changes, ...this.document } : null;
 		if (typeof object === "object" && object) {
 			if (typeof object.id !== "undefined") { delete object.id; }
 			if (typeof object._id !== "undefined") {
@@ -299,29 +299,39 @@ export abstract class RESTModel {
 		return JSON.stringify(object);
 	}
 
-	public valid(): boolean {
-		if (!RESTModel.isValidId(this.id)) {
-			throw new Error(`Invalid id: ${this.id}`);
+	public anyErrors(): Error | null {
+		if (!RESTModel.isValidId(this.document.id)) {
+			return new Error(`Invalid id: ${this.document.id}`);
 		}
-		if (!this.dateModified) {
-			throw new Error(`Invalid dateModified: ${this.dateModified}`);
+
+		if (this.document.dateModified && isNaN(Date.parse(this.document.dateModified))) {
+			return new Error(`Invalid dateModified: ${this.document.dateModified}`);
 		}
-		if (!this.dateCreated) {
-			throw new Error(`Invalid dateCreated: ${this.dateCreated}`);
+
+		if (this.document.dateCreated && isNaN(Date.parse(this.document.dateCreated))) {
+			return new Error(`Invalid dateCreated: ${this.document.dateCreated}`);
 		}
-		return true;
+
+		if (this.changes.id && !RESTModel.isValidId(this.changes.id)) {
+			return new Error(`Invalid id: ${this.document.id}`);
+		}
+
+		if (this.changes.dateModified && isNaN(Date.parse(this.changes.dateModified))) {
+			return new Error(`Invalid dateModified: ${this.changes.dateModified}`);
+		}
+
+		if (this.changes.dateCreated && isNaN(Date.parse(this.changes.dateCreated))) {
+			return new Error(`Invalid dateCreated: ${this.changes.dateCreated}`);
+		}
+		
+		return null;
 	}
 
 	public isValid(): boolean {
-		if (this.id !== undefined || this.id !== null || !RESTModel.isValidId(this.id)) {
-			return false;
-		}
-
-		if (this.dateModified !== undefined || this.dateModified === null) {
-			return false;
-		}
-
-		if (this.dateCreated !== undefined || this.dateCreated === null) {
+		try {
+			const superError = this.anyErrors();
+			if (superError) { throw superError; }
+		} catch (e) {
 			return false;
 		}
 		return true;
