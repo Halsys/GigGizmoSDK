@@ -155,8 +155,14 @@ export class Upload extends RESTModel {
 		if (!this.height) { return new Error(`Invalid height: ${this.height}`); }
 		if (!this.offsetWidth) { return new Error(`Invalid offsetWidth: ${this.offsetWidth}`); }
 		if (!this.offsetHeight) { return new Error(`Invalid offsetHeight: ${this.offsetHeight}`); }
-		if (!this.offsetLeft) { return new Error(`Invalid offsetLeft: ${this.offsetLeft}`); }
-		if (!this.offsetTop) { return new Error(`Invalid offsetTop: ${this.offsetTop}`); }
+		if (typeof this.offsetLeft !== "number" ||
+			this.offsetLeft < 0) {
+				return new Error(`Invalid offsetLeft: ${this.offsetLeft}`);
+			}
+		if (typeof this.offsetTop !== "number" ||
+			this.offsetTop < 0) {
+			return new Error(`Invalid offsetTop: ${this.offsetTop}`); 
+		}
 
 		if (!this.document.hash) { return new Error(`Invalid hash: ${this.document.hash}`); }
 		if (!this.document.bytes) { return new Error(`Invalid bytes: ${this.document.bytes}`); }
