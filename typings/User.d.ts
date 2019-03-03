@@ -90,7 +90,7 @@ export class User extends RESTModel {
 		public getFacebookAccount(): Promise<FacebookAccount | null>;
 		public validatePassword(maybePassword: string): Error | null;
 		public isValid(): boolean;
-		public valid(): boolean;
+		public anyErrors(): Error | null;
 		public save(): Promise<this>;
 		public remove(): Promise<this>;
 }

@@ -25,4 +25,5 @@ export class Upload extends RESTModel {
 		public getOwners(): Promise<User[]>;
 		public userIsOwner(user: any): boolean;
 		public isValid(): boolean;
+		public anyErrors(): Error | null;
 }

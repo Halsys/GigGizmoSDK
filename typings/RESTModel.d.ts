@@ -38,7 +38,7 @@ export abstract class RESTModel {
 		protected getField(name: string): any;
 		public toObject(): any;
 		public toString(): string;
-		public valid(): boolean;
+		public anyErrors(): Error | null;
 		public isValid(): boolean;
 		public assign(data: object): this;
 		public save(hasWebSocket?: boolean): Promise<this>;
