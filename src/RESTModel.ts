@@ -313,13 +313,15 @@ export abstract class RESTModel {
 	}
 
 	public isValid(): boolean {
-		if (!RESTModel.isValidId(this.id)) {
+		if (this.id !== undefined || this.id !== null || !RESTModel.isValidId(this.id)) {
 			return false;
 		}
-		if (!this.dateModified) {
+
+		if (this.dateModified !== undefined || this.dateModified === null) {
 			return false;
 		}
-		if (!this.dateCreated) {
+
+		if (this.dateCreated !== undefined || this.dateCreated === null) {
 			return false;
 		}
 		return true;
