@@ -300,7 +300,8 @@ export abstract class RESTModel {
 	}
 
 	public anyErrors(): Error | null {
-		if (!RESTModel.isValidId(this.document.id)) {
+		if (this.document.id &&
+			!RESTModel.isValidId(this.document.id)) {
 			return new Error(`Invalid id: ${this.document.id}`);
 		}
 
@@ -312,7 +313,8 @@ export abstract class RESTModel {
 			return new Error(`Invalid dateCreated: ${this.document.dateCreated}`);
 		}
 
-		if (this.changes.id && !RESTModel.isValidId(this.changes.id)) {
+		if (this.changes.id &&
+			!RESTModel.isValidId(this.changes.id)) {
 			return new Error(`Invalid id: ${this.document.id}`);
 		}
 
@@ -323,7 +325,7 @@ export abstract class RESTModel {
 		if (this.changes.dateCreated && isNaN(Date.parse(this.changes.dateCreated))) {
 			return new Error(`Invalid dateCreated: ${this.changes.dateCreated}`);
 		}
-		
+
 		return null;
 	}
 
