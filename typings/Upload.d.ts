@@ -6,11 +6,17 @@ import { User } from "./User";
 
 export class Upload extends RESTModel {
 		public static ModelName: string;
-		public fileName: string;
 		public fileData: string;
-		public title: string;
 		public description: string;
 		public owners: string[];
+		public hash: number;
+		public bytes: number;
+		public width: number;
+		public height: number;
+		public offsetWidth: number;
+		public offsetHeight: number;
+		public offsetLeft: number;
+		public offsetTop: number;
 		public static uploadFile(dataUrl: string, fileName: string): Promise<Upload>;
 		public static findById(id: string): Promise<Upload | null>;
 		public static findOne(criteria: any): Promise<Upload | null>;

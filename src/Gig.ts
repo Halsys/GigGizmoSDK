@@ -12,8 +12,7 @@ export class Gig extends RESTModel {
 	public static ModelName: string = "Gig";
 
 	get startTime(): Date {
-		const startTime = this.getField("startTime");
-		return startTime ? new Date(startTime) : startTime;
+		return new Date(this.getField("startTime"));
 	}
 
 	set startTime(value: Date) {
@@ -21,8 +20,7 @@ export class Gig extends RESTModel {
 	}
 
 	get stopTime(): Date {
-		const stopTime = this.getField("stopTime");
-		return stopTime ? new Date(stopTime) : stopTime;
+		return new Date(this.getField("stopTime"));
 	}
 
 	set stopTime(value: Date) {
@@ -98,7 +96,7 @@ export class Gig extends RESTModel {
 		if (data && Array.isArray(data)) {
 			return data.map((itemData: any) => {
 				const item = new Gig(itemData);
-				RESTModel.Cache.set(item._id, item);
+				RESTModel.CacheSet<Gig>(item);
 				return item;
 			});
 		}
@@ -110,7 +108,7 @@ export class Gig extends RESTModel {
 		if (data && Array.isArray(data)) {
 			return data.map((itemData: any) => {
 				const item = new Gig(itemData);
-				RESTModel.Cache.set(item._id, item);
+				RESTModel.CacheSet<Gig>(item);
 				return item;
 			});
 		}

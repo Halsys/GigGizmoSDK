@@ -55,7 +55,7 @@ export class Conversation extends RESTModel {
 							} else {
 								conv = new Conversation(data);
 							}
-							RESTModel.Cache.set(conv._id, conv);
+							RESTModel.CacheSet<Conversation>(conv);
 							Conversation.Callbacks.forEach((cb) => cb(conv));
 						}
 					});

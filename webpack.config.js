@@ -32,5 +32,6 @@ module.exports = {
     libraryTarget: "this",
     filename: "index.js",
     path: __dirname + "/dist/"
-  }
+  },
+  cache: true
 };

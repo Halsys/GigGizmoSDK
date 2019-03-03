@@ -24,38 +24,44 @@ export abstract class RESTModel {
 	}
 
 	get dateCreated(): Date {
-		const dateCreated = this.document.dateCreated || null;
-		return dateCreated ? new Date(dateCreated) : dateCreated;
+		const dateCreated =
+			this.document.dateCreated || null;
+		return dateCreated ?
+			new Date(dateCreated) :
+			new Date();
 	}
 
 	get dateModified(): Date {
-		const dateModified = this.getField("dateModified") || null;
-		return dateModified ? new Date(dateModified) : dateModified;
+		const dateModified =
+			this.getField<string>("dateModified");
+		return dateModified ?
+			new Date(dateModified) :
+			new Date();
 	}
 
 	set dateModified(value: Date) {
 		this.changes.dateModified = (value) ? value.toJSON() : null;
 	}
 
-	get id(): string {
+	get id(): string | null {
 		return this.getField("_id");
 	}
 
-	set id(value: string) {
+	set id(value: string | null) {
 		this.setField("_id", value);
 	}
 
-	get _id(): string {
+	get _id(): string | null {
 		return this.getField("_id");
 	}
 
-	set _id(value: string) {
+	set _id(value: string | null) {
 		this.setField("_id", value);
 	}
 
-	public static CacheGet(id: string): RESTModel | null {
+	public static CacheGet<ModelT extends RESTModel>(id: string): ModelT | null {
 		if (typeof id === "string" && RESTModel.Cache.has(id)) {
-			const cache: RESTModel | undefined = RESTModel.Cache.get(id);
+			const cache: ModelT | undefined = RESTModel.Cache.get(id) as ModelT;
 			if (cache && new Date(cache.expiration) < new Date()) {
 				return cache;
 			}
@@ -63,12 +69,12 @@ export abstract class RESTModel {
 		return null;
 	}
 
-	public static CacheSet(data: RESTModel): RESTModel | null {
-		if (RESTModel.isValidId(data._id)) {
+	public static CacheSet<ModelT extends RESTModel>(data: RESTModel): ModelT | null {
+		if (data._id && RESTModel.isValidId(data._id)) {
 			RESTModel.Cache.set(data._id, data);
-			return data;
+			return data as ModelT;
 		}
-		return data;
+		return data as ModelT;
 	}
 
 	public static CacheRemove(id: string): void {
@@ -124,15 +130,15 @@ export abstract class RESTModel {
 		return "";
 	}
 
-	public static async findByIdBase(
+	public static async findByIdBase<ModelT extends RESTModel>(
 		ModelMaybe: any,
 		id: string,
 		hasWebSocket?: boolean
-	): Promise<RESTModel|null> {
+	): Promise<ModelT|null> {
 		if (RESTModel.isValidId(id)) {
 			const cache = RESTModel.CacheGet(id);
 			if (cache) {
-				return cache;
+				return cache as ModelT;
 			} else {
 				let data: any = null;
 				const { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
@@ -161,17 +167,17 @@ export abstract class RESTModel {
 		return null;
 	}
 
-	public static async findOneBase(
+	public static async findOneBase<ModelT extends RESTModel>(
 		ModelMaybe: any,
 		criteria: any = {},
 		hasWebSocket?: boolean
-	): Promise<RESTModel|null> {
+	): Promise<ModelT|null> {
 		if (criteria === null) { criteria = {}; }
 		if (Array.from(Object.keys(criteria)).length === 1 && typeof criteria._id === "string") {
 			const id = criteria._id;
 			const cache = RESTModel.CacheGet(id);
 			if (cache) {
-				return cache;
+				return cache as ModelT;
 			}
 		}
 		let data: any = null;
@@ -198,11 +204,11 @@ export abstract class RESTModel {
 		return null;
 	}
 
-	public static async findManyBase(
+	public static async findManyBase<ModelT extends RESTModel>(
 		ModelMaybe: any,
 		criteria: any = {},
 		hasWebSocket?: boolean
-	): Promise<RESTModel[]> {
+	): Promise<ModelT[]> {
 		if (criteria === null) { criteria = {}; }
 		if (Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
 			const items: RESTModel[] = [];
@@ -212,7 +218,7 @@ export abstract class RESTModel {
 					items.push(cache);
 				}
 			});
-			if (items.length === (criteria._id || criteria.id)) { return items; }
+			if (items.length === (criteria._id || criteria.id)) { return items as ModelT[]; }
 		}
 		let data: any = null;
 		const { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
@@ -266,24 +272,15 @@ export abstract class RESTModel {
 		}
 	}
 
-	protected setField(name: string, value: any): void {
-		if (this) {
-			const currentValue = this.getField(name) || undefined;
-			if (currentValue !== value) {
-				this.changes[name] = value;
-				this.dateModified = new Date();
-			}
+	protected setField<T>(name: string, value: T): void {
+		if (this.getField(name) !== value) {
+			this.changes[name] = value;
+			this.dateModified = new Date();
 		}
 	}
 
-	protected getField(name: string): any {
-		if (this) {
-			let data = this.changes[name];
-			if (typeof data !== "undefined") { return data; }
-			data = this.document[name];
-			if (typeof data !== "undefined") { return data; }
-		}
-		return null;
+	protected getField<T>(name: string): T {
+		return this.changes[name] || this.document[name];
 	}
 
 	public toObject(): any {

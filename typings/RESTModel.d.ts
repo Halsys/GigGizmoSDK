@@ -7,10 +7,10 @@ export abstract class RESTModel {
 		private expiration: number;
 		private changes: any;
 		private document: any;
-		public readonly dateCreated: Date;
-		public dateModified: Date;
-		public id: string;
-		public _id: string;
+		public readonly dateCreated: Date | null;
+		public dateModified: Date | null;
+		public id: string | null;
+		public _id: string | null;
 		public static CacheGet(id: string): RESTModel | null;
 		public static CacheSet(data: RESTModel): RESTModel | null;
 		public static CacheRemove(id: string): void;

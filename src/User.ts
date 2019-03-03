@@ -93,8 +93,7 @@ export class User extends RESTModel {
 	}
 
 	get birthday(): Date {
-		const birthday = this.getField("birthday") || null;
-		return birthday ? new Date(birthday) : birthday;
+		return new Date(this.getField("birthday"));
 	}
 
 	set birthday(value: Date) {
@@ -239,8 +238,7 @@ export class User extends RESTModel {
 	}
 
 	get lastLogin(): Date {
-		const lastLogin = this.getField("lastLogin") || null;
-		return lastLogin ? new Date(lastLogin) : lastLogin;
+		return new Date(this.getField<string>("lastLogin"));
 	}
 
 	set lastLogin(value: Date) {
