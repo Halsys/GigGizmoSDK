@@ -149,8 +149,6 @@ export class Upload extends RESTModel {
 		if (!super.isValid()) { return false; }
 		if (!this.description) { return false; }
 		if (!this.fileData) { return false; }
-		if (!this.hash) { return false; }
-		if (!this.bytes) { return false; }
 		if (!this.width) { return false; }
 		if (!this.height) { return false; }
 		if (!this.offsetWidth) { return false; }
