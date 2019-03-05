@@ -55,6 +55,8 @@ export class User extends RESTModel {
 		public canContact: boolean;
 		public canFind: boolean;
 		public options: any;
+		public connections: string[];
+		public blocked: string[];
 		public static verifyEmail(id: string, secret: string): Promise<any>;
 		public static sendEmailVerification(): Promise<any>;
 		public static getAllConversations(): Promise<Conversation[]>;

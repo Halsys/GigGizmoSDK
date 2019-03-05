@@ -269,6 +269,22 @@ export class User extends RESTModel {
 		this.setField("options", value);
 	}
 
+	get connections(): string[] {
+		return this.getField("connections");
+	}
+
+	set connections(value: string[]) {
+		this.setField("connections", value);
+	}
+
+	get blocked(): string[] {
+		return this.getField("blocked");
+	}
+
+	set blocked(value: string[]) {
+		this.setField("blocked", value);
+	}
+
 	public static verifyEmail(id: string, secret: string): Promise<any> {
 		return API.call("GET", "/API/User/Verify", {
 			id,
@@ -643,6 +659,20 @@ export class User extends RESTModel {
 	public getFacebookAccount(): Promise<FacebookAccount | null> {
 		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "") as
 			Promise<FacebookAccount | null>;
+	}
+
+	public getConnections(): Promise<Array<User | null>> {
+		return Promise.all(
+			this.connections.map((id: string) => {
+				return User.findById(id);
+		}));
+	}
+
+	public getBlocked(): Promise<Array<User | null>> {
+		return Promise.all(
+			this.blocked.map((id: string) => {
+				return User.findById(id);
+		}));
 	}
 
 	public validatePassword(maybePassword: string): Error | null {
