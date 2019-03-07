@@ -7,6 +7,7 @@ import { User } from "./User";
 export class Upload extends RESTModel {
 		public static ModelName: string;
 		public fileData: string;
+		public croppedFileData: string;
 		public description: string;
 		public owners: string[];
 		public hash: number;

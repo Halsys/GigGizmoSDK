@@ -16,6 +16,14 @@ export class Upload extends RESTModel {
 		this.setField("fileData", value);
 	}
 
+	get croppedFileData(): string {
+		return this.getField("croppedFileData");
+	}
+
+	set croppedFileData(value: string) {
+		this.setField("croppedFileData", value);
+	}
+
 	get description(): string {
 		return this.getField("description");
 	}
@@ -161,7 +169,7 @@ export class Upload extends RESTModel {
 			}
 		if (typeof this.offsetTop !== "number" ||
 			this.offsetTop < 0) {
-			return new Error(`Invalid offsetTop: ${this.offsetTop}`); 
+			return new Error(`Invalid offsetTop: ${this.offsetTop}`);
 		}
 
 		if (!this.document.hash) { return new Error(`Invalid hash: ${this.document.hash}`); }
