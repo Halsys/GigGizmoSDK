@@ -36,6 +36,7 @@ export abstract class RESTModel {
 		constructor(dataMaybe?: any);
 		protected setField(name: string, value: any): void;
 		protected getField(name: string): any;
+		public clearChanges(): void;
 		public toObject(): any;
 		public toString(): string;
 		public anyErrors(): Error | null;
