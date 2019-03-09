@@ -272,6 +272,10 @@ export abstract class RESTModel {
 		}
 	}
 
+	public clearChanges() {
+		this.changes = new Object();
+	}
+
 	protected setField<T>(name: string, value: T): void {
 		if (this.getField(name) !== value) {
 			this.changes[name] = value;
