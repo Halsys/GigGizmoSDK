@@ -5,87 +5,52 @@
 import { API } from "./API";
 import { Band } from "./Band";
 import { Location } from "./Location";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 import { Venue } from "./Venue";
 
-export class Gig extends RESTModel {
+interface GigI extends Document {
+	startTime: Date;
+	stopTime: Date;
+	location: string;
+	venue: string;
+	bands: string[];
+	toBeAnnounced: boolean;
+	bandOwnersAccepted: string[];
+	venueOwnerAccepted: string;
+	owners: string[];
+}
+
+export class Gig extends RESTModel<GigI> {
 	public static ModelName: string = "Gig";
 
-	get startTime(): Date {
-		return new Date(this.getField("startTime"));
-	}
+	get startTime(): Date { return new Date(this.getField("startTime")); }
+	set startTime(value: Date) { this.setField("startTime", value); }
 
-	set startTime(value: Date) {
-		this.setField("startTime", value);
-	}
+	get stopTime(): Date { return new Date(this.getField("stopTime")); }
+	set stopTime(value: Date) { this.setField("stopTime", value.toJSON()); }
 
-	get stopTime(): Date {
-		return new Date(this.getField("stopTime"));
-	}
+	get location(): string { return this.getField("location"); }
+	set location(value: string) { this.setField("location", value); }
 
-	set stopTime(value: Date) {
-		this.setField("stopTime", value.toJSON());
-	}
+	get venue(): string { return this.getField("venue"); }
+	set venue(value: string) { this.setField("venue", value); }
 
-	get location(): string {
-		return this.getField("location");
-	}
+	get bands(): string[] { return this.getField("bands"); }
+	set bands(value: string[]) { this.setField("bands", value); }
 
-	set location(value: string) {
-		this.setField("location", value);
-	}
+	get active(): boolean { return this.getField("active"); }
 
-	get venue(): string {
-		return this.getField("venue");
-	}
+	get toBeAnnounced(): boolean { return this.getField("toBeAnnounced"); }
+	set toBeAnnounced(value: boolean) { this.setField("toBeAnnounced", value); }
 
-	set venue(value: string) {
-		this.setField("venue", value);
-	}
+	get bandOwnersAccepted(): string[] { return this.getField("bandOwnersAccepted"); }
+	set bandOwnersAccepted(value: string[]) { this.setField("bandOwnersAccepted", value); }
 
-	get bands(): string[] {
-		return this.getField("bands");
-	}
+	get venueOwnerAccepted(): string { return this.getField("venueOwnerAccepted"); }
+	set venueOwnerAccepted(value: string) { this.setField("venueOwnerAccepted", value); }
 
-	set bands(value: string[]) {
-		this.setField("bands", value);
-	}
-
-	get active(): boolean {
-		return this.getField("active");
-	}
-
-	get toBeAnnounced(): boolean {
-		return this.getField("toBeAnnounced");
-	}
-
-	set toBeAnnounced(value: boolean) {
-		this.setField("toBeAnnounced", value);
-	}
-
-	get bandOwnersAccepted(): string[] {
-		return this.getField("bandOwnersAccepted");
-	}
-
-	set bandOwnersAccepted(value: string[]) {
-		this.setField("bandOwnersAccepted", value);
-	}
-
-	get venueOwnerAccepted(): string {
-		return this.getField("venueOwnerAccepted");
-	}
-
-	set venueOwnerAccepted(value: string) {
-		this.setField("venueOwnerAccepted", value);
-	}
-
-	get owners(): string[] {
-		return this.getField("owners");
-	}
-
-	set owners(value: string[]) {
-		this.setField("owners", value);
-	}
+	get owners(): string[] { return this.getField("owners"); }
+	set owners(value: string[]) { this.setField("owners", value); }
 
 	public static findById(id: string): Promise<Gig | null> {
 		return RESTModel.findByIdBase(Gig, id, true) as Promise<Gig | null>;

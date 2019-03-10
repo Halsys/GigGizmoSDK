@@ -4,50 +4,35 @@
 
 import { API } from "./API";
 import { GooglePlace } from "./GooglePlace";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 
-export class Location extends RESTModel {
+type LocationType = "Point" | "LineString" | "Polygon";
+
+interface LocationI extends Document {
+	type: LocationType;
+	placeId: string;
+	address: string;
+	point: number[];
+	utcOffset: number;
+}
+
+export class Location extends RESTModel<LocationI> {
 	public static ModelName: string = "Location";
 
-	get type(): string {
-		return this.getField("type") || "Point";
-	}
+	get type(): LocationType { return this.getField("type") || "Point"; }
+	set type(value: LocationType) { this.setField("type", value); }
 
-	set type(value: string) {
-		this.setField("type", value);
-	}
+	get placeId(): string { return this.getField("placeId"); }
+	set placeId(value: string) { this.setField("placeId", value); }
 
-	get placeId(): string {
-		return this.getField("placeId");
-	}
+	get address(): string { return this.getField("address"); }
+	set address(value: string) { this.setField("address", value); }
 
-	set placeId(value: string) {
-		this.setField("placeId", value);
-	}
+	get point(): number[] { return this.getField("point"); }
+	set point(value: number[]) { this.setField("point", value); }
 
-	get address(): string {
-		return this.getField("address");
-	}
-
-	set address(value: string) {
-		this.setField("address", value);
-	}
-
-	get point(): number[] {
-		return this.getField("point");
-	}
-
-	set point(value: number[]) {
-		this.setField("point", value);
-	}
-
-	get utcOffset(): number {
-		return this.getField("utcOffset");
-	}
-
-	set utcOffset(value: number) {
-		this.setField("utcOffset", value);
-	}
+	get utcOffset(): number { return this.getField("utcOffset"); }
+	set utcOffset(value: number) { this.setField("utcOffset", value); }
 
 	public static getLocationByPlaceId(placeId: string): Promise<Location> {
 		return new Promise((resolve, reject) => {

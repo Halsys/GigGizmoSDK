@@ -1,12 +1,20 @@
 import { API } from "./API";
 import { ModelNameToModel } from "./ModelNameToModel";
 
-export abstract class RESTModel {
+export interface Document {
+	ModelName: string;
+	_id: string;
+	id: string;
+	dateCreated: string;
+	dateModified: string;
+}
+
+export abstract class RESTModel<D extends Document> {
 	public static ModelName: string = "RESTModel";
-	public static Cache: Map<string, RESTModel> = new Map();
-	public static findMany: ((criteria: any) => Promise<RESTModel[]>);
-	public static findOne: ((criteria: any) => Promise<RESTModel | null>);
-	public static findById: ((id: string) => Promise<RESTModel | null>);
+	public static Cache: Map<string, RESTModel<any>> = new Map();
+	public static findMany: ((criteria: any) => Promise<Array<RESTModel<any>>>);
+	public static findOne: ((criteria: any) => Promise<RESTModel<any> | null>);
+	public static findById: ((id: string) => Promise<RESTModel<any> | null>);
 
 	private expiration: number = (
 		(new Date())
@@ -16,8 +24,8 @@ export abstract class RESTModel {
 		60 * // Seconds
 		1000 // Milliseconds
 	);
-	protected changes: any = new Object();
-	protected document: any = new Object();
+	protected changes: D;
+	protected document: D;
 
 	get ModelName(): string {
 		return this.document.ModelName || this.ModelName;
@@ -40,7 +48,7 @@ export abstract class RESTModel {
 	}
 
 	set dateModified(value: Date) {
-		this.changes.dateModified = (value) ? value.toJSON() : null;
+		this.changes.dateModified = value.toJSON();
 	}
 
 	get id(): string | null {
@@ -59,7 +67,7 @@ export abstract class RESTModel {
 		this.setField("_id", value);
 	}
 
-	public static CacheGet<ModelT extends RESTModel>(id: string): ModelT | null {
+	public static CacheGet<ModelT extends RESTModel<any>>(id: string): ModelT | null {
 		if (typeof id === "string" && RESTModel.Cache.has(id)) {
 			const cache: ModelT | undefined = RESTModel.Cache.get(id) as ModelT;
 			if (cache && new Date(cache.expiration) < new Date()) {
@@ -69,7 +77,7 @@ export abstract class RESTModel {
 		return null;
 	}
 
-	public static CacheSet<ModelT extends RESTModel>(data: RESTModel): ModelT | null {
+	public static CacheSet<ModelT extends RESTModel<any>>(data: RESTModel<any>): ModelT | null {
 		if (data._id && RESTModel.isValidId(data._id)) {
 			RESTModel.Cache.set(data._id, data);
 			return data as ModelT;
@@ -130,7 +138,7 @@ export abstract class RESTModel {
 		return "";
 	}
 
-	public static async findByIdBase<ModelT extends RESTModel>(
+	public static async findByIdBase<ModelT extends RESTModel<any>>(
 		ModelMaybe: any,
 		id: string,
 		hasWebSocket?: boolean
@@ -167,7 +175,7 @@ export abstract class RESTModel {
 		return null;
 	}
 
-	public static async findOneBase<ModelT extends RESTModel>(
+	public static async findOneBase<ModelT extends RESTModel<any>>(
 		ModelMaybe: any,
 		criteria: any = {},
 		hasWebSocket?: boolean
@@ -204,14 +212,14 @@ export abstract class RESTModel {
 		return null;
 	}
 
-	public static async findManyBase<ModelT extends RESTModel>(
+	public static async findManyBase<ModelT extends RESTModel<any>>(
 		ModelMaybe: any,
 		criteria: any = {},
 		hasWebSocket?: boolean
 	): Promise<ModelT[]> {
 		if (criteria === null) { criteria = {}; }
 		if (Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
-			const items: RESTModel[] = [];
+			const items: Array<RESTModel<any>> = [];
 			(criteria._id || criteria.id).forEach((id: string) => {
 				const cache = RESTModel.CacheGet(id);
 				if (cache) {
@@ -247,8 +255,8 @@ export abstract class RESTModel {
 	}
 
 	public constructor(dataMaybe?: any) {
-		this.document = new Object();
-		this.changes = new Object();
+		this.document = new Object() as D;
+		this.changes = new Object() as D;
 		if (typeof dataMaybe === "string") {
 			try {
 				const data = JSON.parse(dataMaybe);
@@ -273,7 +281,7 @@ export abstract class RESTModel {
 	}
 
 	public clearChanges() {
-		this.changes = new Object();
+		this.changes = new Object() as D;
 	}
 
 	protected setField<T>(name: string, value: T): void {
@@ -292,7 +300,7 @@ export abstract class RESTModel {
 		if (typeof object === "object" && object) {
 			if (typeof object.id !== "undefined") { delete object.id; }
 			if (typeof object._id !== "undefined") {
-				object._id = (object._id.toString() ? object._id : null);
+				object._id = `${object._id}`;
 			}
 		}
 		return object;
@@ -356,7 +364,7 @@ export abstract class RESTModel {
 		Object.keys(this.changes).forEach((key) => {
 			if (data[key] === this.document[key]) { delete data[key]; }
 		});
-		data.id = this.changes._id || this.document._id || null;
+		data.id = `${this.changes._id || this.document._id || null}`;
 		if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
 			if (RESTModel.isValidId(id)) {
 				response = await new Promise((resolve, reject) =>
@@ -388,7 +396,7 @@ export abstract class RESTModel {
 		}
 		if (response && response._id) {
 			this.document = response;
-			this.changes = {};
+			this.clearChanges();
 			RESTModel.CacheSet(this);
 			return this;
 		}

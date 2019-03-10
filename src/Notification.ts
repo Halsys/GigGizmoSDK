@@ -3,7 +3,7 @@
  */
 
 import { API } from "./API";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 
 export interface NotificationAction {
 	label: string;
@@ -11,53 +11,41 @@ export interface NotificationAction {
 	request: string;
 }
 
+interface NotificationI extends Document {
+	actions: NotificationAction[];
+	label: string;
+	message: string;
+	seenByUser: boolean;
+	userId: string;
+}
+
 export type NotificationCallback = (note: Notification) => void;
 export type NotificationCallbackDestroyer = () => void;
 
-export class Notification extends RESTModel {
+export class Notification extends RESTModel<NotificationI> {
 	public static ModelName: string = "Notification";
 	public static Callbacks: Map<number, NotificationCallback> = new Map();
 	private changeCallbacks: Map<number, NotificationCallback> = new Map();
 
-	get userId(): string {
-		return this.getField("userId");
-	}
+	get userId(): string { return this.getField("userId"); }
 
-	set userId(value: string) {
-		this.setField("userId", value);
-	}
+	set userId(value: string) { this.setField("userId", value); }
 
-	get label(): string {
-		return this.getField("label");
-	}
+	get label(): string { return this.getField("label"); }
 
-	set label(value: string) {
-		this.setField("label", value);
-	}
+	set label(value: string) { this.setField("label", value); }
 
-	get message(): string {
-		return this.getField("message");
-	}
+	get message(): string { return this.getField("message"); }
 
-	set message(value: string) {
-		this.setField("message", value);
-	}
+	set message(value: string) { this.setField("message", value); }
 
-	get actions(): NotificationAction[] {
-		return this.getField("actions");
-	}
+	get actions(): NotificationAction[] { return this.getField("actions"); }
 
-	set actions(value: NotificationAction[]) {
-		this.setField("actions", value);
-	}
+	set actions(value: NotificationAction[]) { this.setField("actions", value); }
 
-	get seenByUser(): boolean {
-		return this.getField("seenByUser");
-	}
+	get seenByUser(): boolean { return this.getField("seenByUser"); }
 
-	set seenByUser(value: boolean) {
-		this.setField("seenByUser", value);
-	}
+	set seenByUser(value: boolean) { this.setField("seenByUser", value); }
 
 	public static onNewNotification(note: any) {
 		Notification.Callbacks.forEach((callback: any) => callback(note));

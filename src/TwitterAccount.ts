@@ -3,51 +3,34 @@
  */
 
 import { API } from "./API";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 import { User } from "./User";
 
-export class TwitterAccount extends RESTModel {
+interface TwitterAccountI extends Document {
+	userId: string;
+	accountId: string;
+	accessToken: string;
+	tokenSecret: string;
+	profile: any;
+}
+
+export class TwitterAccount extends RESTModel<TwitterAccountI> {
 	public static ModelName: string = "TwitterAccount";
 
-	get userId(): string {
-		return this.getField("userId");
-	}
+	get userId(): string { return this.getField("userId"); }
+	set userId(value: string) { this.setField("userId", value); }
 
-	set userId(value: string) {
-		this.setField("userId", value);
-	}
+	get accessToken(): string { return this.getField("accessToken"); }
+	set accessToken(value: string) { this.setField("accessToken", value); }
 
-	get accessToken(): string {
-		return this.getField("accessToken");
-	}
+	get tokenSecret(): string { return this.getField("tokenSecret"); }
+	set tokenSecret(value: string) { this.setField("tokenSecret", value); }
 
-	set accessToken(value: string) {
-		this.setField("accessToken", value);
-	}
+	get profile(): any { return this.getField("profile"); }
+	set profile(value: any) { this.setField("profile", value); }
 
-	get tokenSecret(): string {
-		return this.getField("tokenSecret");
-	}
-
-	set tokenSecret(value: string) {
-		this.setField("tokenSecret", value);
-	}
-
-	get profile(): any {
-		return this.getField("profile");
-	}
-
-	set profile(value: any) {
-		this.setField("profile", value);
-	}
-
-	get accountId(): string {
-		return this.getField("accountId");
-	}
-
-	set accountId(value: string) {
-		this.setField("accountId", value);
-	}
+	get accountId(): string { return this.getField("accountId"); }
+	set accountId(value: string) { this.setField("accountId", value); }
 
 	public static findOne(criteria: object | null): Promise<TwitterAccount | null> {
 		return RESTModel.findOneBase(TwitterAccount, criteria, true) as

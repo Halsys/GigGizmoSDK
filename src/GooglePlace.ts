@@ -3,34 +3,24 @@
  */
 
 import { API } from "./API";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 
-export class GooglePlace extends RESTModel {
+interface GooglePlaceI extends Document {
+	placeId: string;
+	details: any;
+}
+
+export class GooglePlace extends RESTModel<GooglePlaceI> {
 	public static ModelName: string = "GooglePlace";
 
-	get placeId(): string {
-		return this.getField("placeId") || this.getField("place_id");
-	}
+	get placeId(): string { return this.getField("placeId") || this.getField("place_id"); }
+	set placeId(value: string) { this.setField("placeId", value); }
 
-	set placeId(value: string) {
-		this.setField("placeId", value);
-	}
+	get details(): string { return this.getField("details"); }
+	set details(value: string) { this.setField("details", value); }
 
-	get details(): string {
-		return this.getField("details");
-	}
-
-	set details(value: string) {
-		this.setField("details", value);
-	}
-
-	get description(): string {
-		return this.getField("description");
-	}
-
-	set description(value: string) {
-		this.setField("description", value);
-	}
+	get description(): string { return this.getField("description"); }
+	set description(value: string) { this.setField("description", value); }
 
 	public static findById(id: string): Promise<GooglePlace | null> {
 		return RESTModel.findByIdBase(GooglePlace, id) as

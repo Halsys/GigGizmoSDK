@@ -3,7 +3,7 @@
  */
 
 import { API } from "./API";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 
 export interface ConversationEvent {
 	dateTimePosted: Date;
@@ -14,26 +14,21 @@ export interface ConversationEvent {
 export type ConversationCallback = (c: Conversation | null) => void;
 export type ConversationCallbackDestroyer = () => void;
 
-export class Conversation extends RESTModel {
+interface ConversationDocument extends Document {
+	events: ConversationEvent[];
+	users: string[];
+}
+
+export class Conversation extends RESTModel<ConversationDocument> {
 	public static ModelName: string = "Conversation";
 	public static Callbacks:
 		Map<number, ConversationCallback> = new Map();
 
-	get events(): ConversationEvent[] {
-		return this.getField("events") || [];
-	}
+	get events(): ConversationEvent[] { return this.getField("events"); }
+	set events(value: ConversationEvent[]) { this.setField("events", value); }
 
-	set events(value: ConversationEvent[]) {
-		this.setField("events", value);
-	}
-
-	get users(): string[] {
-		return this.getField("users") || [];
-	}
-
-	set users(value: string[]) {
-		this.setField("users", value);
-	}
+	get users(): string[] { return this.getField("users"); }
+	set users(value: string[]) { this.setField("users", value); }
 
 	public static newCallback(callback: ConversationCallback):
 		ConversationCallbackDestroyer {

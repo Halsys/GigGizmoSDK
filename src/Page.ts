@@ -3,93 +3,62 @@
  */
 
 import { API } from "./API";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 
-export class Page extends RESTModel {
+interface PageI extends Document {
+	admin: string;
+	metadata: string;
+	data: string;
+	title: string;
+	link: string;
+	visits: number;
+	revisions: number;
+	hide: boolean;
+	blog: boolean;
+	doc: boolean;
+}
+
+export class Page extends RESTModel<PageI> {
 	public static ModelName: string = "Page";
 
-	get data(): string {
-		return this.getField("data");
-	}
+	get data(): string { return this.getField("data"); }
+	set data(value: string) { this.setField("data", value); }
 
-	set data(value: string) {
-		this.setField("data", value);
-	}
+	get metadata(): string { return this.getField("metadata"); }
+	set metadata(value: string) { this.setField("metadata", value); }
 
-	get metadata(): string {
-		return this.getField("metadata");
-	}
+	get title(): string { return this.getField("title"); }
+	set title(value: string) { this.setField("title", value); }
 
-	set metadata(value: string) {
-		this.setField("metadata", value);
-	}
+	get link(): string { return this.getField("link"); }
+	set link(value: string) { this.setField("link", value); }
 
-	get title(): string {
-		return this.getField("title");
-	}
+	get visits(): number { return this.getField("visits") || 0; }
+	set visits(value: number) { this.setField("visits", value); }
 
-	set title(value: string) {
-		this.setField("title", value);
-	}
-
-	get link(): string {
-		return this.getField("link");
-	}
-
-	set link(value: string) {
-		this.setField("link", value);
-	}
-
-	get visits(): number {
-		return this.getField("visits") || 0;
-	}
-
-	set visits(value: number) {
-		this.setField("visits", value);
-	}
-
-	get revisions(): number {
-		return this.getField("revisions") || 0;
-	}
-
-	set revisions(value: number) {
-		this.setField("revisions", value);
-	}
+	get revisions(): number { return this.getField("revisions") || 0; }
+	set revisions(value: number) { this.setField("revisions", value); }
 
 	get hide(): boolean {
 		const value = this.getField("hide");
 		return value === null ? true : Boolean(value);
 	}
-
-	set hide(value: boolean) {
-		this.setField("hide", value);
-	}
+	set hide(value: boolean) { this.setField("hide", value); }
 
 	get blog(): boolean {
 		const value = this.getField("blog");
 		return Boolean(value);
 	}
-
-	set blog(value: boolean) {
-		this.setField("blog", value);
-	}
+	set blog(value: boolean) { this.setField("blog", value); }
 
 	get doc(): boolean {
 		const value = this.getField("doc");
 		return Boolean(value);
 	}
+	set doc(value: boolean) { this.setField("doc", value); }
 
-	set doc(value: boolean) {
-		this.setField("doc", value);
-	}
-
-	get admin(): string {
-		return this.getField("admin");
-	}
-
-	set admin(value: string) {
-		this.setField("admin", value);
-	}
+	get admin(): string { return this.getField("admin"); }
+	set admin(value: string) { this.setField("admin", value); }
 
 	public static findMany(criteria: any, skip?: number, limit?: number):
 		Promise<Page[]> {

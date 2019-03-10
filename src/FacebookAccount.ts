@@ -3,47 +3,34 @@
  */
 
 import { API } from "./API";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 import { User } from "./User";
 
-export class FacebookAccount extends RESTModel {
+interface FacebookAccountI extends Document {
+	accountId: string;
+	pageToken: string;
+	profile: any;
+	userAccessToken: string;
+	userRefreshToken: string;
+	userId: string;
+}
+
+export class FacebookAccount extends RESTModel<FacebookAccountI> {
 	public static ModelName: string = "FacebookAccount";
 
-	get userId(): string {
-		return this.getField("userId");
-	}
+	get userId(): string { return this.getField("userId"); }
+	set userId(value: string) { this.setField("userId", value); }
 
-	set userId(value: string) {
-		this.setField("userId", value);
-	}
+	get accountId(): string { return this.getField("accountId"); }
+	set accountId(value: string) { this.setField("accountId", value); }
 
-	get accountId(): string {
-		return this.getField("accountId");
-	}
+	get userAccessToken(): string { return this.getField("userAccessToken"); }
+	set userAccessToken(value: string) { this.setField("userAccessToken", value); }
 
-	set accountId(value: string) {
-		this.setField("accountId", value);
-	}
+	get userRefreshToken(): string { return this.getField("userRefreshToken"); }
+	set userRefreshToken(value: string) { this.setField("userRefreshToken", value); }
 
-	get userAccessToken(): string {
-		return this.getField("userAccessToken");
-	}
-
-	set userAccessToken(value: string) {
-		this.setField("userAccessToken", value);
-	}
-
-	get userRefreshToken(): string {
-		return this.getField("userRefreshToken");
-	}
-
-	set userRefreshToken(value: string) {
-		this.setField("userRefreshToken", value);
-	}
-
-	get profile(): any {
-		return this.getField("profile");
-	}
+	get profile(): any { return this.getField("profile"); }
 
 	public static findOne(criteria: object | null): Promise<FacebookAccount | null> {
 		return RESTModel.findOneBase(FacebookAccount, criteria, true) as

@@ -5,141 +5,85 @@
 import { FacebookAccount } from "./FacebookAccount";
 import { Gig } from "./Gig";
 import { Location } from "./Location";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 import { TwitterAccount } from "./TwitterAccount";
 import { Upload } from "./Upload";
 import { User } from "./User";
 
-export class Venue extends RESTModel {
+interface VenueI extends Document {
+	owners: string[];
+	name: string;
+	description: string;
+	website: string;
+	phone: string;
+	email: string;
+	location: string;
+	openCloseTimes: Array<{
+		open: boolean;
+		openingTime: string;
+		closingTime: string;
+	}>;
+	icon: string | null;
+	photos: string[];
+	facebook: string | null;
+	twitter: string | null;
+	google: string | null;
+	metadata: string;
+	facebookPageId: string;
+	facebookPageName: string;
+	facebookPageToken: string;
+}
+
+export class Venue extends RESTModel<VenueI> {
 	public static ModelName: string = "Venue";
 
-	get name(): string {
-		return this.getField("name");
-	}
+	get name(): string { return this.getField("name"); }
+	set name(value: string) { this.setField("name", value); }
 
-	set name(value: string) {
-		this.setField("name", value);
-	}
+	get description(): string { return this.getField("description"); }
+	set description(value: string) { this.setField("description", value); }
 
-	get description(): string {
-		return this.getField("description");
-	}
+	get email(): string  { return this.getField("email"); }
+	set email(value: string) { this.setField("email", value); }
 
-	set description(value: string) {
-		this.setField("description", value);
-	}
+	get website(): string { return this.getField("website"); }
+	set website(value: string) { this.setField("website", value); }
 
-	get email(): string  {
-		return this.getField("email");
-	}
+	get phone(): string { return this.getField("phone"); }
+	set phone(value: string) { this.setField("phone", value); }
 
-	set email(value: string) {
-		this.setField("email", value);
-	}
+	get location(): string | null { return this.getField("location"); }
+	set location(value: string | null) { this.setField("location", value); }
 
-	get website(): string {
-		return this.getField("website");
-	}
+	get openCloseTimes(): string { return this.getField("openCloseTimes"); }
+	set openCloseTimes(value: string) { this.setField("openCloseTimes", value); }
 
-	set website(value: string) {
-		this.setField("website", value);
-	}
+	get icon(): string | null { return this.getField("icon"); }
+	set icon(value: string | null) { this.setField("icon", value); }
 
-	get phone(): string {
-		return this.getField("phone");
-	}
+	get photos(): string[] { return this.getField("photos"); }
+	set photos(value: string[]) { this.setField("photos", value); }
 
-	set phone(value: string) {
-		this.setField("phone", value);
-	}
+	get owners(): string[] { return this.getField("owners"); }
+	set owners(value: string[]) { this.setField("owners", value); }
 
-	get location(): string | null {
-		return this.getField("location");
-	}
+	get facebook(): string | null { return this.getField("facebook"); }
+	set facebook(value: string | null) { this.setField("facebook", value); }
 
-	set location(value: string | null) {
-		this.setField("location", value);
-	}
+	get facebookPageId(): string | null { return this.getField("facebookPageId"); }
+	set facebookPageId(value: string | null) { this.setField("facebookPageId", value); }
 
-	get openCloseTimes(): string {
-		return this.getField("openCloseTimes");
-	}
+	get facebookPageName(): string | null { return this.getField("facebookPageName"); }
+	set facebookPageName(value: string | null) { this.setField("facebookPageName", value); }
 
-	set openCloseTimes(value: string) {
-		this.setField("openCloseTimes", value);
-	}
+	get facebookPageToken(): string | null { return this.getField("facebookPageToken"); }
+	set facebookPageToken(value: string | null) { this.setField("facebookPageToken", value); }
 
-	get icon(): string | null {
-		return this.getField("icon");
-	}
+	get twitter(): string | null { return this.getField("twitter"); }
+	set twitter(value: string | null) { this.setField("twitter", value); }
 
-	set icon(value: string | null) {
-		this.setField("icon", value);
-	}
-
-	get photos(): string[] {
-		return this.getField("photos");
-	}
-
-	set photos(value: string[]) {
-		this.setField("photos", value);
-	}
-
-	get owners(): string[] {
-		return this.getField("owners");
-	}
-
-	set owners(value: string[]) {
-		this.setField("owners", value);
-	}
-
-	get facebook(): string | null {
-		return this.getField("facebook");
-	}
-
-	set facebook(value: string | null) {
-		this.setField("facebook", value);
-	}
-
-	get facebookPageId(): string | null {
-		return this.getField("facebookPageId");
-	}
-
-	set facebookPageId(value: string | null) {
-		this.setField("facebookPageId", value);
-	}
-
-	get facebookPageName(): string | null {
-		return this.getField("facebookPageName");
-	}
-
-	set facebookPageName(value: string | null) {
-		this.setField("facebookPageName", value);
-	}
-
-	get facebookPageToken(): string | null {
-		return this.getField("facebookPageToken");
-	}
-
-	set facebookPageToken(value: string | null) {
-		this.setField("facebookPageToken", value);
-	}
-
-	get twitter(): string | null {
-		return this.getField("twitter");
-	}
-
-	set twitter(value: string | null) {
-		this.setField("twitter", value);
-	}
-
-	get google(): string | null {
-		return this.getField("google");
-	}
-
-	set google(value: string | null) {
-		this.setField("google", value);
-	}
+	get google(): string | null { return this.getField("google"); }
+	set google(value: string | null) { this.setField("google", value); }
 
 	public static findOne(criteria: object | null): Promise<Venue | null> {
 		return RESTModel.findOneBase(Venue, criteria, true) as

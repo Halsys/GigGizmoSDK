@@ -11,7 +11,7 @@ import { Location } from "./Location";
 import { Notification } from "./Notification";
 import { Page } from "./Page";
 import { Post } from "./Post";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 import { TwitterAccount } from "./TwitterAccount";
 import { Upload } from "./Upload";
 import { Venue } from "./Venue";
@@ -19,7 +19,46 @@ import { Venue } from "./Venue";
 export type UserCallback = (user: User | null) => void;
 export type UserCallbackDestroyer = () => void;
 
-export class User extends RESTModel {
+interface UserI extends Document {
+	icon: string | null;
+	firstName: string;
+	middleName: string;
+	lastName: string;
+	birthday: Date;
+	country: string;
+	bandManager: boolean;
+	venueManager: boolean;
+	password?: string;
+	confirmPassword?: string;
+	betaFeatureUser: boolean;
+	sendAnonymousReports: boolean;
+	sendErrorReports: boolean;
+	sendEmails: boolean;
+	sendPromotions: boolean;
+	useCookies: boolean;
+	description: string;
+	active: boolean;
+	paypal: string | null;
+	facebook: string | null;
+	twitter: string | null;
+	emailVerified: boolean;
+	canContact: boolean;
+	canFind: boolean;
+	payment: string | null;
+	verificationSecret: string | null;
+	admin: boolean;
+	attempts: number;
+	lastLogin: Date;
+	lastLoginIP: string;
+	options: any;
+	connections: string[];
+	blocked: string[];
+	email: string;
+	hash: string;
+	salt: string;
+}
+
+export class User extends RESTModel<UserI> {
 	public static ModelName: string = "User";
 	public static Current: User | null = null;
 	public static Callbacks: Map<number, UserCallback> = new Map();
@@ -28,262 +67,108 @@ export class User extends RESTModel {
 	public static EmailRegex: RegExp = // tslint:disable-next-line
 		/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-	get password(): string | null {
-		return this.getField("password");
-	}
+	get password(): string | null { return this.getField("password"); }
+	set password(value: string | null) { this.setField("password", value); }
 
-	set password(value: string | null) {
-		this.setField("password", value);
-	}
+	get confirmPassword(): string | null { return this.getField("confirmPassword"); }
+	set confirmPassword(value: string | null) { this.setField("confirmPassword", value); }
 
-	get confirmPassword(): string | null {
-		return this.getField("confirmPassword");
-	}
+	get icon(): string | null { return this.getField("icon"); }
+	set icon(value: string | null) { this.setField("icon", value); }
 
-	set confirmPassword(value: string | null) {
-		this.setField("confirmPassword", value);
-	}
+	set active(value: boolean) { this.setField("active", value); }
+	get active(): boolean { return this.getField("active"); }
 
-	get icon(): string | null {
-		return this.getField("icon");
-	}
+	set admin(value: boolean) { this.setField("admin", value); }
+	get admin(): boolean { return this.getField("admin") === true; }
 
-	set icon(value: string | null) {
-		this.setField("icon", value);
-	}
+	get firstName(): string { return this.getField("firstName"); }
+	set firstName(value: string) { this.setField("firstName", value); }
 
-	set active(value: boolean) {
-		this.setField("active", value);
-	}
+	get middleName(): string { return this.getField("middleName"); }
+	set middleName(value: string) { this.setField("middleName", value); }
 
-	get active(): boolean {
-		return this.getField("active");
-	}
+	get lastName(): string { return this.getField("lastName"); }
+	set lastName(value: string) { this.setField("lastName", value); }
 
-	set admin(value: boolean) {
-		this.setField("admin", value);
-	}
+	get birthday(): Date { return new Date(this.getField("birthday")); }
 
-	get admin(): boolean {
-		return this.getField("admin") === true;
-	}
+	set birthday(value: Date) { this.setField("birthday", (value || new Date()).toJSON()); }
+	get country(): string { return this.getField("country"); }
 
-	get firstName(): string {
-		return this.getField("firstName");
-	}
+	set country(value: string) { this.setField("country", value); }
+	get bandManager(): boolean { return this.getField("bandManager") === true; }
 
-	set firstName(value: string) {
-		this.setField("firstName", value);
-	}
+	set bandManager(value: boolean) { this.setField("bandManager", value); }
 
-	get middleName(): string {
-		return this.getField("middleName");
-	}
+	get venueManager(): boolean { return this.getField("venueManager") === true; }
+	set venueManager(value: boolean) { this.setField("venueManager", value); }
 
-	set middleName(value: string) {
-		this.setField("middleName", value);
-	}
+	get betaFeatureUser(): boolean { return this.getField("betaFeatureUser") === true; }
+	set betaFeatureUser(value: boolean) { this.setField("betaFeatureUser", value); }
 
-	get lastName(): string {
-		return this.getField("lastName");
-	}
+	get sendAnonymousReports(): boolean { return this.getField("sendAnonymousReports") === true; }
+	set sendAnonymousReports(value: boolean) { this.setField("sendAnonymousReports", value); }
 
-	set lastName(value: string) {
-		this.setField("lastName", value);
-	}
+	get sendErrorReports(): boolean { return this.getField("sendErrorReports") === true; }
 
-	get birthday(): Date {
-		return new Date(this.getField("birthday"));
-	}
+	set sendErrorReports(value: boolean) { this.setField("sendErrorReports", value); }
 
-	set birthday(value: Date) {
-		this.setField("birthday", (value || new Date()).toJSON());
-	}
+	get sendEmails(): boolean { return this.getField("sendEmails") === true; }
+	set sendEmails(value: boolean) { this.setField("sendEmails", value); }
 
-	get country(): string {
-		return this.getField("country");
-	}
+	get sendPromotions(): boolean { return this.getField("sendPromotions") === true; }
+	set sendPromotions(value: boolean) { this.setField("sendPromotions", value); }
 
-	set country(value: string) {
-		this.setField("country", value);
-	}
-
-	get bandManager(): boolean {
-		return this.getField("bandManager") === true;
-	}
-
-	set bandManager(value: boolean) {
-		this.setField("bandManager", value);
-	}
-
-	get venueManager(): boolean {
-		return this.getField("venueManager") === true;
-	}
-
-	set venueManager(value: boolean) {
-		this.setField("venueManager", value);
-	}
-
-	get betaFeatureUser(): boolean {
-		return this.getField("betaFeatureUser") === true;
-	}
-
-	set betaFeatureUser(value: boolean) {
-		this.setField("betaFeatureUser", value);
-	}
-
-	get sendAnonymousReports(): boolean {
-		return this.getField("sendAnonymousReports") === true;
-	}
-
-	set sendAnonymousReports(value: boolean) {
-		this.setField("sendAnonymousReports", value);
-	}
-
-	get sendErrorReports(): boolean {
-		return this.getField("sendErrorReports") === true;
-	}
-
-	set sendErrorReports(value: boolean) {
-		this.setField("sendErrorReports", value);
-	}
-
-	get sendEmails(): boolean {
-		return this.getField("sendEmails") === true;
-	}
-
-	set sendEmails(value: boolean) {
-		this.setField("sendEmails", value);
-	}
-
-	get sendPromotions(): boolean {
-		return this.getField("sendPromotions") === true;
-	}
-
-	set sendPromotions(value: boolean) {
-		this.setField("sendPromotions", value);
-	}
-
-	get useCookies(): boolean {
-		return this.getField("useCookies") === true;
-	}
-
-	set useCookies(value: boolean) {
-		this.setField("useCookies", value);
-	}
+	get useCookies(): boolean { return this.getField("useCookies") === true; }
+	set useCookies(value: boolean) { this.setField("useCookies", value); }
 
 	get fullName(): string {
 		return `${this.firstName || ""} ${this.middleName || ""} ${this.lastName ||
 			""}`;
 	}
 
-	get email(): string {
-		return this.getField("email");
-	}
+	get email(): string { return this.getField("email"); }
+	set email(value: string) { this.setField("email", value); }
 
-	set email(value: string) {
-		this.setField("email", value);
-	}
+	get salt(): string { return this.getField("salt"); }
 
-	get salt(): string {
-		return this.getField("salt");
-	}
+	get hash(): string { return this.getField("hash"); }
 
-	get hash(): string {
-		return this.getField("hash");
-	}
+	get facebook(): string | null { return this.getField("facebook"); }
+	set facebook(value: string | null) { this.setField("facebook", value); }
 
-	get facebook(): string | null {
-		return this.getField("facebook");
-	}
+	get twitter(): string | null { return this.getField("twitter"); }
+	set twitter(value: string | null) { this.setField("twitter", value); }
 
-	set facebook(value: string | null) {
-		this.setField("facebook", value);
-	}
+	get description(): string { return this.getField("description"); }
+	set description(value: string) { this.setField("description", value); }
 
-	get twitter(): string | null {
-		return this.getField("twitter");
-	}
+	get emailVerified(): boolean { return this.getField("emailVerified"); }
+	set emailVerified(value: boolean) { this.setField("emailVerified", value); }
 
-	set twitter(value: string | null) {
-		this.setField("twitter", value);
-	}
+	get attempts(): number { return this.getField("attempts"); }
 
-	get description(): string {
-		return this.getField("description");
-	}
+	get lastLoginIP(): string { return this.getField("lastLoginIP"); }
+	set lastLoginIP(value: string) { this.setField("lastLoginIP", value); }
 
-	set description(value: string) {
-		this.setField("description", value);
-	}
+	get lastLogin(): Date { return new Date(this.getField("lastLogin")); }
+	set lastLogin(value: Date) { this.setField("lastLogin", (value || new Date()).toJSON()); }
 
-	get emailVerified(): boolean {
-		return this.getField("emailVerified");
-	}
+	get canContact(): boolean { return this.getField("canContact") === true; }
+	set canContact(value: boolean) { this.setField("canContact", value); }
 
-	set emailVerified(value: boolean) {
-		this.setField("emailVerified", value);
-	}
+	get canFind(): boolean { return this.getField("canFind") === true; }
+	set canFind(value: boolean) { this.setField("canFind", value); }
 
-	get attempts(): number {
-		return this.getField("attempts");
-	}
+	get options(): any { return this.getField("options"); }
+	set options(value: any) { this.setField("options", value); }
 
-	get lastLoginIP(): string {
-		return this.getField("lastLoginIP");
-	}
+	get connections(): string[] { return this.getField("connections"); }
+	set connections(value: string[]) { this.setField("connections", value); }
 
-	set lastLoginIP(value: string) {
-		this.setField("lastLoginIP", value);
-	}
-
-	get lastLogin(): Date {
-		return new Date(this.getField<string>("lastLogin"));
-	}
-
-	set lastLogin(value: Date) {
-		this.setField("lastLogin", (value || new Date()).toJSON());
-	}
-
-	get canContact(): boolean {
-		return this.getField("canContact") === true;
-	}
-
-	set canContact(value: boolean) {
-		this.setField("canContact", value);
-	}
-
-	get canFind(): boolean {
-		return this.getField("canFind") === true;
-	}
-
-	set canFind(value: boolean) {
-		this.setField("canFind", value);
-	}
-
-	get options(): any {
-		return this.getField("options");
-	}
-
-	set options(value: any) {
-		this.setField("options", value);
-	}
-
-	get connections(): string[] {
-		return this.getField("connections");
-	}
-
-	set connections(value: string[]) {
-		this.setField("connections", value);
-	}
-
-	get blocked(): string[] {
-		return this.getField("blocked");
-	}
-
-	set blocked(value: string[]) {
-		this.setField("blocked", value);
-	}
+	get blocked(): string[] { return this.getField("blocked"); }
+	set blocked(value: string[]) { this.setField("blocked", value); }
 
 	public static verifyEmail(id: string, secret: string): Promise<any> {
 		return API.call("GET", "/API/User/Verify", {

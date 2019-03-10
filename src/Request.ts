@@ -3,66 +3,41 @@
  */
 
 import { API } from "./API";
-import { RESTModel } from "./RESTModel";
+import { Document, RESTModel } from "./RESTModel";
 
-export class Request extends RESTModel {
+interface RequestI extends Document {
+	to: string;
+	from: string;
+	emailSent: boolean;
+	status: string;
+	options: string[];
+	type: string;
+	userData: any;
+}
+
+export class Request extends RESTModel<RequestI> {
 	public static ModelName: string = "Request";
 
-	get to(): string {
-		return this.getField("to");
-	}
+	get to(): string { return this.getField("to"); }
+	set to(value: string) { this.setField("to", value); }
 
-	set to(value: string) {
-		this.setField("to", value);
-	}
+	get from(): string { return this.getField("from"); }
+	set from(value: string) { this.setField("from", value); }
 
-	get from(): string {
-		return this.getField("from");
-	}
+	get status(): string { return this.getField("status"); }
+	set status(value: string) { this.setField("status", value); }
 
-	set from(value: string) {
-		this.setField("from", value);
-	}
+	get options(): string[] { return this.getField("options"); }
+	set options(value: string[]) { this.setField("options", value); }
 
-	get status(): string {
-		return this.getField("status");
-	}
+	get type(): string { return this.getField("type"); }
+	set type(value: string) { this.setField("type", value); }
 
-	set status(value: string) {
-		this.setField("status", value);
-	}
+	get userData(): any { return this.getField("userData"); }
+	set userData(value: any) { this.setField("userData", value); }
 
-	get options(): string[] {
-		return this.getField("options");
-	}
-
-	set options(value: string[]) {
-		this.setField("options", value);
-	}
-
-	get type(): string {
-		return this.getField("type");
-	}
-
-	set type(value: string) {
-		this.setField("type", value);
-	}
-
-	get userData(): any {
-		return this.getField("userData");
-	}
-
-	set userData(value: any) {
-		this.setField("userData", value);
-	}
-
-	get emailSent(): boolean {
-		return this.getField("emailSent");
-	}
-
-	set emailSent(value: boolean) {
-		this.setField("emailSent", value);
-	}
+	get emailSent(): boolean { return this.getField("emailSent"); }
+	set emailSent(value: boolean) { this.setField("emailSent", value); }
 
 	public static createBandOwnershipRequest(band: string, from: string, to: string) {
 		return new Promise((resolve, reject) => {
