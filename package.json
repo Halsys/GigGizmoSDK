@@ -1,7 +1,7 @@
 {
 	"name": "gig-gizmo-sdk",
 	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-	"version": "0.7.28",
+	"version": "0.8.0",
 	"private": false,
 	"main": "./dist/index.js",
 	"typings": "./typings/index.d.ts",
@@ -13,7 +13,7 @@
 		"fs": "0.0.1-security",
 		"prop-types": "^15.7.2",
 		"socket.io-client": "^2.2.0",
-		"source-map-support": "^0.5.10",
+		"source-map-support": "^0.5.11",
 		"utf-8-validate": "^5.0.2"
 	},
 	"peerDependency": {
@@ -22,7 +22,7 @@
 	},
 	"devDependencies": {
 		"@types/cookie": "^0.3.2",
-		"@types/node": "^10.12.29",
+		"@types/node": "^10.14.1",
 		"@types/prop-types": "^15.7.0",
 		"@types/socket.io-client": "^1.4.32",
 		"chai": "^3.5.0",
@@ -30,11 +30,11 @@
 		"mocha": "^5.2.0",
 		"source-map-loader": "^0.2.4",
 		"ts-loader": "^4.5.0",
-		"tslint": "^5.13.1",
+		"tslint": "^5.14.0",
 		"tslint-loader": "^3.6.0",
 		"typescript": "^3.3.3333",
 		"webpack": "^4.29.6",
-		"webpack-cli": "^3.2.3"
+		"webpack-cli": "^3.3.0"
 	},
 	"scripts": {
 		"pretest": "webpack --debug",
