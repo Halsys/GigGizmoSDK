@@ -2,6 +2,7 @@
  * Created by corynull on Jan 8 2018 8:58:54 PM.
  */
 
+import { keys } from "ts-transformer-keys";
 import { DocumentI, ModelClass } from "./Model";
 
 interface ErrorReportI extends DocumentI {
@@ -33,6 +34,10 @@ export class ErrorReport extends ModelClass<ErrorReportI> {
 		Promise<ErrorReport[]> {
 		return ModelClass.findManyBase(ErrorReport, criteria) as
 			Promise<ErrorReport[]>;
+	}
+
+	public constructor(props: ErrorReportI) {
+		super(keys<ErrorReportI>(), props);
 	}
 
 	public isValid(): boolean {

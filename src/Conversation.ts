@@ -2,6 +2,7 @@
  * Created by corynull on Dec 30 2017 11:14:11 AM.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { DocumentI, ModelClass } from "./Model";
 
@@ -14,12 +15,12 @@ export interface ConversationEvent {
 export type ConversationCallback = (c: Conversation | null) => void;
 export type ConversationCallbackDestroyer = () => void;
 
-interface ConversationDocument extends DocumentI {
+interface ConversationI extends DocumentI {
 	events: ConversationEvent[];
 	users: string[];
 }
 
-export class Conversation extends ModelClass<ConversationDocument> {
+export class Conversation extends ModelClass<ConversationI> {
 	public static ModelName: string = "Conversation";
 	public static Callbacks:
 		Map<number, ConversationCallback> = new Map();
@@ -71,6 +72,10 @@ export class Conversation extends ModelClass<ConversationDocument> {
 	public static getAllOwned(): Promise<Conversation[]> {
 		return ModelClass.findManyBase(Conversation, null) as
 			Promise<Conversation[]>;
+	}
+
+	public constructor(props: ConversationI) {
+		super(keys<ConversationI>(), props);
 	}
 
 	public isValid(): boolean {

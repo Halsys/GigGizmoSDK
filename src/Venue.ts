@@ -2,6 +2,7 @@
  * Created by corynull on 4/5/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { FacebookAccount } from "./FacebookAccount";
 import { Gig } from "./Gig";
 import { Location } from "./Location";
@@ -55,6 +56,10 @@ export class Venue extends ModelClass<VenueI> {
 	public static getAllOwned(): Promise<Venue[]> {
 		return ModelClass.findManyBase(Venue, null) as
 			Promise<Venue[]>;
+	}
+
+	public constructor(props: VenueI) {
+		super(keys<VenueI>(), props);
 	}
 
 	public getIcon(): Promise<Upload | null> {

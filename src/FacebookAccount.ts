@@ -2,6 +2,7 @@
  * Created by corynull on Nov 30 2017 9:08 AM.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { DocumentI, ModelClass } from "./Model";
 import { User } from "./User";
@@ -75,6 +76,10 @@ export class FacebookAccount extends ModelClass<FacebookAccountI> {
 				publish_time: postDateTime // .getTime() / 1000
 			}).then(resolve, reject);
 		});
+	}
+
+	public constructor(props: FacebookAccountI) {
+		super(keys<FacebookAccountI>(), props);
 	}
 
 	public getUser(): Promise<User | null> {

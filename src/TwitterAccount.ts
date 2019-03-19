@@ -2,6 +2,7 @@
  * Created by corynull on 5/17/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { DocumentI, ModelClass } from "./Model";
 import { User } from "./User";
@@ -45,6 +46,10 @@ export class TwitterAccount extends ModelClass<TwitterAccountI> {
 				resolve();
 			}
 		});
+	}
+
+	public constructor(props: TwitterAccountI) {
+		super(keys<TwitterAccountI>(), props);
 	}
 
 	public getUser(): Promise<User | null> {

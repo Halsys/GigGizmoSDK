@@ -2,6 +2,7 @@
  * Created by corynull on 4/3/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { FacebookAccount } from "./FacebookAccount";
 import { Gig } from "./Gig";
 import { DocumentI, ModelClass } from "./Model";
@@ -51,6 +52,10 @@ export class Band extends ModelClass<BandI> {
 			Promise<Band[]>;
 	}
 
+	public constructor(props: BandI) {
+		super(keys<BandI>(), props);
+	}
+
 	public getIcon(): Promise<Upload | null> {
 		if (this.icon) {
 			return ModelClass.findByIdBase(Upload, this.icon) as
@@ -95,25 +100,42 @@ export class Band extends ModelClass<BandI> {
 			Promise<FacebookAccount | null>;
 	}
 
-	public isValid(): boolean {
-		const self = this;
-		if (!super.isValid()) { return false; }
+	public anyErrors(): Error | null {
+		const error = super.anyErrors();
+		if (error) { return error; }
 
-		if (typeof this.cityPlaceID !== "string") { return false; }
-		if (this.cityPlaceID === "") { return false; }
+		if (typeof this.cityPlaceID !== "string") {
+			return new Error(`cityPlaceID is not a string, it's ${typeof this.cityPlaceID} instead`);
+		}
+		if (this.cityPlaceID === "") {
+			return new Error("cityPlaceID is empty");
+		}
 
-		if (typeof this.name !== "string") { return false; }
-		if (this.name === "") { return false; }
+		if (typeof this.name !== "string") {
+			return new Error("name is not a string");
+		}
+		if (this.name === "") {
+			return new Error("name is empty");
+		}
 
-		if (typeof this.description !== "string") { return false; }
-		if (this.description === "") { return false; }
-		if (this.description === "<p><br></p>") { return false; }
+		if (typeof this.description !== "string") {
+			return new Error("description is not a string");
+		}
+		if (this.description === "") {
+			return new Error("description is empty");
+		}
+		if (this.description === "<p><br></p>") {
+			return new Error("description is practically empty");
+		}
 
-		if (!Array.isArray(this.owners)) { return false; }
-		if (this.owners.length === 0) { return false; }
-		if (!this.owners.every((owner: string) => self.userIsOwner(owner))) { return false; }
+		if (!Array.isArray(this.owners)) {
+			return new Error("owners is not an array");
+		}
+		if (this.owners.length === 0) {
+			return new Error("owners does not contain a single id");
+		}
 
-		return true;
+		return null;
 	}
 
 	public userIsOwner(user: any) {

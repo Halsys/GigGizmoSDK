@@ -2,6 +2,7 @@
  * Created by corynull on 8/15/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { DocumentI, ModelClass } from "./Model";
 
@@ -93,6 +94,10 @@ export class Notification extends ModelClass<NotificationI> {
 				webNotification.requestPermission(setup);
 			}
 		}
+	}
+
+	public constructor(props: NotificationI) {
+		super(keys<NotificationI>(), props);
 	}
 
 	public newChangeCallback(callback: any): NotificationCallbackDestroyer {

@@ -2,6 +2,7 @@
  * Created by corynull on 8/1/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { DocumentI, ModelClass } from "./Model";
 
@@ -46,6 +47,10 @@ export class Page extends ModelClass<PageI> {
 				},
 				reject);
 		});
+	}
+
+	public constructor(props: PageI) {
+		super(keys<PageI>(), props);
 	}
 
 	public isValid(): boolean {

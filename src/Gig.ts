@@ -2,6 +2,7 @@
  * Created by corynull on 4/5/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { Band } from "./Band";
 import { Location } from "./Location";
@@ -155,6 +156,10 @@ export class Gig extends ModelClass<GigI> {
 				}),
 				reject);
 		});
+	}
+
+	public constructor(props: GigI) {
+		super(keys<GigI>(), props);
 	}
 
 	public getBands(): Promise<Band[]> {

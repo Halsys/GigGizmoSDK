@@ -2,6 +2,7 @@
  * Created by corynull on 9/7/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { GooglePlace } from "./GooglePlace";
 import { DocumentI, ModelClass } from "./Model";
@@ -50,6 +51,10 @@ export class Location extends ModelClass<LocationI> {
 	public static findMany(criteria: any): Promise<Location[]> {
 		return ModelClass.findManyBase(Location, criteria) as
 			Promise<Location[]>;
+	}
+
+	public constructor(props: LocationI) {
+		super(keys<LocationI>(), props);
 	}
 
 	public isValid(): boolean {

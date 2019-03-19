@@ -1,4 +1,3 @@
-import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { ModelNameToModel } from "./ModelNameToModel";
 
@@ -27,6 +26,7 @@ export class ModelClass<D extends DocumentI> {
 		}
 	}
 	public changes: D;
+	public readonly document: D;
 	private expiration: number = (
 		(new Date())
 		.getTime() +
@@ -94,7 +94,7 @@ export class ModelClass<D extends DocumentI> {
 
 	public static getModelName(Model: any): string {
 		if (Model && Model.ModelName) { return Model.ModelName; }
-		if (Model.constructor && ((Model.constructor as any).ModelName)) {
+		if (Model && Model.constructor && ((Model.constructor as any).ModelName)) {
 			return (Model.constructor as any).ModelName;
 		}
 		return "";
@@ -220,27 +220,27 @@ export class ModelClass<D extends DocumentI> {
 		return [];
 	}
 
-	public constructor(props?: D) {
+	public constructor(propNames: Array<string | symbol | number>, props?: D) {
 		const self = this;
 		this.changes = new Object() as D;
-		if (props) {
-			const keysOfProps = keys<D>();
-			for (const key in keysOfProps) {
-				if (key in keysOfProps) {
-					Object.defineProperty(document, key, {
-						get: () => {
-							return self.changes[key] || self[key as string];
-						},
-						set: (value: any) => {
-							if (this[key as string] !== value) {
-								this.changes[key] = value;
-								this.changes.dateModified = (new Date()).toISOString();
-							}
-						},
-					});
-				}
-			}
-		}
+		this.document = (props ? props : new Object()) as D;
+		propNames.forEach((key) => {
+			Object.defineProperty(self, key, {
+				get: () => {
+					const value = self.changes[key];
+					if (value !== undefined) { return value; }
+					return self.document[key];
+				},
+				set: (value: any) => {
+					if (self.document[key] !== value) {
+						self.changes[key] = value;
+						self.changes.dateModified = (new Date()).toISOString();
+					}
+				},
+				enumerable: true,
+				configurable: true
+			});
+		});
 	}
 
 	public clearChanges() {
@@ -248,9 +248,8 @@ export class ModelClass<D extends DocumentI> {
 	}
 
 	public toObject(): any {
-		const object = this.isValid() ? { ...this, ...this.changes } : null;
+		const object = this.isValid() ? { ...this.document, ...this.changes } : null;
 		if (typeof object === "object" && object) {
-			if (typeof object.id !== "undefined") { delete object.id; }
 			if (typeof object._id !== "undefined") {
 				object._id = `${object._id}`;
 			}
@@ -264,17 +263,30 @@ export class ModelClass<D extends DocumentI> {
 	}
 
 	public anyErrors(): Error | null {
-		if (this.id &&
-			!ModelClass.isValidId(this.id)) {
-			return new Error(`Invalid id: ${this.id}`);
+		if (typeof this.document._id === "undefined") {
+			return new Error("_id is undefined");
 		}
 
-		if (this.dateModified && isNaN(Date.parse(this.dateModified))) {
-			return new Error(`Invalid dateModified: ${this.dateModified}`);
+		if (this.document._id && !ModelClass.isValidId(this.document._id)) {
+			return new Error(`Invalid id: ${this.document._id}`);
 		}
 
-		if (this.dateCreated && isNaN(Date.parse(this.dateCreated))) {
-			return new Error(`Invalid dateCreated: ${this.dateCreated}`);
+		if (typeof this.document.dateModified === "undefined") {
+			return new Error("dateModified is undefined");
+		}
+
+		if (this.document.dateModified &&
+			isNaN(Date.parse(this.document.dateModified))) {
+			return new Error(`Invalid dateModified: ${this.document.dateModified}`);
+		}
+
+		if (typeof this.document.dateCreated === "undefined") {
+			return new Error("dateCreated is undefined");
+		}
+
+		if (this.document.dateCreated &&
+			isNaN(Date.parse(this.document.dateCreated))) {
+			return new Error(`Invalid dateCreated: ${this.document.dateCreated}`);
 		}
 
 		if (this.changes._id &&

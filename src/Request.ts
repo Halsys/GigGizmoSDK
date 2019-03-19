@@ -2,6 +2,7 @@
  * Created by corynull on Nov 30 2017 5:27 AM.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { DocumentI, ModelClass } from "./Model";
 
@@ -75,6 +76,10 @@ export class Request extends ModelClass<RequestI> {
 
 	public static findById(id: string) {
 		return ModelClass.findByIdBase(Request, id);
+	}
+
+	public constructor(props: RequestI) {
+		super(keys<RequestI>(), props);
 	}
 
 	public async execute(option: string) {

@@ -2,6 +2,7 @@
  * Created by corynull on 4/7/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { DocumentI, ModelClass } from "./Model";
 
@@ -55,5 +56,9 @@ export class GooglePlace extends ModelClass<GooglePlaceI> {
 				type
 			}).then(resolve, reject);
 		});
+	}
+
+	public constructor(props: GooglePlaceI) {
+		super(keys<GooglePlaceI>(), props);
 	}
 }

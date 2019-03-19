@@ -2,6 +2,7 @@
  * Created by corynull on 4/10/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { DocumentI, ModelClass } from "./Model";
 import { User } from "./User";
 
@@ -38,6 +39,10 @@ export class Upload extends ModelClass<UploadI> {
 
 	public static getAllOwned(): Promise<Upload[]> {
 		return ModelClass.findManyBase<Upload>(Upload, null);
+	}
+
+	public constructor(props: UploadI) {
+		super(keys<UploadI>(), props);
 	}
 
 	public getOwners(): Promise<User[]> {

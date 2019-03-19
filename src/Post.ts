@@ -2,6 +2,7 @@
  * Created by corynull on 5/23/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { DocumentI, ModelClass } from "./Model";
 
 interface PostI extends DocumentI {
@@ -19,33 +20,6 @@ interface PostI extends DocumentI {
 export class Post extends ModelClass<PostI> {
 	public static ModelName: string = "Post";
 
-	get userId(): string { return this.getField("userId"); }
-	set userId(value: string) { this.setField("userId", value); }
-
-	get network(): string { return this.getField("network"); }
-	set network(value: string) { this.setField("network", value); }
-
-	get accountId(): string { return this.getField("accountId"); }
-	set accountId(value: string) { this.setField("accountId", value); }
-
-	get pageId(): string { return this.getField("pageId"); }
-	set pageId(value: string) { this.setField("pageId", value); }
-
-	get postText(): string { return this.getField("postText"); }
-	set postText(value: string) { this.setField("postText", value); }
-
-	get postDate(): string { return this.getField("postDate"); }
-	set postDate(value: string) { this.setField("postDate", value); }
-
-	get coordinates(): number[] { return this.getField("coordinates"); }
-	set coordinates(value: number[]) { this.setField("coordinates", value); }
-
-	get error(): string { return this.getField("error"); }
-	set error(value: string) { this.setField("error", value); }
-
-	get done(): boolean { return this.getField("done"); }
-	set done(value: boolean) { this.setField("done", value); }
-
 	public static findById(id: string): Promise<Post | null> {
 		return ModelClass.findByIdBase(Post, id) as Promise<Post | null>;
 	}
@@ -60,6 +34,10 @@ export class Post extends ModelClass<PostI> {
 
 	public static findMany(criteria: object | null): Promise<Post[]> {
 		return ModelClass.findManyBase(Post, criteria) as Promise<Post[]>;
+	}
+
+	public constructor(props: PostI) {
+		super(keys<PostI>(), props);
 	}
 
 	public isValid(): boolean {

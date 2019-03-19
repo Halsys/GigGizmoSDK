@@ -2,6 +2,7 @@
  * Created by corynull on 4/1/17.
  */
 
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { Band } from "./Band";
 import { Conversation } from "./Conversation";
@@ -206,7 +207,7 @@ export class User extends ModelClass<UserI> {
 		};
 	}
 
-	public static async setUser(data: object | null): Promise<User | null> {
+	public static async setUser(data: UserI | null): Promise<User | null> {
 		try {
 			if (typeof data === "object" && data) {
 				User.Current = new User(data);
@@ -435,8 +436,8 @@ export class User extends ModelClass<UserI> {
 		console.error("Not implemented yet.");
 	}
 
-	constructor(dataMaybe?: any) {
-		super(dataMaybe);
+	public constructor(props: UserI) {
+		super(keys<UserI>(), props);
 	}
 
 	public getIcon(): Promise<Upload | null> {
