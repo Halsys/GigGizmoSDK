@@ -1,11 +1,12 @@
 {
 	"name": "gig-gizmo-sdk",
 	"author": "Halsys (Cory Null(Noll) Crimmins - Golden)",
-	"version": "0.8.0",
+	"version": "0.8.2",
 	"private": false,
 	"main": "./dist/index.js",
 	"typings": "./typings/index.d.ts",
 	"dependencies": {
+		"ts-transformer-keys": "^0.3.4",
 		"axios": "^0.18.0",
 		"bufferutil": "^4.0.1",
 		"child_process": "^1.0.2",
@@ -29,7 +30,7 @@
 		"json-loader": "^0.5.7",
 		"mocha": "^5.2.0",
 		"source-map-loader": "^0.2.4",
-		"ts-loader": "^4.5.0",
+		"awesome-typescript-loader": "^5.2.1",
 		"tslint": "^5.14.0",
 		"tslint-loader": "^3.6.0",
 		"typescript": "^3.3.3333",

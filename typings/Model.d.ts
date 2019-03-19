@@ -40,7 +40,7 @@ export class ModelClass<D extends DocumentI> {
 			ModelT extends ModelClass<any>
 			>(ModelMaybe: any, criteria: any):
 				Promise<ModelT[]>;
-		constructor(dataMaybe?: DocumentI);
+		constructor(dataMaybe?: D);
 		protected setField(name: string, value: any): void;
 		protected getField(name: string): any;
 		public clearChanges(): void;

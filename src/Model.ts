@@ -1,3 +1,4 @@
+import { keys } from "ts-transformer-keys";
 import { API } from "./API";
 import { ModelNameToModel } from "./ModelNameToModel";
 
@@ -6,7 +7,6 @@ export interface DocumentI {
 	_id: string;
 	readonly dateCreated: string;
 	dateModified: string;
-	[propName: string]: any;
 }
 
 export class ModelClass<D extends DocumentI> {
@@ -220,16 +220,13 @@ export class ModelClass<D extends DocumentI> {
 		return [];
 	}
 
-	public constructor(props?: DocumentI) {
+	public constructor(props?: D) {
 		const self = this;
 		this.changes = new Object() as D;
 		if (props) {
-			this.ModelName = props.ModelName;
-			this._id = props._id;
-			this.dateCreated = props.dateCreated;
-			this.dateModified = props.dateModified;
-			for (const key in props) {
-				if (key in props) {
+			const keysOfProps = keys<D>();
+			for (const key in keysOfProps) {
+				if (key in keysOfProps) {
 					Object.defineProperty(document, key, {
 						get: () => {
 							return self.changes[key] || self[key as string];
@@ -280,9 +277,9 @@ export class ModelClass<D extends DocumentI> {
 			return new Error(`Invalid dateCreated: ${this.dateCreated}`);
 		}
 
-		if (this.changes.id &&
-			!ModelClass.isValidId(this.changes.id)) {
-			return new Error(`Invalid id: ${this.changes.id}`);
+		if (this.changes._id &&
+			!ModelClass.isValidId(this.changes._id)) {
+			return new Error(`Invalid id: ${this.changes._id}`);
 		}
 
 		if (this.changes.dateModified && isNaN(Date.parse(this.changes.dateModified))) {
@@ -319,7 +316,7 @@ export class ModelClass<D extends DocumentI> {
 		Object.keys(this.changes).forEach((key) => {
 			if (data[key] === this[key]) { delete data[key]; }
 		});
-		data.id = `${this.changes._id || this._id || null}`;
+		data._id = `${this.changes._id || this._id || null}`;
 		if (API.useSocketIO && API.ShouldUseSocketIO) {
 			if (ModelClass.isValidId(id)) {
 				response = await new Promise((resolve, reject) =>
