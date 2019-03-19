@@ -1,8 +1,8 @@
 /**
  * Created by corynull on Jan 8 2018 8:58:54 PM.
  */
-import { RESTModel } from "./RESTModel";
-export class ErrorReport extends RESTModel {
+import { ModelClass } from "./Model";
+export class ErrorReport extends ModelClass<any> {
 		public static ModelName: string;
 		public version: string;
 		public userId: string;

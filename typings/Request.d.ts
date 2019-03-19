@@ -1,9 +1,9 @@
 /**
  * Created by corynull on Nov 30 2017 5:27 AM.
  */
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 
-export class Request extends RESTModel {
+export class Request extends ModelClass<any> {
 		public static ModelName: string;
 		public to: string;
 		public from: string;

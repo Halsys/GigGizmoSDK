@@ -3,37 +3,28 @@
  */
 
 import { API } from "./API";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 
-interface GooglePlaceI extends Document {
+interface GooglePlaceI extends DocumentI {
 	placeId: string;
 	details: any;
 }
 
-export class GooglePlace extends RESTModel<GooglePlaceI> {
+export class GooglePlace extends ModelClass<GooglePlaceI> {
 	public static ModelName: string = "GooglePlace";
 
-	get placeId(): string { return this.getField("placeId") || this.getField("place_id"); }
-	set placeId(value: string) { this.setField("placeId", value); }
-
-	get details(): string { return this.getField("details"); }
-	set details(value: string) { this.setField("details", value); }
-
-	get description(): string { return this.getField("description"); }
-	set description(value: string) { this.setField("description", value); }
-
 	public static findById(id: string): Promise<GooglePlace | null> {
-		return RESTModel.findByIdBase(GooglePlace, id) as
+		return ModelClass.findByIdBase(GooglePlace, id) as
 			Promise<GooglePlace | null>;
 	}
 
 	public static findOne(criteria: any): Promise<GooglePlace | null> {
-		return RESTModel.findOneBase(GooglePlace, criteria) as
+		return ModelClass.findOneBase(GooglePlace, criteria) as
 			Promise<GooglePlace | null>;
 	}
 
 	public static findMany(criteria: any): Promise<GooglePlace[]> {
-		return RESTModel.findManyBase(GooglePlace, criteria, false) as
+		return ModelClass.findManyBase(GooglePlace, criteria) as
 			Promise<GooglePlace[]>;
 	}
 

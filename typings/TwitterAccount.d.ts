@@ -1,10 +1,10 @@
 /**
  * Created by corynull on 5/17/17.
  */
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 import { User } from "./User";
 
-export class TwitterAccount extends RESTModel {
+export class TwitterAccount extends ModelClass<any> {
 		public static ModelName: string;
 		public userId: string;
 		public accessToken: string;

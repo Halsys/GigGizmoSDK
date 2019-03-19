@@ -1,75 +1,44 @@
 import { API } from "./API";
 import { ModelNameToModel } from "./ModelNameToModel";
 
-export interface Document {
+export interface DocumentI {
 	ModelName: string;
 	_id: string;
-	id: string;
-	dateCreated: string;
+	readonly dateCreated: string;
 	dateModified: string;
+	[propName: string]: any;
 }
 
-export abstract class RESTModel<D extends Document> {
+export class ModelClass<D extends DocumentI> {
 	public static ModelName: string = "RESTModel";
-	public static Cache: Map<string, RESTModel<any>> = new Map();
-	public static findMany: ((criteria: any) => Promise<Array<RESTModel<any>>>);
-	public static findOne: ((criteria: any) => Promise<RESTModel<any> | null>);
-	public static findById: ((id: string) => Promise<RESTModel<any> | null>);
+	public static Cache: Map<string, ModelClass<any>> = new Map();
+	public static findMany: ((criteria: any) => Promise<Array<ModelClass<any>>>);
+	public static findOne: ((criteria: any) => Promise<ModelClass<any> | null>);
+	public static findById: ((id: string) => Promise<ModelClass<any> | null>);
 
+	[propName: string]: any;
+	public get id(): string | null {
+		return this.changes._id || this._id;
+	}
+	public set id(value: string | null) {
+		if (this._id !== value && value) {
+			this.changes._id = value;
+			this.changes.dateModified = (new Date()).toISOString();
+		}
+	}
+	public changes: D;
 	private expiration: number = (
 		(new Date())
-			.getTime() +
+		.getTime() +
 		1 * // Hours
 		60 * // Minutess
 		60 * // Seconds
 		1000 // Milliseconds
 	);
-	protected changes: D;
-	protected document: D;
 
-	get ModelName(): string {
-		return this.document.ModelName || this.ModelName;
-	}
-
-	get dateCreated(): Date {
-		const dateCreated =
-			this.document.dateCreated || null;
-		return dateCreated ?
-			new Date(dateCreated) :
-			new Date();
-	}
-
-	get dateModified(): Date {
-		const dateModified =
-			this.getField<string>("dateModified");
-		return dateModified ?
-			new Date(dateModified) :
-			new Date();
-	}
-
-	set dateModified(value: Date) {
-		this.changes.dateModified = value.toJSON();
-	}
-
-	get id(): string | null {
-		return this.getField("_id");
-	}
-
-	set id(value: string | null) {
-		this.setField("_id", value);
-	}
-
-	get _id(): string | null {
-		return this.getField("_id");
-	}
-
-	set _id(value: string | null) {
-		this.setField("_id", value);
-	}
-
-	public static CacheGet<ModelT extends RESTModel<any>>(id: string): ModelT | null {
-		if (typeof id === "string" && RESTModel.Cache.has(id)) {
-			const cache: ModelT | undefined = RESTModel.Cache.get(id) as ModelT;
+	public static CacheGet<ModelT extends ModelClass<any>>(id: string): ModelT | null {
+		if (typeof id === "string" && ModelClass.Cache.has(id)) {
+			const cache: ModelT | undefined = ModelClass.Cache.get(id) as ModelT;
 			if (cache && new Date(cache.expiration) < new Date()) {
 				return cache;
 			}
@@ -77,16 +46,16 @@ export abstract class RESTModel<D extends Document> {
 		return null;
 	}
 
-	public static CacheSet<ModelT extends RESTModel<any>>(data: RESTModel<any>): ModelT | null {
-		if (data._id && RESTModel.isValidId(data._id)) {
-			RESTModel.Cache.set(data._id, data);
+	public static CacheSet<ModelT extends ModelClass<any>>(data: ModelClass<any>): ModelT | null {
+		if (data._id && ModelClass.isValidId(data._id)) {
+			ModelClass.Cache.set(data._id, data);
 			return data as ModelT;
 		}
 		return data as ModelT;
 	}
 
 	public static CacheRemove(id: string): void {
-		RESTModel.Cache.delete(id);
+		ModelClass.Cache.delete(id);
 	}
 
 	public static async deduceModelAndName(ModelMaybe: any): Promise<{
@@ -104,7 +73,7 @@ export abstract class RESTModel<D extends Document> {
 			modelName = ModelMaybe;
 		} else if (typeof ModelMaybe === "function") {
 			Model = ModelMaybe;
-			modelName = RESTModel.getModelName(ModelMaybe);
+			modelName = ModelClass.getModelName(ModelMaybe);
 		} else {
 			throw new Error(`Invalid first agument, expected string or function, got ${ModelMaybe}`);
 		}
@@ -123,13 +92,6 @@ export abstract class RESTModel<D extends Document> {
 		};
 	}
 
-	public static isValidId(id: any): boolean {
-		const pattern = RegExp("^([0-9a-fA-F]{24}|[0-9a-fA-F]{12})$", "g");
-		return (
-			typeof id === "string" && pattern.test(id)
-		);
-	}
-
 	public static getModelName(Model: any): string {
 		if (Model && Model.ModelName) { return Model.ModelName; }
 		if (Model.constructor && ((Model.constructor as any).ModelName)) {
@@ -138,20 +100,26 @@ export abstract class RESTModel<D extends Document> {
 		return "";
 	}
 
-	public static async findByIdBase<ModelT extends RESTModel<any>>(
-		ModelMaybe: any,
-		id: string,
-		hasWebSocket?: boolean
-	): Promise<ModelT|null> {
-		if (RESTModel.isValidId(id)) {
-			const cache = RESTModel.CacheGet(id);
+	public static isValidId(id: any): boolean {
+		const pattern = RegExp("^([0-9a-fA-F]{24}|[0-9a-fA-F]{12})$", "g");
+		return (
+			typeof id === "string" && pattern.test(id)
+		);
+	}
+
+	public static async findByIdBase<
+		ModelT extends ModelClass<any>
+		>(ModelMaybe: any, id: string):
+			Promise<ModelT|null> {
+		if (ModelClass.isValidId(id)) {
+			const cache = ModelClass.CacheGet(id);
 			if (cache) {
 				return cache as ModelT;
 			} else {
 				let data: any = null;
-				const { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
+				const { Model, modelName } = await ModelClass.deduceModelAndName(ModelMaybe);
 
-				if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+				if (API.useSocketIO && API.ShouldUseSocketIO) {
 					data = await new Promise((resolve, reject) =>
 						API.getSocket().then(
 							(socket: SocketIOClient.Socket | null) => {
@@ -165,9 +133,9 @@ export abstract class RESTModel<D extends Document> {
 				if (!data) {
 					data = await API.call("GET", `/API/${modelName}/${id}`, null);
 				}
-				if (data && RESTModel.isValidId(data._id)) {
+				if (data && ModelClass.isValidId(data._id)) {
 					data = new Model(data);
-					RESTModel.Cache.set(data._id, data);
+					ModelClass.Cache.set(data._id, data);
 					return data;
 				}
 			}
@@ -175,23 +143,22 @@ export abstract class RESTModel<D extends Document> {
 		return null;
 	}
 
-	public static async findOneBase<ModelT extends RESTModel<any>>(
-		ModelMaybe: any,
-		criteria: any = {},
-		hasWebSocket?: boolean
-	): Promise<ModelT|null> {
+	public static async findOneBase<
+		ModelT extends ModelClass<any>
+		>(ModelMaybe: any, criteria: any = {}):
+			Promise<ModelT|null> {
 		if (criteria === null) { criteria = {}; }
 		if (Array.from(Object.keys(criteria)).length === 1 && typeof criteria._id === "string") {
 			const id = criteria._id;
-			const cache = RESTModel.CacheGet(id);
+			const cache = ModelClass.CacheGet(id);
 			if (cache) {
 				return cache as ModelT;
 			}
 		}
 		let data: any = null;
-		const { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
+		const { Model, modelName } = await ModelClass.deduceModelAndName(ModelMaybe);
 		const route = `/API/${modelName}/FindOne`;
-		if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+		if (API.useSocketIO && API.ShouldUseSocketIO) {
 			const socket: any = await API.getSocket();
 			if (socket) {
 				data = await new Promise((resolve, reject) => {
@@ -204,24 +171,23 @@ export abstract class RESTModel<D extends Document> {
 			}
 		}
 		if (!data) { data = await API.call("GET", route, criteria); }
-		if (data && RESTModel.isValidId(data._id)) {
+		if (data && ModelClass.isValidId(data._id)) {
 			data = new Model(data);
-			RESTModel.CacheSet(data);
+			ModelClass.CacheSet(data);
 			return data;
 		}
 		return null;
 	}
 
-	public static async findManyBase<ModelT extends RESTModel<any>>(
-		ModelMaybe: any,
-		criteria: any = {},
-		hasWebSocket?: boolean
-	): Promise<ModelT[]> {
+	public static async findManyBase<
+		ModelT extends ModelClass<any>
+		>(ModelMaybe: any, criteria: any = {}):
+			Promise<ModelT[]> {
 		if (criteria === null) { criteria = {}; }
 		if (Array.from(Object.keys(criteria)).length === 1 && Array.isArray((criteria._id || criteria.id))) {
-			const items: Array<RESTModel<any>> = [];
+			const items: Array<ModelClass<any>> = [];
 			(criteria._id || criteria.id).forEach((id: string) => {
-				const cache = RESTModel.CacheGet(id);
+				const cache = ModelClass.CacheGet(id);
 				if (cache) {
 					items.push(cache);
 				}
@@ -229,9 +195,9 @@ export abstract class RESTModel<D extends Document> {
 			if (items.length === (criteria._id || criteria.id)) { return items as ModelT[]; }
 		}
 		let data: any = null;
-		const { Model, modelName } = await RESTModel.deduceModelAndName(ModelMaybe);
+		const { Model, modelName } = await ModelClass.deduceModelAndName(ModelMaybe);
 		const route = `/API/${modelName}/FindMany`;
-		if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+		if (API.useSocketIO && API.ShouldUseSocketIO) {
 			data = await new Promise((resolve, reject) =>
 				API.getSocket().then(
 					(socket: SocketIOClient.Socket | null) => {
@@ -247,35 +213,35 @@ export abstract class RESTModel<D extends Document> {
 		if (Array.isArray(data)) {
 			return data.map((itemData: any) => {
 				const item = new Model(itemData);
-				RESTModel.CacheSet(item);
+				ModelClass.CacheSet(item);
 				return item;
 			});
 		}
 		return [];
 	}
 
-	public constructor(dataMaybe?: any) {
-		this.document = new Object() as D;
+	public constructor(props?: DocumentI) {
+		const self = this;
 		this.changes = new Object() as D;
-		if (typeof dataMaybe === "string") {
-			try {
-				const data = JSON.parse(dataMaybe);
-				if (data !== null && typeof data.ModelName !== "undefined") {
-					delete data.ModelName;
+		if (props) {
+			this.ModelName = props.ModelName;
+			this._id = props._id;
+			this.dateCreated = props.dateCreated;
+			this.dateModified = props.dateModified;
+			for (const key in props) {
+				if (key in props) {
+					Object.defineProperty(document, key, {
+						get: () => {
+							return self.changes[key] || self[key as string];
+						},
+						set: (value: any) => {
+							if (this[key as string] !== value) {
+								this.changes[key] = value;
+								this.changes.dateModified = (new Date()).toISOString();
+							}
+						},
+					});
 				}
-				Object.assign(this.document, data);
-			} catch (e) {
-				console.log(dataMaybe);
-				console.error(e);
-			}
-		} else if (dataMaybe) {
-			if (typeof dataMaybe.document === "object" && dataMaybe.document) {
-				Object.assign(this.document, dataMaybe.document);
-			}
-			if (typeof dataMaybe.changes === "object" && dataMaybe.changes) {
-				Object.assign(this.changes, dataMaybe.changes);
-			} else {
-				Object.assign(this.document, dataMaybe);
 			}
 		}
 	}
@@ -284,19 +250,8 @@ export abstract class RESTModel<D extends Document> {
 		this.changes = new Object() as D;
 	}
 
-	protected setField<T>(name: string, value: T): void {
-		if (this.getField(name) !== value) {
-			this.changes[name] = value;
-			this.dateModified = new Date();
-		}
-	}
-
-	protected getField<T>(name: string): T {
-		return this.changes[name] || this.document[name];
-	}
-
 	public toObject(): any {
-		const object = this.isValid() ? { ...this.changes, ...this.document } : null;
+		const object = this.isValid() ? { ...this, ...this.changes } : null;
 		if (typeof object === "object" && object) {
 			if (typeof object.id !== "undefined") { delete object.id; }
 			if (typeof object._id !== "undefined") {
@@ -312,22 +267,22 @@ export abstract class RESTModel<D extends Document> {
 	}
 
 	public anyErrors(): Error | null {
-		if (this.document.id &&
-			!RESTModel.isValidId(this.document.id)) {
-			return new Error(`Invalid id: ${this.document.id}`);
+		if (this.id &&
+			!ModelClass.isValidId(this.id)) {
+			return new Error(`Invalid id: ${this.id}`);
 		}
 
-		if (this.document.dateModified && isNaN(Date.parse(this.document.dateModified))) {
-			return new Error(`Invalid dateModified: ${this.document.dateModified}`);
+		if (this.dateModified && isNaN(Date.parse(this.dateModified))) {
+			return new Error(`Invalid dateModified: ${this.dateModified}`);
 		}
 
-		if (this.document.dateCreated && isNaN(Date.parse(this.document.dateCreated))) {
-			return new Error(`Invalid dateCreated: ${this.document.dateCreated}`);
+		if (this.dateCreated && isNaN(Date.parse(this.dateCreated))) {
+			return new Error(`Invalid dateCreated: ${this.dateCreated}`);
 		}
 
 		if (this.changes.id &&
-			!RESTModel.isValidId(this.changes.id)) {
-			return new Error(`Invalid id: ${this.document.id}`);
+			!ModelClass.isValidId(this.changes.id)) {
+			return new Error(`Invalid id: ${this.changes.id}`);
 		}
 
 		if (this.changes.dateModified && isNaN(Date.parse(this.changes.dateModified))) {
@@ -356,17 +311,17 @@ export abstract class RESTModel<D extends Document> {
 		return this;
 	}
 
-	public async save(hasWebSocket?: boolean): Promise<this> {
+	public async save(): Promise<this> {
 		const modelName = (this.constructor as any).ModelName;
 		let response: any = null;
-		const id = this.document._id || null;
+		const id = this._id || null;
 		const data = this.changes;
 		Object.keys(this.changes).forEach((key) => {
-			if (data[key] === this.document[key]) { delete data[key]; }
+			if (data[key] === this[key]) { delete data[key]; }
 		});
-		data.id = `${this.changes._id || this.document._id || null}`;
-		if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
-			if (RESTModel.isValidId(id)) {
+		data.id = `${this.changes._id || this._id || null}`;
+		if (API.useSocketIO && API.ShouldUseSocketIO) {
+			if (ModelClass.isValidId(id)) {
 				response = await new Promise((resolve, reject) =>
 					API.getSocket().then(
 						(socket: SocketIOClient.Socket | null) => {
@@ -388,26 +343,26 @@ export abstract class RESTModel<D extends Document> {
 				);
 			}
 		} else {
-			if (RESTModel.isValidId(id)) {
+			if (ModelClass.isValidId(id)) {
 				response = await API.call("PUT", `/API/${modelName}/${id}`, data);
 			} else {
 				response = await API.call("POST", `/API/${modelName}/`, data);
 			}
 		}
 		if (response && response._id) {
-			this.document = response;
+			Object.assign(this, response);
 			this.clearChanges();
-			RESTModel.CacheSet(this);
+			ModelClass.CacheSet(this);
 			return this;
 		}
 		throw new Error(`returned ${response}`);
 	}
 
-	public async remove(hasWebSocket?: boolean): Promise<this> {
+	public async remove(): Promise<this> {
 		const id = this._id || "";
-		if (RESTModel.isValidId(id)) {
+		if (ModelClass.isValidId(id)) {
 			const modelName = (this.constructor as any).ModelName;
-			if (API.useSocketIO && API.ShouldUseSocketIO && hasWebSocket) {
+			if (API.useSocketIO && API.ShouldUseSocketIO) {
 				await new Promise((resolve, reject) =>
 					API.getSocket().then(
 						(socket: SocketIOClient.Socket | null) => {
@@ -422,7 +377,7 @@ export abstract class RESTModel<D extends Document> {
 				await API.call("DELETE", `/API/${modelName}/${id}`, null);
 			}
 
-			RESTModel.CacheRemove(id);
+			ModelClass.CacheRemove(id);
 			return this;
 		}
 		throw new Error(`Invalid id: ${id}`);

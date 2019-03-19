@@ -3,7 +3,7 @@
  */
 import { Band } from "./Band";
 import { Location } from "./Location";
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 import { Venue } from "./Venue";
 
 interface Coord {
@@ -11,7 +11,7 @@ interface Coord {
 		lng: number;
 }
 
-export class Gig extends RESTModel {
+export class Gig extends ModelClass<any> {
 		public static ModelName: string;
 		public startTime: Date;
 		public stopTime: Date;

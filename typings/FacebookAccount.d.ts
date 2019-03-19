@@ -1,9 +1,9 @@
 /**
  * Created by corynull on Nov 30 2017 9:08 AM.
  */
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 import { User } from "./User";
-export class FacebookAccount extends RESTModel {
+export class FacebookAccount extends ModelClass<any> {
 		public static ModelName: string;
 		public userId: string;
 		public accountId: string;

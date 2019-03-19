@@ -3,10 +3,10 @@
  */
 
 import { API } from "./API";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 import { User } from "./User";
 
-interface TwitterAccountI extends Document {
+interface TwitterAccountI extends DocumentI {
 	userId: string;
 	accountId: string;
 	accessToken: string;
@@ -14,31 +14,16 @@ interface TwitterAccountI extends Document {
 	profile: any;
 }
 
-export class TwitterAccount extends RESTModel<TwitterAccountI> {
+export class TwitterAccount extends ModelClass<TwitterAccountI> {
 	public static ModelName: string = "TwitterAccount";
 
-	get userId(): string { return this.getField("userId"); }
-	set userId(value: string) { this.setField("userId", value); }
-
-	get accessToken(): string { return this.getField("accessToken"); }
-	set accessToken(value: string) { this.setField("accessToken", value); }
-
-	get tokenSecret(): string { return this.getField("tokenSecret"); }
-	set tokenSecret(value: string) { this.setField("tokenSecret", value); }
-
-	get profile(): any { return this.getField("profile"); }
-	set profile(value: any) { this.setField("profile", value); }
-
-	get accountId(): string { return this.getField("accountId"); }
-	set accountId(value: string) { this.setField("accountId", value); }
-
 	public static findOne(criteria: object | null): Promise<TwitterAccount | null> {
-		return RESTModel.findOneBase(TwitterAccount, criteria, true) as
+		return ModelClass.findOneBase(TwitterAccount, criteria) as
 			Promise<TwitterAccount | null>;
 	}
 
 	public static findMany(criteria: object | null): Promise<TwitterAccount[]> {
-		return RESTModel.findManyBase(TwitterAccount, criteria, true) as
+		return ModelClass.findManyBase(TwitterAccount, criteria) as
 			Promise<TwitterAccount[]>;
 	}
 
@@ -63,7 +48,7 @@ export class TwitterAccount extends RESTModel<TwitterAccountI> {
 	}
 
 	public getUser(): Promise<User | null> {
-		return RESTModel.findByIdBase(User, this.userId, true) as
+		return ModelClass.findByIdBase(User, this.userId) as
 			Promise<User | null>;
 	}
 

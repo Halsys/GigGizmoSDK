@@ -24,7 +24,7 @@ export {
 export { Page } from "./Page";
 export { Post } from "./Post";
 export { Request } from "./Request";
-export { RESTModel } from "./RESTModel";
+export { DocumentI, ModelClass } from "./Model";
 export { TwitterAccount } from "./TwitterAccount";
 export { Upload } from "./Upload";
 export { User } from "./User";

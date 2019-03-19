@@ -1,10 +1,10 @@
 /**
  * Created by corynull on 4/10/17.
  */
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 import { User } from "./User";
 
-export class Upload extends RESTModel {
+export class Upload extends ModelClass<any> {
 		public static ModelName: string;
 		public fileData: string;
 		public croppedFileData: string;

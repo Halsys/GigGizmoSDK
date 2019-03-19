@@ -1,7 +1,7 @@
 /**
  * Created by corynull on Dec 30 2017 11:14:11 AM.
  */
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 
 export interface ConversationEvent {
 	dateTimePosted: Date;
@@ -12,7 +12,7 @@ export interface ConversationEvent {
 export type ConversationCallback = (c: Conversation) => void;
 export type ConversationCallbackDestroyer = () => void;
 
-export class Conversation extends RESTModel {
+export class Conversation extends ModelClass<any> {
 		public static ModelName: string;
 		public static Callbacks: Map<any, ConversationCallback>;
 		public events: ConversationEvent[];

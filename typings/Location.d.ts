@@ -1,8 +1,8 @@
 /**
  * Created by corynull on 9/7/17.
  */
-import { RESTModel } from "./RESTModel";
-export class Location extends RESTModel {
+import { ModelClass } from "./Model";
+export class Location extends ModelClass<any> {
 		public static ModelName: string;
 		public type: string;
 		public placeId: string;

@@ -1,8 +1,8 @@
 /**
  * Created by corynull on 5/23/17.
  */
-import { RESTModel } from "./RESTModel";
-export class Post extends RESTModel {
+import { ModelClass } from "./Model";
+export class Post extends ModelClass<any> {
 		public static ModelName: string;
 		public userId: string;
 		public network: string;

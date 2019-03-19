@@ -3,7 +3,7 @@
  */
 
 import { API } from "./API";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 
 export interface NotificationAction {
 	label: string;
@@ -11,7 +11,7 @@ export interface NotificationAction {
 	request: string;
 }
 
-interface NotificationI extends Document {
+interface NotificationI extends DocumentI {
 	actions: NotificationAction[];
 	label: string;
 	message: string;
@@ -22,30 +22,10 @@ interface NotificationI extends Document {
 export type NotificationCallback = (note: Notification) => void;
 export type NotificationCallbackDestroyer = () => void;
 
-export class Notification extends RESTModel<NotificationI> {
+export class Notification extends ModelClass<NotificationI> {
 	public static ModelName: string = "Notification";
 	public static Callbacks: Map<number, NotificationCallback> = new Map();
 	private changeCallbacks: Map<number, NotificationCallback> = new Map();
-
-	get userId(): string { return this.getField("userId"); }
-
-	set userId(value: string) { this.setField("userId", value); }
-
-	get label(): string { return this.getField("label"); }
-
-	set label(value: string) { this.setField("label", value); }
-
-	get message(): string { return this.getField("message"); }
-
-	set message(value: string) { this.setField("message", value); }
-
-	get actions(): NotificationAction[] { return this.getField("actions"); }
-
-	set actions(value: NotificationAction[]) { this.setField("actions", value); }
-
-	get seenByUser(): boolean { return this.getField("seenByUser"); }
-
-	set seenByUser(value: boolean) { this.setField("seenByUser", value); }
 
 	public static onNewNotification(note: any) {
 		Notification.Callbacks.forEach((callback: any) => callback(note));
@@ -70,11 +50,11 @@ export class Notification extends RESTModel<NotificationI> {
 	}
 
 	public static getAllOwned(): Promise<Notification[]> {
-		return RESTModel.findManyBase("Notification", null, true) as Promise<Notification[]>;
+		return ModelClass.findManyBase("Notification", null) as Promise<Notification[]>;
 	}
 
 	public static findById(id: string): Promise<Notification | null> {
-		return RESTModel.findByIdBase("Notification", id, true) as Promise<Notification | null>;
+		return ModelClass.findByIdBase("Notification", id) as Promise<Notification | null>;
 	}
 
 	public static connectSocket() {

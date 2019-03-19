@@ -4,12 +4,12 @@
 import { FacebookAccount } from "./FacebookAccount";
 import { Gig } from "./Gig";
 import { Location } from "./Location";
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 import { TwitterAccount } from "./TwitterAccount";
 import { Upload } from "./Upload";
 import { User } from "./User";
 
-export class Venue extends RESTModel {
+export class Venue extends ModelClass<any> {
 		public static ModelName: string;
 		public name: string;
 		public description: string;

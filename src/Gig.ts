@@ -5,10 +5,10 @@
 import { API } from "./API";
 import { Band } from "./Band";
 import { Location } from "./Location";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 import { Venue } from "./Venue";
 
-interface GigI extends Document {
+interface GigI extends DocumentI {
 	startTime: Date;
 	stopTime: Date;
 	location: string;
@@ -20,40 +20,11 @@ interface GigI extends Document {
 	owners: string[];
 }
 
-export class Gig extends RESTModel<GigI> {
+export class Gig extends ModelClass<GigI> {
 	public static ModelName: string = "Gig";
 
-	get startTime(): Date { return new Date(this.getField("startTime")); }
-	set startTime(value: Date) { this.setField("startTime", value); }
-
-	get stopTime(): Date { return new Date(this.getField("stopTime")); }
-	set stopTime(value: Date) { this.setField("stopTime", value.toJSON()); }
-
-	get location(): string { return this.getField("location"); }
-	set location(value: string) { this.setField("location", value); }
-
-	get venue(): string { return this.getField("venue"); }
-	set venue(value: string) { this.setField("venue", value); }
-
-	get bands(): string[] { return this.getField("bands"); }
-	set bands(value: string[]) { this.setField("bands", value); }
-
-	get active(): boolean { return this.getField("active"); }
-
-	get toBeAnnounced(): boolean { return this.getField("toBeAnnounced"); }
-	set toBeAnnounced(value: boolean) { this.setField("toBeAnnounced", value); }
-
-	get bandOwnersAccepted(): string[] { return this.getField("bandOwnersAccepted"); }
-	set bandOwnersAccepted(value: string[]) { this.setField("bandOwnersAccepted", value); }
-
-	get venueOwnerAccepted(): string { return this.getField("venueOwnerAccepted"); }
-	set venueOwnerAccepted(value: string) { this.setField("venueOwnerAccepted", value); }
-
-	get owners(): string[] { return this.getField("owners"); }
-	set owners(value: string[]) { this.setField("owners", value); }
-
 	public static findById(id: string): Promise<Gig | null> {
-		return RESTModel.findByIdBase(Gig, id, true) as Promise<Gig | null>;
+		return ModelClass.findByIdBase(Gig, id) as Promise<Gig | null>;
 	}
 
 	public static async findByBand(bandId: string): Promise<Gig[]> {
@@ -61,7 +32,7 @@ export class Gig extends RESTModel<GigI> {
 		if (data && Array.isArray(data)) {
 			return data.map((itemData: any) => {
 				const item = new Gig(itemData);
-				RESTModel.CacheSet<Gig>(item);
+				ModelClass.CacheSet<Gig>(item);
 				return item;
 			});
 		}
@@ -73,7 +44,7 @@ export class Gig extends RESTModel<GigI> {
 		if (data && Array.isArray(data)) {
 			return data.map((itemData: any) => {
 				const item = new Gig(itemData);
-				RESTModel.CacheSet<Gig>(item);
+				ModelClass.CacheSet<Gig>(item);
 				return item;
 			});
 		}
@@ -81,11 +52,11 @@ export class Gig extends RESTModel<GigI> {
 	}
 
 	public static getAllOwned(): Promise<Gig[]> {
-		return RESTModel.findManyBase(Gig, null, true) as Promise<Gig[]>;
+		return ModelClass.findManyBase(Gig, null) as Promise<Gig[]>;
 	}
 
 	public static findMany(criteria: object | null): Promise<Gig[]> {
-		return RESTModel.findManyBase(Gig, criteria, true) as Promise<Gig[]>;
+		return ModelClass.findManyBase(Gig, criteria) as Promise<Gig[]>;
 	}
 
 	public static createGigs(gigData: object): Promise<Gig[]> {
@@ -187,17 +158,17 @@ export class Gig extends RESTModel<GigI> {
 	}
 
 	public getBands(): Promise<Band[]> {
-		return RESTModel.findManyBase(Band, { _id: this.bands }, true) as
+		return ModelClass.findManyBase(Band, { _id: this.bands }) as
 			Promise<Band[]>;
 	}
 
 	public getVenue(): Promise<Venue> {
-		return RESTModel.findByIdBase(Venue, this.venue, true) as
+		return ModelClass.findByIdBase(Venue, this.venue) as
 			Promise<Venue>;
 	}
 
 	public getLocation(): Promise<Location> {
-		return RESTModel.findByIdBase(Location, this.location, true) as
+		return ModelClass.findByIdBase(Location, this.location) as
 			Promise<Location>;
 	}
 

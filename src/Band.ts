@@ -4,12 +4,12 @@
 
 import { FacebookAccount } from "./FacebookAccount";
 import { Gig } from "./Gig";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 import { TwitterAccount } from "./TwitterAccount";
 import { Upload } from "./Upload";
 import { User } from "./User";
 
-interface BandI extends Document {
+interface BandI extends DocumentI {
 	name: string;
 	website: string;
 	email: string;
@@ -28,87 +28,32 @@ interface BandI extends Document {
 	google: string | null;
 }
 
-export class Band extends RESTModel<BandI> {
+export class Band extends ModelClass<BandI> {
 	public static ModelName: string = "Band";
-	get name(): string { return this.getField("name"); }
-	set name(value: string) { this.setField("name", value); }
-
-	get website(): string { return this.getField("website"); }
-	set website(value: string) { this.setField("website", value); }
-
-	get email(): string { return this.getField("email"); }
-	set email(value: string) { this.setField("email", value); }
-
-	get cityName(): string { return this.getField("cityName"); }
-	set cityName(value: string) { this.setField("cityName", value); }
-
-	get cityPlaceID(): string { return this.getField("cityPlaceID"); }
-	set cityPlaceID(value: string) { this.setField("cityPlaceID", value); }
-
-	get description(): string { return this.getField("description"); }
-	set description(value: string) { this.setField("description", value); }
-
-	get metadata(): string { return this.getField("metadata"); }
-	set metadata(value: string) { this.setField("metadata", value); }
-
-	get icon(): string | null { return this.getField("icon"); }
-	set icon(value: string | null) { this.setField("icon", value); }
-
-	get photos(): string[] { return this.getField("photos"); }
-	set photos(value: string[]) { this.setField("photos", value); }
-
-	get owners(): string[] { return this.getField("owners"); }
-	set owners(value: string[]) { this.setField("owners", value); }
-
-	get facebook(): string | null { return this.getField("facebook"); }
-	set facebook(value: string | null) { this.setField("facebook", value); }
-
-	get facebookPageId(): string | null { return this.getField("facebookPageId"); }
-	set facebookPageId(value: string | null) { this.setField("facebookPageId", value); }
-
-	get facebookPageName(): string | null { return this.getField("facebookPageName"); }
-	set facebookPageName(value: string | null) { this.setField("facebookPageName", value); }
-
-	get facebookPageToken(): string | null { return this.getField("facebookPageToken"); }
-	set facebookPageToken(value: string | null) { this.setField("facebookPageToken", value); }
-
-	get twitter(): string | null { return this.getField("twitter"); }
-	set twitter(value: string | null) { this.setField("twitter", value); }
-
-	get google(): string | null { return this.getField("google"); }
-	set google(value: string | null) { this.setField("google", value); }
 
 	public static findOne(criteria: object | null): Promise<Band | null> {
-		return RESTModel.findOneBase(Band, criteria, true) as
+		return ModelClass.findOneBase(Band, criteria) as
 			Promise<Band | null>;
 	}
 
 	public static findMany(criteria: object | null): Promise<Band[]> {
-		return RESTModel.findManyBase(Band, criteria, true) as
+		return ModelClass.findManyBase(Band, criteria) as
 			Promise<Band[]>;
 	}
 
 	public static findById(id: string): Promise<Band | null> {
-		return RESTModel.findByIdBase(Band, id, true) as
+		return ModelClass.findByIdBase(Band, id) as
 			Promise<Band | null>;
 	}
 
 	public static getAllOwned(): Promise<Band[]> {
-		return RESTModel.findManyBase(Band, null, true) as
+		return ModelClass.findManyBase(Band, null) as
 			Promise<Band[]>;
-	}
-
-	public save(): Promise<this> {
-		return super.save(true);
-	}
-
-	public remove(): Promise<this> {
-		return super.remove(true);
 	}
 
 	public getIcon(): Promise<Upload | null> {
 		if (this.icon) {
-			return RESTModel.findByIdBase(Upload, this.icon, true) as
+			return ModelClass.findByIdBase(Upload, this.icon) as
 				Promise<Upload | null>;
 		}
 		return Promise.resolve(null);
@@ -117,12 +62,8 @@ export class Band extends RESTModel<BandI> {
 	public getPhotos(): Promise<Upload[]> {
 		const photos = Array.from(this.photos);
 		if (photos.length !== 0) {
-				return RESTModel.findManyBase(
-					Upload,
-					{
-						_id: photos
-					},
-					true
+				return ModelClass.findManyBase(
+					Upload, { _id: photos }
 				) as Promise<Upload[]>;
 		}
 		return Promise.resolve([]);
@@ -131,12 +72,8 @@ export class Band extends RESTModel<BandI> {
 	public getOwners(): Promise<User[]> {
 		const owners = Array.from(this.owners);
 		if (owners.length !== 0) {
-			return RESTModel.findManyBase(
-				User,
-				{
-					_id: owners
-				},
-				true
+			return ModelClass.findManyBase(
+				User, { _id: owners }
 			) as Promise<User[]>;
 		}
 		return Promise.resolve([]);
@@ -148,13 +85,13 @@ export class Band extends RESTModel<BandI> {
 
 	public getTwitterAccount(): Promise<TwitterAccount | null> {
 		if (!this.twitter) { return Promise.resolve(null); }
-		return RESTModel.findByIdBase(TwitterAccount, this.twitter, true) as
+		return ModelClass.findByIdBase(TwitterAccount, this.twitter) as
 			Promise<TwitterAccount | null>;
 	}
 
 	public getFacebookAccount(): Promise<FacebookAccount | null> {
 		if (!this.facebook) { return Promise.resolve(null); }
-		return RESTModel.findByIdBase(FacebookAccount, this.facebook, true) as
+		return ModelClass.findByIdBase(FacebookAccount, this.facebook) as
 			Promise<FacebookAccount | null>;
 	}
 

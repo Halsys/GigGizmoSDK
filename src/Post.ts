@@ -2,9 +2,9 @@
  * Created by corynull on 5/23/17.
  */
 
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 
-interface PostI extends Document {
+interface PostI extends DocumentI {
 	accountId: string;
 	coordinates: number[];
 	done: boolean;
@@ -16,7 +16,7 @@ interface PostI extends Document {
 	userId: string;
 }
 
-export class Post extends RESTModel<PostI> {
+export class Post extends ModelClass<PostI> {
 	public static ModelName: string = "Post";
 
 	get userId(): string { return this.getField("userId"); }
@@ -47,19 +47,19 @@ export class Post extends RESTModel<PostI> {
 	set done(value: boolean) { this.setField("done", value); }
 
 	public static findById(id: string): Promise<Post | null> {
-		return RESTModel.findByIdBase(Post, id) as Promise<Post | null>;
+		return ModelClass.findByIdBase(Post, id) as Promise<Post | null>;
 	}
 
 	public static findOne(criteria: any): Promise<Post | null> {
-		return RESTModel.findOneBase(Post, criteria) as Promise<Post | null>;
+		return ModelClass.findOneBase(Post, criteria) as Promise<Post | null>;
 	}
 
 	public static getAllOwned(): Promise<Post[]> {
-		return RESTModel.findManyBase(Post, null) as Promise<Post[]>;
+		return ModelClass.findManyBase(Post, null) as Promise<Post[]>;
 	}
 
 	public static findMany(criteria: object | null): Promise<Post[]> {
-		return RESTModel.findManyBase(Post, criteria) as Promise<Post[]>;
+		return ModelClass.findManyBase(Post, criteria) as Promise<Post[]>;
 	}
 
 	public isValid(): boolean {

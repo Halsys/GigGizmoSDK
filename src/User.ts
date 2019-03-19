@@ -8,10 +8,10 @@ import { Conversation } from "./Conversation";
 import { FacebookAccount } from "./FacebookAccount";
 import { Gig } from "./Gig";
 import { Location } from "./Location";
+import { DocumentI, ModelClass } from "./Model";
 import { Notification } from "./Notification";
 import { Page } from "./Page";
 import { Post } from "./Post";
-import { Document, RESTModel } from "./RESTModel";
 import { TwitterAccount } from "./TwitterAccount";
 import { Upload } from "./Upload";
 import { Venue } from "./Venue";
@@ -19,7 +19,9 @@ import { Venue } from "./Venue";
 export type UserCallback = (user: User | null) => void;
 export type UserCallbackDestroyer = () => void;
 
-interface UserI extends Document {
+type OnlineStatusTypes = "default" | "offline" | "busy";
+
+interface UserI extends DocumentI {
 	icon: string | null;
 	firstName: string;
 	middleName: string;
@@ -42,7 +44,6 @@ interface UserI extends Document {
 	facebook: string | null;
 	twitter: string | null;
 	emailVerified: boolean;
-	canContact: boolean;
 	canFind: boolean;
 	payment: string | null;
 	verificationSecret: string | null;
@@ -56,9 +57,15 @@ interface UserI extends Document {
 	email: string;
 	hash: string;
 	salt: string;
+	onlineStatus: OnlineStatusTypes;
 }
 
-export class User extends RESTModel<UserI> {
+export class User extends ModelClass<UserI> {
+
+	get fullName(): string {
+		return `${this.firstName || ""} ${this.middleName || ""} ${this.lastName ||
+			""}`;
+	}
 	public static ModelName: string = "User";
 	public static Current: User | null = null;
 	public static Callbacks: Map<number, UserCallback> = new Map();
@@ -66,109 +73,6 @@ export class User extends RESTModel<UserI> {
 
 	public static EmailRegex: RegExp = // tslint:disable-next-line
 		/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-	get password(): string | null { return this.getField("password"); }
-	set password(value: string | null) { this.setField("password", value); }
-
-	get confirmPassword(): string | null { return this.getField("confirmPassword"); }
-	set confirmPassword(value: string | null) { this.setField("confirmPassword", value); }
-
-	get icon(): string | null { return this.getField("icon"); }
-	set icon(value: string | null) { this.setField("icon", value); }
-
-	set active(value: boolean) { this.setField("active", value); }
-	get active(): boolean { return this.getField("active"); }
-
-	set admin(value: boolean) { this.setField("admin", value); }
-	get admin(): boolean { return this.getField("admin") === true; }
-
-	get firstName(): string { return this.getField("firstName"); }
-	set firstName(value: string) { this.setField("firstName", value); }
-
-	get middleName(): string { return this.getField("middleName"); }
-	set middleName(value: string) { this.setField("middleName", value); }
-
-	get lastName(): string { return this.getField("lastName"); }
-	set lastName(value: string) { this.setField("lastName", value); }
-
-	get birthday(): Date { return new Date(this.getField("birthday")); }
-
-	set birthday(value: Date) { this.setField("birthday", (value || new Date()).toJSON()); }
-	get country(): string { return this.getField("country"); }
-
-	set country(value: string) { this.setField("country", value); }
-	get bandManager(): boolean { return this.getField("bandManager") === true; }
-
-	set bandManager(value: boolean) { this.setField("bandManager", value); }
-
-	get venueManager(): boolean { return this.getField("venueManager") === true; }
-	set venueManager(value: boolean) { this.setField("venueManager", value); }
-
-	get betaFeatureUser(): boolean { return this.getField("betaFeatureUser") === true; }
-	set betaFeatureUser(value: boolean) { this.setField("betaFeatureUser", value); }
-
-	get sendAnonymousReports(): boolean { return this.getField("sendAnonymousReports") === true; }
-	set sendAnonymousReports(value: boolean) { this.setField("sendAnonymousReports", value); }
-
-	get sendErrorReports(): boolean { return this.getField("sendErrorReports") === true; }
-
-	set sendErrorReports(value: boolean) { this.setField("sendErrorReports", value); }
-
-	get sendEmails(): boolean { return this.getField("sendEmails") === true; }
-	set sendEmails(value: boolean) { this.setField("sendEmails", value); }
-
-	get sendPromotions(): boolean { return this.getField("sendPromotions") === true; }
-	set sendPromotions(value: boolean) { this.setField("sendPromotions", value); }
-
-	get useCookies(): boolean { return this.getField("useCookies") === true; }
-	set useCookies(value: boolean) { this.setField("useCookies", value); }
-
-	get fullName(): string {
-		return `${this.firstName || ""} ${this.middleName || ""} ${this.lastName ||
-			""}`;
-	}
-
-	get email(): string { return this.getField("email"); }
-	set email(value: string) { this.setField("email", value); }
-
-	get salt(): string { return this.getField("salt"); }
-
-	get hash(): string { return this.getField("hash"); }
-
-	get facebook(): string | null { return this.getField("facebook"); }
-	set facebook(value: string | null) { this.setField("facebook", value); }
-
-	get twitter(): string | null { return this.getField("twitter"); }
-	set twitter(value: string | null) { this.setField("twitter", value); }
-
-	get description(): string { return this.getField("description"); }
-	set description(value: string) { this.setField("description", value); }
-
-	get emailVerified(): boolean { return this.getField("emailVerified"); }
-	set emailVerified(value: boolean) { this.setField("emailVerified", value); }
-
-	get attempts(): number { return this.getField("attempts"); }
-
-	get lastLoginIP(): string { return this.getField("lastLoginIP"); }
-	set lastLoginIP(value: string) { this.setField("lastLoginIP", value); }
-
-	get lastLogin(): Date { return new Date(this.getField("lastLogin")); }
-	set lastLogin(value: Date) { this.setField("lastLogin", (value || new Date()).toJSON()); }
-
-	get canContact(): boolean { return this.getField("canContact") === true; }
-	set canContact(value: boolean) { this.setField("canContact", value); }
-
-	get canFind(): boolean { return this.getField("canFind") === true; }
-	set canFind(value: boolean) { this.setField("canFind", value); }
-
-	get options(): any { return this.getField("options"); }
-	set options(value: any) { this.setField("options", value); }
-
-	get connections(): string[] { return this.getField("connections"); }
-	set connections(value: string[]) { this.setField("connections", value); }
-
-	get blocked(): string[] { return this.getField("blocked"); }
-	set blocked(value: string[]) { this.setField("blocked", value); }
 
 	public static verifyEmail(id: string, secret: string): Promise<any> {
 		return API.call("GET", "/API/User/Verify", {
@@ -182,37 +86,37 @@ export class User extends RESTModel<UserI> {
 	}
 
 	public static getAllConversations(): Promise<Conversation[]> {
-		return RESTModel.findManyBase(Conversation, null, true) as
+		return ModelClass.findManyBase(Conversation, null) as
 			Promise<Conversation[]>;
 	}
 
 	public static getAllNotifications(): Promise<Notification[]> {
-		return RESTModel.findManyBase(Notification, null, true) as
+		return ModelClass.findManyBase(Notification, null) as
 			Promise<Notification[]>;
 	}
 
 	public static getAllPosts(): Promise<Post[]> {
-		return RESTModel.findManyBase(Post, null, true) as
+		return ModelClass.findManyBase(Post, null) as
 			Promise<Post[]>;
 	}
 
 	public static getAllBands(): Promise<Band[]> {
-		return RESTModel.findManyBase(Band, null, true) as
+		return ModelClass.findManyBase(Band, null) as
 			Promise<Band[]>;
 	}
 
 	public static getAllVenues(): Promise<Venue[]> {
-		return RESTModel.findManyBase(Venue, null, true) as
+		return ModelClass.findManyBase(Venue, null) as
 			Promise<Venue[]>;
 	}
 
 	public static getAllGigs(): Promise<Gig[]> {
-		return RESTModel.findManyBase(Gig, null, true) as
+		return ModelClass.findManyBase(Gig, null) as
 			Promise<Gig[]>;
 	}
 
 	public static getAllUploads(): Promise<Upload[]> {
-		return RESTModel.findManyBase(Upload, null, true) as
+		return ModelClass.findManyBase(Upload, null) as
 			Promise<Upload[]>;
 	}
 
@@ -286,11 +190,11 @@ export class User extends RESTModel<UserI> {
 	}
 
 	public static findMany(criteria: object | null): Promise<User[]> {
-		return RESTModel.findManyBase(User, criteria, true) as Promise<User[]>;
+		return ModelClass.findManyBase(User, criteria) as Promise<User[]>;
 	}
 
 	public static findOne(criteria: object | null): Promise<User | null> {
-		return RESTModel.findOneBase(User, criteria, true) as Promise<User>;
+		return ModelClass.findOneBase(User, criteria) as Promise<User>;
 	}
 
 	public static onChange(callback: (user: User | null) => void):
@@ -358,7 +262,7 @@ export class User extends RESTModel<UserI> {
 	}
 
 	public static findById(id: string): Promise<User | null> {
-		return RESTModel.findByIdBase(User, id, true) as Promise<User | null>;
+		return ModelClass.findByIdBase(User, id) as Promise<User | null>;
 	}
 
 	public static connectFacebook() {
@@ -531,33 +435,35 @@ export class User extends RESTModel<UserI> {
 		console.error("Not implemented yet.");
 	}
 
+	constructor(dataMaybe?: any) {
+		super(dataMaybe);
+	}
+
 	public getIcon(): Promise<Upload | null> {
-		return RESTModel.findByIdBase(Upload, this.icon || "", true) as
+		return ModelClass.findByIdBase(Upload, this.icon || "") as
 			Promise<Upload | null>;
 	}
 
 	public getTwitterAccount(): Promise<TwitterAccount | null> {
-		return RESTModel.findByIdBase(TwitterAccount, this.twitter || "") as
+		return ModelClass.findByIdBase(TwitterAccount, this.twitter || "") as
 			Promise<TwitterAccount | null>;
 	}
 
 	public getFacebookAccount(): Promise<FacebookAccount | null> {
-		return RESTModel.findByIdBase(FacebookAccount, this.facebook || "") as
+		return ModelClass.findByIdBase(FacebookAccount, this.facebook || "") as
 			Promise<FacebookAccount | null>;
 	}
 
 	public getConnections(): Promise<Array<User | null>> {
 		return Promise.all(
-			this.connections.map((id: string) => {
-				return User.findById(id);
-		}));
+			this.connections.map((id: string) => User.findById(id)) as
+			Array<Promise<User | null>>);
 	}
 
 	public getBlocked(): Promise<Array<User | null>> {
 		return Promise.all(
-			this.blocked.map((id: string) => {
-				return User.findById(id);
-		}));
+			this.blocked.map((id: string) => User.findById(id)) as
+			Array<Promise<User | null>>);
 	}
 
 	public validatePassword(maybePassword: string): Error | null {
@@ -668,13 +574,5 @@ export class User extends RESTModel<UserI> {
 
 		// TODO: More validation checks?
 		return null;
-	}
-
-	public save(): Promise<this> {
-		return super.save(true);
-	}
-
-	public remove(): Promise<this> {
-		return super.remove(true);
 	}
 }

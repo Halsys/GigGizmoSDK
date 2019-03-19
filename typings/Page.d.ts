@@ -1,8 +1,8 @@
 /**
  * Created by corynull on 8/1/17.
  */
-import { RESTModel } from "./RESTModel";
-export class Page extends RESTModel {
+import { ModelClass } from "./Model";
+export class Page extends ModelClass<any> {
 		public static ModelName: string;
 		public data: string;
 		public metadata: string;

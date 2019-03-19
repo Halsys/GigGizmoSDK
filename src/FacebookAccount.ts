@@ -3,10 +3,10 @@
  */
 
 import { API } from "./API";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 import { User } from "./User";
 
-interface FacebookAccountI extends Document {
+interface FacebookAccountI extends DocumentI {
 	accountId: string;
 	pageToken: string;
 	profile: any;
@@ -15,30 +15,16 @@ interface FacebookAccountI extends Document {
 	userId: string;
 }
 
-export class FacebookAccount extends RESTModel<FacebookAccountI> {
+export class FacebookAccount extends ModelClass<FacebookAccountI> {
 	public static ModelName: string = "FacebookAccount";
 
-	get userId(): string { return this.getField("userId"); }
-	set userId(value: string) { this.setField("userId", value); }
-
-	get accountId(): string { return this.getField("accountId"); }
-	set accountId(value: string) { this.setField("accountId", value); }
-
-	get userAccessToken(): string { return this.getField("userAccessToken"); }
-	set userAccessToken(value: string) { this.setField("userAccessToken", value); }
-
-	get userRefreshToken(): string { return this.getField("userRefreshToken"); }
-	set userRefreshToken(value: string) { this.setField("userRefreshToken", value); }
-
-	get profile(): any { return this.getField("profile"); }
-
 	public static findOne(criteria: object | null): Promise<FacebookAccount | null> {
-		return RESTModel.findOneBase(FacebookAccount, criteria, true) as
+		return ModelClass.findOneBase(FacebookAccount, criteria) as
 			Promise<FacebookAccount | null>;
 	}
 
 	public static findMany(criteria: object | null): Promise<FacebookAccount[]> {
-		return RESTModel.findManyBase(FacebookAccount, criteria, true) as
+		return ModelClass.findManyBase(FacebookAccount, criteria) as
 			Promise<FacebookAccount[]>;
 	}
 
@@ -92,7 +78,7 @@ export class FacebookAccount extends RESTModel<FacebookAccountI> {
 	}
 
 	public getUser(): Promise<User | null> {
-		return RESTModel.findByIdBase(User, this.userId, true) as
+		return ModelClass.findByIdBase(User, this.userId) as
 			Promise<User | null>;
 	}
 

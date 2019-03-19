@@ -2,10 +2,10 @@
  * Created by corynull on 4/10/17.
  */
 
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 import { User } from "./User";
 
-interface UploadI extends Document {
+interface UploadI extends DocumentI {
 	fileData: string;
 	srcMIMEType: string;
 	croppedFileData: string;
@@ -21,76 +21,30 @@ interface UploadI extends Document {
 	offsetTop: number;
 }
 
-export class Upload extends RESTModel<UploadI> {
+export class Upload extends ModelClass<UploadI> {
 	public static ModelName: string = "Upload";
 
-	get fileData(): string { return this.getField("fileData"); }
-	set fileData(value: string) { this.setField("fileData", value); }
-
-	get croppedFileData(): string { return this.getField("croppedFileData"); }
-	set croppedFileData(value: string) { this.setField("croppedFileData", value); }
-
-	get description(): string { return this.getField("description"); }
-	set description(value: string) { this.setField("description", value); }
-
-	get owners(): string[] { return this.getField("owners"); }
-	set owners(value: string[]) { this.setField("owners", value); }
-
-	get hash(): string { return this.getField("hash"); }
-	set hash(value: string) { this.setField("hash", value); }
-
-	get bytes(): number { return this.getField("bytes"); }
-	set bytes(value: number) { this.setField("bytes", value); }
-
-	get width(): number { return this.getField("width"); }
-	set width(value: number) { this.setField("width", value); }
-
-	get height(): number { return this.getField("height"); }
-	set height(value: number) { this.setField("height", value); }
-
-	get offsetWidth(): number { return this.getField("offsetWidth"); }
-	set offsetWidth(value: number) { this.setField("offsetWidth", value); }
-
-	get offsetHeight(): number { return this.getField("offsetHeight"); }
-	set offsetHeight(value: number) { this.setField("offsetHeight", value); }
-
-	get offsetLeft(): number { return this.getField("offsetLeft"); }
-	set offsetLeft(value: number) { this.setField("offsetLeft", value); }
-
-	get offsetTop(): number { return this.getField("offsetTop"); }
-	set offsetTop(value: number) { this.setField("offsetTop", value); }
-
-	public static async uploadFile(dataUrl: string): Promise<Upload> {
-		let upload = new Upload({ fileData: dataUrl });
-		upload = await upload.save(true);
-		return upload;
-	}
-
 	public static findById(id: string): Promise<Upload | null> {
-		return RESTModel.findByIdBase<Upload>(Upload, id);
+		return ModelClass.findByIdBase<Upload>(Upload, id);
 	}
 
 	public static findMany(criteria: any): Promise<Upload[]> {
-		return RESTModel.findManyBase<Upload>(Upload, criteria, true);
+		return ModelClass.findManyBase<Upload>(Upload, criteria);
 	}
 
 	public static findOne(criteria: any): Promise<Upload | null> {
-		return RESTModel.findOneBase<Upload>(Upload, criteria);
+		return ModelClass.findOneBase<Upload>(Upload, criteria);
 	}
 
 	public static getAllOwned(): Promise<Upload[]> {
-		return RESTModel.findManyBase<Upload>(Upload, null, true);
+		return ModelClass.findManyBase<Upload>(Upload, null);
 	}
 
 	public getOwners(): Promise<User[]> {
 		const owners = Array.from(this.owners);
 		if (owners.length !== 0) {
-			return RESTModel.findManyBase<User>(
-				User,
-				{
-					_id: owners
-				},
-				true
+			return ModelClass.findManyBase<User>(
+				User, { _id: owners }
 			) as Promise<User[]>;
 		}
 		return Promise.resolve([]);

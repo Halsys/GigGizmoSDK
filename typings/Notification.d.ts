@@ -1,7 +1,7 @@
 /**
  * Created by corynull on 8/15/17.
  */
-import { RESTModel } from "./RESTModel";
+import { ModelClass } from "./Model";
 
 export interface NotificationAction {
 	label: string;
@@ -11,7 +11,7 @@ export interface NotificationAction {
 export type NotificationCallback = (note: Notification) => void;
 export type NotificationCallbackDestroyer = () => void;
 
-export class Notification extends RESTModel {
+export class Notification extends ModelClass<any> {
 		public static ModelName: string;
 		public static Callbacks: Map<string, NotificationCallback>;
 		private changeCallbacks: Map<string, NotificationCallback>;

@@ -3,7 +3,7 @@
  */
 
 import { API } from "./API";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 
 export interface ConversationEvent {
 	dateTimePosted: Date;
@@ -14,21 +14,15 @@ export interface ConversationEvent {
 export type ConversationCallback = (c: Conversation | null) => void;
 export type ConversationCallbackDestroyer = () => void;
 
-interface ConversationDocument extends Document {
+interface ConversationDocument extends DocumentI {
 	events: ConversationEvent[];
 	users: string[];
 }
 
-export class Conversation extends RESTModel<ConversationDocument> {
+export class Conversation extends ModelClass<ConversationDocument> {
 	public static ModelName: string = "Conversation";
 	public static Callbacks:
 		Map<number, ConversationCallback> = new Map();
-
-	get events(): ConversationEvent[] { return this.getField("events"); }
-	set events(value: ConversationEvent[]) { this.setField("events", value); }
-
-	get users(): string[] { return this.getField("users"); }
-	set users(value: string[]) { this.setField("users", value); }
 
 	public static newCallback(callback: ConversationCallback):
 		ConversationCallbackDestroyer {
@@ -44,13 +38,13 @@ export class Conversation extends RESTModel<ConversationDocument> {
 					socket.on("/API/Conversation/Update", (data: any) => {
 						if (data) {
 							let conv: Conversation | null =
-								RESTModel.CacheGet(data._id) as Conversation | null;
+								ModelClass.CacheGet(data._id) as Conversation | null;
 							if (conv) {
 								Object.assign(conv, data);
 							} else {
 								conv = new Conversation(data);
 							}
-							RESTModel.CacheSet<Conversation>(conv);
+							ModelClass.CacheSet<Conversation>(conv);
 							Conversation.Callbacks.forEach((cb) => cb(conv));
 						}
 					});
@@ -60,22 +54,22 @@ export class Conversation extends RESTModel<ConversationDocument> {
 	}
 
 	public static findById(id: string): Promise<Conversation | null> {
-		return RESTModel.findByIdBase(Conversation, id, true) as
+		return ModelClass.findByIdBase(Conversation, id) as
 			Promise<Conversation | null>;
 	}
 
 	public static findOne(criteria: any): Promise<Conversation | null> {
-		return RESTModel.findOneBase(Conversation, criteria) as
+		return ModelClass.findOneBase(Conversation, criteria) as
 			Promise<Conversation | null>;
 	}
 
 	public static findMany(criteria: any): Promise<Conversation[]> {
-		return RESTModel.findManyBase(Conversation, criteria, false) as
+		return ModelClass.findManyBase(Conversation, criteria) as
 			Promise<Conversation[]>;
 	}
 
 	public static getAllOwned(): Promise<Conversation[]> {
-		return RESTModel.findManyBase(Conversation, null, true) as
+		return ModelClass.findManyBase(Conversation, null) as
 			Promise<Conversation[]>;
 	}
 

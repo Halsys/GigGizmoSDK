@@ -3,9 +3,9 @@
  */
 
 import { API } from "./API";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 
-interface RequestI extends Document {
+interface RequestI extends DocumentI {
 	to: string;
 	from: string;
 	emailSent: boolean;
@@ -15,29 +15,8 @@ interface RequestI extends Document {
 	userData: any;
 }
 
-export class Request extends RESTModel<RequestI> {
+export class Request extends ModelClass<RequestI> {
 	public static ModelName: string = "Request";
-
-	get to(): string { return this.getField("to"); }
-	set to(value: string) { this.setField("to", value); }
-
-	get from(): string { return this.getField("from"); }
-	set from(value: string) { this.setField("from", value); }
-
-	get status(): string { return this.getField("status"); }
-	set status(value: string) { this.setField("status", value); }
-
-	get options(): string[] { return this.getField("options"); }
-	set options(value: string[]) { this.setField("options", value); }
-
-	get type(): string { return this.getField("type"); }
-	set type(value: string) { this.setField("type", value); }
-
-	get userData(): any { return this.getField("userData"); }
-	set userData(value: any) { this.setField("userData", value); }
-
-	get emailSent(): boolean { return this.getField("emailSent"); }
-	set emailSent(value: boolean) { this.setField("emailSent", value); }
 
 	public static createBandOwnershipRequest(band: string, from: string, to: string) {
 		return new Promise((resolve, reject) => {
@@ -91,11 +70,11 @@ export class Request extends RESTModel<RequestI> {
 	}
 
 	public static getAllOwned() {
-		return RESTModel.findManyBase(Request, null);
+		return ModelClass.findManyBase(Request, null);
 	}
 
 	public static findById(id: string) {
-		return RESTModel.findByIdBase(Request, id);
+		return ModelClass.findByIdBase(Request, id);
 	}
 
 	public async execute(option: string) {

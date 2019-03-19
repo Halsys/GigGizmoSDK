@@ -4,11 +4,11 @@
 
 import { API } from "./API";
 import { GooglePlace } from "./GooglePlace";
-import { Document, RESTModel } from "./RESTModel";
+import { DocumentI, ModelClass } from "./Model";
 
 type LocationType = "Point" | "LineString" | "Polygon";
 
-interface LocationI extends Document {
+interface LocationI extends DocumentI {
 	type: LocationType;
 	placeId: string;
 	address: string;
@@ -16,23 +16,8 @@ interface LocationI extends Document {
 	utcOffset: number;
 }
 
-export class Location extends RESTModel<LocationI> {
+export class Location extends ModelClass<LocationI> {
 	public static ModelName: string = "Location";
-
-	get type(): LocationType { return this.getField("type") || "Point"; }
-	set type(value: LocationType) { this.setField("type", value); }
-
-	get placeId(): string { return this.getField("placeId"); }
-	set placeId(value: string) { this.setField("placeId", value); }
-
-	get address(): string { return this.getField("address"); }
-	set address(value: string) { this.setField("address", value); }
-
-	get point(): number[] { return this.getField("point"); }
-	set point(value: number[]) { this.setField("point", value); }
-
-	get utcOffset(): number { return this.getField("utcOffset"); }
-	set utcOffset(value: number) { this.setField("utcOffset", value); }
 
 	public static getLocationByPlaceId(placeId: string): Promise<Location> {
 		return new Promise((resolve, reject) => {
@@ -53,17 +38,17 @@ export class Location extends RESTModel<LocationI> {
 	}
 
 	public static findById(id: string): Promise<Location | null> {
-		return RESTModel.findByIdBase(Location, id) as
+		return ModelClass.findByIdBase(Location, id) as
 			Promise<Location | null>;
 	}
 
 	public static findOne(criteria: any): Promise<Location | null> {
-		return RESTModel.findOneBase(Location, criteria) as
+		return ModelClass.findOneBase(Location, criteria) as
 			Promise<Location | null>;
 	}
 
 	public static findMany(criteria: any): Promise<Location[]> {
-		return RESTModel.findManyBase(Location, criteria, false) as
+		return ModelClass.findManyBase(Location, criteria) as
 			Promise<Location[]>;
 	}
 
