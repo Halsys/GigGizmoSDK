@@ -31,7 +31,7 @@ export class User extends ModelClass<any> {
 		public firstName: string;
 		public middleName: string;
 		public lastName: string;
-		public birthday: Date;
+		public birthday: string;
 		public country: string;
 		public bandManager: boolean;
 		public venueManager: boolean;
@@ -51,7 +51,7 @@ export class User extends ModelClass<any> {
 		public emailVerified: boolean;
 		public readonly attempts: number;
 		public lastLoginIP: string;
-		public lastLogin: Date;
+		public lastLogin: string;
 		public canContact: boolean;
 		public canFind: boolean;
 		public options: any;

@@ -16,8 +16,8 @@ export class ModelClass<D extends DocumentI> {
 		private expiration: number;
 		private changes: any;
 		private document: any;
-		public readonly dateCreated: Date | null;
-		public dateModified: Date | null;
+		public readonly dateCreated: string | null;
+		public dateModified: string | null;
 		public id: string | null;
 		public _id: string | null;
 		[propName: string]: any;

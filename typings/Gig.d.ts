@@ -13,8 +13,8 @@ interface Coord {
 
 export class Gig extends ModelClass<any> {
 		public static ModelName: string;
-		public startTime: Date;
-		public stopTime: Date;
+		public startTime: string;
+		public stopTime: string;
 		public location: string;
 		public venue: string;
 		public bands: string[];

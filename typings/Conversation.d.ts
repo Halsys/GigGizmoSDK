@@ -4,7 +4,7 @@
 import { ModelClass } from "./Model";
 
 export interface ConversationEvent {
-	dateTimePosted: Date;
+	dateTimePosted: string;
 	message: string;
 	user: string;
 }
