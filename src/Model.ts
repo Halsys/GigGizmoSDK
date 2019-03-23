@@ -326,9 +326,9 @@ export class ModelClass<D extends DocumentI> {
 		const id = this._id || null;
 		const data = this.changes;
 		Object.keys(this.changes).forEach((key) => {
-			if (data[key] === this[key]) { delete data[key]; }
+			if (data[key] === this.document[key]) { delete data[key]; }
 		});
-		data._id = `${this.changes._id || this._id || null}`;
+		data._id = this.changes._id || this._id || undefined;
 		if (API.useSocketIO && API.ShouldUseSocketIO) {
 			if (ModelClass.isValidId(id)) {
 				response = await new Promise((resolve, reject) =>
