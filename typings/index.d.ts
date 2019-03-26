@@ -1,76 +1,41 @@
-import { API } from "./API";
-import { Band } from "./Band";
-import {
+
+// Extras
+export { API } from "./API";
+export { default as GigGizmoPropTypes } from "./PropTypes";
+
+// Models
+export { Band } from "./Band";
+export {
 	Conversation,
 	ConversationCallback,
 	ConversationCallbackDestroyer,
 	ConversationEvent
 } from "./Conversation";
-import { ErrorReport } from "./ErrorReport";
-import { FacebookAccount } from "./FacebookAccount";
-import {
-	Coord,
-	Gig
-} from "./Gig";
-import { GooglePlace } from "./GooglePlace";
-import { Location } from "./Location";
-import { DocumentI, ModelClass } from "./Model";
-import { ModelNameToModel } from "./ModelNameToModel";
-import {
+export { ErrorReport } from "./ErrorReport";
+export { FacebookAccount } from "./FacebookAccount";
+export { Coord, Gig } from "./Gig";
+export { GooglePlace } from "./GooglePlace";
+export { Location } from "./Location";
+export { DocumentI, ModelClass } from "./Model";
+export { ModelNameToModel } from "./ModelNameToModel";
+export {
 	Notification,
 	NotificationAction,
 	NotificationCallback,
 	NotificationCallbackDestroyer
 } from "./Notification";
-import { Page } from "./Page";
-import { Post } from "./Post";
-import { GigGizmoPropTypes } from "./PropTypes";
-import { Request } from "./Request";
-import { TwitterAccount } from "./TwitterAccount";
-import { Upload } from "./Upload";
-import {
-	User,
-	UserCallback,
-	UserCallbackDestroyer
-} from "./User";
-import { Venue } from "./Venue";
-
-interface GigGizmoSDK {
-	API: API;
-	Band: Band;
-	Conversation: Conversation;
-	ConversationCallback: ConversationCallback;
-	ConversationCallbackDestroyer: ConversationCallbackDestroyer;
-	ConversationEvent: ConversationEvent;
-	ErrorReport: ErrorReport;
-	FacebookAccount: FacebookAccount;
-	Coord: Coord;
-	Gig: Gig;
-	GooglePlace: GooglePlace;
-	Location: Location;
-	DocumentI: DocumentI;
-	ModelClass: ModelClass<any>;
-	ModelNameToModel: (name: string) => Promise<any>;
-	Notification: Notification;
-	NotificationAction: NotificationAction;
-	NotificationCallback: NotificationCallback;
-	NotificationCallbackDestroyer: NotificationCallbackDestroyer;
-	Page: Page;
-	Post: Post;
-	GigGizmoPropTypes: any;
-	Request: Request;
-	TwitterAccount: TwitterAccount;
-	Upload: Upload;
-	User: User;
-	UserCallback: UserCallback;
-	UserCallbackDestroyer: UserCallbackDestroyer;
-	Venue: Venue;
-}
+export { Page } from "./Page";
+export { Post } from "./Post";
+export { Request } from "./Request";
+export { TwitterAccount } from "./TwitterAccount";
+export { Upload } from "./Upload";
+export { User, UserCallback, UserCallbackDestroyer } from "./User";
+export { Venue } from "./Venue";
 
 declare global {
 	namespace NodeJS {
 		interface Global {
-				GigGizmoSDK: GigGizmoSDK;
+				GigGizmoSDK: any;
 		}
 	}
 }
