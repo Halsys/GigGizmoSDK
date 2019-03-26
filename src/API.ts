@@ -256,6 +256,7 @@ export abstract class API {
 				console.error(error);
 			}
 			if (API.webSocket) {
+				API.webSocket.close();
 				API.webSocket.open();
 			}
 		};
@@ -270,12 +271,12 @@ export abstract class API {
 			}
 			return API.webSocket;
 		};
-		if (API.SocketIO) {
+		if (API.useSocketIO) {
 			if (typeof document !== "undefined") {
 				switch (document.readyState) {
 					case "loading":
 						await new Promise((resolve) => {
-							document.addEventListener("DOMContentLoaded", resolve);
+							document.addEventListener("deviceready", resolve);
 						});
 						return onReady();
 					case "interactive":
