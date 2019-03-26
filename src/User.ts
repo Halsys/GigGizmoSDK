@@ -342,14 +342,8 @@ export class User extends ModelClass<UserI> {
 	public static registerUser(userData: any): Promise<User> {
 		return new Promise((resolve, reject) => {
 			if (userData && typeof userData === "object") {
-				if (userData.email) {
-					const re = new RegExp(
-						[`^(([^<>()[\].,;:\s@"]+`,
-							`(\.[^<>()[\].,;:\s@"]+)*)|(".+"))`,
-							`@(([^<>()[\].,;:\s@"]+\.)+`,
-							`[^<>()[\].,;:\s@"]{2,})$`].join(""),
-						"i");
-					if (re[Symbol.search](userData.email) !== 0) {
+				if (userData.email !== null || userData.email !== "") {
+					if (User.EmailRegex[Symbol.search](userData.email) !== 0) {
 						return reject(new Error("Invalid email address"));
 					}
 				} else { return reject(new Error("Email is required")); }
