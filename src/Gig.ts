@@ -9,6 +9,11 @@ import { Location } from "./Location";
 import { DocumentI, ModelClass } from "./Model";
 import { Venue } from "./Venue";
 
+export interface Coord {
+	lat: number;
+	lng: number;
+}
+
 interface GigI extends DocumentI {
 	startTime: Date;
 	stopTime: Date;
@@ -126,7 +131,7 @@ export class Gig extends ModelClass<GigI> {
 	}
 
 	public static getAllInDistance(
-		location: { lat: number; lng: number },
+		location: Coord,
 		distance: number
 	): Promise<Gig[]> {
 		return new Promise((resolve, reject) => {

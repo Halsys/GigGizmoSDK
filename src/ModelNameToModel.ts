@@ -1,5 +1,6 @@
-export async function ModelNameToModel(name: string):
-	Promise<any> {
+
+export const ModelNameToModel = async (name: string):
+	Promise<any> => {
 	switch (name) {
 		case "Band":
 			return (await import("./Band")).Band;
@@ -34,4 +35,4 @@ export async function ModelNameToModel(name: string):
 		default:
 			return Promise.resolve(null);
 	}
-}
+};

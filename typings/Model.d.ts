@@ -6,7 +6,7 @@ export interface DocumentI {
 	[propName: string]: any;
 }
 
-export class ModelClass<D extends DocumentI> {
+export abstract class ModelClass<D extends DocumentI> {
 		public static ModelName: string;
 		public static Cache: Map<string, ModelClass<any>>;
 		public static findMany: ((criteria: any) =>

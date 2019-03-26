@@ -3,34 +3,36 @@
  */
 
 // Extras
-export { GigGizmoPropTypes } from "./PropTypes";
 export { API } from "./API";
+export { default as GigGizmoPropTypes } from "./PropTypes";
 
 // Models
 export { Band } from "./Band";
 export {
 	Conversation,
+	ConversationCallback,
+	ConversationCallbackDestroyer,
 	ConversationEvent
 } from "./Conversation";
 export { ErrorReport } from "./ErrorReport";
 export { FacebookAccount } from "./FacebookAccount";
-export { Gig } from "./Gig";
+export { Coord, Gig } from "./Gig";
 export { GooglePlace } from "./GooglePlace";
 export { Location } from "./Location";
+export { DocumentI, ModelClass } from "./Model";
+export { ModelNameToModel } from "./ModelNameToModel";
 export {
 	Notification,
-	NotificationAction
+	NotificationAction,
+	NotificationCallback,
+	NotificationCallbackDestroyer
 } from "./Notification";
 export { Page } from "./Page";
 export { Post } from "./Post";
 export { Request } from "./Request";
-export { DocumentI, ModelClass } from "./Model";
 export { TwitterAccount } from "./TwitterAccount";
 export { Upload } from "./Upload";
-export { User } from "./User";
+export { User, UserCallback, UserCallbackDestroyer } from "./User";
 export { Venue } from "./Venue";
-export { ModelNameToModel } from "./ModelNameToModel";
 
-if (typeof window !== "undefined") {
-	(window as any).GigGizmoAPI = module.exports;
-}
+(global as any).GigGizmoSDK = module.exports;

@@ -13,3 +13,4 @@ export { User } from "./User";
 export { Venue } from "./Venue";
 
 export const GigGizmoPropTypes = module.exports;
+export default GigGizmoPropTypes;
