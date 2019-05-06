@@ -40,9 +40,7 @@ export class Notification extends ModelClass<NotificationI> {
 
 	public static async getNewNotifications(): Promise<Notification[]> {
 		if (API.token !== null) {
-			const notes = await API.call("GET", "/API/Notification", {
-				returnNew: true
-			});
+			const notes = await API.call("GET", "/API/Notification/FindMany", null);
 			if (Array.isArray(notes)) {
 				return notes.map((item: any) => new Notification(item));
 			}

@@ -104,6 +104,11 @@ export class User extends ModelClass<UserI> {
 		}
 	}
 
+	public static getAllConnections(): Promise<User[]> {
+		return ModelClass.findManyBase(User, null) as
+			Promise<User[]>;
+	}
+
 	public static getAllConversations(): Promise<Conversation[]> {
 		return ModelClass.findManyBase(Conversation, null) as
 			Promise<Conversation[]>;
