@@ -113,7 +113,7 @@ export class ModelClass<D extends DocumentI> {
 			Promise<ModelT|null> {
 		if (ModelClass.isValidId(id)) {
 			const cache = ModelClass.CacheGet(id);
-			if (cache) {
+			if (!!cache) {
 				return cache as ModelT;
 			} else {
 				let data: any = null;
@@ -124,7 +124,7 @@ export class ModelClass<D extends DocumentI> {
 						API.getSocket().then(
 							(socket: SocketIOClient.Socket | null) => {
 								if (socket) {
-									socket.emit(`/API/${modelName}/Retreive`, id, resolve);
+									socket.emit(`/API/${modelName}/:id`, id, resolve);
 								}
 							},
 							reject)
@@ -151,7 +151,7 @@ export class ModelClass<D extends DocumentI> {
 		if (Array.from(Object.keys(criteria)).length === 1 && typeof criteria._id === "string") {
 			const id = criteria._id;
 			const cache = ModelClass.CacheGet(id);
-			if (cache) {
+			if (!!cache) {
 				return cache as ModelT;
 			}
 		}
@@ -160,7 +160,7 @@ export class ModelClass<D extends DocumentI> {
 		const route = `/API/${modelName}/FindOne`;
 		if (API.useSocketIO && API.ShouldUseSocketIO) {
 			const socket: any = await API.getSocket();
-			if (socket) {
+			if (!!socket) {
 				data = await new Promise((resolve, reject) => {
 					try {
 						socket.emit(route, criteria, resolve);
@@ -171,7 +171,7 @@ export class ModelClass<D extends DocumentI> {
 			}
 		}
 		if (!data) { data = await API.call("GET", route, criteria); }
-		if (data && ModelClass.isValidId(data._id)) {
+		if (!!data && ModelClass.isValidId(data._id)) {
 			data = new Model(data);
 			ModelClass.CacheSet(data);
 			return data;
@@ -335,7 +335,7 @@ export class ModelClass<D extends DocumentI> {
 					API.getSocket().then(
 						(socket: SocketIOClient.Socket | null) => {
 							if (socket) {
-								socket.emit(`/API/${modelName}/Update`, data, resolve);
+								socket.emit(`/API/${modelName}/:id`, data, resolve);
 							}
 						},
 						reject)
@@ -345,7 +345,7 @@ export class ModelClass<D extends DocumentI> {
 					API.getSocket().then(
 						(socket: SocketIOClient.Socket | null) => {
 							if (socket) {
-								socket.emit(`/API/${modelName}/Create`, data, resolve);
+								socket.emit(`/API/${modelName}`, data, resolve);
 							}
 						},
 						reject)
@@ -355,7 +355,7 @@ export class ModelClass<D extends DocumentI> {
 			if (ModelClass.isValidId(id)) {
 				response = await API.call("PUT", `/API/${modelName}/${id}`, data);
 			} else {
-				response = await API.call("POST", `/API/${modelName}/`, data);
+				response = await API.call("POST", `/API/${modelName}`, data);
 			}
 		}
 		if (response && response._id) {
@@ -376,8 +376,13 @@ export class ModelClass<D extends DocumentI> {
 					API.getSocket().then(
 						(socket: SocketIOClient.Socket | null) => {
 							if (socket) {
-								socket.emit(`/API/${modelName}/Delete`, id, (res: any) =>
-									resolve(res));
+								socket.emit(
+									`/API/${modelName}/:id`,
+									{
+										method: "DELETE",
+										id
+									},
+									(res: any) => resolve(res));
 							}
 						},
 						reject)

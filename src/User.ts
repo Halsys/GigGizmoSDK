@@ -75,15 +75,33 @@ export class User extends ModelClass<UserI> {
 	public static EmailRegex: RegExp = // tslint:disable-next-line
 		/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-	public static verifyEmail(id: string, secret: string): Promise<any> {
-		return API.call("GET", "/API/User/Verify", {
-			id,
-			secret
-		});
+	public static async verifyEmail(id: string, secret: string): Promise<any> {
+		if (API.useSocketIO && API.ShouldUseSocketIO) {
+			const socket = await API.getSocket();
+			if (socket) {
+				return new Promise((resovle) => {
+					socket.emit("/API/User/Verify", { id, secret }, resovle);
+				});
+			}
+		} else {
+			return API.call("GET", "/API/User/Verify", {
+				id,
+				secret
+			});
+		}
 	}
 
-	public static sendEmailVerification(): Promise<any> {
-		return API.call("POST", "/API/User/Verify", null);
+	public static async sendEmailVerification(): Promise<any> {
+		if (API.useSocketIO && API.ShouldUseSocketIO) {
+			const socket = await API.getSocket();
+			if (socket) {
+				return new Promise((resovle) => {
+					socket.emit("/API/User/Verify", null, resovle);
+				});
+			}
+		} else {
+			return API.call("POST", "/API/User/Verify", null);
+		}
 	}
 
 	public static getAllConversations(): Promise<Conversation[]> {
@@ -252,7 +270,7 @@ export class User extends ModelClass<UserI> {
 				API.getSocket().then(
 					(socket: SocketIOClient.Socket | null) => {
 						if (socket) {
-							socket.emit("/API/User/Retreive", resolve);
+							socket.emit("/API/User/FindOne", null, resolve);
 						}
 					},
 					reject);
