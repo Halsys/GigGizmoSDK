@@ -268,7 +268,7 @@ export class ModelClass<D extends DocumentI> {
 		}
 
 		if (this.document._id && !ModelClass.isValidId(this.document._id)) {
-			return new Error(`Invalid id: ${this.document._id}`);
+			return new Error(`Invalid id: ${JSON.stringify(this.document._id)}`);
 		}
 
 		if (typeof this.document.dateModified === "undefined") {
@@ -277,7 +277,7 @@ export class ModelClass<D extends DocumentI> {
 
 		if (this.document.dateModified &&
 			isNaN(Date.parse(this.document.dateModified))) {
-			return new Error(`Invalid dateModified: ${this.document.dateModified}`);
+			return new Error(`Invalid dateModified: ${JSON.stringify(this.document.dateModified)}`);
 		}
 
 		if (typeof this.document.dateCreated === "undefined") {
@@ -286,20 +286,20 @@ export class ModelClass<D extends DocumentI> {
 
 		if (this.document.dateCreated &&
 			isNaN(Date.parse(this.document.dateCreated))) {
-			return new Error(`Invalid dateCreated: ${this.document.dateCreated}`);
+			return new Error(`Invalid dateCreated: ${JSON.stringify(this.document.dateCreated)}`);
 		}
 
 		if (this.changes._id &&
 			!ModelClass.isValidId(this.changes._id)) {
-			return new Error(`Invalid id: ${this.changes._id}`);
+			return new Error(`Invalid id: ${JSON.stringify(this.changes._id)}`);
 		}
 
 		if (this.changes.dateModified && isNaN(Date.parse(this.changes.dateModified))) {
-			return new Error(`Invalid dateModified: ${this.changes.dateModified}`);
+			return new Error(`Invalid dateModified: ${JSON.stringify(this.changes.dateModified)}`);
 		}
 
 		if (this.changes.dateCreated && isNaN(Date.parse(this.changes.dateCreated))) {
-			return new Error(`Invalid dateCreated: ${this.changes.dateCreated}`);
+			return new Error(`Invalid dateCreated: ${JSON.stringify(this.changes.dateCreated)}`);
 		}
 
 		return null;
@@ -364,7 +364,7 @@ export class ModelClass<D extends DocumentI> {
 			ModelClass.CacheSet(this);
 			return this;
 		}
-		throw new Error(`returned ${response}`);
+		throw new Error(`returned ${JSON.stringify(response)}`);
 	}
 
 	public async remove(): Promise<this> {
@@ -394,6 +394,6 @@ export class ModelClass<D extends DocumentI> {
 			ModelClass.CacheRemove(id);
 			return this;
 		}
-		throw new Error(`Invalid id: ${id}`);
+		throw new Error(`Invalid id: ${JSON.stringify(id)}`);
 	}
 }
